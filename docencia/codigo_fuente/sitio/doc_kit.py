@@ -1,0 +1,221 @@
+"""Shared page shell and components for the study guide and the teacher guide (static HTML)."""
+import html as _h
+
+KATEX = "inline"   # KaTeX embedded in each page (see katex_inline)
+
+CSS = r"""
+:root{
+  --bg:#F4F6FA; --paper:#FFFFFF; --ink:#0F1A2E; --txt:#3C4862; --muted:#5A6680; --line:#DCE2EC;
+  --blue:#2457F5; --blue-bg:#E8EEFF; --blue-d:#1B3FB0; --amber:#A1520C; --amber-bg:#FFF0DB; --amber-f:#F59E0B;
+  --teal:#0B7A6E; --teal-bg:#DDF4EF; --purple:#6B3FD6; --purple-bg:#EFE9FF; --navy:#0B1424; --navy2:#16233A;
+  --code-bg:#0B1424; --code-ink:#E6EDF7;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1424; --paper:#121E33; --ink:#EEF2F8; --txt:#C2CCDB; --muted:#8E9BB0; --line:#26375A;
+    --blue:#7AA2FF; --blue-bg:#18284A; --blue-d:#9DB6FF; --amber:#FDBA5C; --amber-bg:#33240F; --amber-f:#F59E0B;
+    --teal:#4FD1C0; --teal-bg:#0F2E2B; --purple:#B79CFF; --purple-bg:#241B3D; --code-bg:#070D18;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1424; --paper:#121E33; --ink:#EEF2F8; --txt:#C2CCDB; --muted:#8E9BB0; --line:#26375A;
+  --blue:#7AA2FF; --blue-bg:#18284A; --blue-d:#9DB6FF; --amber:#FDBA5C; --amber-bg:#33240F; --amber-f:#F59E0B;
+  --teal:#4FD1C0; --teal-bg:#0F2E2B; --purple:#B79CFF; --purple-bg:#241B3D; --code-bg:#070D18;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans',Arial,sans-serif;font-size:17px;line-height:1.6}
+a{color:var(--blue)}
+h1,h2,h3,h4{font-family:'Space Grotesk',Arial,sans-serif;color:var(--ink);line-height:1.15;margin:0}
+h1{font-size:clamp(34px,5vw,54px);letter-spacing:-1px}
+h2{font-size:clamp(28px,3.6vw,38px);letter-spacing:-.5px}
+h3{font-size:22px;margin-top:28px}
+h4{font-size:18px;margin-top:18px}
+p{margin:10px 0}
+ul,ol{padding-left:22px;margin:10px 0}
+li{margin:4px 0}
+code{font-family:'JetBrains Mono',Consolas,monospace;font-size:.88em;background:var(--blue-bg);color:var(--blue-d);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}
+pre{background:var(--code-bg);color:var(--code-ink);padding:16px 18px;border-radius:14px;overflow:auto;font-size:14.5px;line-height:1.55}
+pre code{background:none;color:inherit;padding:0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15.5px;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--blue-bg);color:var(--ink);font-weight:700}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:36px;max-width:1240px;margin:0 auto;padding:24px 20px 80px}
+@media (max-width:960px){.layout{grid-template-columns:minmax(0,1fr)}.toc{position:static !important;max-height:none !important}}
+@media (max-width:640px){table{display:block;overflow-x:auto}.sec{padding:18px}}
+main{min-width:0}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px}
+.toc b{font-family:'Space Grotesk',sans-serif;color:var(--ink);font-size:15px;letter-spacing:1px;text-transform:uppercase}
+.toc ol{list-style:none;padding:0;margin:10px 0 0}
+.toc li{margin:2px 0}
+.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;color:var(--txt);padding:6px 8px;border-radius:8px;font-size:15px}
+.toc a:hover{background:var(--blue-bg);color:var(--ink)}
+.toc a .n{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--blue);min-width:26px}
+.toc a.done .n::after{content:" ✓";color:var(--teal)}
+.toc .tools{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.toc button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--bg);color:var(--txt);border-radius:8px;padding:6px 10px;cursor:pointer}
+.hero{background:var(--navy);color:#EEF2F8;border-radius:24px;padding:clamp(24px,4vw,44px);position:relative;overflow:hidden}
+.hero h1{color:#EEF2F8}
+.hero p{color:#B8C4D6;font-size:18px;max-width:760px}
+.hero .chip{background:#7AA2FF;color:#0B1424}
+.chip{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:var(--blue-bg);color:var(--blue)}
+.chip.amber{background:var(--amber-bg);color:var(--amber)}
+.chip.teal{background:var(--teal-bg);color:var(--teal)}
+.chip.purple{background:var(--purple-bg);color:var(--purple)}
+.chip.gray{background:var(--line);color:var(--txt)}
+.sec{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3.4vw,40px);margin-top:28px}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
+.kicker{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.big-idea{font-size:20px;color:var(--ink);font-weight:600;background:var(--blue-bg);border-radius:14px;padding:14px 18px;margin:16px 0}
+.box{border-radius:16px;padding:14px 18px;margin:14px 0;border:1px solid var(--line)}
+.box h4{margin:0 0 6px}
+.box.analogia{background:var(--amber-bg);border-color:transparent}
+.box.analogia h4{color:var(--amber)}
+.box.curioso{background:var(--purple-bg);border-color:transparent}
+.box.curioso h4{color:var(--purple)}
+.box.colab{background:var(--teal-bg);border-color:transparent}
+.box.colab h4{color:var(--teal)}
+.box.error{background:var(--paper)}
+.box.error h4{color:var(--amber)}
+.box.ojo{background:var(--blue-bg);border-color:transparent}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:14px 0;overflow-x:auto}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:8px}
+.term{border-top:4px solid var(--blue);padding:8px 4px 0;font-size:15px}
+.term b{display:block;color:var(--ink);font-size:16px}
+.ex{border:1px dashed var(--line);border-radius:14px;padding:12px 16px;margin:10px 0;background:var(--paper)}
+.ex p{margin:4px 0}
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--blue);font-weight:600}
+details[open] summary{margin-bottom:6px}
+.check{display:flex;align-items:center;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+.check input{width:20px;height:20px;accent-color:var(--teal)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+.tile{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px}
+.tile h4{margin:0 0 6px}
+.tile p{margin:4px 0;font-size:15.5px}
+.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;font-size:15px}
+.btn.amber{background:var(--amber-f);color:#0B1424}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+figure{margin:16px 0;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+.glos dt{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--ink);margin-top:12px}
+.glos dd{margin:2px 0 0 0}
+.qa{border:1px solid var(--line);border-radius:14px;margin:10px 0;background:var(--paper)}
+.qa summary{padding:12px 16px;color:var(--ink)}
+.qa div{padding:0 16px 12px}
+footer{max-width:1240px;margin:0 auto;padding:0 20px 40px;color:var(--muted);font-size:14px}
+.search{width:100%;font:inherit;font-size:15px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-top:10px}
+@media print{.toc{display:none}.layout{display:block}.sec{break-inside:avoid-page}}
+"""
+
+JS = r"""
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}], throwOnError:false});
+  const KEY = document.body.dataset.store;
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; } };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e) {} };
+  const st = load();
+  document.querySelectorAll('.check input').forEach(cb => {
+    cb.checked = !!st[cb.dataset.id];
+    const link = document.querySelector(`.toc a[href="#${cb.dataset.id}"]`);
+    const paint = () => link && link.classList.toggle('done', cb.checked);
+    paint();
+    cb.addEventListener('change', () => { const s = load(); s[cb.dataset.id] = cb.checked; save(s); paint(); });
+  });
+  const theme = document.getElementById('theme');
+  if (theme) theme.onclick = () => {
+    const r = document.documentElement, cur = r.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    r.dataset.theme = cur === 'dark' ? 'light' : 'dark';
+  };
+  const openAll = document.getElementById('openall');
+  if (openAll) openAll.onclick = () => document.querySelectorAll('details').forEach(d => d.open = !d.open);
+  const q = document.getElementById('search');
+  if (q) q.addEventListener('input', () => {
+    const v = q.value.trim().toLowerCase();
+    document.querySelectorAll('[data-search]').forEach(el => { el.style.display = !v || el.textContent.toLowerCase().includes(v) ? '' : 'none'; });
+  });
+});
+"""
+
+_KATEX_INLINE = None
+def katex_inline():
+    """KaTeX 0.16.11 (MIT) embedded in the page: css with woff2 fonts as data URIs + js. No external files."""
+    global _KATEX_INLINE
+    if _KATEX_INLINE is None:
+        import base64, re, pathlib
+        d = pathlib.Path(__file__).parent / 'vendor' / 'katex'
+        css = (d / 'katex.min.css').read_text()
+        def font(m):
+            b64 = base64.b64encode((d / 'fonts' / (m.group(1) + '.woff2')).read_bytes()).decode()
+            return f'src:url(data:font/woff2;base64,{b64}) format("woff2")'
+        css = re.sub(r'src:url\(fonts/([A-Za-z0-9_-]+)\.woff2\) format\("woff2"\)[^}]*', font, css)
+        assert 'url(fonts/' not in css
+        js = (d / 'katex.min.js').read_text() + '\n' + (d / 'contrib' / 'auto-render.min.js').read_text()
+        assert '</script' not in js
+        _KATEX_INLINE = f'<style>{css}</style>\n<script>{js}</script>'
+    return _KATEX_INLINE
+
+def page(title, desc, toc_items, body, store_key, extra_toc='', katex=None):
+    katex = katex or KATEX
+    toc = ''.join(f'<li><a href="#{i}"><span class="n">{n}</span><span>{_h.escape(t)}</span></a></li>' for i, n, t in toc_items)
+    return f"""<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{_h.escape(title)}</title>
+<meta name="description" content="{_h.escape(desc)}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+{katex_inline() if katex == 'inline' else f'<link rel="stylesheet" href="{katex}katex.min.css"><script defer src="{katex}katex.min.js"></script><script defer src="{katex}contrib/auto-render.min.js"></script>'}
+<style>{CSS}</style>
+</head>
+<body data-store="{store_key}">
+<div class="layout">
+<nav class="toc" aria-label="Contenido">
+<b>Contenido</b>
+<ol>{toc}</ol>
+{extra_toc}
+<div class="tools"><button id="openall" type="button">Abrir/cerrar respuestas</button><button id="theme" type="button">Modo claro/oscuro</button></div>
+</nav>
+<main>
+{body}
+</main>
+</div>
+<footer>Neural Networks: Deep Learning · UIDE / EIG Campus · Semana 1 · Docente: Andrés Ordóñez-Bolaños</footer>
+<script>{JS}</script>
+</body>
+</html>
+"""
+
+def section(sid, kicker_chips, title, inner, check_label='Ya lo entendí'):
+    return (f'<section class="sec" id="{sid}" data-search><div class="sec-head"><div class="kicker">{kicker_chips}</div>'
+            f'<h2>{title}</h2></div>{inner}'
+            f'<label class="check"><input type="checkbox" data-id="{sid}"> {check_label}</label></section>')
+
+def chip(t, kind=''):
+    return f'<span class="chip {kind}">{t}</span>'
+
+def idea(t):
+    return f'<p class="big-idea">{t}</p>'
+
+def box(kind, title, inner):
+    return f'<div class="box {kind}"><h4>{title}</h4>{inner}</div>'
+
+def formula(tex, terms=None, note=''):
+    t = ''
+    if terms:
+        t = '<div class="terms">' + ''.join(
+            f'<div class="term" style="border-color:{c}"><b>\\({s}\\)</b>{d}</div>' for s, d, c in terms) + '</div>'
+    return f'<div class="formula">$${tex}$${t}{note}</div>'
+
+def ex(q, a):
+    return f'<div class="ex"><p>{q}</p><details><summary>Ver respuesta</summary>{a}</details></div>'
+
+def colab(link, text):
+    return box('colab', 'En Colab', f'<p>{text}</p><p><a class="btn" href="{link}">Abrir en Colab ↗</a></p>')
+
+def fig(svg, cap):
+    return f'<figure>{svg}<figcaption>{cap}</figcaption></figure>'

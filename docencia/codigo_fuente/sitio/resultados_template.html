@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultados de los quizzes · Semana 1</title>
+<meta name="description" content="Panel del profesor: pega los códigos que los estudiantes dejaron en el chat y ve el antes y el después de la semana 1.">
+<style>
+:root{
+  --bg:#F5F7FB; --paper:#FFFFFF; --ink:#0F1A2E; --txt:#334155; --muted:#64748B; --line:#DCE3EE;
+  --blue:#1D4ED8; --blue-bg:#E8EEFD; --amber:#B45309; --amber-bg:#FEF3C7; --teal:#0F766E; --teal-bg:#DDF4F1;
+  --red:#B91C1C; --red-bg:#FDE8E8; --pre:#94A3B8; --post:#1D4ED8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1220; --paper:#121B2E; --ink:#EEF2F8; --txt:#C3CCDA; --muted:#8E9BB0; --line:#26344F;
+    --blue:#7AA2FF; --blue-bg:#1A2747; --amber:#FDBA5C; --amber-bg:#3A2A10; --teal:#4FD1C0; --teal-bg:#10302C;
+    --red:#F87171; --red-bg:#3A1520; --pre:#5B6B86; --post:#7AA2FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1220; --paper:#121B2E; --ink:#EEF2F8; --txt:#C3CCDA; --muted:#8E9BB0; --line:#26344F;
+  --blue:#7AA2FF; --blue-bg:#1A2747; --amber:#FDBA5C; --amber-bg:#3A2A10; --teal:#4FD1C0; --teal-bg:#10302C;
+  --red:#F87171; --red-bg:#3A1520; --pre:#5B6B86; --post:#7AA2FF;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans',Arial,sans-serif;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 64px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif;color:var(--ink);line-height:1.15}
+h1{font-size:clamp(28px,4vw,40px)} h2{font-size:24px} h3{font-size:18px}
+.chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--amber-bg);color:var(--amber)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.steps div{background:var(--blue-bg);border-radius:14px;padding:12px 14px;color:var(--ink);font-size:15px}
+.steps b{font-family:'Space Grotesk',Arial,sans-serif;color:var(--blue);font-size:20px;margin-right:6px}
+textarea{width:100%;min-height:150px;font:14px/1.4 Consolas,'JetBrains Mono',monospace;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-weight:700;cursor:pointer;border:none;border-radius:12px;padding:11px 18px;background:var(--blue);color:#fff}
+button.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi .v{font-family:'Space Grotesk',Arial,sans-serif;font-size:30px;font-weight:700;color:var(--ink)}
+.kpi .l{font-size:14px;color:var(--muted)}
+.legend{display:flex;gap:16px;font-size:14px;color:var(--muted);margin:4px 0 12px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.idea{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) 70px;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.idea:first-of-type{border-top:none}
+.idea .name{color:var(--ink);font-size:15px}
+.bars2{display:flex;flex-direction:column;gap:5px}
+.b{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.track{height:12px;border-radius:999px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.track i{display:block;height:100%}
+.delta{font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;text-align:right;color:var(--teal)}
+.delta.neg{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--ink);font-size:13px;background:var(--blue-bg)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll{overflow-x:auto}
+.pct{display:inline-block;min-width:46px;text-align:center;border-radius:8px;padding:1px 6px;font-weight:700}
+.lo{background:var(--red-bg);color:var(--red)} .mid{background:var(--amber-bg);color:var(--amber)} .hi{background:var(--teal-bg);color:var(--teal)}
+.note{font-size:14px;color:var(--muted)}
+.hidden{display:none !important}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+@media (max-width:640px){.idea{grid-template-columns:1fr;gap:6px}.delta{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="chip">Panel del profesor</span>
+    <h1 style="margin-top:10px">Resultados de los quizzes · Semana 1</h1>
+    <p style="margin-top:6px">Los estudiantes terminan el quiz y pegan en el chat un código como <code>[DL1|PRE|Ana Pérez|6/10|1011010110|i1]</code>. Aquí lo conviertes en el antes y el después del grupo. Nada sale de tu computador.</p>
+  </header>
+
+  <section class="card" style="display:flex;flex-direction:column;gap:14px">
+    <div class="steps">
+      <div><b>1</b>Al terminar el quiz, cada estudiante pega su código en el chat de Teams.</div>
+      <div><b>2</b>En el chat, selecciona todos los mensajes, cópialos (Ctrl + C) y pégalos abajo. Sirve el texto tal cual, con nombres y horas.</div>
+      <div><b>3</b>Clic en <b style="font-size:inherit;color:inherit">Analizar</b>. Haz lo mismo después del quiz final: pega los dos chats juntos.</div>
+    </div>
+    <textarea id="input" placeholder="Pega aquí el chat (o solo los códigos)…"></textarea>
+    <div class="row">
+      <button id="run">Analizar</button>
+      <button class="ghost" id="demo">Ver un ejemplo</button>
+      <button class="ghost" id="clear">Borrar</button>
+      <span class="note" id="status"></span>
+    </div>
+  </section>
+
+  <section id="out" class="hidden" style="display:flex;flex-direction:column;gap:18px">
+    <div class="kpis" id="kpis"></div>
+
+    <div class="card">
+      <h2>Las 5 ideas clave: antes y después</h2>
+      <p class="note" style="margin-top:4px">Cada idea aparece en los dos quizzes con otra versión. Porcentaje de estudiantes que la respondió bien.</p>
+      <div class="legend"><span><i style="background:var(--pre)"></i>Pre-quiz</span><span><i style="background:var(--post)"></i>Quiz final</span></div>
+      <div id="ideas"></div>
+      <p class="note" id="gain" style="margin-top:10px"></p>
+    </div>
+
+    <div class="grid2">
+      <div class="card"><h3>Qué reforzar · quiz final</h3><p class="note" style="margin:4px 0 10px">Preguntas de menor a mayor acierto.</p><div class="scroll"><table id="t-final"></table></div></div>
+      <div class="card"><h3>Punto de partida · pre-quiz</h3><p class="note" style="margin:4px 0 10px">Si las bases salen bajas, dedica unos minutos a repasarlas antes del bloque.</p><div class="scroll"><table id="t-pre"></table></div></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><h3>Por estudiante</h3><button class="ghost" id="copy">Copiar tabla (para Excel o Sheets)</button></div>
+      <p class="note" style="margin:4px 0 10px">Se toma el primer intento de cada quiz. Los nombres se emparejan sin tildes ni mayúsculas: pide que usen el mismo nombre en los dos.</p>
+      <div class="scroll"><table id="t-students"></table></div>
+    </div>
+  </section>
+
+  <p class="note">Formativo: los quizzes no cuentan para la nota. Panel de la Clase 1 · Neural Networks: Deep Learning · UIDE.</p>
+</div>
+
+<script>
+const BANK = __BANK__;
+const TEMAS = __TEMAS__;
+const CLAVES = __CLAVES__;
+const CODE_TAG = 'DL1';
+const $ = id => document.getElementById(id);
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k, v); } catch(e){} } };
+const RX = new RegExp('\\[' + CODE_TAG + '\\|(PRE|FINAL)\\|([^|\\]]{1,60})\\|(\\d+)\\/(\\d+)\\|([01]+)\\|i(\\d+)\\]', 'g');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+const pct = (a, b) => b ? Math.round(100 * a / b) : null;
+const cls = p => p == null ? '' : p < 50 ? 'lo' : p < 75 ? 'mid' : 'hi';
+const keyIndex = m => Object.fromEntries(BANK[m].questions.map((q, i) => [q.clave, i]).filter(([c]) => c));
+const KI = { pre: keyIndex('pre'), final: keyIndex('final') };
+
+function parse(text){
+  const people = new Map(); let skipped = 0, total = 0;
+  for (const m of text.matchAll(RX)) {
+    total++;
+    const quiz = m[1].toLowerCase(), name = m[2].trim(), bits = m[5], attempt = +m[6];
+    if (bits.length !== BANK[quiz].questions.length) { skipped++; continue; }
+    const key = norm(name);
+    if (!people.has(key)) people.set(key, { name });
+    const p = people.get(key);
+    if (!p[quiz] || attempt < p[quiz].attempt) p[quiz] = { bits: [...bits].map(Number), attempt };
+  }
+  return { people: [...people.values()], skipped, total };
+}
+
+function keyScore(rec, quiz){ return Object.values(KI[quiz]).reduce((s, i) => s + rec.bits[i], 0); }
+
+function render(res){
+  const P = res.people, pre = P.filter(p => p.pre), fin = P.filter(p => p.final), both = P.filter(p => p.pre && p.final);
+  $('out').classList.toggle('hidden', !P.length);
+  $('status').textContent = P.length ? `${res.total} códigos leídos · ${P.length} estudiantes${res.skipped ? ` · ${res.skipped} con otra versión del quiz (ignorados)` : ''}` : 'No encontré códigos. Revisa que el texto pegado incluya algo como [DL1|PRE|…].';
+  if (!P.length) return;
+  const avg = (arr, f) => arr.length ? Math.round(arr.reduce((s, x) => s + f(x), 0) / arr.length) : null;
+  const avgPre = avg(pre, p => 100 * p.pre.bits.reduce((a, b) => a + b, 0) / p.pre.bits.length);
+  const avgFin = avg(fin, p => 100 * p.final.bits.reduce((a, b) => a + b, 0) / p.final.bits.length);
+  const kPre = avg(both, p => 100 * keyScore(p.pre, 'pre') / 5), kFin = avg(both, p => 100 * keyScore(p.final, 'final') / 5);
+  const g = (kPre != null && kFin != null && kPre < 100) ? (kFin - kPre) / (100 - kPre) : null;
+  $('kpis').innerHTML = [
+    [`${pre.length} · ${fin.length}`, 'jugaron el pre-quiz · el quiz final'],
+    [avgPre == null ? '—' : avgPre + ' %', 'acierto promedio en el pre-quiz'],
+    [avgFin == null ? '—' : avgFin + ' %', 'acierto promedio en el quiz final'],
+    [kPre == null ? '—' : `${kPre} → ${kFin} %`, `ideas clave, antes → después (${both.length} con ambos)`],
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+  $('ideas').innerHTML = Object.entries(CLAVES).map(([c, label]) => {
+    const a = pct(pre.reduce((s, p) => s + p.pre.bits[KI.pre[c]], 0), pre.length);
+    const b = pct(fin.reduce((s, p) => s + p.final.bits[KI.final[c]], 0), fin.length);
+    const d = (a != null && b != null) ? b - a : null;
+    const bar = (v, col) => `<div class="b"><span class="track"><i style="width:${v || 0}%;background:${col}"></i></span><span>${v == null ? '—' : v + ' %'}</span></div>`;
+    return `<div class="idea"><span class="name"><b>${c.slice(1)}.</b> ${label}</span><div class="bars2">${bar(a, 'var(--pre)')}${bar(b, 'var(--post)')}</div><span class="delta ${d < 0 ? 'neg' : ''}">${d == null ? '' : (d > 0 ? '+' : '') + d + ' pts'}</span></div>`;
+  }).join('');
+  $('gain').textContent = g == null ? 'La ganancia aparece cuando hay estudiantes con los dos quizzes.'
+    : `Ganancia normalizada en las ideas clave: g = ${g.toFixed(2)} (qué parte de lo que les faltaba aprendieron; 0.3–0.7 es una ganancia media, más de 0.7 es alta).`;
+  const qtable = (quiz, rows) => {
+    const qs = BANK[quiz].questions.map((q, i) => ({ q, i, p: pct(rows.reduce((s, r) => s + r[quiz].bits[i], 0), rows.length) }));
+    qs.sort((x, y) => (x.p ?? 101) - (y.p ?? 101));
+    return '<tr><th class="n">#</th><th>Pregunta</th><th>Tema</th><th class="n">Acierto</th></tr>' + qs.map(({ q, i, p }) =>
+      `<tr><td class="n">${i + 1}</td><td>${q.q}${q.clave ? ' <span class="chip" style="font-size:10px;padding:2px 7px">idea clave</span>' : ''}</td><td>${TEMAS[q.tema]}</td><td class="n"><span class="pct ${cls(p)}">${p == null ? '—' : p + ' %'}</span></td></tr>`).join('');
+  };
+  $('t-final').innerHTML = fin.length ? qtable('final', fin) : '<tr><td>Aún no hay códigos del quiz final.</td></tr>';
+  $('t-pre').innerHTML = pre.length ? qtable('pre', pre) : '<tr><td>Aún no hay códigos del pre-quiz.</td></tr>';
+  const rows = P.slice().sort((a, b) => a.name.localeCompare(b.name, 'es')).map(p => {
+    const sp = p.pre ? p.pre.bits.reduce((a, b) => a + b, 0) : null, sf = p.final ? p.final.bits.reduce((a, b) => a + b, 0) : null;
+    const kp = p.pre ? keyScore(p.pre, 'pre') : null, kf = p.final ? keyScore(p.final, 'final') : null;
+    return { name: p.name, sp, sf, kp, kf, d: (kp != null && kf != null) ? kf - kp : null };
+  });
+  window.__rows = rows;
+  $('t-students').innerHTML = '<tr><th>Estudiante</th><th class="n">Pre-quiz (de 10)</th><th class="n">Quiz final (de 12)</th><th class="n">Ideas clave antes → después (de 5)</th><th class="n">Cambio</th></tr>' +
+    rows.map(r => `<tr><td>${esc(r.name)}</td><td class="n">${r.sp ?? '—'}</td><td class="n">${r.sf ?? '—'}</td><td class="n">${r.kp ?? '—'} → ${r.kf ?? '—'}</td><td class="n">${r.d == null ? '' : (r.d > 0 ? '+' : '') + r.d}</td></tr>`).join('');
+}
+
+function demo(){
+  // fictitious students, only to preview the panel
+  const names = ['Ana Pérez', 'Luis Mora', 'Carla Ruiz', 'Diego Torres', 'Elena Vega', 'Fabián Castro', 'Gabriela León', 'Hugo Salas', 'Irene Cano', 'Jorge Paz', 'Karla Ríos', 'Mateo Gil'];
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const lines = [];
+  names.forEach((n, k) => {
+    const pre = BANK.pre.questions.map(q => rnd() < (q.clave ? 0.35 : 0.75) ? 1 : 0);
+    const fin = BANK.final.questions.map(q => rnd() < (q.clave ? 0.8 : 0.68) ? 1 : 0);
+    lines.push(`${n}  10:0${k % 10}  [DL1|PRE|${n}|${pre.reduce((a, b) => a + b)}/10|${pre.join('')}|i1]`);
+    if (k < 11) lines.push(`${n}  11:5${k % 10}  [DL1|FINAL|${n}|${fin.reduce((a, b) => a + b)}/12|${fin.join('')}|i1]`);
+  });
+  $('input').value = '(EJEMPLO con estudiantes ficticios)\n' + lines.join('\n');
+  run();
+}
+
+function run(){ const t = $('input').value; store.set('dl-uide-w1-panel', t); render(parse(t)); }
+$('run').onclick = run;
+$('demo').onclick = demo;
+$('clear').onclick = () => { $('input').value = ''; store.set('dl-uide-w1-panel', ''); $('out').classList.add('hidden'); $('status').textContent = ''; };
+$('copy').onclick = () => {
+  const rows = window.__rows || [];
+  const tsv = ['Estudiante\tPre (de 10)\tFinal (de 12)\tIdeas clave antes (de 5)\tIdeas clave después (de 5)\tCambio']
+    .concat(rows.map(r => [r.name, r.sp ?? '', r.sf ?? '', r.kp ?? '', r.kf ?? '', r.d ?? ''].join('\t'))).join('\n');
+  const ok = () => { $('copy').textContent = 'Tabla copiada ✔'; setTimeout(() => $('copy').textContent = 'Copiar tabla (para Excel o Sheets)', 1600); };
+  if (navigator.clipboard) navigator.clipboard.writeText(tsv).then(ok, () => {});
+};
+const saved = store.get('dl-uide-w1-panel'); if (saved) { $('input').value = saved; run(); }
+</script>
+</body>
+</html>

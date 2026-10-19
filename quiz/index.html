@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz · Semana 1 · Deep Learning UIDE</title>
+<meta name="description" content="Pre-quiz y quiz final de la semana 1 de Neural Networks: Deep Learning (UIDE): un juego tipo Kahoot con tiempo, puntos y explicación de cada respuesta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#0B1424; --bg2:#16233A; --line:#2A3B5C; --ink:#EEF2F8; --txt:#B8C4D6; --muted:#8E9BB0;
+  --blue:#7AA2FF; --amber:#FDBA5C; --teal:#4FD1C0; --ok:#26890C; --bad:#E21B3C;
+  --t0:#E21B3C; --t1:#1368CE; --t2:#A87A00; --t3:#26890C;
+}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',Arial,sans-serif;min-height:100%}
+body{background:radial-gradient(1200px 600px at 80% -10%,#1B2C4D 0%,var(--bg) 60%) fixed;}
+a{color:var(--blue)}
+button{font:inherit;cursor:pointer;border:none}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 48px;min-height:100vh;display:flex;flex-direction:column;gap:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(253,186,92,.18)}
+.brand b{font-family:'Space Grotesk',sans-serif;font-size:18px;letter-spacing:.3px}
+.brand span{color:var(--muted);font-size:14px}
+.chip{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:#1F2F4D;color:var(--blue)}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:28px}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.12}
+h1{font-size:clamp(32px,5vw,56px);letter-spacing:-1px}
+h2{font-size:clamp(24px,3.4vw,40px);letter-spacing:-.5px}
+p{line-height:1.5;color:var(--txt);font-size:17px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.mode{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--bg2);border:2px solid var(--line);border-radius:22px;padding:24px;color:var(--ink);transition:transform .12s,border-color .12s}
+.mode:hover,.mode:focus-visible{transform:translateY(-2px);border-color:var(--blue);outline:none}
+.mode .big{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:#0F1C33;border:1px solid var(--line);border-radius:14px;padding:8px 14px;font-size:14px;color:var(--txt)}
+.stat b{color:var(--ink);font-family:'Space Grotesk',sans-serif;font-size:18px;margin-right:4px}
+.btn{background:var(--amber);color:#0B1424;font-weight:700;font-size:18px;padding:14px 26px;border-radius:14px}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+input[type=text]{font:inherit;font-size:17px;background:#0F1C33;color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:12px 14px;min-width:240px;flex:1}
+label.check{display:flex;gap:10px;align-items:center;color:var(--txt);font-size:15px}
+/* question */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pill{background:#0F1C33;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:15px;color:var(--txt)}
+.pill b{color:var(--ink)}
+.timer{height:12px;background:#0F1C33;border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--teal),var(--amber));transform-origin:left;transition:transform .1s linear}
+.qbox{background:#F4F6FA;color:#0F1A2E;border-radius:22px;padding:clamp(20px,4vw,40px);text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.qbox h2{color:#0F1A2E;font-size:clamp(22px,3.2vw,38px)}
+.qmeta{display:flex;justify-content:center;gap:10px;margin-top:12px;color:#5A6680;font-size:14px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.tiles{grid-template-columns:1fr}}
+.tile{display:flex;align-items:center;gap:16px;min-height:96px;padding:18px 20px;border-radius:18px;color:#fff;font-size:clamp(17px,2.2vw,22px);font-weight:700;text-align:left;box-shadow:0 6px 0 rgba(0,0,0,.25);transition:transform .08s,opacity .2s,filter .2s}
+.tile:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.tile svg{flex:none;width:40px;height:40px}
+.tile .k{margin-left:auto;font-size:13px;opacity:.75;border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:2px 7px}
+.t0{background:var(--t0)}.t1{background:var(--t1)}.t2{background:var(--t2)}.t3{background:var(--t3)}
+.tile.dim{opacity:.28;filter:grayscale(.4)}
+.tile.right{outline:4px solid #fff;outline-offset:3px}
+.tile.picked{box-shadow:0 0 0 4px #0B1424,0 0 0 8px #fff}
+.feedback{display:none;border-radius:20px;padding:22px 24px;gap:10px;flex-direction:column}
+.feedback.show{display:flex}
+.feedback.good{background:#103B2A;border:2px solid #1F7A55}
+.feedback.badf{background:#3A1520;border:2px solid #8A2A3B}
+.feedback h3{font-size:26px}
+.feedback .tema{font-size:15px;color:var(--txt)}
+/* results */
+.score{font-family:'Space Grotesk',sans-serif;font-size:clamp(56px,10vw,96px);font-weight:700;color:var(--amber);line-height:1}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(110px,38%) 1fr 44px;gap:12px;align-items:center;font-size:15px;color:var(--txt)}
+.bar .track{height:14px;border-radius:999px;background:#0F1C33;border:1px solid var(--line);overflow:hidden}
+.bar .track i{display:block;height:100%;background:var(--teal)}
+.review li{margin:0 0 12px 18px;color:var(--txt);line-height:1.45}
+.review li b{color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--teal);color:#0B1424;font-weight:700;padding:12px 18px;border-radius:12px;display:none}
+.hidden{display:none !important}
+footer{margin-top:auto;color:var(--muted);font-size:13px;text-align:center}
+.readbar{display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:15px;text-align:center}
+.readbar .timer i{background:var(--blue)}
+.tiles.wait .tile{visibility:hidden}
+.codebox{font-family:"JetBrains Mono",Consolas,monospace;font-size:clamp(14px,2.2vw,18px);background:#0F1C33;border:2px dashed var(--amber);border-radius:14px;padding:14px 16px;color:var(--ink);word-break:break-all;user-select:all}
+.keys{display:grid;gap:8px}
+.keyrow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:#0F1C33;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:15px;color:var(--txt)}
+.keyrow b{color:var(--ink)}
+.projector .qbox h2{font-size:clamp(28px,4vw,52px)}
+.projector .tile{min-height:120px;font-size:clamp(20px,2.6vw,30px)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header>
+    <div class="brand"><div class="dot"></div><div><b>Deep Learning · Semana 1</b><br><span>UIDE · Neural Networks: Deep Learning</span></div></div>
+    <a class="pill" href="../index.html">← Inicio de la semana</a>
+  </header>
+
+  <!-- START -->
+  <section id="start" class="hidden" style="display:flex;flex-direction:column;gap:20px">
+    <div>
+      <span class="chip" id="s-chip">Quiz</span>
+      <h1 id="s-title" style="margin-top:10px">Quiz</h1>
+      <p id="s-sub" style="margin-top:8px;max-width:720px"></p>
+    </div>
+    <div class="stats" id="s-stats"></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div class="row">
+        <input type="text" id="name" placeholder="Tu nombre y apellido (el mismo en los dos quizzes)" maxlength="40" autocomplete="name">
+        <button class="btn" id="go">¡Empezar!</button>
+      </div>
+      <p id="name-warn" class="hidden" style="color:var(--amber);font-size:15px">Escribe tu nombre: así el profesor puede ver tu avance entre el pre-quiz y el quiz final.</p>
+      <label class="check"><input type="checkbox" id="proj"> Modo proyector (para el docente): sin puntaje, con botón «Mostrar respuesta»</label>
+    </div>
+    <p style="font-size:15px">Cómo se juega: primero tienes 3 segundos para leer la pregunta; luego aparecen cuatro opciones de colores. Toca una (o usa las teclas 1–4). Ganas hasta 1 000 puntos por pregunta: más si respondes bien y rápido, y +100 por cada racha de aciertos. Después de cada respuesta verás la explicación. Al final, copia tu código y pégalo en el chat de la clase.</p>
+  </section>
+
+  <!-- CHOOSE (no mode in URL) -->
+  <section id="choose" class="hidden" style="display:flex;flex-direction:column;gap:20px">
+    <div><span class="chip">Semana 1</span><h1 style="margin-top:10px">¿Qué quiz quieres jugar?</h1></div>
+    <div class="grid2">
+      <button class="mode" data-mode="pre"><span class="chip" style="align-self:flex-start">Antes de la clase</span><span class="big">Pre-quiz</span><span style="color:var(--txt)">10 preguntas · 20 s · ¿de dónde partimos?</span></button>
+      <button class="mode" data-mode="final"><span class="chip" style="align-self:flex-start;color:var(--amber)">Al final de la semana</span><span class="big">Quiz final</span><span style="color:var(--txt)">12 preguntas · 30 s · ¿cuánto avanzamos?</span></button>
+    </div>
+  </section>
+
+  <!-- QUESTION -->
+  <section id="play" class="hidden" style="display:flex;flex-direction:column;gap:16px">
+    <div class="topbar">
+      <span class="pill" id="q-count">Pregunta 1 de 10</span>
+      <span class="pill" id="q-time"><b>20</b> s</span>
+      <span class="pill" id="q-score">Puntos: <b>0</b></span>
+    </div>
+    <div class="timer"><i id="bar"></i></div>
+    <div class="qbox"><h2 id="q-text"></h2><div class="qmeta" id="q-tema"></div></div>
+    <div class="readbar hidden" id="readbar"><span>Lee la pregunta…</span><div class="timer"><i id="rbar"></i></div></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="feedback" id="fb" role="status" aria-live="polite">
+      <h3 id="fb-title"></h3>
+      <p id="fb-why" style="color:var(--ink)"></p>
+      <p class="tema" id="fb-tema"></p>
+      <div class="row" style="margin-top:6px"><button class="btn" id="next">Siguiente →</button></div>
+    </div>
+    <div class="row hidden" id="reveal-row"><button class="btn" id="reveal">Mostrar respuesta</button></div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="done" class="hidden" style="display:flex;flex-direction:column;gap:18px">
+    <div><span class="chip" id="d-chip">Resultado</span><h1 style="margin-top:10px" id="d-title">¡Terminaste!</h1></div>
+    <div class="card" style="display:flex;flex-wrap:wrap;gap:28px;align-items:center">
+      <div><div class="score" id="d-score">0</div><p>puntos</p></div>
+      <div style="flex:1;min-width:240px;display:flex;flex-direction:column;gap:6px">
+        <h2 id="d-hits">0 de 0 correctas</h2>
+        <p id="d-compare"></p>
+      </div>
+    </div>
+    <div class="card" id="d-code-card" style="display:flex;flex-direction:column;gap:12px"><h3 style="font-size:22px">Tu código para el chat</h3><p>Cópialo y pégalo en el chat de Teams: así el profesor ve el avance de todo el grupo.</p><div class="codebox" id="d-code"></div><div class="row"><button class="btn" id="copy">Copiar mi código</button></div></div>
+    <div class="card" id="d-keys-card"><h3 style="font-size:22px;margin-bottom:6px">Las 5 ideas clave de la semana</h3><p style="font-size:15px;margin-bottom:12px" id="d-keys-sub"></p><div class="keys" id="d-keys"></div></div>
+    <div class="card"><h3 style="font-size:22px;margin-bottom:14px">Por tema</h3><div class="bars" id="d-bars"></div></div>
+    <div class="card" id="d-review-card"><h3 style="font-size:22px;margin-bottom:14px">Para repasar</h3><ul class="review" id="d-review"></ul></div>
+    <div class="row">
+      <button class="btn ghost" id="again">Volver a jugar</button>
+      <a class="btn ghost" href="../guia/index.html" style="text-decoration:none">Ir a la guía de estudio</a>
+    </div>
+  </section>
+
+  <footer>Formativo: no cuenta para la nota. Hecho para la Clase 1 · UIDE / EIG Campus.</footer>
+</div>
+<div class="toast" id="toast">Código copiado ✔ Pégalo en el chat</div>
+
+<script>
+const BANK = {"pre": {"title": "Pre-quiz · ¿de dónde partimos?", "time": 20, "sub": "Diez preguntas rápidas: cinco de bases (funciones, pendientes, probabilidades y un poco de Python) y cinco ideas clave que veremos esta semana. No es nota: es tu punto de partida. Es normal no saberlas todas.", "questions": [{"q": "Un modelo de machine learning aprende…", "options": ["De reglas que escribe una persona", "De ejemplos con su respuesta correcta", "Buscando en internet en tiempo real", "Solo de imágenes"], "ok": 1, "why": "En machine learning le damos ejemplos con la respuesta correcta y el algoritmo descubre las reglas solo.", "tema": "b01"}, {"q": "Si f(x) = 2x + 1, ¿cuánto vale f(3)?", "options": ["5", "6", "7", "9"], "ok": 2, "why": "Se reemplaza x por 3: 2·3 + 1 = 7. Una neurona hace exactamente esto con sus pesos.", "tema": "pre"}, {"q": "Una neurona calcula z = w₁·x₁ + w₂·x₂ + b. Con x = (2, 1), w = (1, 3) y b = −1, ¿cuánto vale z?", "options": ["2", "4", "5", "6"], "ok": 1, "why": "z = 1·2 + 3·1 + (−1) = 2 + 3 − 1 = 4. Cada dato por su peso, se suma todo y se agrega el sesgo: eso hace una neurona.", "tema": "b02", "clave": "C1"}, {"q": "¿Qué mide la pendiente de una recta?", "options": ["Su altura máxima", "Cuánto sube y por cada paso en x", "Dónde corta el eje x", "Su largo total"], "ok": 1, "why": "La pendiente dice cuánto cambia y cuando x avanza un paso. El gradiente es la pendiente de la pérdida.", "tema": "pre"}, {"q": "Si una red solo multiplica y suma (sin función de activación), por muchas capas que tenga solo puede dibujar fronteras…", "options": ["Rectas", "Con cualquier forma", "Circulares", "Ninguna"], "ok": 0, "why": "Una suma de sumas sigue siendo una suma: el resultado es una recta (o un plano). La activación es la que permite curvas.", "tema": "b02", "clave": "C2"}, {"q": "Una probabilidad de 0.8 significa que algo pasa…", "options": ["80 de cada 100 veces", "8 de cada 100 veces", "Siempre", "0.8 veces"], "ok": 0, "why": "0.8 = 80 %. La sigmoide de una neurona produce justamente una probabilidad entre 0 y 1.", "tema": "pre"}, {"q": "Puntos azules en las esquinas (0, 0) y (1, 1); naranjas en (0, 1) y (1, 0). ¿Los separa UNA sola línea recta?", "options": ["Sí, una horizontal", "Sí, una diagonal", "No, ninguna recta lo logra", "Sí, cualquier recta"], "ok": 2, "why": "Los colores están en esquinas opuestas: cualquier recta deja un azul y un naranja del mismo lado. Ese patrón se llama XOR.", "tema": "b03", "clave": "C3"}, {"q": "En Python con NumPy, ¿qué da np.array([1, 2]) * 3?", "options": ["[3 6]", "[1 2 1 2 1 2]", "9", "Un error"], "ok": 0, "why": "NumPy multiplica cada elemento: [1·3, 2·3] = [3 6]. Con una lista normal de Python se repetiría la lista.", "tema": "pre"}, {"q": "Bajas una montaña con neblina. Bajo tus pies el suelo sube hacia la derecha. Para bajar, das el paso hacia…", "options": ["La izquierda", "La derecha", "Te quedas quieto", "Da igual"], "ok": 0, "why": "Si el suelo sube hacia la derecha (pendiente positiva), bajar es ir a la izquierda. El descenso de gradiente hace eso con los pesos.", "tema": "b04", "clave": "C4"}, {"q": "5 de cada 100 clientes caen en mora. Un modelo que siempre dice «no mora» acierta…", "options": ["5 %", "50 %", "95 %", "0 %"], "ok": 2, "why": "Acierta con los 95 que no caen en mora, pero no encuentra a ninguno de los 5. Por eso usamos otras métricas.", "tema": "b09", "clave": "C5"}]}, "final": {"title": "Quiz final · ¿cuánto avanzamos?", "time": 30, "sub": "Doce preguntas sobre toda la semana: la neurona, el perceptrón, la pérdida, el gradiente, la retropropagación, Keras y las métricas del mini-proyecto. Las cinco ideas clave del pre-quiz vuelven con otra versión.", "questions": [{"q": "Una neurona con x = (1, 2), w = (3, −1) y b = 0.5. ¿Cuánto vale z?", "options": ["−1.5", "0.5", "1.5", "5.5"], "ok": 2, "why": "z = 3·1 + (−1)·2 + 0.5 = 3 − 2 + 0.5 = 1.5.", "tema": "b02", "clave": "C1"}, {"q": "¿Para qué sirve la función de activación?", "options": ["Para que la red aprenda curvas, no solo rectas", "Para entrenar más rápido", "Para guardar los datos", "Para eliminar el sesgo"], "ok": 0, "why": "Sin activación, apilar capas es solo sumar sumas: todo sería una línea recta. La activación «dobla» el espacio.", "tema": "b02", "clave": "C2"}, {"q": "¿Por qué una sola neurona no puede aprender XOR?", "options": ["Le faltan épocas", "No existe una línea recta que separe las clases", "La tasa de aprendizaje es muy grande", "Los datos tienen ruido"], "ok": 1, "why": "Una neurona traza una sola línea. En XOR las luces encendidas están en esquinas opuestas: ninguna línea las separa.", "tema": "b03", "clave": "C3"}, {"q": "El perceptrón aprobó a un socio que NO pagó (y = −1). La regla…", "options": ["Le suma η·x a los pesos", "Le resta η·x a los pesos", "No cambia los pesos", "Pone los pesos en cero"], "ok": 1, "why": "w ← w + η·y·x con y = −1 queda w − η·x: aleja la frontera de ese socio.", "tema": "b03"}, {"q": "El modelo dijo 99 % «paga» y el socio NO pagó. La pérdida BCE es…", "options": ["Cero", "Muy alta", "Igual a 0.99", "Negativa"], "ok": 1, "why": "BCE = −log(1 − 0.99) = −log(0.01) ≈ 4.6. Estar muy seguro y equivocado cuesta mucho.", "tema": "b04"}, {"q": "w nuevo = w − η·pendiente. Si la pendiente es negativa, el peso w…", "options": ["Sube", "Baja", "No cambia", "Se vuelve cero"], "ok": 0, "why": "Restar un número negativo es sumar: w sube, en la dirección en que baja la pérdida.", "tema": "b04", "clave": "C4"}, {"q": "La pérdida sube época a época y aparece NaN. ¿Qué revisas primero?", "options": ["La tasa de aprendizaje η (muy grande)", "El número de capas", "Los datos de prueba", "La semilla aleatoria"], "ok": 0, "why": "Un paso demasiado grande se pasa del fondo y rebota cada vez más lejos: la pérdida explota.", "tema": "b07"}, {"q": "En la retropropagación, la culpa del error viaja…", "options": ["De la entrada hacia la salida", "De la salida hacia la entrada", "Solo dentro de la capa de salida", "Al azar"], "ok": 1, "why": "El error se mide al final y se reparte hacia atrás, capa por capa, con la regla de la cadena.", "tema": "b06"}, {"q": "¿Cuántos parámetros tiene una red 2 → 16 → 1?", "options": ["33", "48", "50", "65"], "ok": 3, "why": "Capa oculta: 2·16 + 16 = 48. Salida: 16·1 + 1 = 17. Total: 65.", "tema": "b05"}, {"q": "Con 4 800 ejemplos y batch_size = 32, ¿cuántos pasos tiene una época?", "options": ["1", "32", "150", "4 800"], "ok": 2, "why": "4 800 ÷ 32 = 150 lotes; cada lote es un paso de aprendizaje.", "tema": "b07"}, {"q": "En Keras, ¿qué hace model.compile(...)?", "options": ["Apila las capas", "Elige optimizador, pérdida y métrica", "Entrena la red", "Hace predicciones"], "ok": 1, "why": "Construir (Sequential) → compilar (optimizador, pérdida, métrica) → entrenar (fit).", "tema": "b08"}, {"q": "Solo 13 % cae en mora. ¿Por qué no basta la exactitud (accuracy)?", "options": ["Porque decir siempre «no mora» ya da 87 %", "Porque es difícil de calcular", "Porque Keras no la calcula", "Porque siempre da 100 %"], "ok": 0, "why": "Un modelo que no aprendió nada logra 87 %. Por eso miramos ROC-AUC y cuántos morosos detecta.", "tema": "b09", "clave": "C5"}]}};
+const TEMAS = {"b01": "01 · IA, machine learning y deep learning", "b02": "02 · La neurona artificial", "b03": "03 · El perceptrón y XOR", "b04": "04 · Pérdida y descenso de gradiente", "b05": "05 · De una neurona a una red", "b06": "06 · Retropropagación", "b07": "07 · Entrenar bien", "b08": "08 · Keras", "b09": "09 · Mini-proyecto y métricas", "pre": "Bases previas"};
+const CLAVES = {"C1": "Calcular una neurona: z = w·x + b", "C2": "Para qué sirve la activación", "C3": "El límite de una sola línea (XOR)", "C4": "Hacia dónde mueve el gradiente", "C5": "Por qué la exactitud engaña con datos desbalanceados"};
+const CODE_TAG = 'DL1';           // week 1 · must match the teacher results panel
+const READ_MS = 3000;             // reading time before the options appear
+const SHAPES = [
+  '<svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,4 37,35 3,35" fill="#fff"/></svg>',
+  '<svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,2 38,20 20,38 2,20" fill="#fff"/></svg>',
+  '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#fff"/></svg>',
+  '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="4" width="32" height="32" rx="3" fill="#fff"/></svg>'];
+const LETTER = ['A','B','C','D'];
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+// ?modo=pre | ?pre  ·  ?modo=final | ?final  ·  ?modo=clase | ?clase (projector, final quiz)
+const params = new URLSearchParams(location.search);
+let mode = params.get('modo') || ['pre', 'final', 'clase'].find(k => params.has(k)) || null;
+let S = null, timerId = null, readId = null;
+
+function show(id){ ['start','choose','play','done'].forEach(s => $(s).classList.toggle('hidden', s !== id)); window.scrollTo(0,0); }
+
+function setupStart(){
+  const cfg = BANK[mode];
+  $('s-chip').textContent = mode === 'pre' ? 'Pre-quiz · antes de la clase' : 'Quiz final · cierre de la semana';
+  $('s-title').textContent = cfg.title;
+  $('s-sub').textContent = cfg.sub;
+  $('s-stats').innerHTML = `<span class="stat"><b>${cfg.questions.length}</b>preguntas</span><span class="stat"><b>${cfg.time} s</b>por pregunta</span><span class="stat"><b>1 000</b>puntos máx. por pregunta</span>`;
+  const n = store.get('dl-uide-w1-name'); if (n) $('name').value = n;
+  $('name-warn').classList.add('hidden');
+  show('start');
+}
+
+function start(){
+  const cfg = BANK[mode], proj = $('proj').checked, name = $('name').value.trim();
+  if (!proj && name.length < 2) { $('name-warn').classList.remove('hidden'); $('name').focus(); return; }
+  const tries = store.get('dl-uide-w1-tries') || {};
+  if (!proj) { tries[mode] = (tries[mode] || 0) + 1; store.set('dl-uide-w1-tries', tries); }
+  S = { i: 0, score: 0, streak: 0, hits: 0, answers: [], proj, name, attempt: tries[mode] || 1 };
+  if (name) store.set('dl-uide-w1-name', name);
+  document.body.classList.toggle('projector', S.proj);
+  show('play'); ask();
+}
+
+function ask(){
+  const cfg = BANK[mode], q = cfg.questions[S.i];
+  $('q-count').textContent = `Pregunta ${S.i + 1} de ${cfg.questions.length}`;
+  $('q-score').innerHTML = S.proj ? 'Modo proyector' : `Puntos: <b>${S.score}</b>`;
+  $('q-text').textContent = q.q;
+  $('q-tema').textContent = TEMAS[q.tema] + (q.clave ? ' · idea clave' : '');
+  $('fb').className = 'feedback';
+  $('reveal-row').classList.add('hidden');
+  $('tiles').innerHTML = q.options.map((o, k) =>
+    `<button class="tile t${k}" data-k="${k}" aria-label="Opción ${LETTER[k]}: ${o}">${SHAPES[k]}<span>${o}</span><span class="k">${k+1}</span></button>`).join('');
+  [...$('tiles').children].forEach(b => b.onclick = () => answer(+b.dataset.k));
+  // reading phase: the question alone, then the options and the clock
+  S.locked = true; clearInterval(timerId); clearInterval(readId);
+  $('tiles').classList.add('wait'); $('readbar').classList.remove('hidden');
+  $('bar').style.transform = 'scaleX(1)'; $('q-time').innerHTML = `<b>${cfg.time}</b> s`;
+  const r0 = performance.now();
+  readId = setInterval(() => {
+    const f = Math.min(1, (performance.now() - r0) / READ_MS);
+    $('rbar').style.transform = `scaleX(${1 - f})`;
+    if (f >= 1) { clearInterval(readId); openOptions(); }
+  }, 50);
+}
+
+function openOptions(){
+  const cfg = BANK[mode];
+  $('tiles').classList.remove('wait'); $('readbar').classList.add('hidden');
+  $('reveal-row').classList.toggle('hidden', !S.proj);
+  S.locked = false; S.t0 = performance.now(); S.total = cfg.time * 1000;
+  timerId = setInterval(tick, 100); tick();
+}
+
+function tick(){
+  const left = Math.max(0, S.total - (performance.now() - S.t0));
+  $('bar').style.transform = `scaleX(${left / S.total})`;
+  $('q-time').innerHTML = `<b>${Math.ceil(left / 1000)}</b> s`;
+  if (left <= 0) { clearInterval(timerId); if (!S.locked) answer(-1); }
+}
+
+function answer(k){
+  if (S.locked) return; S.locked = true; clearInterval(timerId);
+  const q = BANK[mode].questions[S.i];
+  const left = Math.max(0, S.total - (performance.now() - S.t0));
+  const good = k === q.ok;
+  let pts = 0;
+  if (!S.proj && good) { S.streak++; pts = Math.round(500 + 500 * left / S.total) + (S.streak > 1 ? 100 : 0); S.score += pts; S.hits++; }
+  else if (!S.proj) S.streak = 0;
+  S.answers.push({ tema: q.tema, clave: q.clave || null, good, k });
+  [...$('tiles').children].forEach((b, j) => {
+    b.disabled = true;
+    if (j === q.ok) b.classList.add('right'); else b.classList.add('dim');
+    if (j === k) b.classList.add('picked');
+  });
+  $('reveal-row').classList.add('hidden');
+  const fb = $('fb');
+  fb.className = 'feedback show ' + (S.proj || good ? 'good' : 'badf');
+  $('fb-title').textContent = S.proj ? `Respuesta: ${LETTER[q.ok]} · ${q.options[q.ok]}`
+      : good ? `¡Correcto! +${pts}${S.streak > 1 ? ' · racha ×' + S.streak : ''}` : (k < 0 ? '¡Se acabó el tiempo!' : 'Casi. La respuesta era ' + LETTER[q.ok]);
+  $('fb-why').textContent = q.why;
+  $('fb-tema').innerHTML = `Tema: ${TEMAS[q.tema]} · <a href="../guia/index.html#${q.tema}">repasar en la guía</a>`;
+  $('next').textContent = S.i + 1 < BANK[mode].questions.length ? 'Siguiente →' : 'Ver mi resultado →';
+  $('next').focus();
+}
+
+function next(){
+  S.i++;
+  if (S.i < BANK[mode].questions.length) ask(); else finish();
+}
+
+function keyHits(answers){
+  const out = {};
+  answers.forEach(a => { if (a.clave) out[a.clave] = a.good ? 1 : 0; });
+  return out;
+}
+
+function finish(){
+  const cfg = BANK[mode], n = cfg.questions.length;
+  show('done');
+  $('d-chip').textContent = cfg.title;
+  $('d-title').textContent = S.name ? `¡Bien jugado, ${S.name}!` : '¡Terminaste!';
+  if (S.proj) {
+    $('d-score').textContent = '—'; $('d-hits').textContent = 'Modo proyector';
+    $('d-compare').textContent = 'En este modo no se cuentan puntos. Pide a los estudiantes que jueguen en su celular para ver su avance.';
+    ['d-review-card', 'd-code-card', 'd-keys-card'].forEach(id => $(id).classList.add('hidden'));
+    $('d-bars').innerHTML = ''; return;
+  }
+  ['d-review-card', 'd-code-card', 'd-keys-card'].forEach(id => $(id).classList.remove('hidden'));
+  $('d-score').textContent = S.score.toLocaleString('es');
+  const pct = Math.round(100 * S.hits / n);
+  $('d-hits').textContent = `${S.hits} de ${n} correctas (${pct} %)`;
+  const keys = keyHits(S.answers);
+  const prev = store.get('dl-uide-w1-' + mode);
+  if (!prev || S.attempt === 1) store.set('dl-uide-w1-' + mode, { pct, score: S.score, keys, at: Date.now() });
+  const pre = store.get('dl-uide-w1-pre');
+  $('d-compare').textContent = mode === 'final'
+      ? (pre ? `En el pre-quiz acertaste ${pre.pct} %. Hoy: ${pct} %. ${pct >= pre.pct ? '¡Avanzaste!' : 'Repasa los temas de abajo y vuelve a intentarlo.'}` : 'Si jugaste el pre-quiz en este mismo dispositivo, aquí verías tu avance.')
+      : 'No es nota: es tu punto de partida. El sábado, el quiz final repite las 5 ideas clave y verás cuánto avanzaste.';
+  // the result code the teacher pastes into the results panel
+  const bits = S.answers.map(a => a.good ? 1 : 0).join('');
+  const code = `[${CODE_TAG}|${mode.toUpperCase()}|${S.name.replace(/[|\[\]]/g, ' ')}|${S.hits}/${n}|${bits}|i${S.attempt}]`;
+  $('d-code').textContent = code; S.code = code;
+  // key ideas: before (pre, same device) vs now
+  const preKeys = pre && pre.keys ? pre.keys : null;
+  $('d-keys-sub').textContent = mode === 'pre'
+      ? 'Estas cinco ideas vuelven en el quiz final. Hoy es normal no saberlas todas.'
+      : (preKeys ? 'Tu pre-quiz (en este dispositivo) frente a hoy.' : 'Si jugaste el pre-quiz en este dispositivo, aquí verías el antes y el después.');
+  $('d-keys').innerHTML = Object.entries(CLAVES).map(([c, label]) => {
+    const now = keys[c], before = preKeys ? preKeys[c] : undefined;
+    const mark = v => v === 1 ? '✅' : v === 0 ? '❌' : '·';
+    const right = mode === 'final' && preKeys ? `${mark(before)} → ${mark(now)}` : mark(now);
+    return `<div class="keyrow"><span><b>${c.slice(1)}.</b> ${label}</span><span>${right}</span></div>`;
+  }).join('');
+  const by = {};
+  S.answers.forEach(a => { by[a.tema] = by[a.tema] || [0, 0]; by[a.tema][1]++; if (a.good) by[a.tema][0]++; });
+  $('d-bars').innerHTML = Object.entries(by).map(([t, [g, tot]]) =>
+    `<div class="bar"><span>${TEMAS[t]}</span><span class="track"><i style="width:${100 * g / tot}%"></i></span><span>${g}/${tot}</span></div>`).join('');
+  const wrong = cfg.questions.map((q, i) => [q, S.answers[i]]).filter(([q, a]) => !a.good);
+  $('d-review').innerHTML = wrong.length ? wrong.map(([q]) =>
+      `<li><b>${q.q}</b><br>Respuesta: ${q.options[q.ok]}. ${q.why} <a href="../guia/index.html#${q.tema}">Repasar</a></li>`).join('')
+      : '<li><b>¡Todo correcto!</b> Ahora intenta los retos opcionales de los notebooks.</li>';
+}
+
+function copyResult(){
+  const txt = S.code;
+  const done = () => { const t = $('toast'); t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 1600); };
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents($('d-code')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); };
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
+}
+
+document.addEventListener('keydown', e => {
+  if ($('play').classList.contains('hidden')) return;
+  if (/^[1-4]$/.test(e.key) && !S.locked) answer(+e.key - 1);
+  else if ((e.key === 'Enter' || e.key === ' ') && S.locked && $('fb').classList.contains('show') && document.activeElement !== $('next')) next();
+});
+$('go').onclick = start;
+$('name').addEventListener('keydown', e => { if (e.key === 'Enter') start(); });
+$('next').onclick = next;
+$('reveal').onclick = () => { if (!S.locked) answer(-2); };
+$('copy').onclick = copyResult;
+$('again').onclick = () => setupStart();
+document.querySelectorAll('.mode').forEach(b => b.onclick = () => { mode = b.dataset.mode; history.replaceState(null, '', '?' + mode); setupStart(); });
+if (mode === 'clase') { mode = 'final'; setTimeout(() => { $('proj').checked = true; }, 0); }
+if (BANK[mode]) setupStart(); else show('choose');
+</script>
+</body>
+</html>

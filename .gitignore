@@ -1,0 +1,11 @@
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.venv/
+.vercel/
+.DS_Store
+Thumbs.db
+desktop.ini
+# solutions never go to this public repo
+*SOLUCION*
+Soluciones_privadas/

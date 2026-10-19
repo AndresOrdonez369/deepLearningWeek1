@@ -1,0 +1,9 @@
+# Only needed to run the notebooks on your own computer (Google Colab already has everything).
+# Tested with TensorFlow 2.21 and Keras 3.15.
+numpy
+pandas
+matplotlib
+scikit-learn
+tensorflow>=2.16
+keras>=3.0
+jupyter
