@@ -80,7 +80,9 @@ def build():
     assert len(ids) == len(set(ids)), 'duplicate slide id'
     body = render_math('\n'.join(s['html'] for s in slides))
     css = (HERE / 'deck.css').read_text() + '\n' + (HERE / 'components.css').read_text()
-    js = (HERE / 'deck.js').read_text() + '\n' + ''.join((HERE / f).read_text() + '\n' for f in ['demos1.js', 'demos2.js', 'demos3.js', 'demos4.js'])
+    moons = json.loads((HERE / 'data' / 'moons.json').read_text())     # real Keras run of NB02 part F (tools/run_moons.py)
+    js = ('window.MOONS = ' + json.dumps(moons, separators=(',', ':')) + ';\n' + (HERE / 'deck.js').read_text() + '\n' +
+          ''.join((HERE / f).read_text() + '\n' for f in ['demos1.js', 'demos2.js', 'demos3.js', 'demos4.js', 'demos5.js']))
     assert '</script' not in js
     html = f"""<!doctype html>
 <html lang="es">

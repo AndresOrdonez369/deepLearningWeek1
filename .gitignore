@@ -14,3 +14,5 @@ Soluciones_privadas/
 # local exports from Claude: never in the public repo
 Claude outputs/
 *.zip
+# notebook generators contain the solutions: kept in Soluciones_privadas
+docencia/codigo_fuente/notebooks/

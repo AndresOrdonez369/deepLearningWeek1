@@ -37,12 +37,17 @@ typography:
     fontSize: "0.85em"
     fontWeight: 600
     letterSpacing: "0.02em"
+  math:
+    fontFamily: "KaTeX (embedded), only inside formulas"
+    fontSize: "1em"
   code:
     fontFamily: "JetBrains Mono, ui-monospace, monospace"
     fontSize: "1em"
     fontWeight: 500
 rounded:
+  code: "0.35em"
   panel: "0.85em"
+  plate: "1em"
   chip: "999px"
 spacing:
   gutter: "5em"
@@ -95,7 +100,7 @@ A night ground with five signal roles; color always means something.
 - **Signal Azure** (oklch(0.75 0.13 235)): negative weights, class 0 ("no paga", "no"), the opposite side of a decision line.
 
 ### Secondary
-- **Learned Mint** (oklch(0.85 0.14 165)): correct, converged, "ya lo aprendió".
+- **Learned Mint** (oklch(0.85 0.14 165)): correct, converged, "ya lo aprendió"; inside a readable equation it marks what the network learns (weights and bias).
 - **Error Coral** (oklch(0.72 0.17 28)): errors, blame traveling backward, traps.
 
 ### Tertiary
@@ -147,7 +152,10 @@ Panels 0.85em radius; chips and buttons fully rounded; neurons are circles; edge
 - **Live figure:** an SVG or canvas plate on Night Raised with the faint grid; readouts in JetBrains Mono.
 - **Slider:** thick track in Night Line, amber thumb, value shown next to it.
 - **Step reveal:** presenter-driven; new content arrives with a 500 ms exponential ease-out from slight blur.
-- **Key-idea badge:** amber chip "Idea clave N" on the five slides measured by the quizzes.
+- **Key-idea badge:** amber chip "Idea clave N" at the end of the title line (never above it) on the five slides measured by the quizzes.
+- **Readable equation:** each term in its own cell with its meaning underneath (amber = the result, mint = what is learned, white = the data, dashed = η, the step you choose) and a «Léelo así» sentence in plain Spanish.
+- **Dated note:** a rounded chip with the year and who had the idea (1847 · Cauchy…), so every concept carries its history.
+- **Code walk-through:** Python with syntax colours; the presenter highlights one line per click and a Spanish explanation appears beside it. Code comments in English, short enough to never clip.
 - **Presenter view:** separate window with notes, timer and next slide.
 
 ## Do's and Don'ts

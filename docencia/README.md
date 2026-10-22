@@ -10,9 +10,9 @@ Panel del profesor: abre **[deeplearningweek1.vercel.app/docencia/](https://deep
 | `Guia_docente.html` | El orden de todo, el plan minuto a minuto, apuntes, preguntas probables y claves |
 | `Slides_Semana1.pdf` | Las slides en PDF, de respaldo (todas las demos en su estado final) |
 | `Resultados_quiz.html` | Pegas el chat de Teams y ves el antes y el después de los quizzes |
-| `codigo_fuente/` | El código que genera notebooks, páginas, quizzes, slides y mapas (para la semana 2) |
+| `codigo_fuente/` | El código que genera páginas, quizzes, slides y mapas (para la semana 2) |
 
-Las **soluciones** de los notebooks no están aquí: el repositorio es público. Viven en la carpeta `Soluciones_privadas` del profesor.
+Las **soluciones** de los notebooks no están aquí: el repositorio es público. Viven en la carpeta `Soluciones_privadas` del profesor, junto con el generador de los notebooks (`codigo_notebooks/`), que también las contiene.
 
 ## Regenerar
 
@@ -33,5 +33,7 @@ cd fonts && npm install && cd ..
 python src/build_deck.py   ../../slides
 python maps/build_mapas.py ../../mapas ../../slides/slides.json
 ```
+
+Las curvas y la frontera de la red de las lunas (láminas de Keras) son una corrida real del NB02 guardada en `src/data/moons.json`; `python tools/run_moons.py` la regenera (necesita TensorFlow).
 
 Después de cambiar las slides, vuelve a correr `build_docencia.py` y `build_docente.py`: leen los números de lámina de `slides/slides.json`.

@@ -149,7 +149,7 @@ body.reading pre.code{white-space:pre-wrap;font-size:.85em}
 .circ-t h3.am{color:var(--amber)}
 .circ-t .ex{font-size:1.15em;color:var(--ink-3);margin-top:.3em;line-height:1.4}
 .slide.active .loop.live .lp.on{animation:lpbeat 6s var(--ease) infinite;animation-delay:calc(var(--i) * 1.2s + 1s)}
-@keyframes lpbeat{0%,22%,100%{border-color:var(--line);color:var(--ink)}6%,14%{border-color:var(--amber);color:var(--amber);box-shadow:0 0 1.2em oklch(0.83 0.155 72 / .35)}}
+@keyframes lpbeat{0%,22%,100%{border-color:var(--line);color:var(--ink)}6%,14%{border-color:var(--amber);color:var(--amber);background:var(--night-3)}}
 .slide.active .loop.live .lp.last.on{animation-name:lpbeat}
 .three .panel{min-height:0}
 @media (prefers-reduced-motion:reduce){.slide.active .loop.live .lp.on{animation:none}.wk-pulse{display:none}}
@@ -162,3 +162,123 @@ body.reading .fig>svg{min-width:640px}
 .loop-ret span{position:absolute;left:50%;bottom:-.75em;transform:translateX(-50%);background:var(--night);padding:0 .7em;color:var(--ink-2);font-size:1.05em;white-space:nowrap}
 body.reading .loop-ret{display:none}
 body.reading .steps-list{grid-template-columns:minmax(0,1fr)!important}
+
+/* ---------- iteration 3 ---------- */
+/* heading tags ride at the end of the title line (no eyebrow labels above headings) */
+.s-head h2 .h-tags{display:inline-flex;gap:.35em;vertical-align:.3em;margin-left:.3em;font-size:.4em;white-space:nowrap;letter-spacing:0}
+.cover .tags.after{margin:1.2em 0 0}
+
+/* an equation you can read: each term with its meaning under it */
+.eqx{display:inline-flex;flex-direction:column;gap:.75em;align-self:flex-start;padding:.95em 1.25em 1.05em;border-radius:.85em;background:oklch(0.13 0.025 258);border:1px solid var(--line);max-width:100%}
+.eq-row{display:flex;align-items:flex-start;gap:.3em .4em;flex-wrap:wrap}
+.et{display:flex;flex-direction:column;align-items:center;gap:.5em}
+.et .em{font-size:1.6em;line-height:1.25;padding:0 .08em;white-space:nowrap}
+.et .em .katex{font-size:1.1em}
+.et small{font:600 .9em/1.18 var(--sans);text-align:center;max-width:8em;min-width:100%;padding-top:.45em;border-top:4px solid currentColor;text-wrap:balance}
+.r-out .em,.r-out small{color:var(--amber)}
+.r-w .em,.r-w small{color:var(--mint)}
+.r-x .em{color:var(--ink)} .r-x small{color:var(--ink-2)}
+.r-eta .em{color:var(--ink)} .r-eta small{color:var(--ink-2);border-top-style:dashed}
+.r-op .em{color:var(--ink-3)} .r-num .em{color:var(--ink)}
+.eq-read{font-size:1.2em;line-height:1.42;color:var(--ink-2);max-width:32em;text-wrap:pretty}
+.eq-read b{color:var(--ink);font-weight:600}
+.eqx.compact .et .em{font-size:1.35em}
+.eqx.compact small{font-size:.82em}
+
+/* a dated note: when the idea was born */
+.hist{display:inline-flex;align-items:baseline;gap:.7em;align-self:flex-start;font-size:1.05em;line-height:1.3;color:var(--ink-2);padding:.45em 1em .45em .5em;border:2px solid var(--line);border-radius:999px}
+.hist .y{font-weight:700;color:var(--ink);background:var(--night-3);border-radius:999px;padding:.15em .6em}
+
+/* code: printed output under the code */
+pre.code .out{display:block;margin-top:.7em;padding-top:.6em;border-top:1px dashed var(--line);color:var(--ink)}
+pre.code .out::before{content:"salida  ";color:var(--ink-3)}
+pre.code.lg{font-size:1.32em}
+pre.code.sm{font-size:1.05em}
+
+/* grade demo */
+.grade{display:flex;flex-direction:column;gap:.9em;height:100%;justify-content:center}
+.g-rows{display:grid;gap:.25em}
+.g-row{display:grid;grid-template-columns:7.2em minmax(0,1fr) 2.6em 4.6em 4.2em;gap:.8em;align-items:center;font-size:1.22em}
+.g-hdr{font-size:.95em;color:var(--ink-3);font-weight:600}
+.g-hdr span:nth-child(2){color:var(--ink-2)} .g-hdr span:nth-child(4){color:var(--mint)}
+.g-name{color:var(--ink-2);font-weight:600}
+.g-val{font-weight:700;text-align:right;color:var(--ink)}
+.g-w{color:var(--mint);font-weight:600}
+.g-c{color:var(--ink-2);text-align:right}
+.g-bar svg{width:100%;height:auto;display:block}
+.g-out{font-size:1.45em;line-height:1.3;color:var(--ink-2)}
+.g-out b{color:var(--ink)}
+.verdict{font-weight:700;padding:.1em .6em;border-radius:999px}
+.verdict.yes{background:var(--amber);color:var(--night)}
+.verdict.no{background:var(--azure);color:var(--night)}
+
+/* moons demo */
+.moons{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.6em;height:100%;align-items:center}
+.moons.m-predict{grid-template-columns:1fr}
+.moons>.fig{min-height:0;height:100%}
+.moons svg{width:100%;height:100%}
+.m-side{display:flex;flex-direction:column;gap:1em;min-height:0;height:100%;justify-content:center}
+.m-side>.fig{min-height:0;flex:1}
+.m-read{display:flex;flex-wrap:wrap;gap:.4em 1.4em;font-size:1.25em;color:var(--ink-2)}
+.m-read b{color:var(--ink)}
+table.arr{border-collapse:separate;border-spacing:0;font-size:1.3em;width:100%}
+table.arr caption{text-align:left;color:var(--ink-3);font-size:.8em;margin-bottom:.5em}
+table.arr th{font:600 .78em/1.2 var(--sans);color:var(--ink-3);text-align:right;padding:.3em .6em;border-bottom:2px solid var(--line)}
+table.arr td{text-align:right;padding:.32em .6em;border-bottom:1px solid var(--night-3);cursor:pointer;transition:background .25s}
+table.arr tr.on td{background:var(--night-3);color:var(--ink)}
+table.arr tr:focus-visible td{outline:3px solid var(--amber);outline-offset:-3px}
+.m-shape{display:flex;flex-direction:column;gap:.3em;font-size:1.25em;color:var(--ink)}
+
+/* the motor and the steering wheel: Python → Keras → TensorFlow → CPU/GPU */
+.stackx{display:flex;flex-direction:column;gap:.55em}
+.stackx .lv{display:grid;grid-template-columns:3.4em 9em 1fr;align-items:center;gap:1em;padding:.75em 1.1em;border-radius:.85em;background:var(--night-2);border:2px solid var(--line);font-size:1.12em}
+.stackx .lv svg{width:2.6em;height:2.6em;fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.stackx .lv b{font-size:1.18em}
+.stackx .lv span{color:var(--ink-2);line-height:1.35}
+.stackx .lv.hot{border-color:var(--amber)}
+.stackx .lv.hot svg{stroke:var(--amber)}
+.stackx .dn{align-self:center;color:var(--ink-3);font-size:1.1em;line-height:1}
+
+/* predict cards */
+.pcards{display:flex;flex-direction:column;gap:.8em}
+.pcard{display:grid;grid-template-columns:7em 1fr 4.6em;gap:1em;align-items:center;font-size:1.2em;padding:.6em 1em;border-radius:.85em;background:var(--night-2)}
+.pbar{position:relative;height:1.1em;border-radius:999px;background:var(--night-3)}
+.pbar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.pbar::after{content:"";position:absolute;left:50%;top:-.35em;bottom:-.35em;width:3px;background:var(--ink);border-radius:2px}
+
+/* analogy panel */
+.analog{display:flex;flex-direction:column;gap:.35em;padding:1em 1.25em;border-radius:.85em;background:var(--night-2);border:1px solid oklch(0.3 0.035 258)}
+.analog .t{font:600 1.15em/1.2 var(--sans);color:var(--ink)}
+.analog p{font-size:1.2em;line-height:1.42;color:var(--ink-2)}
+
+body.reading .g-row{grid-template-columns:5.5em minmax(0,1fr) 2.2em;font-size:1em}
+body.reading .g-row .g-w,body.reading .g-row .g-c{display:none}
+body.reading .moons{grid-template-columns:1fr}
+body.reading .stackx .lv{grid-template-columns:2.6em 1fr}
+body.reading .stackx .lv span{grid-column:1/-1}
+body.reading .pcard{grid-template-columns:1fr}
+@media (prefers-reduced-motion:reduce){table.arr td{transition:none}}
+.cl{font-size:1.15em;line-height:1.4;color:var(--ink-2);text-wrap:pretty}
+.cl code{color:var(--ink);background:var(--night-3);padding:.08em .45em;border-radius:.35em;margin-right:.25em;font-size:.92em}
+.et small{min-width:max(100%,5.6em)}
+.hist .y{white-space:nowrap}
+.hist-tl .ev .d{font-size:1.05em}
+.stackx{gap:.35em}
+.stackx .lv{grid-template-columns:2.8em 7.6em 1fr;padding:.55em 1em;gap:.9em}
+.stackx .lv svg{width:2.3em;height:2.3em}
+.stackx .dn{font-size:.95em;margin:-.1em 0}
+.m-side>.fig{flex:none}
+.m-side svg{height:auto}
+.moons>.fig svg{height:100%}
+
+.m-top{display:flex;flex-direction:column;gap:.6em}
+.g-row{font-size:1.12em}
+.grade{gap:.7em}
+.verdict{white-space:nowrap}
+.m-fit .m-side{justify-content:flex-start;gap:.8em}
+.m-fit .m-top{flex-direction:row;align-items:center;justify-content:space-between;gap:1em;flex-wrap:wrap}
+.m-fit .m-read{font-size:1.15em;gap:.2em 1.1em;max-width:22em}
+.m-side>.fig{height:auto}
+body.reading .moons{grid-template-columns:minmax(0,1fr)!important;height:auto}
+body.reading .moons>.fig{height:auto}
+body.reading .moons svg{height:auto;max-width:100%}

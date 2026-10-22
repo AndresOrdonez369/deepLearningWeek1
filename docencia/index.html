@@ -10,16 +10,18 @@
   --bg:#F4F6FA; --paper:#FFFFFF; --ink:#0F1A2E; --txt:#3C4862; --muted:#5A6680; --line:#DCE2EC;
   --blue:#2457F5; --blue-bg:#E8EEFF; --blue-d:#1B3FB0; --amber:#A1520C; --amber-bg:#FFF0DB; --amber-f:#F59E0B;
   --teal:#0B7A6E; --teal-bg:#DDF4EF; --purple:#6B3FD6; --purple-bg:#EFE9FF; --navy:#0B1424; --navy2:#16233A;
-  --code-bg:#0B1424; --code-ink:#E6EDF7;
+  --code-bg:#0B1424; --code-ink:#E6EDF7; --on-blue:#FFFFFF;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
+    --on-blue:#0B1530;
     --bg:#0B1424; --paper:#121E33; --ink:#EEF2F8; --txt:#C2CCDB; --muted:#8E9BB0; --line:#26375A;
     --blue:#7AA2FF; --blue-bg:#18284A; --blue-d:#9DB6FF; --amber:#FDBA5C; --amber-bg:#33240F; --amber-f:#F59E0B;
     --teal:#4FD1C0; --teal-bg:#0F2E2B; --purple:#B79CFF; --purple-bg:#241B3D; --code-bg:#070D18;
   }
 }
 :root[data-theme="dark"]{
+  --on-blue:#0B1530;
   --bg:#0B1424; --paper:#121E33; --ink:#EEF2F8; --txt:#C2CCDB; --muted:#8E9BB0; --line:#26375A;
   --blue:#7AA2FF; --blue-bg:#18284A; --blue-d:#9DB6FF; --amber:#FDBA5C; --amber-bg:#33240F; --amber-f:#F59E0B;
   --teal:#4FD1C0; --teal-bg:#0F2E2B; --purple:#B79CFF; --purple-bg:#241B3D; --code-bg:#070D18;
@@ -31,7 +33,7 @@ a{color:var(--blue)}
 h1,h2,h3,h4{font-family:'Space Grotesk',Arial,sans-serif;color:var(--ink);line-height:1.15;margin:0}
 h1{font-size:clamp(34px,5vw,54px);letter-spacing:-1px}
 h2{font-size:clamp(28px,3.6vw,38px);letter-spacing:-.5px}
-h3{font-size:22px;margin-top:28px}
+h3{font-size:23px;margin-top:28px}
 h4{font-size:18px;margin-top:18px}
 p{margin:10px 0}
 ul,ol{padding-left:22px;margin:10px 0}
@@ -80,6 +82,15 @@ main{min-width:0}
 .box.error{background:var(--paper)}
 .box.error h4{color:var(--amber)}
 .box.ojo{background:var(--blue-bg);border-color:transparent}
+.box.historia{background:var(--paper);border:1px solid var(--line);border-left-width:1px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline}
+.box.historia h4{color:var(--purple);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:15px;margin:0}
+.box.historia p{margin:0}
+.read{margin:10px 0 0;padding-top:10px;border-top:1px dashed var(--line);font-size:16px;color:var(--txt)}
+.read b{color:var(--ink)}
+.codeexp{width:100%}
+.codeexp td:first-child{white-space:nowrap}
+@media (max-width:640px){.codeexp,.codeexp tbody,.codeexp tr,.codeexp td{display:block;width:100%}.codeexp tr:first-child{display:none}.codeexp td:first-child{white-space:normal;padding-bottom:2px;border-bottom:0}}
+.codeexp code{font-size:14px}
 .formula{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:14px 0;overflow-x:auto}
 .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:8px}
 .term{border-top:4px solid var(--blue);padding:8px 4px 0;font-size:15px}
@@ -95,7 +106,9 @@ details[open] summary{margin-bottom:6px}
 .tile{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px}
 .tile h4{margin:0 0 6px}
 .tile p{margin:4px 0;font-size:15.5px}
-.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;font-size:15px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tile h3{font-size:18px;margin:0 0 6px}
+.btn{display:inline-block;background:var(--blue);color:var(--on-blue);text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;font-size:15px}
 .btn.amber{background:var(--amber-f);color:#0B1424}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
@@ -126,7 +139,7 @@ kbd{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);b
 
 <section class="sec"><h2>1 · Para dictar</h2>
 <div class="cards">
-<article class="c"><h3>Slides interactivas</h3><p>68 láminas con demos en vivo: viernes 1–35, sábado 36–68. Cada lámina trae notas con el guion, la pregunta para la clase y el tiempo sugerido.</p><div class="btnrow"><a class="btn " href="slides/index.html">Abrir las slides</a><a class="btn ghost" href="slides/index.html?presenter">Vista del presentador</a><a class="btn ghost" href="Slides_Semana1.pdf">PDF de respaldo</a></div></article>
+<article class="c"><h3>Slides interactivas</h3><p>77 láminas con demos en vivo: viernes 1–37, sábado 38–77. Cada lámina trae notas con el guion, la pregunta para la clase y el tiempo sugerido.</p><div class="btnrow"><a class="btn " href="slides/index.html">Abrir las slides</a><a class="btn ghost" href="slides/index.html?presenter">Vista del presentador</a><a class="btn ghost" href="Slides_Semana1.pdf">PDF de respaldo</a></div></article>
 <article class="c"><h3>Mapas conceptuales</h3><p>La semana completa y un mapa por bloque. Clic en cada concepto: qué decir, un ejemplo, una pregunta para la clase, el error frecuente y la lámina. Se imprimen en A4.</p><div class="btnrow"><a class="btn " href="mapas/index.html">Abrir los mapas</a></div></article>
 <article class="c"><h3>Guía docente y apuntes</h3><p>El orden de todo, el plan minuto a minuto, apuntes con rigor, preguntas probables y claves de los notebooks.</p><div class="btnrow"><a class="btn " href="Guia_docente.html">Abrir la guía</a></div></article>
 </div>
@@ -137,7 +150,7 @@ kbd{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);b
 
 <section class="sec"><h2>2 · Mostrar el código en clase</h2>
 <p>Comparte pantalla con Colab. <b>Abrir en Colab</b> abre la versión de los estudiantes directo desde GitHub: ejecútala en vivo con <b>Entorno de ejecución → Ejecutar todo</b>.</p>
-<div class="cards"><article class="c"><h3>NB01 · Tu primera neurona</h3><p>Viernes · prácticas en clase (láminas 24 y 33)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Ver en GitHub</a></div></article><article class="c"><h3>NB02 · Tu primera red</h3><p>Sábado · práctica en clase (lámina 60)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Ver en GitHub</a></div></article></div>
+<div class="cards"><article class="c"><h3>NB01 · Tu primera neurona</h3><p>Viernes · prácticas en clase (láminas 26 y 35)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Ver en GitHub</a></div></article><article class="c"><h3>NB02 · Tu primera red</h3><p>Sábado · práctica en clase (lámina 68)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Ver en GitHub</a></div></article></div>
 <p style="margin-top:16px"><b>Las soluciones no están en este repo</b> (es público). Están en tu carpeta <code>Soluciones_privadas</code>. Para mostrarlas, súbelas una vez a una carpeta privada de tu Google Drive y ábrelas desde allí, o en Colab: <b>Archivo → Subir cuaderno</b>. Nunca compartas pantalla con una solución mientras los estudiantes trabajan en la tarea.</p>
 </section>
 

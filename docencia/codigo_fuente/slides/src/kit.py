@@ -25,9 +25,76 @@ def slide(sid, title, body, notes, *, layout='', block='', group='', minutes=Non
 
 
 def head(title, lede='', tags=''):
-    t = f'<div class="tags">{tags}</div>' if tags else ''
+    """Slide heading. Tags (key-idea badge, trend, time) ride at the end of the title line, never above it."""
+    t = f' <span class="h-tags">{tags}</span>' if tags else ''
     l = f'<p class="lede">{lede}</p>' if lede else ''
-    return f'<header class="s-head">{t}<h2>{title}</h2>{l}</header>'
+    return f'<header class="s-head"><h2>{title}{t}</h2>{l}</header>'
+
+
+ROLE = {'out': 'resultado', 'w': 'se aprende', 'x': 'dato', 'eta': 'tú lo eliges', 'num': '', 'op': ''}
+
+
+def eq(parts, read='', steps=False, size=''):
+    """An equation you can read: each term in its own cell with a plain-words label under it.
+    parts: (tex, label, role) with role out | w (what the network learns) | x (data) | eta | num | op."""
+    cells, k = [], 0
+    for tex, lab, role in parts:
+        sm = ''
+        if lab:
+            k += 1
+            sm = f'<small data-step="{k}">{lab}</small>' if steps else f'<small>{lab}</small>'
+        cells.append(f'<span class="et r-{role}"><span class="em"><m>{tex}</m></span>{sm}</span>')
+    r = ''
+    if read:
+        r = (f'<p class="eq-read" data-step="{k + 1}"><b>Léelo así:</b> {read}</p>' if steps else
+             f'<p class="eq-read"><b>Léelo así:</b> {read}</p>')
+    st_ = f' style="font-size:{size}"' if size else ''
+    return f'<div class="eqx"{st_}><div class="eq-row">{"".join(cells)}</div>{r}</div>'
+
+
+def hist(year, text, step=None):
+    """A small dated note: when this idea was born."""
+    d = f' data-step="{step}"' if step else ''
+    return f'<p class="hist"{d}><span class="y num">{year}</span><span>{text}</span></p>'
+
+
+import keyword as _kw, re as _re
+_PYKW = set(_kw.kwlist)
+_TOK = _re.compile(r'(#.*$)|("(?:[^"\\]|\\.)*"|\'(?:[^\'\\]|\\.)*\')|(\b\d+(?:\.\d+)?(?:e-?\d+)?\b)|([A-Za-z_]\w*)|(\s+)|(.)')
+
+
+def _py(line):
+    out, i = [], 0
+    for m in _TOK.finditer(line):
+        cm, st_, nu, idf, sp, other = m.groups()
+        if cm is not None:
+            out.append(f'<span class="cm">{esc(cm)}</span>')
+        elif st_ is not None:
+            out.append(f'<span class="st">{esc(st_)}</span>')
+        elif nu is not None:
+            out.append(f'<span class="nu">{nu}</span>')
+        elif idf is not None:
+            rest = line[m.end():].lstrip()
+            if idf in _PYKW:
+                out.append(f'<span class="kw">{idf}</span>')
+            elif rest.startswith('('):
+                out.append(f'<span class="fn">{idf}</span>')
+            else:
+                out.append(esc(idf))
+        else:
+            out.append(esc(sp if sp is not None else other))
+    return ''.join(out)
+
+
+def code(src, hl='', cls='', style='', out=''):
+    """Python code with syntax colours; hl = 'step:first-last;…' highlights lines as the presenter advances.
+    out = optional printed output shown under the code."""
+    lines = src.strip('\n').split('\n')
+    body = ''.join(f'<span class="ln">{_py(l) or " "}</span>' for l in lines)
+    o = f'<span class="out">{out}</span>' if out else ''
+    s = f' style="{style}"' if style else ''
+    d = f' data-demo="codehl" data-hl="{hl}"' if hl else ''
+    return f'<pre class="code {cls}"{d}{s}>{body}{o}</pre>'
 
 
 def key(n):

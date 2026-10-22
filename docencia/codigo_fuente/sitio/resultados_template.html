@@ -70,7 +70,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   <header>
     <span class="chip">Panel del profesor</span>
     <h1 style="margin-top:10px">Resultados de los quizzes · Semana 1</h1>
-    <p style="margin-top:6px">Los estudiantes terminan el quiz y pegan en el chat un código como <code>[DL1|PRE|Ana Pérez|6/10|1011010110|i1]</code>. Aquí lo conviertes en el antes y el después del grupo. Nada sale de tu computador.</p>
+    <p style="margin-top:6px">Los estudiantes terminan el quiz y pegan en el chat un código como <code>[DL1|PRE|Ana Pérez|5/8|10110101|i1]</code>. Aquí lo conviertes en el antes y el después del grupo. Nada sale de tu computador.</p>
   </header>
 
   <section class="card" style="display:flex;flex-direction:column;gap:14px">
@@ -184,7 +184,7 @@ function render(res){
     return { name: p.name, sp, sf, kp, kf, d: (kp != null && kf != null) ? kf - kp : null };
   });
   window.__rows = rows;
-  $('t-students').innerHTML = '<tr><th>Estudiante</th><th class="n">Pre-quiz (de 10)</th><th class="n">Quiz final (de 12)</th><th class="n">Ideas clave antes → después (de 5)</th><th class="n">Cambio</th></tr>' +
+  $('t-students').innerHTML = `<tr><th>Estudiante</th><th class="n">Pre-quiz (de ${BANK.pre.questions.length})</th><th class="n">Quiz final (de ${BANK.final.questions.length})</th><th class="n">Ideas clave antes → después (de 5)</th><th class="n">Cambio</th></tr>` +
     rows.map(r => `<tr><td>${esc(r.name)}</td><td class="n">${r.sp ?? '—'}</td><td class="n">${r.sf ?? '—'}</td><td class="n">${r.kp ?? '—'} → ${r.kf ?? '—'}</td><td class="n">${r.d == null ? '' : (r.d > 0 ? '+' : '') + r.d}</td></tr>`).join('');
 }
 
@@ -196,8 +196,8 @@ function demo(){
   names.forEach((n, k) => {
     const pre = BANK.pre.questions.map(q => rnd() < (q.clave ? 0.35 : 0.75) ? 1 : 0);
     const fin = BANK.final.questions.map(q => rnd() < (q.clave ? 0.8 : 0.68) ? 1 : 0);
-    lines.push(`${n}  10:0${k % 10}  [DL1|PRE|${n}|${pre.reduce((a, b) => a + b)}/10|${pre.join('')}|i1]`);
-    if (k < 11) lines.push(`${n}  11:5${k % 10}  [DL1|FINAL|${n}|${fin.reduce((a, b) => a + b)}/12|${fin.join('')}|i1]`);
+    lines.push(`${n}  10:0${k % 10}  [DL1|PRE|${n}|${pre.reduce((a, b) => a + b)}/${pre.length}|${pre.join('')}|i1]`);
+    if (k < 11) lines.push(`${n}  11:5${k % 10}  [DL1|FINAL|${n}|${fin.reduce((a, b) => a + b)}/${fin.length}|${fin.join('')}|i1]`);
   });
   $('input').value = '(EJEMPLO con estudiantes ficticios)\n' + lines.join('\n');
   run();

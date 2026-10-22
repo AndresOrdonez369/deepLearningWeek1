@@ -62,8 +62,24 @@ label.check{display:flex;gap:10px;align-items:center;color:var(--txt);font-size:
 .tile.dim{opacity:.28;filter:grayscale(.4)}
 .tile.right{outline:4px solid #fff;outline-offset:3px}
 .tile.picked{box-shadow:0 0 0 4px #0B1424,0 0 0 8px #fff}
-.feedback{display:none;border-radius:20px;padding:22px 24px;gap:10px;flex-direction:column}
-.feedback.show{display:flex}
+.feedback{display:none;border-radius:20px;padding:22px 24px;gap:22px;grid-template-columns:minmax(0,1fr) 250px;align-items:start}
+.feedback.show{display:grid}
+.feedback.nofig{grid-template-columns:minmax(0,1fr)}
+.fb-main{display:flex;flex-direction:column;gap:10px;min-width:0}
+.fb-why{color:var(--ink);font-size:18px}
+.fb-why b,.fb-mine b{font-family:'Space Grotesk',sans-serif}
+.fb-mine{background:rgba(11,20,36,.45);border-radius:12px;padding:10px 14px;color:var(--ink);font-size:16px}
+.fb-more summary{cursor:pointer;color:var(--txt);font-size:15px;padding:4px 0}
+.fb-more summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+.fb-others{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:8px}
+.fb-others li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;color:var(--txt);font-size:15px;line-height:1.45}
+.fb-others li i{font-style:normal;font-weight:700;font-size:13px;color:#fff;border-radius:7px;text-align:center;padding:3px 0}
+.fb-others li b{color:var(--ink)}
+.fb-fig{margin:0;background:#0F1C33;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.fb-fig svg{width:100%;height:auto;display:block}
+.fb-foot{grid-column:1/-1;display:flex;flex-direction:column;gap:10px}
+.fb-fig figcaption{font-size:13px;line-height:1.4;color:var(--txt);text-align:center}
+@media (max-width:720px){.feedback{grid-template-columns:minmax(0,1fr)}.fb-fig{max-width:300px;justify-self:center;width:100%}}
 .feedback.good{background:#103B2A;border:2px solid #1F7A55}
 .feedback.badf{background:#3A1520;border:2px solid #8A2A3B}
 .feedback h3{font-size:26px}
@@ -88,6 +104,13 @@ footer{margin-top:auto;color:var(--muted);font-size:13px;text-align:center}
 .keyrow b{color:var(--ink)}
 .projector .qbox h2{font-size:clamp(28px,4vw,52px)}
 .projector .tile{min-height:120px;font-size:clamp(20px,2.6vw,30px)}
+.projector .feedback{grid-template-columns:minmax(0,1fr) 340px}
+.projector .feedback h3{font-size:clamp(26px,3vw,38px)}
+.projector .fb-why{font-size:clamp(20px,2.4vw,30px);line-height:1.4}
+.projector .fb-others li{font-size:clamp(17px,1.9vw,24px)}
+.projector .fb-others li i{font-size:16px}
+.projector .fb-fig figcaption{font-size:16px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}.mode:hover,.mode:focus-visible{transform:none}}
 </style>
 </head>
 <body>
@@ -100,8 +123,8 @@ footer{margin-top:auto;color:var(--muted);font-size:13px;text-align:center}
   <!-- START -->
   <section id="start" class="hidden" style="display:flex;flex-direction:column;gap:20px">
     <div>
-      <span class="chip" id="s-chip">Quiz</span>
-      <h1 id="s-title" style="margin-top:10px">Quiz</h1>
+      <h1 id="s-title">Quiz</h1>
+      <span class="chip" id="s-chip" style="margin-top:12px">Quiz</span>
       <p id="s-sub" style="margin-top:8px;max-width:720px"></p>
     </div>
     <div class="stats" id="s-stats"></div>
@@ -111,14 +134,14 @@ footer{margin-top:auto;color:var(--muted);font-size:13px;text-align:center}
         <button class="btn" id="go">¡Empezar!</button>
       </div>
       <p id="name-warn" class="hidden" style="color:var(--amber);font-size:15px">Escribe tu nombre: así el profesor puede ver tu avance entre el pre-quiz y el quiz final.</p>
-      <label class="check"><input type="checkbox" id="proj"> Modo proyector (para el docente): sin puntaje, con botón «Mostrar respuesta»</label>
+      <label class="check"><input type="checkbox" id="proj"> Modo proyector (para el docente): sin puntaje; «Mostrar respuesta» revela la explicación y por qué cada opción no es</label>
     </div>
-    <p style="font-size:15px">Cómo se juega: primero tienes 3 segundos para leer la pregunta; luego aparecen cuatro opciones de colores. Toca una (o usa las teclas 1–4). Ganas hasta 1 000 puntos por pregunta: más si respondes bien y rápido, y +100 por cada racha de aciertos. Después de cada respuesta verás la explicación. Al final, copia tu código y pégalo en el chat de la clase.</p>
+    <p style="font-size:15px">Cómo se juega: primero tienes 3 segundos para leer la pregunta; luego aparecen cuatro opciones de colores. Toca una (o usa las teclas 1–4). Ganas hasta 1 000 puntos por pregunta: más si respondes bien y rápido, y +100 por cada racha de aciertos. Después de cada respuesta verás por qué la correcta es correcta y por qué tu opción no lo era; el reloj solo corre mientras respondes, así que lee la explicación con calma y pulsa «Siguiente» (o Enter). Al final, copia tu código y pégalo en el chat de la clase.</p>
   </section>
 
   <!-- CHOOSE (no mode in URL) -->
   <section id="choose" class="hidden" style="display:flex;flex-direction:column;gap:20px">
-    <div><span class="chip">Semana 1</span><h1 style="margin-top:10px">¿Qué quiz quieres jugar?</h1></div>
+    <div><h1>¿Qué quiz quieres jugar?</h1><span class="chip" style="margin-top:12px">Semana 1</span></div>
     <div class="grid2">
       <button class="mode" data-mode="pre"><span class="chip" style="align-self:flex-start">Antes de la clase</span><span class="big">Pre-quiz</span><span style="color:var(--txt)">8 preguntas · 20 s · ¿de dónde partimos?</span></button>
       <button class="mode" data-mode="final"><span class="chip" style="align-self:flex-start;color:var(--amber)">Al final de la semana</span><span class="big">Quiz final</span><span style="color:var(--txt)">10 preguntas · 25 s · ¿cuánto avanzamos?</span></button>
@@ -137,17 +160,21 @@ footer{margin-top:auto;color:var(--muted);font-size:13px;text-align:center}
     <div class="readbar hidden" id="readbar"><span>Lee la pregunta…</span><div class="timer"><i id="rbar"></i></div></div>
     <div class="tiles" id="tiles"></div>
     <div class="feedback" id="fb" role="status" aria-live="polite">
-      <h3 id="fb-title"></h3>
-      <p id="fb-why" style="color:var(--ink)"></p>
-      <p class="tema" id="fb-tema"></p>
-      <div class="row" style="margin-top:6px"><button class="btn" id="next">Siguiente →</button></div>
+      <div class="fb-main">
+        <h3 id="fb-title"></h3>
+        <p class="fb-why"><b>Por qué:</b> <span id="fb-why"></span></p>
+        <p class="fb-mine hidden" id="fb-mine"></p>
+        <details class="fb-more" id="fb-more"><summary>¿Y las otras opciones? Por qué no son</summary><ul class="fb-others" id="fb-others"></ul></details>
+      </div>
+      <figure class="fb-fig hidden" id="fb-fig"></figure>
+      <div class="fb-foot"><p class="tema" id="fb-tema"></p><div class="row"><button class="btn" id="next">Siguiente →</button></div></div>
     </div>
     <div class="row hidden" id="reveal-row"><button class="btn" id="reveal">Mostrar respuesta</button></div>
   </section>
 
   <!-- RESULTS -->
   <section id="done" class="hidden" style="display:flex;flex-direction:column;gap:18px">
-    <div><span class="chip" id="d-chip">Resultado</span><h1 style="margin-top:10px" id="d-title">¡Terminaste!</h1></div>
+    <div><h1 id="d-title">¡Terminaste!</h1><span class="chip" id="d-chip" style="margin-top:12px">Resultado</span></div>
     <div class="card" style="display:flex;flex-wrap:wrap;gap:28px;align-items:center">
       <div><div class="score" id="d-score">0</div><p>puntos</p></div>
       <div style="flex:1;min-width:240px;display:flex;flex-direction:column;gap:6px">
@@ -181,6 +208,38 @@ const SHAPES = [
   '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#fff"/></svg>',
   '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="4" width="32" height="32" rx="3" fill="#fff"/></svg>'];
 const LETTER = ['A','B','C','D'];
+const TILE_BG = ['#E21B3C', '#1368CE', '#A87A00', '#26890C'];
+// mini drawings shown with the explanation (signal colors of the slides: amber = sí, azure = no, coral = error, mint = bien)
+const AM = '#ffb541', AZ = '#4abaf4', CO = '#fd7466', MI = '#64eab7', INK = '#f1f6fa', IN3 = '#899aae', LN = '#2d394a';
+const T = (x, y, s, c, a, w) => `<text x="${x}" y="${y}" fill="${c || IN3}" font-size="${w || 12}" font-family="IBM Plex Sans,Arial,sans-serif" text-anchor="${a || 'middle'}">${s}</text>`;
+const FIGS = {
+  neuron: ['datos × pesos, se suma todo y se añade el sesgo: un puntaje que decide',
+    `<svg viewBox="0 0 240 150" aria-hidden="true"><g stroke-width="4" stroke-linecap="round"><line x1="44" y1="30" x2="132" y2="70" stroke="${AM}"/><line x1="44" y1="75" x2="128" y2="75" stroke="${AM}"/><line x1="44" y1="120" x2="132" y2="80" stroke="${AZ}"/><line x1="174" y1="75" x2="212" y2="75" stroke="${INK}"/></g>` +
+    [30, 75, 120].map(y => `<circle cx="30" cy="${y}" r="13" fill="#182436" stroke="${IN3}" stroke-width="3"/>`).join('') +
+    `<circle cx="152" cy="75" r="24" fill="#0b1424" stroke="${AM}" stroke-width="4"/>${T(152, 83, 'Σ', AM, 'middle', 22)}${T(152, 38, '+ b', INK, 'middle', 14)}${T(222, 80, 'z', INK, 'middle', 16)}${T(84, 40, '×w₁', AM)}${T(84, 69, '×w₂', AM)}${T(84, 126, '×w₃', AZ)}</svg>`],
+  bend: ['sin activación todo es una recta; con activación la línea se dobla',
+    `<svg viewBox="0 0 240 150" aria-hidden="true"><rect x="6" y="10" width="108" height="112" rx="10" fill="#0b1424"/><rect x="126" y="10" width="108" height="112" rx="10" fill="#0b1424"/><polyline points="16,110 104,24" fill="none" stroke="${IN3}" stroke-width="4" stroke-linecap="round"/><polyline points="136,104 160,104 176,40 196,88 224,30" fill="none" stroke="${AM}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>${T(60, 142, 'sin activación')}${T(180, 142, 'con activación', AM)}</svg>`],
+  xor: ['las encendidas están en esquinas opuestas: ninguna recta las separa',
+    `<svg viewBox="0 0 240 150" aria-hidden="true"><rect x="30" y="10" width="180" height="130" rx="10" fill="#0b1424"/><line x1="20" y1="118" x2="220" y2="22" stroke="${INK}" stroke-width="3" stroke-dasharray="7 6"/><circle cx="70" cy="40" r="15" fill="${AM}"/><circle cx="170" cy="110" r="15" fill="${AM}"/><circle cx="70" cy="110" r="15" fill="${AZ}"/><circle cx="170" cy="40" r="15" fill="${AZ}"/><circle cx="170" cy="110" r="22" fill="none" stroke="${CO}" stroke-width="4"/>${T(70, 70, 'encendida', AM)}${T(170, 72, 'apagada', AZ)}</svg>`],
+  slope: ['el paso va en contra de la pendiente: cuesta abajo',
+    `<svg viewBox="0 0 240 150" aria-hidden="true"><path d="M18 18 Q120 210 222 18" fill="none" stroke="${CO}" stroke-width="4"/><line x1="160" y1="44" x2="218" y2="18" stroke="${INK}" stroke-width="2" stroke-dasharray="5 5"/><circle cx="182" cy="58" r="11" fill="${AM}"/><path d="M168 70 L136 92" stroke="${MI}" stroke-width="5" stroke-linecap="round"/><path d="M134 80 L130 96 L146 96 Z" fill="${MI}"/>${T(204, 46, 'sube', IN3)}${T(118, 76, 'paso', MI, 'end', 13)}${T(120, 140, 'el fondo: menor pérdida')}</svg>`],
+  alarm: ['13 morosos entre 100: «siempre al día» acierta 87 y no encuentra a ninguno',
+    `<svg viewBox="0 0 240 150" aria-hidden="true">` + Array.from({ length: 100 }, (_, i) => {
+      const hit = [3, 11, 19, 24, 37, 42, 55, 58, 66, 71, 83, 90, 97].includes(i);
+      return `<circle cx="${30 + (i % 10) * 20}" cy="${16 + Math.floor(i / 10) * 12.4}" r="4.6" fill="${hit ? AM : LN}"/>`; }).join('') + `</svg>`],
+  eta: ['paso demasiado grande: salta por encima del fondo y se aleja',
+    `<svg viewBox="0 0 240 150" aria-hidden="true"><path d="M18 14 Q120 236 222 14" fill="none" stroke="${IN3}" stroke-width="3"/><polyline points="104,110 146,92 78,72 172,46 42,22" fill="none" stroke="${CO}" stroke-width="3" stroke-dasharray="6 5"/>` +
+    [[104, 110], [146, 92], [78, 72], [172, 46], [42, 22]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${5 + i}" fill="${CO}"/>`).join('') + `${T(120, 142, 'la pérdida crece en vez de bajar', CO)}</svg>`],
+  back: ['la predicción va hacia adelante; la culpa del error vuelve hacia atrás',
+    `<svg viewBox="0 0 240 150" aria-hidden="true">` + [['entrada', 12], ['oculta', 90], ['salida', 168]].map(([n, x]) => `<rect x="${x}" y="52" width="60" height="40" rx="9" fill="#182436" stroke="${IN3}" stroke-width="2"/>${T(x + 30, 77, n, INK, 'middle', 12)}`).join('') +
+    `<path d="M30 40 C80 8 160 8 210 40" fill="none" stroke="${INK}" stroke-width="3"/><path d="M210 40 L196 36 L204 26 Z" fill="${INK}"/><path d="M210 106 C160 138 80 138 30 106" fill="none" stroke="${CO}" stroke-width="4"/><path d="M30 106 L44 110 L36 120 Z" fill="${CO}"/>${T(120, 18, 'predice →', INK)}${T(120, 146, '← culpa', CO, 'middle', 13)}</svg>`],
+  sigmoid: ['la sigmoide convierte cualquier puntaje en un número entre 0 y 1',
+    `<svg viewBox="0 0 240 150" aria-hidden="true"><line x1="20" y1="20" x2="225" y2="20" stroke="${LN}" stroke-width="2" stroke-dasharray="4 5"/><line x1="20" y1="130" x2="225" y2="130" stroke="${LN}" stroke-width="2"/><path d="M20 128 C120 128 110 22 222 22" fill="none" stroke="${AM}" stroke-width="4"/><line x1="20" y1="42" x2="166" y2="42" stroke="${INK}" stroke-width="2" stroke-dasharray="5 5"/><circle cx="166" cy="42" r="7" fill="${INK}"/>${T(14, 24, '1', IN3, 'end')}${T(14, 134, '0', IN3, 'end')}${T(60, 36, '0.8 = 80 %', INK, 'middle', 13)}</svg>`],
+  rules: ['machine learning: de los ejemplos con su respuesta salen las reglas',
+    `<svg viewBox="0 0 240 150" aria-hidden="true">` + [[18, 'Reglas', 'Datos', 'Respuestas', IN3], [84, 'Datos', 'Respuestas', 'Reglas', AM]].map(([y, a, b, c, col]) =>
+      `<rect x="6" y="${y}" width="62" height="34" rx="8" fill="#182436"/>${T(37, y + 22, a, INK)}${T(76, y + 22, '+', IN3, 'middle', 14)}<rect x="84" y="${y}" width="72" height="34" rx="8" fill="#182436"/>${T(120, y + 22, b, INK)}${T(166, y + 22, '→', IN3, 'middle', 14)}<rect x="174" y="${y}" width="62" height="34" rx="8" fill="#0b1424" stroke="${col}" stroke-width="3"/>${T(205, y + 22, c, col)}`).join('') +
+    `${T(120, 70, 'programación clásica', IN3, 'middle', 11)}${T(120, 136, 'machine learning', AM, 'middle', 11)}</svg>`],
+};
 const $ = id => document.getElementById(id);
 const store = {
   get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
@@ -273,6 +332,21 @@ function answer(k){
   $('fb-title').textContent = S.proj ? `Respuesta: ${LETTER[q.ok]} · ${q.options[q.ok]}`
       : good ? `¡Correcto! +${pts}${S.streak > 1 ? ' · racha ×' + S.streak : ''}` : (k < 0 ? '¡Se acabó el tiempo!' : 'Casi. La respuesta era ' + LETTER[q.ok]);
   $('fb-why').textContent = q.why;
+  const mine = $('fb-mine'), no = q.no || [];
+  if (!S.proj && k >= 0 && !good && no[k]) {
+    mine.innerHTML = `<b>Elegiste ${LETTER[k]} · «${q.options[k]}»:</b> ${no[k]}`; mine.classList.remove('hidden');
+  } else if (!S.proj && k === -1) {
+    mine.innerHTML = '<b>No alcanzaste a responder.</b> Lee la explicación con calma y sigue.'; mine.classList.remove('hidden');
+  } else mine.classList.add('hidden');
+  const others = q.options.map((o, j) => [o, j]).filter(([o, j]) => j !== q.ok && no[j] && !(j === k && !S.proj));
+  $('fb-others').innerHTML = others.map(([o, j]) =>
+    `<li><i style="background:${TILE_BG[j]}">${LETTER[j]}</i><span><b>${o}.</b> ${no[j]}</span></li>`).join('');
+  $('fb-more').classList.toggle('hidden', !others.length);
+  $('fb-more').open = S.proj;
+  const fig = FIGS[q.fig];
+  $('fb-fig').innerHTML = fig ? `${fig[1]}<figcaption>${fig[0]}</figcaption>` : '';
+  $('fb-fig').classList.toggle('hidden', !fig);
+  fb.classList.toggle('nofig', !fig);
   $('fb-tema').innerHTML = `Tema: ${TEMAS[q.tema]} · <a href="../guia/index.html#${q.tema}">repasar en la guía</a>`;
   $('next').textContent = S.i + 1 < BANK[mode].questions.length ? 'Siguiente →' : 'Ver mi resultado →';
   $('next').focus();
@@ -346,7 +420,7 @@ function copyResult(){
 document.addEventListener('keydown', e => {
   if ($('play').classList.contains('hidden')) return;
   if (/^[1-4]$/.test(e.key) && !S.locked) answer(+e.key - 1);
-  else if ((e.key === 'Enter' || e.key === ' ') && S.locked && $('fb').classList.contains('show') && document.activeElement !== $('next')) next();
+  else if ((e.key === 'Enter' || e.key === ' ') && S.locked && $('fb').classList.contains('show') && !(e.target.closest && e.target.closest('button,a,summary,input'))) { e.preventDefault(); next(); }
 });
 $('go').onclick = start;
 $('name').addEventListener('keydown', e => { if (e.key === 'Enter') start(); });

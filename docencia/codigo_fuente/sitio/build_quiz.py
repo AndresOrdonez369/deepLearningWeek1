@@ -12,7 +12,7 @@ HERE = pathlib.Path(__file__).parent
 SITE = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else 'out')
 TEACHER = pathlib.Path(sys.argv[2] if len(sys.argv) > 2 else 'out_profesor')
 
-KEEP = ("q", "options", "ok", "why", "tema", "clave")
+KEEP = ("q", "options", "ok", "why", "no", "fig", "tema", "clave")
 bank = {
     "pre": {"title": "Pre-quiz · ¿de dónde partimos?", "time": 20,
             "sub": "Ocho preguntas cortas, sin cuentas: tres de calentamiento y cinco ideas clave que veremos esta semana. No es nota: es tu punto de partida. Es normal no saberlas todas.",

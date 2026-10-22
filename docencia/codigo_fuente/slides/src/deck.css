@@ -37,9 +37,7 @@ a{color:var(--amber)}
 .slide{position:absolute;inset:0;padding:4em 5em 3.6em;display:flex;flex-direction:column;
   visibility:hidden;opacity:0;transform:translateX(1.2em);
   transition:opacity .28s ease,transform .45s var(--ease),visibility 0s linear .45s;
-  background:
-    radial-gradient(120% 90% at 78% 30%,oklch(0.2 0.04 258) 0%,transparent 60%),
-    var(--night)}
+  background:var(--night)}
 .slide::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:80px 80px;
