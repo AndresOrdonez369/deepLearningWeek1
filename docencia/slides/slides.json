@@ -1,0 +1,546 @@
+[
+ {
+  "n": 1,
+  "id": "portada",
+  "title": "De una neurona a tu primera red",
+  "block": "00",
+  "group": "Viernes · Encuadre",
+  "minutes": 2
+ },
+ {
+  "n": 2,
+  "id": "ruta",
+  "title": "La semana en dos sesiones",
+  "block": "00",
+  "group": "Viernes · Encuadre",
+  "minutes": 1
+ },
+ {
+  "n": 3,
+  "id": "prequiz",
+  "title": "Pre-quiz: ¿de dónde partimos?",
+  "block": "00",
+  "group": "Viernes · Encuadre",
+  "minutes": 6
+ },
+ {
+  "n": 4,
+  "id": "metas",
+  "title": "Las 5 ideas clave de la semana",
+  "block": "00",
+  "group": "Viernes · Encuadre",
+  "minutes": 1
+ },
+ {
+  "n": 5,
+  "id": "b01",
+  "title": "IA, machine learning y deep learning",
+  "block": "01",
+  "group": "Viernes · 01 IA, machine learning y deep learning",
+  "minutes": 1
+ },
+ {
+  "n": 6,
+  "id": "circulos",
+  "title": "Tres círculos, uno dentro de otro",
+  "block": "01",
+  "group": "Viernes · 01 IA, machine learning y deep learning",
+  "minutes": 3
+ },
+ {
+  "n": 7,
+  "id": "reglas",
+  "title": "Programar reglas o aprender de ejemplos",
+  "block": "01",
+  "group": "Viernes · 01 IA, machine learning y deep learning",
+  "minutes": 3
+ },
+ {
+  "n": 8,
+  "id": "gato",
+  "title": "Intenta escribir las reglas de un gato",
+  "block": "01",
+  "group": "Viernes · 01 IA, machine learning y deep learning",
+  "minutes": 2
+ },
+ {
+  "n": 9,
+  "id": "usos",
+  "title": "Deep learning que ya usas hoy",
+  "block": "01",
+  "group": "Viernes · 01 IA, machine learning y deep learning",
+  "minutes": 2
+ },
+ {
+  "n": 10,
+  "id": "ahora",
+  "title": "¿Por qué ahora?",
+  "block": "01",
+  "group": "Viernes · 01 IA, machine learning y deep learning",
+  "minutes": 3
+ },
+ {
+  "n": 11,
+  "id": "b02",
+  "title": "La neurona artificial",
+  "block": "02",
+  "group": "Viernes · 02 La neurona artificial",
+  "minutes": 1
+ },
+ {
+  "n": 12,
+  "id": "comite",
+  "title": "Una neurona es un comité de crédito en miniatura",
+  "block": "02",
+  "group": "Viernes · 02 La neurona artificial",
+  "minutes": 3
+ },
+ {
+  "n": 13,
+  "id": "cuenta",
+  "title": "Hagamos la cuenta con el socio A",
+  "block": "02",
+  "group": "Viernes · 02 La neurona artificial",
+  "minutes": 3
+ },
+ {
+  "n": 14,
+  "id": "linea",
+  "title": "Una neurona dibuja una línea",
+  "block": "02",
+  "group": "Viernes · 02 La neurona artificial",
+  "minutes": 4
+ },
+ {
+  "n": 15,
+  "id": "activacion",
+  "title": "La activación decide qué sale",
+  "block": "02",
+  "group": "Viernes · 02 La neurona artificial",
+  "minutes": 3
+ },
+ {
+  "n": 16,
+  "id": "sigmoide",
+  "title": "La sigmoide: de puntaje a probabilidad",
+  "block": "02",
+  "group": "Viernes · 02 La neurona artificial",
+  "minutes": 2
+ },
+ {
+  "n": 17,
+  "id": "doblar",
+  "title": "Sin activación, apilar capas no sirve",
+  "block": "02",
+  "group": "Viernes · 02 La neurona artificial",
+  "minutes": 3
+ },
+ {
+  "n": 18,
+  "id": "b03",
+  "title": "Cómo aprende una neurona",
+  "block": "03",
+  "group": "Viernes · 03 Cómo aprende una neurona",
+  "minutes": 1
+ },
+ {
+  "n": 19,
+  "id": "ciclo",
+  "title": "Aprender = equivocarse y corregir",
+  "block": "03",
+  "group": "Viernes · 03 Cómo aprende una neurona",
+  "minutes": 2
+ },
+ {
+  "n": 20,
+  "id": "regla",
+  "title": "La regla del perceptrón",
+  "block": "03",
+  "group": "Viernes · 03 Cómo aprende una neurona",
+  "minutes": 2
+ },
+ {
+  "n": 21,
+  "id": "correccion",
+  "title": "Una corrección, con números",
+  "block": "03",
+  "group": "Viernes · 03 Cómo aprende una neurona",
+  "minutes": 2
+ },
+ {
+  "n": 22,
+  "id": "entrenar",
+  "title": "Mira cómo aprende, error por error",
+  "block": "03",
+  "group": "Viernes · 03 Cómo aprende una neurona",
+  "minutes": 3
+ },
+ {
+  "n": 23,
+  "id": "xor",
+  "title": "El primer límite: XOR",
+  "block": "03",
+  "group": "Viernes · 03 Cómo aprende una neurona",
+  "minutes": 3
+ },
+ {
+  "n": 24,
+  "id": "practica1",
+  "title": "Práctica en clase: NB01, secciones 1 a 5",
+  "block": "03",
+  "group": "Viernes · 03 Cómo aprende una neurona",
+  "minutes": 20
+ },
+ {
+  "n": 25,
+  "id": "b04",
+  "title": "Medir el error y mejorar",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 1
+ },
+ {
+  "n": 26,
+  "id": "perdida",
+  "title": "La pérdida",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 2
+ },
+ {
+  "n": 27,
+  "id": "bce",
+  "title": "Para clasificar: castigar la falsa seguridad",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 2
+ },
+ {
+  "n": 28,
+  "id": "cotopaxi",
+  "title": "Bajar el Cotopaxi con neblina",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 3
+ },
+ {
+  "n": 29,
+  "id": "pendiente",
+  "title": "La pendiente dice hacia dónde bajar",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 2
+ },
+ {
+  "n": 30,
+  "id": "pasos",
+  "title": "Bajando paso a paso, con números",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 2
+ },
+ {
+  "n": 31,
+  "id": "eta",
+  "title": "El tamaño del paso η",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 3
+ },
+ {
+  "n": 32,
+  "id": "receta",
+  "title": "La receta de todo el deep learning",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 1
+ },
+ {
+  "n": 33,
+  "id": "practica2",
+  "title": "Práctica en clase: NB01, secciones 6 a 8",
+  "block": "04",
+  "group": "Viernes · 04 Medir el error y mejorar",
+  "minutes": 10
+ },
+ {
+  "n": 34,
+  "id": "tendencia1",
+  "title": "Lectura de tendencia: Más allá de Adam",
+  "block": "V",
+  "group": "Viernes · Cierre",
+  "minutes": 2
+ },
+ {
+  "n": 35,
+  "id": "cierre-viernes",
+  "title": "Lo que te llevas hoy",
+  "block": "V",
+  "group": "Viernes · Cierre",
+  "minutes": 3
+ },
+ {
+  "n": 36,
+  "id": "portada-sab",
+  "title": "Sábado: de una neurona a una red",
+  "block": "S",
+  "group": "Sábado · Encuadre",
+  "minutes": 1
+ },
+ {
+  "n": 37,
+  "id": "agenda-sab",
+  "title": "El sábado en nueve paradas",
+  "block": "S",
+  "group": "Sábado · Encuadre",
+  "minutes": 1
+ },
+ {
+  "n": 38,
+  "id": "repaso",
+  "title": "El viernes en cuatro ideas",
+  "block": "S",
+  "group": "Sábado · Encuadre",
+  "minutes": 8
+ },
+ {
+  "n": 39,
+  "id": "b05",
+  "title": "De una neurona a una red",
+  "block": "05",
+  "group": "Sábado · 05 De una neurona a una red",
+  "minutes": 1
+ },
+ {
+  "n": 40,
+  "id": "red",
+  "title": "Una red son neuronas en capas",
+  "block": "05",
+  "group": "Sábado · 05 De una neurona a una red",
+  "minutes": 3
+ },
+ {
+  "n": 41,
+  "id": "xor-resuelto",
+  "title": "Dos neuronas vencen a XOR",
+  "block": "05",
+  "group": "Sábado · 05 De una neurona a una red",
+  "minutes": 3
+ },
+ {
+  "n": 42,
+  "id": "pistas",
+  "title": "Cada capa arma pistas más elaboradas",
+  "block": "05",
+  "group": "Sábado · 05 De una neurona a una red",
+  "minutes": 3
+ },
+ {
+  "n": 43,
+  "id": "juega",
+  "title": "Juega: ¿cuántas neuronas necesita?",
+  "block": "05",
+  "group": "Sábado · 05 De una neurona a una red",
+  "minutes": 12
+ },
+ {
+  "n": 44,
+  "id": "parametros",
+  "title": "¿Cuántos números aprende una red?",
+  "block": "05",
+  "group": "Sábado · 05 De una neurona a una red",
+  "minutes": 3
+ },
+ {
+  "n": 45,
+  "id": "b06",
+  "title": "Retropropagación",
+  "block": "06",
+  "group": "Sábado · 06 Retropropagación",
+  "minutes": 1
+ },
+ {
+  "n": 46,
+  "id": "adelante",
+  "title": "Paso 1 · Hacia adelante",
+  "block": "06",
+  "group": "Sábado · 06 Retropropagación",
+  "minutes": 4
+ },
+ {
+  "n": 47,
+  "id": "culpa",
+  "title": "Paso 2 · Repartir la culpa",
+  "block": "06",
+  "group": "Sábado · 06 Retropropagación",
+  "minutes": 3
+ },
+ {
+  "n": 48,
+  "id": "engranajes",
+  "title": "La regla de la cadena: engranajes",
+  "block": "06",
+  "group": "Sábado · 06 Retropropagación",
+  "minutes": 3
+ },
+ {
+  "n": 49,
+  "id": "atras",
+  "title": "Hacia atrás, con los números",
+  "block": "06",
+  "group": "Sábado · 06 Retropropagación",
+  "minutes": 5
+ },
+ {
+  "n": 50,
+  "id": "actualizar",
+  "title": "Paso 3 · Actualizar",
+  "block": "06",
+  "group": "Sábado · 06 Retropropagación",
+  "minutes": 3
+ },
+ {
+  "n": 51,
+  "id": "tensorflow",
+  "title": "TensorFlow hace la cuenta por ti",
+  "block": "06",
+  "group": "Sábado · 06 Retropropagación",
+  "minutes": 3
+ },
+ {
+  "n": 52,
+  "id": "b07",
+  "title": "Entrenar bien",
+  "block": "07",
+  "group": "Sábado · 07 Entrenar bien",
+  "minutes": 1
+ },
+ {
+  "n": 53,
+  "id": "apaga",
+  "title": "Trampa 1: la señal que se apaga",
+  "block": "07",
+  "group": "Sábado · 07 Entrenar bien",
+  "minutes": 3
+ },
+ {
+  "n": 54,
+  "id": "clones",
+  "title": "Trampa 2: neuronas clonadas",
+  "block": "07",
+  "group": "Sábado · 07 Entrenar bien",
+  "minutes": 3
+ },
+ {
+  "n": 55,
+  "id": "lotes",
+  "title": "Aprender por lotes",
+  "block": "07",
+  "group": "Sábado · 07 Entrenar bien",
+  "minutes": 3
+ },
+ {
+  "n": 56,
+  "id": "carrera",
+  "title": "La carrera de los optimizadores",
+  "block": "07",
+  "group": "Sábado · 07 Entrenar bien",
+  "minutes": 10
+ },
+ {
+  "n": 57,
+  "id": "receta-arranque",
+  "title": "La receta para arrancar",
+  "block": "07",
+  "group": "Sábado · 07 Entrenar bien",
+  "minutes": 3
+ },
+ {
+  "n": 58,
+  "id": "b08",
+  "title": "Keras",
+  "block": "08",
+  "group": "Sábado · 08 Keras",
+  "minutes": 1
+ },
+ {
+  "n": 59,
+  "id": "keras",
+  "title": "Keras en tres pasos",
+  "block": "08",
+  "group": "Sábado · 08 Keras",
+  "minutes": 6
+ },
+ {
+  "n": 60,
+  "id": "practica3",
+  "title": "Práctica en clase: NB02 completo",
+  "block": "08",
+  "group": "Sábado · 08 Keras",
+  "minutes": 45
+ },
+ {
+  "n": 61,
+  "id": "b09",
+  "title": "¿El modelo es bueno?",
+  "block": "09",
+  "group": "Sábado · 09 ¿El modelo es bueno?",
+  "minutes": 1
+ },
+ {
+  "n": 62,
+  "id": "trampa87",
+  "title": "87 % de exactitud puede no valer nada",
+  "block": "09",
+  "group": "Sábado · 09 ¿El modelo es bueno?",
+  "minutes": 6
+ },
+ {
+  "n": 63,
+  "id": "metricas",
+  "title": "Mira más allá de la exactitud",
+  "block": "09",
+  "group": "Sábado · 09 ¿El modelo es bueno?",
+  "minutes": 4
+ },
+ {
+  "n": 64,
+  "id": "quizfinal",
+  "title": "Quiz final: ¿cuánto avanzamos?",
+  "block": "C",
+  "group": "Sábado · Cierre",
+  "minutes": 10
+ },
+ {
+  "n": 65,
+  "id": "mapa-semana",
+  "title": "La semana en un mapa",
+  "block": "C",
+  "group": "Sábado · Cierre",
+  "minutes": 2
+ },
+ {
+  "n": 66,
+  "id": "lo-que-viene",
+  "title": "Lo que viene: semanas 2 y 3",
+  "block": "C",
+  "group": "Sábado · Cierre",
+  "minutes": 2
+ },
+ {
+  "n": 67,
+  "id": "recursos",
+  "title": "Para repasar y profundizar",
+  "block": "C",
+  "group": "Sábado · Cierre",
+  "minutes": 1
+ },
+ {
+  "n": 68,
+  "id": "gracias",
+  "title": "Gracias",
+  "block": "C",
+  "group": "Sábado · Cierre",
+  "minutes": 1
+ }
+]

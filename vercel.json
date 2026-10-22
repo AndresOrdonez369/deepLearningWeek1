@@ -1,9 +1,6 @@
 {
-  "framework": null,
-  "buildCommand": "",
-  "installCommand": "",
-  "outputDirectory": ".",
   "cleanUrls": false,
+  "trailingSlash": false,
   "headers": [
     { "source": "/docencia/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
   ]

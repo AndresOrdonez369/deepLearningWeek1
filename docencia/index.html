@@ -2,7 +2,7 @@
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Docencia · Semana 1 · Deep Learning UIDE</title>
-<meta name="description" content="Panel del profesor de la semana 1: slides, código en Colab, guía docente, resultados de los quizzes y seguimiento.">
+<meta name="description" content="Panel del profesor de la semana 1: slides interactivas, mapas conceptuales, código en Colab, guía docente y resultados de los quizzes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
 <style>
@@ -116,36 +116,40 @@ footer{max-width:1240px;margin:0 auto;padding:0 20px 40px;color:var(--muted);fon
 .c{display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:18px}
 td a,.sec p a{overflow-wrap:anywhere} .hero h1{overflow-wrap:anywhere}
 .c h3{margin:0} .c p{margin:0;font-size:15.5px} .c .btnrow{margin-top:auto;padding-top:8px}
+kbd{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
 </style></head>
 <body><div class="wrap">
 <div class="hero"><span class="chip">Docencia · Semana 1</span>
 <h1 style="margin-top:14px">Panel del profesor</h1>
-<p>Todo lo que necesitas para dictar la semana 1: las slides, el código para mostrar en Colab, tu guía y las herramientas para ver cómo van los estudiantes.</p>
+<p>Todo para dictar la semana 1: las slides interactivas, los mapas conceptuales para preparar cada bloque, el código para mostrar en Colab, tu guía y los resultados de los quizzes. Los proyectos son en clase y sin nota.</p>
 <p style="font-size:15px"><a href="../index.html" style="color:#B8C4D6">← Página de los estudiantes</a></p></div>
 
 <section class="sec"><h2>1 · Para dictar</h2>
 <div class="cards">
-<article class="c"><h3>Slides de la Clase 1</h3><p>78 láminas: viernes 1–41, sábado 42–78. Las notas de cada lámina traen el guion.</p><div class="btnrow"><a class="btn " href="Slides_Clase1.pdf">Slides (PDF)</a><a class="btn ghost" href="https://claude.ai/artifact/8HALFp7SJwd1UmDc8iT37h">Editar en claude.ai ↗</a></div></article>
-<article class="c"><h3>Guía docente y apuntes</h3><p>El orden de todo, el plan minuto a minuto, apuntes con rigor, preguntas probables y claves.</p><div class="btnrow"><a class="btn " href="Guia_docente.html">Abrir la guía</a></div></article>
-<article class="c"><h3>Logística y encuesta</h3><p>Checklist, encuesta de tendencia con su clave y pendientes con la tutora.</p><div class="btnrow"><a class="btn ghost" href="Logistica_y_encuesta.pdf">Abrir (PDF)</a></div></article>
-</div></section>
+<article class="c"><h3>Slides interactivas</h3><p>68 láminas con demos en vivo: viernes 1–35, sábado 36–68. Cada lámina trae notas con el guion, la pregunta para la clase y el tiempo sugerido.</p><div class="btnrow"><a class="btn " href="slides/index.html">Abrir las slides</a><a class="btn ghost" href="slides/index.html?presenter">Vista del presentador</a><a class="btn ghost" href="Slides_Semana1.pdf">PDF de respaldo</a></div></article>
+<article class="c"><h3>Mapas conceptuales</h3><p>La semana completa y un mapa por bloque. Clic en cada concepto: qué decir, un ejemplo, una pregunta para la clase, el error frecuente y la lámina. Se imprimen en A4.</p><div class="btnrow"><a class="btn " href="mapas/index.html">Abrir los mapas</a></div></article>
+<article class="c"><h3>Guía docente y apuntes</h3><p>El orden de todo, el plan minuto a minuto, apuntes con rigor, preguntas probables y claves de los notebooks.</p><div class="btnrow"><a class="btn " href="Guia_docente.html">Abrir la guía</a></div></article>
+</div>
+<h3 style="margin-top:22px">Cómo presentar en Teams</h3>
+<p>Abre las slides en el navegador, pulsa <kbd>F</kbd> y comparte <b>esa ventana</b> (no toda la pantalla). Con <kbd>P</kbd> se abre la vista del presentador en otra ventana: déjala en tu segunda pantalla; las dos ventanas avanzan juntas. Las demos se manejan con el mouse en la ventana compartida.</p>
+<table><tr><th>Tecla</th><th>Qué hace</th></tr><tr><td><kbd>→ · espacio · PageDown</kbd></td><td>avanzar un paso (los clickers de presentación funcionan)</td></tr><tr><td><kbd>← · PageUp</kbd></td><td>retroceder</td></tr><tr><td><kbd>P</kbd></td><td>vista del presentador en otra ventana: notas, reloj y lámina siguiente</td></tr><tr><td><kbd>G</kbd></td><td>índice de todas las láminas</td></tr><tr><td><kbd>F</kbd></td><td>pantalla completa</td></tr><tr><td><kbd>L</kbd></td><td>puntero láser, más visible que el mouse en Teams</td></tr><tr><td><kbd>B</kbd></td><td>pantalla negra</td></tr><tr><td><kbd>número + Enter</kbd></td><td>ir a una lámina</td></tr></table>
+</section>
 
 <section class="sec"><h2>2 · Mostrar el código en clase</h2>
 <p>Comparte pantalla con Colab. <b>Abrir en Colab</b> abre la versión de los estudiantes directo desde GitHub: ejecútala en vivo con <b>Entorno de ejecución → Ejecutar todo</b>.</p>
-<div class="cards"><article class="c"><h3>NB01 · Tu primera neurona</h3><p>Viernes · prácticas 1 y 2 (láminas 32 y 40)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Ver en GitHub</a></div></article><article class="c"><h3>NB02 · Tu primera red</h3><p>Sábado · práctica 3 (lámina 66)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Ver en GitHub</a></div></article><article class="c"><h3>NB03 · Mini-proyecto</h3><p>Sábado · salas (lámina 73) · entrega martes 27</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB03_miniproyecto_cooperativa_starter.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB03_miniproyecto_cooperativa_starter.ipynb">Ver en GitHub</a></div></article></div>
-<p style="margin-top:16px"><b>Las soluciones no están en este repo</b> (es público). Están en tu carpeta <code>Soluciones_privadas</code>. Para mostrarlas, súbelas una vez a una carpeta privada de tu Google Drive y ábrelas desde allí con doble clic, o en Colab: <b>Archivo → Subir cuaderno</b>. Nunca compartas pantalla con una solución mientras los estudiantes trabajan en la tarea.</p>
+<div class="cards"><article class="c"><h3>NB01 · Tu primera neurona</h3><p>Viernes · prácticas en clase (láminas 24 y 33)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Ver en GitHub</a></div></article><article class="c"><h3>NB02 · Tu primera red</h3><p>Sábado · práctica en clase (lámina 60)</p><div class="btnrow"><a class="btn " href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Abrir en Colab ↗</a><a class="btn ghost" href="https://github.com/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Ver en GitHub</a></div></article></div>
+<p style="margin-top:16px"><b>Las soluciones no están en este repo</b> (es público). Están en tu carpeta <code>Soluciones_privadas</code>. Para mostrarlas, súbelas una vez a una carpeta privada de tu Google Drive y ábrelas desde allí, o en Colab: <b>Archivo → Subir cuaderno</b>. Nunca compartas pantalla con una solución mientras los estudiantes trabajan en la tarea.</p>
 </section>
 
 <section class="sec"><h2>3 · Quizzes y resultados</h2>
 <div class="cards">
-<article class="c"><h3>Pre-quiz y quiz final</h3><p>Los estudiantes juegan en su celular y pegan su código en el chat. Modo proyector: sin puntos, con «Mostrar respuesta».</p><div class="btnrow"><a class="btn " href="../quiz/index.html?pre">Pre-quiz</a><a class="btn " href="../quiz/index.html?final">Quiz final</a><a class="btn ghost" href="../quiz/index.html?clase">Modo proyector</a></div></article>
+<article class="c"><h3>Pre-quiz y quiz final</h3><p>8 y 10 preguntas cortas, sin cuentas. Los estudiantes juegan en su celular y pegan su código en el chat. Modo proyector: sin puntos, con «Mostrar respuesta».</p><div class="btnrow"><a class="btn " href="../quiz/index.html?pre">Pre-quiz</a><a class="btn " href="../quiz/index.html?final">Quiz final</a><a class="btn ghost" href="../quiz/index.html?clase">Modo proyector</a></div></article>
 <article class="c"><h3>Resultados</h3><p>Pega el chat de Teams y ve el antes y el después de cada idea clave, por grupo y por estudiante.</p><div class="btnrow"><a class="btn " href="Resultados_quiz.html">Abrir resultados</a></div></article>
-<article class="c"><h3>Seguimiento de grupos</h3><p>Avance del NB03 sección por sección, rúbrica de 70 pts y notas de sala. Descárgalo y llénalo en tu computador.</p><div class="btnrow"><a class="btn ghost" href="Seguimiento_grupos.xlsx">Descargar Excel</a></div></article>
 </div></section>
 
 <section class="sec"><h2>4 · Enlaces cortos (los de los QR)</h2>
 <table><tr><th>Para</th><th>Enlace</th></tr>
-<tr><td>Pre-quiz</td><td><a href="https://deeplearningweek1.vercel.app/?pre">deeplearningweek1.vercel.app/?pre</a></td></tr><tr><td>Quiz final</td><td><a href="https://deeplearningweek1.vercel.app/?final">deeplearningweek1.vercel.app/?final</a></td></tr><tr><td>NB01 en Colab</td><td><a href="https://deeplearningweek1.vercel.app/?nb01">deeplearningweek1.vercel.app/?nb01</a></td></tr><tr><td>NB02 en Colab</td><td><a href="https://deeplearningweek1.vercel.app/?nb02">deeplearningweek1.vercel.app/?nb02</a></td></tr><tr><td>NB03 en Colab</td><td><a href="https://deeplearningweek1.vercel.app/?nb03">deeplearningweek1.vercel.app/?nb03</a></td></tr><tr><td>Guía de estudio</td><td><a href="https://deeplearningweek1.vercel.app/?guia">deeplearningweek1.vercel.app/?guia</a></td></tr>
+<tr><td>Pre-quiz</td><td><a href="https://deeplearningweek1.vercel.app/?pre">deeplearningweek1.vercel.app/?pre</a></td></tr><tr><td>Quiz final</td><td><a href="https://deeplearningweek1.vercel.app/?final">deeplearningweek1.vercel.app/?final</a></td></tr><tr><td>NB01 en Colab</td><td><a href="https://deeplearningweek1.vercel.app/?nb01">deeplearningweek1.vercel.app/?nb01</a></td></tr><tr><td>NB02 en Colab</td><td><a href="https://deeplearningweek1.vercel.app/?nb02">deeplearningweek1.vercel.app/?nb02</a></td></tr><tr><td>Guía de estudio</td><td><a href="https://deeplearningweek1.vercel.app/?guia">deeplearningweek1.vercel.app/?guia</a></td></tr><tr><td>Slides</td><td><a href="https://deeplearningweek1.vercel.app/?slides">deeplearningweek1.vercel.app/?slides</a></td></tr>
 </table>
 <p>Página de los estudiantes: <a href="https://deeplearningweek1.vercel.app/">https://deeplearningweek1.vercel.app/</a> · Repositorio: <a href="https://github.com/AndresOrdonez369/deepLearningWeek1">github.com/AndresOrdonez369/deepLearningWeek1</a></p>
 </section>

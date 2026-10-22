@@ -5,8 +5,7 @@ from doc_kit import page, section, chip, idea, box, formula, ex, colab, fig
 
 OUT = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else 'out')
 COLAB = 'https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/'
-NB1, NB2, NB3 = (COLAB + 'NB01_viernes_tu_primera_neurona.ipynb', COLAB + 'NB02_sabado_tu_primera_red.ipynb',
-                 COLAB + 'NB03_miniproyecto_cooperativa_starter.ipynb')
+NB1, NB2 = COLAB + 'NB01_viernes_tu_primera_neurona.ipynb', COLAB + 'NB02_sabado_tu_primera_red.ipynb'
 B, A, T, P, I = 'var(--blue)', 'var(--amber-f)', 'var(--teal)', 'var(--purple)', 'var(--ink)'
 
 # ------------------------------------------------------------------ small inline figures
@@ -101,7 +100,8 @@ S.append(('inicio', '★', 'Cómo usar esta guía', f"""
 <div class="tile"><h4>4 · Comprueba</h4><p>Al final juega el <a href="../quiz/index.html?final">quiz final</a>: te dice qué temas repasar.</p></div>
 </div>
 {box('ojo', 'Mapa de la semana', '''<p><b>Viernes:</b> 01 IA, ML y DL → 02 La neurona → 03 El perceptrón y XOR → 04 Pérdida y gradiente · notebook <b>NB01</b> y su Mini-reto 1.</p>
-<p><b>Sábado:</b> 05 Capas → 06 Retropropagación → 07 Entrenar bien → 08 Keras · notebook <b>NB02</b> y su Mini-reto 2 → 09 Mini-proyecto con el <b>NB03</b>.</p>''')}
+<p><b>Sábado:</b> 05 Capas → 06 Retropropagación → 07 Entrenar bien → 08 Keras · notebook <b>NB02</b> y su Mini-reto 2 → 09 ¿El modelo es bueno?</p>
+<p>Las prácticas son <b>en clase y sin nota</b>: se corrigen solas para que aprendas equivocándote. Las <a href="../docencia/slides/index.html">slides interactivas</a> quedan publicadas para repasar.</p>''')}
 <p>Marca <b>«Ya lo entendí»</b> al final de cada tema: tu avance se guarda en este navegador y aparece en el índice.</p>
 """))
 
@@ -151,7 +151,7 @@ S.append(('b01', '01', 'IA, machine learning y deep learning', f"""
 <h3>¿Por qué ahora?</h3>
 <p>Las redes existen desde 1958, pero despegaron después de 2012 por tres cosas juntas: muchos más <b>datos</b>, procesadores gráficos (<b>GPU</b>) que hacen millones de multiplicaciones en paralelo y <b>mejores técnicas</b> de entrenamiento (ReLU, buenas inicializaciones, Adam).</p>
 <h3>¿Cuándo conviene el deep learning?</h3>
-<p>Brilla con <b>imágenes, texto, audio y series largas</b>, donde es difícil describir a mano qué mirar. En <b>datos de tabla</b> (como el mini-proyecto), una regresión logística o un modelo de árboles a veces lo iguala: por eso siempre se compara con una <b>línea base</b>.</p>
+<p>Brilla con <b>imágenes, texto, audio y series largas</b>, donde es difícil describir a mano qué mirar. En <b>datos de tabla</b> (como los socios de una cooperativa), una regresión logística o un modelo de árboles a veces lo iguala: por eso siempre se compara con una <b>línea base</b>.</p>
 <h3>Practica</h3>
 {ex('Un filtro marca como spam todo correo que diga «GRATIS». ¿Es machine learning?', '<p>No: es una regla escrita por una persona. Sería ML si aprendiera de miles de correos marcados como spam o no spam.</p>')}
 {ex('Quieres agrupar a los socios en perfiles parecidos sin tener una etiqueta. ¿Qué tipo de aprendizaje es?', '<p>No supervisado: no hay respuesta correcta que imitar.</p>')}
@@ -252,8 +252,8 @@ S.append(('b05', '05', 'De una neurona a una red', f"""
 <h3>¿Cuántos números aprende una red?</h3>
 {formula(r'\text{parámetros de una capa} = n_{\text{entradas}} \times n_{\text{neuronas}} + n_{\text{neuronas}}')}
 <table><tr><th>Red</th><th>Cuenta</th><th>Total</th></tr>
-<tr><td>2 → 16 → 16 → 1 (las lunas)</td><td>(2·16+16) + (16·16+16) + (16·1+1) = 48 + 272 + 17</td><td><b>337</b></td></tr>
-<tr><td>28 → 32 → 16 → 1 (mini-proyecto)</td><td>928 + 528 + 17</td><td><b>1 473</b></td></tr></table>
+<tr><td>3 → 4 → 1 (la de la lámina)</td><td>(3·4+4) + (4·1+1) = 16 + 5</td><td><b>21</b></td></tr>
+<tr><td>2 → 16 → 16 → 1 (las lunas)</td><td>(2·16+16) + (16·16+16) + (16·1+1) = 48 + 272 + 17</td><td><b>337</b></td></tr></table>
 {box('curioso', 'Para curiosos: aproximación universal', '<p>Con suficientes neuronas, una sola capa oculta puede aproximar casi cualquier función continua (Cybenko, 1989). En la práctica, varias capas lo logran con muchas menos neuronas: eso es el «deep».</p>')}
 <h3>Practica</h3>
 {ex('¿Cuántos parámetros tiene una red 3 → 4 → 1?', '<p>\\((3\\cdot4 + 4) + (4\\cdot1 + 1) = 16 + 5 = 21\\).</p>')}
@@ -338,31 +338,27 @@ history = model.fit(X_tr, y_tr, validation_data=(X_va, y_va),
 <tr><td>Entrenar</td><td>épocas y tamaño del lote</td><td>bloques 06 y 07</td></tr></table>
 {box('ojo', 'Lee las curvas', '<p>Si la pérdida de <b>entrenamiento</b> baja y la de <b>validación</b> también, vas bien. Si la de validación empieza a subir mientras la de entrenamiento sigue bajando, la red está memorizando (sobreajuste): lo veremos en la semana 3.</p>')}
 <h3>Practica</h3>
-{ex('Escribe el modelo del mini-proyecto: 28 entradas, capas de 32 y 16 con ReLU y una salida sigmoide. ¿Cuántos parámetros debe mostrar <code>summary()</code>?', '<pre><code>model = keras.Sequential([keras.Input(shape=(28,)),\n    keras.layers.Dense(32, activation="relu"),\n    keras.layers.Dense(16, activation="relu"),\n    keras.layers.Dense(1, activation="sigmoid")])</code></pre><p>928 + 528 + 17 = 1 473 parámetros.</p>')}
+{ex('Escribe una red para datos con 10 columnas: dos capas de 8 con ReLU y una salida sigmoide. ¿Cuántos parámetros debe mostrar <code>summary()</code>?', '<pre><code>model = keras.Sequential([keras.Input(shape=(10,)),\n    keras.layers.Dense(8, activation="relu"),\n    keras.layers.Dense(8, activation="relu"),\n    keras.layers.Dense(1, activation="sigmoid")])</code></pre><p>(10·8 + 8) + (8·8 + 8) + (8 + 1) = 88 + 72 + 9 = 169 parámetros.</p>')}
 {ex('Una red sin capas ocultas logra 49 % en los círculos del NB02. ¿Por qué?', '<p>Sin capas ocultas es una sola neurona: traza una línea, y ninguna línea separa un círculo de su anillo. Es como adivinar.</p>')}
 {colab(NB2, '<b>NB02</b>, Parte F · <b>Mini-reto 2</b>: entrena tu red para los círculos y supera el 90 %.')}
 """))
 
-S.append(('b09', '09', 'Mini-proyecto: anticipar la mora', f"""
-{idea('Con datos desbalanceados, la exactitud engaña: medimos qué tan bien ordena el riesgo (ROC-AUC) y cuántos morosos detecta el modelo.')}
-<h3>El caso</h3>
-<p>La Cooperativa «Valle Andino» (ficticia) quiere anticipar qué socios pueden caer en <b>mora de más de 30 días</b> para acompañarlos a tiempo. Datos: 8 000 socios, 13 variables y 12.7 % de mora (100 % sintéticos). Si tu grupo tiene los datos de su proyecto de titulación, puede usarlos.</p>
-<h3>La ruta del NB03</h3>
-<ol><li>Cargar y explorar los datos.</li><li><b>Partir sin trampa:</b> entrenamiento 4 800 · validación 1 600 · prueba 1 600. El escalador se ajusta <b>solo</b> con entrenamiento.</li><li>Líneas base: «siempre no mora» y regresión logística.</li><li>Perceptrón desde cero · MLP con retropropagación desde cero (gradient check) · el mismo MLP en Keras.</li><li>Experimentos de optimización (optimizador × learning rate × batch).</li><li>Evaluación final con prueba, <b>una sola vez</b>, y elección del umbral con validación.</li></ol>
+S.append(('b09', '09', '¿El modelo es bueno? Cuando la exactitud engaña', f"""
+{idea('Cuando los casos que buscas son pocos, la exactitud engaña: mira cuántos casos encuentra el modelo (recall), cuántas de sus alarmas son ciertas (precisión) y qué tan bien ordena el riesgo (AUC).')}
+<h3>El ejemplo de clase</h3>
+<p>Una cooperativa (ficticia) quiere encontrar a los socios que caerán en <b>mora</b>. De cada 100 socios, solo 13 caen. Un «modelo» perezoso que dice siempre «está al día» acierta 87 de 100… y no encuentra a ninguno de los 13. En las slides (lámina «87 % de exactitud puede no valer nada») puedes mover el umbral de una red de verdad y ver cómo cambian los aciertos y las falsas alarmas.</p>
 <h3>Métricas en palabras sencillas</h3>
 <table><tr><th>Métrica</th><th>Pregunta que responde</th></tr>
 <tr><td>Exactitud (accuracy)</td><td>¿qué porcentaje acertó en total? Engaña: decir siempre «no mora» ya da 87 %.</td></tr>
-<tr><td>ROC-AUC</td><td>si tomo un moroso y un cumplido al azar, ¿con qué probabilidad el modelo le da más riesgo al moroso? 0.5 = moneda al aire, 1 = perfecto.</td></tr>
 <tr><td>Recall (detecta)</td><td>de los morosos reales, ¿qué porcentaje encontró?</td></tr>
-<tr><td>Precisión</td><td>de los que marcó como riesgo, ¿qué porcentaje era moroso de verdad?</td></tr></table>
-<table><tr><th>Modelo (validación)</th><th>Exactitud</th><th>ROC-AUC</th></tr>
-<tr><td>Siempre «no mora»</td><td>87 %</td><td>0.50</td></tr><tr><td>Regresión logística</td><td>89 %</td><td>0.85</td></tr><tr><td>Perceptrón</td><td>89 %</td><td>0.84</td></tr><tr><td>Red en Keras</td><td>90 %</td><td>0.87</td></tr></table>
-{box('ojo', 'Qué entregan (grupal, 70 puntos)', '<p>El notebook completo que corra en Colab y un informe PDF de 4 a 6 páginas que <b>justifique</b> cada decisión con lo visto en clase. Cierre: martes 27 de octubre (hora exacta en Canvas).</p>')}
-{box('error', 'Errores comunes', '<ul><li>Ajustar el escalador con todos los datos (fuga de información).</li><li>Mirar la prueba para decidir: se usa una sola vez, al final.</li><li>Reportar solo la exactitud.</li><li>Formas que no coinciden en Keras: vector <code>(N,)</code> frente a <code>(N, 1)</code>.</li></ul>')}
+<tr><td>Precisión</td><td>de los que marcó como riesgo, ¿qué porcentaje era moroso de verdad?</td></tr>
+<tr><td>ROC-AUC</td><td>si tomo un moroso y un cumplido al azar, ¿con qué probabilidad el modelo le da más riesgo al moroso? 0.5 = moneda al aire, 1 = perfecto.</td></tr></table>
+{box('analogia', 'Analogía: el detector de humo', '<p>Un detector que nunca suena tiene «99 % de exactitud» en una casa donde casi nunca hay fuego, y no sirve para nada. Uno muy sensible suena con cada tostada (muchas falsas alarmas). El <b>umbral</b> decide el punto medio, y depende de qué cuesta más: una falsa alarma o un incendio que no viste.</p>')}
+{box('error', 'Errores comunes', '<ul><li>Reportar solo la exactitud con clases desbalanceadas.</li><li>Dejar el umbral en 0.5 sin pensar en el costo de cada error.</li><li>Elegir el umbral mirando los datos de prueba: se elige con validación.</li></ul>')}
 <h3>Practica</h3>
-{ex('En validación hay 1 600 socios y 203 morosos. ¿Qué exactitud logra «siempre no mora»?', '<p>(1 600 − 203) ÷ 1 600 ≈ 87.3 %, con recall 0 %: no encuentra a ningún moroso.</p>')}
+{ex('En un grupo de 1 000 compras con tarjeta hay 20 fraudes. ¿Qué exactitud logra el modelo que siempre dice «no es fraude»? ¿Y qué recall?', '<p>Exactitud: 980 ÷ 1 000 = 98 %. Recall: 0 %, no encuentra ningún fraude.</p>')}
+{ex('Un modelo marca 50 socios como riesgo y 30 de ellos caen en mora. ¿Cuál es su precisión?', '<p>30 ÷ 50 = 60 %: 6 de cada 10 alarmas eran ciertas.</p>')}
 {ex('¿Por qué el umbral de decisión se elige con validación y no con prueba?', '<p>Porque elegir algo mirando la prueba la convierte en parte del entrenamiento: el resultado final dejaría de ser una medida honesta.</p>')}
-{colab(NB3, '<b>NB03</b> · mini-proyecto en grupo. Los datos se descargan solos desde GitHub; cada sección tiene un <b>Checkpoint</b> con el resultado esperado.')}
 """))
 
 FORMULAS = r"""
@@ -424,9 +420,9 @@ S.append(('glosario', 'A–Z', 'Glosario', '<input id="search" class="search" ty
           ''.join(f'<div data-search><dt>{t}</dt><dd>{d}</dd></div>' for t, d in GLOS) + '</dl>'))
 
 S.append(('cierre', '✓', '¿Listo? Comprueba lo que aprendiste', """
-<p>Juega el quiz final: 12 preguntas, 30 segundos cada una. Al terminar te dice tu puntaje, qué temas repasar (con enlace a esta guía) y tu avance frente al pre-quiz.</p>
+<p>Juega el quiz final: 10 preguntas cortas, sin cuentas, 25 segundos cada una. Al terminar te dice tu puntaje, qué temas repasar (con enlace a esta guía) y tu avance frente al pre-quiz.</p>
 <div class="btnrow"><a class="btn amber" href="../quiz/index.html?final">Jugar el quiz final</a><a class="btn ghost" href="../index.html">Volver al inicio</a></div>
-<p>Antes del martes 27 de octubre: test individual (20 pts), encuesta de tendencia (10 pts) y entregable del mini-proyecto (70 pts). Las horas exactas están en Canvas.</p>
+<p>En Canvas te esperan el test de la semana y la lectura de tendencia con su encuesta; las fechas exactas están allí.</p>
 """))
 
 body = ''

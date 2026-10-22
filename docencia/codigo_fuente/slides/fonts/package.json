@@ -1,0 +1,11 @@
+{
+  "name": "dl1-slides-fonts",
+  "private": true,
+  "description": "Fonts and KaTeX embedded in the week-1 slides and maps",
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/lexend": "^5.3.0",
+    "@fontsource-variable/unbounded": "^5.3.0",
+    "katex": "^0.16.11"
+  }
+}

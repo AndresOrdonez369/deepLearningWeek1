@@ -1,0 +1,359 @@
+"""Saturday 24 · 08:00-12:00 · blocks 05-09 and closing."""
+from kit import slide, head, key, chip, st, demo, count, qr, notes
+from slides_viernes import section, practice, rail, RAIL_S
+
+GS = 'Sábado · Encuadre'
+G5 = 'Sábado · 05 De una neurona a una red'
+G6 = 'Sábado · 06 Retropropagación'
+G7 = 'Sábado · 07 Entrenar bien'
+G8 = 'Sábado · 08 Keras'
+G9 = 'Sábado · 09 ¿El modelo es bueno?'
+GC = 'Sábado · Cierre'
+
+slide('portada-sab', 'Sábado: de una neurona a una red', f"""
+<div class="cover">
+  <div class="left">
+    <div class="tags">{chip('Semana 1 · Sábado 24')}{chip('08:00–12:00')}</div>
+    <h1 class="display">Muchas neuronas, una&nbsp;red</h1>
+    <p class="lede" style="font-size:1.45em">Hoy vencemos a XOR, repartimos la culpa y entrenamos con Keras.</p>
+  </div>
+  <div class="right">{demo('net', layers='3,5,5,5,2', w=860, h=1000, gap=150, padx=120, seed=4, alt='Red neuronal de varias capas con señales')}</div>
+</div>""", notes('Verifica la grabación. Comparte la ventana del deck y abre la vista del presentador (P).',
+                 'Hoy tiene cuatro horas, con una pausa a las 09:40. La práctica grande es el NB02, en clase y sin nota.'),
+      layout='L-cover', block='S', group=GS, minutes=1, label='Sábado')
+
+slide('agenda-sab', 'El sábado en nueve paradas', head('El sábado en nueve paradas', 'De la red a Keras, con una práctica larga en Colab y el quiz final para cerrar.') +
+      st(1, rail(RAIL_S)) +
+      st(2, '<div class="legend" style="margin-top:2em"><span><i style="background:var(--amber)"></i>práctica en Colab</span><span><i style="background:var(--mint)"></i>quiz tipo Kahoot</span><span><i style="background:var(--lilac)"></i>conexión con la lectura de tendencia</span><span><i style="background:var(--line)"></i>pausa</span></div>'),
+      notes('Muestra el recorrido y la hora de la pausa (09:40). La práctica del NB02 es en parejas, a las 10:45.'),
+      block='S', group=GS, minutes=1, label='Sábado')
+
+REP = [('Una neurona', 'suma con pesos y sesgo, y traza una línea', 'M10 70 L110 10'),
+       ('La activación', 'dobla la línea y da probabilidades', 'M10 70 C50 70 60 10 110 10'),
+       ('El perceptrón', 'aprende de sus errores… pero no puede con XOR', 'M20 20 L100 60 M20 60 L100 20'),
+       ('El descenso de gradiente', 'baja la montaña paso a paso', 'M10 15 Q60 110 110 15')]
+slide('repaso', 'El viernes en cuatro ideas', head('El viernes en cuatro ideas', '¿Quién explica cada una con sus palabras?') +
+      '<div class="quad">' + ''.join(st(i + 1, f'<div class="panel qd"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="{p}"/></svg><div><b>{a}</b><span>{b}</span></div></div>') for i, (a, b, p) in enumerate(REP)) + '</div>' +
+      st(5, '<div class="keybar" style="margin-top:1.2em"><span><b>Pregunta para el chat:</b> ¿qué problema nos quedó pendiente? Pista: la luz de la escalera.</span></div>'),
+      notes('Diez minutos máximo. Pasa las cuatro tarjetas pidiendo a un estudiante distinto que explique cada una (no las leas tú).',
+            'Respuesta esperada en el chat: XOR; una neurona solo traza una línea; necesitamos combinar varias. Eso es exactamente el bloque 05.'),
+      block='S', group=GS, minutes=8, label='Sábado · Repaso')
+
+# ======================================================================= 05 · redes
+section('b05', '05', 'De una neurona a una red', 'Muchas líneas simples, combinadas, forman decisiones complejas.',
+        ['Capas', 'XOR resuelto', 'Pistas cada vez más ricas', 'Juega a la red', 'Contar parámetros'], 'Sábado · 40 minutos', G5, '05 · De una neurona a una red',
+        notes('Aquí volvemos a la <b>idea clave 3</b>: el límite de una línea y cómo lo superan las capas.'))
+
+slide('red', 'Una red son neuronas en capas', f"""
+<div class="split" style="grid-template-columns:5fr 7fr">
+  <div class="col">
+    {head('Una red son neuronas organizadas en capas')}
+    <ul class="steps-list">
+      {st(1, '<span class="k">1</span><span><b>Entrada:</b> los datos. No calcula nada.</span>', 'li')}
+      {st(2, '<span class="k">2</span><span><b>Ocultas:</b> inventan sus propias pistas a partir de los datos.</span>', 'li')}
+      {st(3, '<span class="k">3</span><span><b>Salida:</b> toma la decisión final.</span>', 'li')}
+    </ul>
+    {st(3, '<div class="panel"><p class="say">Como una cooperativa con agencias en <b>Riobamba, Latacunga y Ambato</b>: cada agencia resume lo que ve y el comité central decide con esos resúmenes.</p></div>')}
+  </div>
+  {demo('net', 'fig', layers='3,4,4,1', w=900, h=700, gap=130, names='Entrada|Oculta 1|Oculta 2|Salida', hl='0|1,2|3', alt='Red con capa de entrada, dos capas ocultas y una salida')}
+</div>""", notes(
+    'Una red no es más que muchas neuronas como la del viernes, organizadas en capas. Las ocultas se llaman así porque no vemos lo que producen: <b>nadie les dice qué pistas inventar</b>, las aprenden solas.',
+    'Nombre técnico: perceptrón multicapa (MLP). Cuando hay muchas capas ocultas hablamos de deep learning, aprendizaje profundo.'),
+    block='05', group=G5, minutes=3)
+
+slide('xor-resuelto', 'Dos neuronas vencen a XOR', f"""
+<div class="split" style="grid-template-columns:5fr 6fr">
+  <div class="col">
+    {head('Dos neuronas vencen a la luz de la escalera', 'Cada neurona oculta traza su línea. La salida combina las dos.', key(3))}
+    <ul class="steps-list">
+      {st(1, '<span class="k" style="background:var(--azure);color:var(--night)">1</span><span>Una aprende: <b>¿al menos un interruptor arriba?</b></span>', 'li')}
+      {st(2, '<span class="k" style="background:var(--lilac);color:var(--night)">2</span><span>Otra aprende: <b>¿los dos arriba?</b></span>', 'li')}
+      {st(3, '<span class="k key">=</span><span>Luz encendida si la primera dice sí y la segunda dice no: <b>la franja del medio</b>.</span>', 'li')}
+    </ul>
+  </div>
+  {demo('xor2', 'fig plate', style='align-self:center;height:auto;aspect-ratio:760/640')}
+</div>""", notes(
+    '<b>Idea clave 3, resuelta.</b> La magia de la capa oculta. Una neurona aprende «¿al menos un interruptor arriba?» (OR); otra, «¿los dos arriba?» (AND). La salida enciende la luz si la primera dice sí y la segunda no.',
+    'Dos líneas rectas, combinadas, hacen lo que una sola no podía. <b>Este es el principio de todo el deep learning</b>: combinar piezas simples para formar decisiones complejas.',
+    'En el NB02, Parte E, Keras encuentra una solución así por sí solo.'),
+    block='05', group=G5, minutes=3)
+
+slide('pistas', 'Cada capa arma pistas más elaboradas', head('Cada capa arma pistas más elaboradas', 'Leer un 7 escrito a mano, como el monto de una papeleta de depósito.') + demo('digit', 'fill') +
+      '<p class="cap">Esquema ilustrativo: en una red real las pistas no son tan limpias.</p>',
+      notes('La primera capa detecta trazos sueltos (una línea horizontal, una diagonal). La siguiente combina trazos en formas (una esquina). La salida reconoce «es un 7».',
+            'Nadie programó qué buscar: cada capa lo aprendió. Por eso se llama «profundo»: muchas capas, cada una más abstracta.',
+            'Con datos de tabla pasa lo mismo, pero las pistas no se pueden dibujar: combinaciones como «cuota alta respecto al ingreso».'),
+      layout='', block='05', group=G5, minutes=3, steps=3)
+
+slide('juega', 'Juega: ¿cuántas neuronas necesita?', head('Juega: ¿cuántas neuronas necesita?', 'Una red pequeña que entrena aquí mismo. Elige los datos y el número de neuronas ocultas.') + demo('playground', 'fill'),
+      notes('La demo estrella del sábado: una red real entrenando en el navegador (2 entradas → neuronas ocultas tanh → 1 salida sigmoide, con Adam).',
+            'Sugerencia de recorrido: <b>Círculos con 1 neurona</b> → solo puede trazar una línea; se queda en ~60 %. Luego <b>4 neuronas</b> → arma un polígono y llega a ~100 %.',
+            '<b>XOR con 2 neuronas</b>: lo resuelve, como en la lámina anterior. <b>Lunas con 8</b>: frontera curva.',
+            '<span class="q">Pregunta:</span> «¿Por qué con 1 neurona nunca pasa del 60 % en los círculos?» Porque una neurona = una línea.',
+            'Variante en grupos (10 min): que cada uno pruebe en <b>playground.tensorflow.org</b> y comparta en el chat la red más pequeña que resuelve la espiral.'),
+      block='05', group=G5, minutes=12)
+
+slide('parametros', '¿Cuántos números aprende una red?', head('¿Cuántos números aprende una red?', 'En cada capa: un peso por cada conexión y un sesgo por cada neurona.') + f"""
+<div class="split" style="grid-template-columns:6fr 6fr">
+  {demo('net', 'fig', layers='3,4,1', w=760, h=560, gap=120, quiet='1', alt='Red tres, cuatro, uno')}
+  <div class="col" style="gap:1.2em">
+    {st(1, '<p class="big num">3 × 4 + 4 = <b class="am">16</b></p>')}
+    {st(2, '<p class="big num">4 × 1 + 1 = <b class="am">5</b></p>')}
+    {st(3, '<p class="bigread">' + count(21, 0, at=3) + ' <span class="mu" style="font-size:.4em;font-family:var(--sans)">números que aprender</span></p>')}
+    {st(4, '<div class="panel col" style="gap:.4em"><p class="say">La red de las lunas del NB02: <b class="num">337</b></p><p class="say">Un modelo de lenguaje actual: <b>cientos de miles de millones</b></p></div>')}
+  </div>
+</div>""", notes(
+    'Contar parámetros ayuda a entender el tamaño de una red. Regla: entradas por neuronas (una conexión, un peso) más una por neurona (el sesgo).',
+    'Red 3-4-1: 3·4 + 4 = 16 en la oculta; 4·1 + 1 = 5 en la salida; total 21. Keras lo confirma con <code>model.summary()</code>.',
+    'La red de las lunas del NB02 tiene 337. Más parámetros que datos es una receta para el sobreajuste: lo vemos en la semana 3.'),
+    block='05', group=G5, minutes=3)
+
+# ======================================================================= 06 · retropropagación
+section('b06', '06', 'Retropropagación', 'Cómo se reparte la culpa del error entre miles de pesos.',
+        ['Hacia adelante', 'Repartir la culpa', 'Engranajes', 'Hacia atrás', 'Actualizar', 'TensorFlow'], 'Sábado · 45 minutos', G6, '06 · Retropropagación',
+        notes('El corazón teórico del sábado. Una red 2-2-1 con números: los mismos del NB02, partes A a D.'))
+
+slide('adelante', 'Paso 1 · Hacia adelante', head('Paso 1 · Hacia adelante: la red predice', 'Un socio con antigüedad 1.0 y carga de la cuota 0.5 (datos escalados). Cada neurona hace la cuenta del viernes.') +
+      demo('fwd221', 'fill', mode='forward') +
+      st(4, '<div class="keybar"><span>La red dice <b>56 % de que paga</b>. El socio sí pagó: pérdida = −log(0.56) = <b class="num">0.59</b>.</span></div>'),
+      notes('El forward es lo que ya sabemos hacer, capa por capa. Oculta 1: 0.5·1.0 − 0.3·0.5 + 0.1 = 0.45 → sigmoide 0.61. Oculta 2: 0.2·1.0 + 0.8·0.5 − 0.1 = 0.50 → 0.62.',
+            'Salida: 0.7·0.61 − 0.4·0.62 + 0.05 = 0.23 → 0.56. No hace falta que hagan las cuentas: lo importante es ver que la información fluye de izquierda a derecha.',
+            'Todo está en el NB02, Parte A.'),
+      block='06', group=G6, minutes=4, steps=4)
+
+slide('culpa', 'Paso 2 · Repartir la culpa', head('Paso 2 · Hacia atrás: repartir la culpa', 'El error se descubre al final. La culpa viaja hacia atrás, según cuánto influyó cada paso.') + demo('chain', 'fill') +
+      st(3, '<p class="say">Eso es literalmente la <b>retropropagación</b> (backpropagation): propagar la culpa hacia atrás.</p>'),
+      notes('Analogía de la cadena del cacao, muy nuestra. El cliente prueba la barra de chocolate y está amarga: ese es el error, y se descubre al final.',
+            '¿De quién es la culpa? La chocolatería revisa cuánto influyó cada proceso: si el tostado influyó mucho, recibe mucha culpa; y el tostado reparte su parte hacia el fermentado y la cosecha.',
+            'Lo bonito: con <b>una sola pasada hacia atrás</b>, cada peso de la red sabe cuánta culpa tiene y hacia dónde moverse.'),
+      block='06', group=G6, minutes=3, steps=3)
+
+slide('engranajes', 'La regla de la cadena: engranajes', head('La regla de la cadena: engranajes que se multiplican', 'Si A mueve a B tres veces más rápido, y B mueve a C seis veces más rápido, A mueve a C 3 × 6 = 18 veces más rápido.') +
+      demo('gears', 'fill') +
+      '<p class="say" style="text-align:center">En una red: el error depende de la salida, la salida de la capa oculta, la capa oculta de los pesos. <b>Los efectos se multiplican a lo largo de la cadena.</b></p>',
+      notes('La herramienta matemática detrás de repartir la culpa es la <b>regla de la cadena</b> del cálculo, y se entiende con engranajes.',
+            'Para curiosos: z = (3x)². Por dentro u = 3x cambia 3 veces más rápido que x; por fuera z = u² cambia 2u = 6 veces más rápido que u (en x = 1). Total: 18, que coincide con la derivada 18x evaluada en 1.'),
+      block='06', group=G6, minutes=3)
+
+slide('atras', 'Hacia atrás, con los números', head('Hacia atrás, con los números', 'La misma red, pero ahora los números viajan de derecha a izquierda.') + demo('fwd221', 'fill', mode='backward') +
+      st(3, '<p class="say">Ojo con la oculta 2: su peso hacia la salida es negativo, así que para que la salida suba, <b>ella debe bajar</b>.</p>'),
+      notes('(1) La culpa de la salida es simplemente ŷ − y = 0.56 − 1 = <b>−0.44</b>: negativa significa que la predicción se quedó corta.',
+            '(2) La culpa de cada peso que llega a la salida es esa culpa por lo que entró por ese cable: −0.44 × 0.61 = −0.27 y −0.44 × 0.62 = −0.28.',
+            '(3) La culpa sigue hacia la capa oculta: se multiplica por el peso que la conecta y por la pendiente de la sigmoide (0.24): 0.7 × (−0.44) × 0.24 = −0.07 y −0.4 × (−0.44) × 0.24 = +0.04.',
+            'Valores exactos con 4 decimales en el NB02, Parte B.'),
+      block='06', group=G6, minutes=5, steps=3)
+
+slide('actualizar', 'Paso 3 · Actualizar', head('Paso 3 · Actualizar: un paso cuesta abajo', 'A cada peso le restamos η por su culpa. Es el descenso de gradiente del viernes.') + f"""
+<div class="split" style="grid-template-columns:2fr 1fr;gap:2em">
+  {demo('fwd221', 'fig', mode='update')}
+  <div class="col" style="gap:1.1em">
+    {st(1, '<div class="formula" style="font-size:1.1em"><m>0.7 - 0.5 \\times (-0.27) = 0.84</m></div><p class="say" style="margin-top:.6em">…y lo mismo con <b>los 9 números a la vez</b> (en verde).</p>')}
+    {st(2, '<p class="big">Predicción: <b class="num">56 %</b> → <b class="num mi">65 %</b></p>')}
+    {st(3, '<p class="big">Pérdida: <b class="num">0.59</b> → <b class="num mi">0.42</b></p>')}
+    {st(3, '<div class="keybar"><span><b>Adelante, atrás, actualizar</b>, repetido miles de veces: eso es entrenar.</span></div>')}
+  </div>
+</div>""", notes(
+    'Cerramos el ciclo. Ejemplo con el peso 0.7 que va de la oculta 1 a la salida: su culpa era −0.27; con η = 0.5, el peso nuevo es 0.7 + 0.135 = 0.84.',
+    'Se hace lo mismo con los 9 parámetros a la vez. Con un solo paso, la predicción para el socio que pagó sube de 56 % a 65 % y la pérdida baja de 0.59 a 0.42.',
+    'En el NB02, Parte C, el notebook además verifica la cuenta con un gradient check.'),
+    block='06', group=G6, minutes=3)
+
+CODE_TF = '''<pre class="code" data-demo="codehl" data-hl="1:1-3;2:4"><span class="ln"><span class="kw">with</span> tf.<span class="fn">GradientTape</span>() <span class="kw">as</span> tape:</span><span class="ln">    y_hat = <span class="fn">model</span>(x)            <span class="cm"># forward: the tape records it</span></span><span class="ln">    loss = <span class="fn">bce</span>(y, y_hat)</span><span class="ln">grads = tape.<span class="fn">gradient</span>(loss, model.trainable_variables)  <span class="cm"># backward</span></span></pre>'''
+slide('tensorflow', 'TensorFlow hace la cuenta por ti', head('TensorFlow hace la cuenta por ti', 'Nadie hace retropropagación a mano en la vida real: se llama <b>diferenciación automática</b>.') + f"""
+<div class="col" style="gap:1.4em">
+  {CODE_TF}
+  <div class="split even" style="gap:1.4em">
+    {st(1, '<div class="panel"><p class="say"><b>Como una grabadora:</b> graba cada operación de la ida…</p></div>')}
+    {st(2, '<div class="panel"><p class="say">…y la reproduce al revés aplicando la regla de la cadena.</p></div>')}
+  </div>
+  {st(3, '<div class="keybar"><span>Diferencia con nuestra cuenta a mano: <b class="num">5.6 × 10⁻¹⁷</b>, es decir, cero (errores de redondeo).</span></div>')}
+</div>""", notes(
+    'TensorFlow (y PyTorch) hacen la retropropagación automáticamente. <code>GradientTape</code> funciona como una grabadora.',
+    'En el NB02, Parte D, comparamos su resultado con nuestra cuenta de la Parte B: la diferencia es 5.6 × 10⁻¹⁷.',
+    'Mensaje: entender la retropropagación no es para hacerla a mano, sino <b>para saber qué pasa cuando el entrenamiento falla</b>.'),
+    block='06', group=G6, minutes=3)
+
+# ======================================================================= 07 · entrenar bien
+section('b07', '07', 'Entrenar bien', 'Tres trampas típicas, aprender por lotes y la carrera de los optimizadores.',
+        ['La señal que se apaga', 'Neuronas clonadas', 'Lotes', 'La carrera', 'La receta'], 'Sábado · 35 minutos', G7, '07 · Entrenar bien',
+        notes('Después de la pausa. Bloque práctico: lo que hace que un entrenamiento funcione o falle. Incluye la conexión con la lectura de tendencia.'))
+
+slide('apaga', 'Trampa 1: la señal que se apaga', head('Trampa 1: la culpa que se apaga en el camino', 'Al ir hacia atrás, la culpa se multiplica por la pendiente de cada activación. La sigmoide como máximo deja pasar ¼.') + demo('vanish', 'fill'),
+      notes('Es el gradiente que se desvanece. La pendiente máxima de la sigmoide es 0.25; tras cinco capas, la culpa llega multiplicada por 0.25⁵ ≈ 0.001: la primera capa casi no aprende. Como el teléfono dañado.',
+            'Cambia a <b>ReLU</b>: su pendiente es 1 cuando está activa, la culpa llega entera. Por eso en las capas ocultas usamos ReLU.'),
+      block='07', group=G7, minutes=3)
+
+slide('clones', 'Trampa 2: neuronas clonadas', head('Trampa 2: si todas empiezan igual, aprenden lo mismo', 'Con todos los pesos en cero, cada neurona recibe la misma culpa y quedan clonadas para siempre.') + demo('clones', 'fill'),
+      notes('Si todos los pesos empiezan en cero (o iguales), todas las neuronas ocultas calculan lo mismo, reciben la misma culpa y se actualizan igual: cuatro neuronas que piensan una sola idea.',
+            'La solución: pesos al azar, bien escalados según el tamaño de la capa. Keras ya lo hace por defecto (inicialización Glorot); para ReLU se usa He.',
+            'Trampa 3 la conocen del viernes: un learning rate demasiado grande.'),
+      block='07', group=G7, minutes=3, steps=1)
+
+slide('lotes', 'Aprender por lotes', head('Aprender por lotes: encuesta, no censo', 'Con 4 800 socios no calculamos la culpa de todos en cada paso. Tomamos 32 al azar, damos un paso y seguimos.') + demo('batches', 'fill'),
+      notes('Un lote (mini-batch) de 32 socios al azar → culpa promedio → un paso. Cuando pasamos por todos los lotes (4 800 / 32 = 150) completamos una época.',
+            'Analogía: el INEC no hace un censo cada mes para medir el empleo; hace una encuesta por muestreo, más barata y suficientemente precisa.',
+            'El pequeño «ruido» de usar una muestra incluso ayuda a no quedarse atascado. En Keras: <code>batch_size=32</code>.'),
+      block='07', group=G7, minutes=3, steps=1)
+
+slide('carrera', 'La carrera de los optimizadores', head('La carrera de los optimizadores', 'Mismo valle largo y angosto, tres formas de caminar. ¿Quién llega primero a la meta?', chip('Lectura de tendencia', 'trend')) + demo('race', 'fill') +
+      '<div class="trendbar" style="margin-top:.8em"><span><b style="color:var(--ink-3)">SGD</b>: pasos fijos. <b style="color:var(--ink)">Momentum</b>: inercia. <b>Adam</b>: un paso a la medida de cada peso. ¿Y con una carrera <b>justa</b>?</span></div>',
+      notes('<b>Conexión con la lectura «Más allá de Adam».</b> El valle es largo en una dirección y angosto en la otra, como los que aparecen al entrenar redes.',
+            'SGD (blanco) zigzaguea entre las paredes y avanza lento. Momentum (azul) acumula velocidad y aquí llega primero. Adam (lila) va más derecho, pero con los pasos que le dimos tarda un poco más.',
+            '<b>Ese resultado es parte de la lección:</b> si cambian el learning rate de cada uno, el ganador cambia. Comparar optimizadores sin ajustarlos con el mismo cuidado es una carrera injusta.',
+            '<b>Debate de 8 minutos en el chat:</b> la lectura cuenta que, con un ajuste justo para todos, la ventaja de los optimizadores nuevos baja de ~1.4× a ~1.1× en modelos grandes (Wen et al., 2025). ¿Conviene invertir en mejores algoritmos o en más cómputo y mejores datos? No hay respuesta correcta: es la misma pregunta de la encuesta.',
+            'Ojo: esta carrera es una ilustración; los números de pasos dependen de cómo se ajuste cada optimizador. Esa es justamente la lección de la lectura.'),
+      block='07', group=G7, minutes=10)
+
+REC2 = [('Escala los datos', 'que todas las columnas estén en rangos parecidos'), ('ReLU en las capas ocultas', 'la culpa llega entera'),
+        ('Sigmoide en la salida', 'si la respuesta es sí o no'), ('Adam con learning_rate = 0.001', 'un buen punto de partida'),
+        ('Pérdida binary_crossentropy', 'la BCE del viernes'), ('Lotes de 32 y una parte para validar', 'para medir con datos que no vio')]
+slide('receta-arranque', 'La receta para arrancar', head('La receta para arrancar (y que funcione)', 'Un punto de partida para casi cualquier problema con datos de tabla. Tómale foto.') +
+      '<ol class="steps-list fill" style="display:grid;grid-template-columns:1fr 1fr;gap:1.6em 3em;align-content:center;font-size:1.12em">' + ''.join(
+          st(i + 1 if i < 3 else 4, f'<span class="k">{i + 1}</span><span><b>{a}</b><br>{b}</span>', 'li') for i, (a, b) in enumerate(REC2)) + '</ol>',
+      notes('Esta receta sirve como punto de partida para casi cualquier problema con datos de tabla. No es la única ni siempre la mejor, pero rara vez falla.',
+            'El paso 1 es el más olvidado: si una columna va de 0 a 10 000 (ingreso) y otra de 0 a 5 (atrasos), la red se confunde. Ojo: el escalador se ajusta solo con los datos de entrenamiento.'),
+      block='07', group=G7, minutes=3)
+
+# ======================================================================= 08 · keras
+section('b08', '08', 'Keras', 'Tu primera red en tres pasos: construir, compilar y entrenar.',
+        ['Construir', 'Compilar', 'Entrenar', 'Práctica NB02'], 'Sábado · 60 minutos con la práctica', G8, '08 · Keras',
+        notes('Bloque corto de teoría y la práctica más larga de la semana.'))
+
+CODE_K = ('<pre class="code" data-demo="codehl" data-hl="1:1-5;2:6-8;3:9-10">'
+          '<span class="ln">model = keras.<span class="fn">Sequential</span>([</span>'
+          '<span class="ln">    keras.<span class="fn">Input</span>(shape=(<span class="nu">2</span>,)),</span>'
+          '<span class="ln">    layers.<span class="fn">Dense</span>(<span class="nu">16</span>, activation=<span class="st">"relu"</span>),</span>'
+          '<span class="ln">    layers.<span class="fn">Dense</span>(<span class="nu">16</span>, activation=<span class="st">"relu"</span>),</span>'
+          '<span class="ln">    layers.<span class="fn">Dense</span>(<span class="nu">1</span>, activation=<span class="st">"sigmoid"</span>)])</span>'
+          '<span class="ln">model.<span class="fn">compile</span>(optimizer=<span class="st">"adam"</span>,</span>'
+          '<span class="ln">              loss=<span class="st">"binary_crossentropy"</span>,</span>'
+          '<span class="ln">              metrics=[<span class="st">"accuracy"</span>])</span>'
+          '<span class="ln">model.<span class="fn">fit</span>(X_train, y_train, epochs=<span class="nu">60</span>,</span>'
+          '<span class="ln">          batch_size=<span class="nu">32</span>, validation_split=<span class="nu">0.2</span>)</span></pre>')
+slide('keras', 'Keras en tres pasos', head('Keras en tres pasos: construir, compilar, entrenar') + f"""
+<div class="split" style="grid-template-columns:7fr 5fr;align-items:start">
+  {CODE_K}
+  <div class="col" style="gap:1em">
+    {st(1, '<div class="mapi"><span>1 · Construir</span><b>capas Dense: ReLU en las ocultas, sigmoide en la salida</b></div>')}
+    {st(2, '<div class="mapi"><span>2 · Compilar</span><b>Adam + la BCE del viernes</b></div>')}
+    {st(3, '<div class="mapi"><span>3 · Entrenar</span><b>fit = adelante, atrás, actualizar… por lotes y épocas</b></div>')}
+    {st(3, '<p class="say">Con las lunas del NB02: <b class="num">337</b> parámetros y cerca de <b class="num">95 %</b> en validación.</p>')}
+  </div>
+</div>""", notes(
+    'Muestra el código bloque por bloque y conecta cada línea con lo que ya saben. Construir: Sequential apila capas; Dense es una capa de neuronas conectadas con todas las anteriores.',
+    'Compilar: Adam como optimizador (el de la carrera), binary_crossentropy (la BCE del viernes) y accuracy como métrica.',
+    'Entrenar: <code>fit</code> hace todo el ciclo de esta mañana, por lotes de 32 y durante 60 épocas. Es exactamente la Parte F del NB02.'),
+    block='08', group=G8, minutes=6)
+
+practice('practica3', 'Práctica en clase: NB02 completo', 'En parejas. Las partes A a D repiten con código lo que hicimos en las láminas, por eso los números coinciden.',
+         ['A · Forward: <b>0.56</b> y pérdida <b>0.59</b>', 'B · Las culpas: <b>−0.44</b>, <b>−0.27</b>, <b>−0.28</b>', 'C · Un paso: <b>56 % → 65 %</b>',
+          'D · TensorFlow coincide con tu cuenta', 'E · Keras resuelve XOR y las lunas', 'F · <b>Mini-reto 2</b>: los círculos con más de <b>90 %</b>'], 'nb02', 45, G8, '08',
+         notes('Dinámica: 35 minutos en parejas (o salas de 3) y 10 de puesta en común. Sin nota: el objetivo es que todas las parejas lleguen a la Parte F.',
+               'Prioridad si el tiempo aprieta: A, B, E y F. C, D y G quedan como práctica en casa.',
+               'Tu turno de la Parte F: cambiar Dense(16) por Dense(4) en ambas capas; la exactitud suele bajar un poco y la frontera se vuelve más simple.',
+               'Problema frecuente: «No module named…» casi nunca pasa en Colab; si pasa, abrieron el notebook fuera de Colab.'))
+
+# ======================================================================= 09 · métricas
+section('b09', '09', '¿El modelo es bueno?', 'Cuando la exactitud engaña y qué mirar en su lugar.',
+        ['87 % que no vale nada', 'Recall, precisión y AUC'], 'Sábado · 15 minutos', G9, '09 · ¿El modelo es bueno?',
+        notes('Aquí está la <b>idea clave 5</b>: por qué la exactitud engaña con datos desbalanceados.'))
+
+slide('trampa87', '87 % de exactitud puede no valer nada', f"""
+<div class="col fill">
+  {head('87 % de exactitud puede no valer nada', 'Una cooperativa quiere encontrar a los socios que caerán en mora. Son pocos: 13 de cada 100.', key(5))}
+  {demo('trap', 'fill')}
+</div>""", notes(
+    '<b>Idea clave 5.</b> Paso 1: 100 socios (datos ficticios), 13 caen en mora.',
+    'Paso 2: un «modelo» perezoso que siempre dice «está al día» acierta 87 de 100… y <b>no encuentra a ningún moroso</b>, que es justo lo que la cooperativa necesita.',
+    'Paso 3: una red de verdad le da a cada socio un puntaje de riesgo y marca a quien supera el umbral. Mueve el umbral: si lo bajas, encuentras más morosos pero con más falsas alarmas; si lo subes, al revés. La exactitud casi no se mueve, pero la utilidad sí.',
+    '<span class="q">Pregunta:</span> «¿Qué es peor para la cooperativa: una falsa alarma o un moroso que no vimos?» Depende del negocio, y eso decide el umbral.'),
+    block='09', group=G9, minutes=6, steps=3)
+
+slide('metricas', 'Mira más allá de la exactitud', f"""
+<div class="split" style="grid-template-columns:6fr 5fr">
+  <div class="col">
+    {head('Mira más allá de la exactitud', 'Tres preguntas mejores cuando los casos que buscas son pocos.', key(5))}
+    <ul class="steps-list">
+      {st(1, '<span class="k">R</span><span><b>Recall:</b> de los que caen en mora, ¿cuántos encontramos?</span>', 'li')}
+      {st(2, '<span class="k">P</span><span><b>Precisión:</b> de los que marcamos, ¿cuántos sí caen?</span>', 'li')}
+      {st(3, '<span class="k">A</span><span><b>AUC:</b> ¿qué tan bien ordena el riesgo? 0.5 es tirar una moneda; 1 es perfecto.</span>', 'li')}
+    </ul>
+  </div>
+  {st(3, demo('rank', 'fig'), cls='fig')}
+</div>""", notes(
+    'Recall (sensibilidad): de los morosos reales, qué porcentaje detectamos. Precisión: de los que marcamos, cuántos lo eran de verdad.',
+    'AUC: si tomo un moroso y un socio al día al azar, ¿con qué probabilidad el modelo le da más riesgo al moroso? La imagen lo muestra: el buen modelo pone los morosos (amarillo) arriba; la moneda los reparte.',
+    'En la semana 3 volvemos a esto cuando hablemos de explicar por qué un modelo dijo «no».'),
+    block='09', group=G9, minutes=4)
+
+# ======================================================================= cierre
+slide('quizfinal', 'Quiz final: ¿cuánto avanzamos?', head('Quiz final: ¿cuánto avanzamos?', '10 preguntas tipo Kahoot. Vuelven las 5 ideas clave del pre-quiz: así vemos tu avance.', chip('No es nota', 'ok')) + f"""
+<div class="split top" style="grid-template-columns:7fr 4fr;margin-top:1em">
+  <ol class="steps-list" style="gap:1.2em">
+    <li><span class="k">1</span><span>Abre <b>deeplearningweek1.vercel.app/?final</b></span></li>
+    <li><span class="k">2</span><span>Usa <b>el mismo nombre</b> que en el pre-quiz</span></li>
+    <li><span class="k">3</span><span>Pega tu código en el chat de Teams</span></li>
+  </ol>
+  <div class="center">{qr('final')}</div>
+</div>""", notes(
+    'Diez minutos. Pide que usen el mismo nombre que en el pre-quiz: el panel de resultados los empareja por nombre.',
+    'Después de clase, copia todo el chat en <b>Resultados_quiz.html</b> y verás el avance del grupo en cada idea clave.'),
+    block='C', group=GC, minutes=10, label='Cierre')
+
+WEEK = [('Ejemplos', 160, 110), ('Neurona', 490, 110), ('Activación', 820, 110), ('Perceptrón', 1150, 110), ('XOR', 1480, 110),
+        ('Pérdida', 1480, 330), ('Gradiente', 1150, 330), ('Red en capas', 820, 330), ('Retropropagación', 490, 330), ('Keras', 160, 330),
+        ('Métricas', 160, 550)]
+KEYS5 = ('Neurona', 'Activación', 'XOR', 'Gradiente', 'Métricas')
+wsvg = ('<svg viewBox="0 0 1640 640" role="img" aria-label="Mapa de la semana: de los ejemplos a las métricas">'
+        '<defs><marker id="wk-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ffb541"/></marker></defs>')
+def _edge(a, b):
+    (x1, y1), (x2, y2) = a[1:], b[1:]
+    if y1 == y2:
+        d = 145 if x2 > x1 else -145
+        return x1 + d, y1, x2 - d, y2
+    return x1, y1 + 46, x2, y2 - 46
+for i in range(len(WEEK) - 1):
+    x1, y1, x2, y2 = _edge(WEEK[i], WEEK[i + 1])
+    wsvg += f'<path data-draw="{i}" d="M{x1} {y1} L{x2} {y2}" stroke="#ffb541" stroke-width="5" fill="none" stroke-linecap="round" marker-end="url(#wk-arr)"/>'
+for n, x, y in WEEK:
+    hot = n in KEYS5
+    wsvg += (f'<g><rect x="{x - 145}" y="{y - 46}" width="290" height="92" rx="46" fill="#0f1a29" stroke="{"#ffb541" if hot else "#2d394a"}" stroke-width="4"/>'
+             f'<text x="{x}" y="{y + 10}" text-anchor="middle" font-size="28" font-weight="600" fill="#f1f6fa" font-family="Lexend, sans-serif">{n}</text></g>')
+route = ' L'.join(f'{x} {y}' for _, x, y in WEEK)
+wsvg += (f'<circle r="13" fill="#ffb541" class="wk-pulse"><animateMotion dur="12s" repeatCount="indefinite" path="M{route}"/></circle>'
+         '<text x="360" y="560" font-size="24" fill="#899aae" font-family="Lexend, sans-serif">Borde amarillo: las 5 ideas clave</text></svg>')
+slide('mapa-semana', 'La semana en un mapa', head('De cero a tu primera red', 'Todo lo de la semana, en el orden en que lo vimos.') +
+      f'<div class="fig fill" data-demo="draw">{wsvg}</div>',
+      notes('Recorre el camino en voz alta: aprendemos de ejemplos → una neurona suma y traza una línea → la activación la dobla → el perceptrón aprende de errores → choca con XOR → medimos el error → bajamos la montaña → las capas vencen a XOR → repartimos la culpa → Keras lo hace todo → y medimos bien.',
+            'Para repasar: la guía de estudio tiene un tema por cada parada.'),
+      block='C', group=GC, minutes=2, label='Cierre')
+
+slide('lo-que-viene', 'Lo que viene: semanas 2 y 3', head('Lo que viene: semanas 2 y 3', 'Las próximas lecturas de tendencia salen de preguntas que hoy ya puedes hacerte.', chip('Lecturas de tendencia', 'trend')) + f"""
+<div class="split even" style="gap:2em;align-items:stretch;margin-top:1.4em;flex:none">
+  {st(1, '<div class="panel col" style="gap:.8em;height:100%"><span class="chip trend">Semana 2</span><h3 class="big" style="font-weight:600">¿El regreso de las redes recurrentes? Transformers, Mamba y la búsqueda de la arquitectura ideal</h3><p class="say">Hoy la red miró todos los datos a la vez. ¿Y si llegan en orden, como las palabras de una frase o las ventas de cada día?</p></div>')}
+  {st(2, '<div class="panel col" style="gap:.8em;height:100%"><span class="chip trend">Semana 3</span><h3 class="big" style="font-weight:600">¿Puedes explicar por qué tu modelo dijo «no»?</h3><p class="say">El socio B del NB01 recibió un «no» (z = −3.61). En Ecuador, desde marzo de 2026, una norma de la Superintendencia de Protección de Datos permite pedir una explicación de la lógica del algoritmo.</p></div>')}
+</div>""", notes(
+    'Deja las dos preguntas sembradas. Semana 2: arquitecturas para datos con estructura (imágenes, secuencias); la lectura discute si las redes recurrentes modernas como Mamba vuelven a competir con los Transformers.',
+    'Semana 3: explicabilidad y robustez. El gancho es el socio B del viernes (z = −3.61): si un modelo de deep learning le niega el crédito, ¿cómo se lo explicamos? La lectura cita la norma ecuatoriana de 2026 que permite pedir esa explicación.',
+    '<span class="q">Pregunta para cerrar:</span> «¿Sus datos son tablas, imágenes, texto o series de tiempo?» Eso decidirá la arquitectura la próxima semana.'),
+    block='C', group=GC, minutes=2, label='Cierre')
+
+slide('recursos', 'Para repasar y profundizar', head('Para repasar y profundizar') + f"""
+<div class="split top" style="grid-template-columns:7fr 4fr;margin-top:.6em">
+  <ul class="checks" style="gap:1em">
+    <li><b>Guía de estudio de la semana:</b> los 9 temas con ejemplos y ejercicios</li>
+    <li><b>Nielsen (2015)</b>, <i>Neural networks and deep learning</i>, capítulos 1 y 2 · neuralnetworksanddeeplearning.com</li>
+    <li><b>Zhang, Lipton, Li y Smola (2023)</b>, <i>Dive into deep learning</i>, «Multilayer perceptrons» · d2l.ai</li>
+    <li><b>TensorFlow Playground</b>: entrena redes en el navegador · playground.tensorflow.org</li>
+    <li>Los notebooks NB01 y NB02 quedan en la página para practicar cuando quieras</li>
+  </ul>
+  <div class="center">{qr('guia')}</div>
+</div>""", notes('La guía de estudio resume todo con fórmulas explicadas; los notebooks quedan abiertos para practicar.'),
+    block='C', group=GC, minutes=1, label='Cierre')
+
+slide('gracias', 'Gracias', '<div class="col" style="justify-content:center;flex:1;gap:1.6em">' +
+      '<h2 class="display" style="font-size:6em">Gracias</h2>' +
+      '<p class="lede" style="font-size:1.6em;max-width:30em">En el chat, del 1 al 5: <b>¿podrías explicarle a un colega cómo aprende una red?</b></p>' +
+      '<p class="say mu">Andrés Ordóñez-Bolaños · Neural Networks: Deep Learning · UIDE</p></div>',
+      notes('Pide el número del 1 al 5 y compáralo con el del viernes.', 'Al terminar: <b>«Finalizar reunión para todos»</b> para que la grabación se cierre correctamente.'),
+      layout='L-statement', block='C', group=GC, minutes=1, label='Cierre')

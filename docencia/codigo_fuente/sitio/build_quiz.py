@@ -15,10 +15,10 @@ TEACHER = pathlib.Path(sys.argv[2] if len(sys.argv) > 2 else 'out_profesor')
 KEEP = ("q", "options", "ok", "why", "tema", "clave")
 bank = {
     "pre": {"title": "Pre-quiz · ¿de dónde partimos?", "time": 20,
-            "sub": "Diez preguntas rápidas: cinco de bases (funciones, pendientes, probabilidades y un poco de Python) y cinco ideas clave que veremos esta semana. No es nota: es tu punto de partida. Es normal no saberlas todas.",
+            "sub": "Ocho preguntas cortas, sin cuentas: tres de calentamiento y cinco ideas clave que veremos esta semana. No es nota: es tu punto de partida. Es normal no saberlas todas.",
             "questions": [{k: q[k] for k in KEEP if k in q} for q in PRE]},
-    "final": {"title": "Quiz final · ¿cuánto avanzamos?", "time": 30,
-              "sub": "Doce preguntas sobre toda la semana: la neurona, el perceptrón, la pérdida, el gradiente, la retropropagación, Keras y las métricas del mini-proyecto. Las cinco ideas clave del pre-quiz vuelven con otra versión.",
+    "final": {"title": "Quiz final · ¿cuánto avanzamos?", "time": 25,
+              "sub": "Diez preguntas cortas, sin cuentas, sobre toda la semana: la neurona, la activación, XOR, la pérdida, el gradiente, la retropropagación, Keras y las métricas. Las cinco ideas clave del pre-quiz vuelven con otra versión.",
               "questions": [{k: q[k] for k in KEEP if k in q} for q in FINAL]},
 }
 

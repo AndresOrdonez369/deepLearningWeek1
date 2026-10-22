@@ -6,9 +6,9 @@
 <title>Deep Learning · Semana 1 · UIDE</title>
 <meta name="description" content="Semana 1 de Neural Networks: Deep Learning (UIDE / EIG Campus): proyectos en Colab, guía de estudio, pre-quiz y quiz final.">
 <script>
-// short links used by the QR codes on the slides: ?nb01 ?nb02 ?nb03 ?pre ?final ?guia
+// short links used by the QR codes on the slides: ?nb01 ?nb02 ?pre ?final ?guia ?slides
 (function () {
-  var R = {"nb01": "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb", "nb02": "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb", "nb03": "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB03_miniproyecto_cooperativa_starter.ipynb", "pre": "quiz/index.html?pre", "final": "quiz/index.html?final", "guia": "guia/index.html"};
+  var R = {"nb01": "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb", "nb02": "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb", "pre": "quiz/index.html?pre", "final": "quiz/index.html?final", "guia": "guia/index.html", "slides": "docencia/slides/index.html"};
   var q = new URLSearchParams(location.search);
   for (var k in R) if (q.has(k)) { location.replace(R[k]); break; }
 })();
@@ -149,15 +149,15 @@ footer{max-width:1240px;margin:0 auto;padding:0 20px 40px;color:var(--muted);fon
 <span class="chip">UIDE · Maestría en Ciencia de Datos · Semana 1</span>
 <h1 style="margin-top:14px">Neural Networks: Deep Learning</h1>
 <p>Fundamentos de redes neuronales: de qué es la inteligencia artificial a entrenar tu primera red en Keras. Sigue los cuatro pasos de abajo; no necesitas instalar nada.</p>
-<p style="font-size:15px">Docente: Andrés Ordóñez-Bolaños · Sesiones: viernes 23 (18:00–20:00) y sábado 24 de octubre de 2026 (08:00–12:00) · Entrega del mini-proyecto: martes 27 de octubre</p>
+<p style="font-size:15px">Docente: Andrés Ordóñez-Bolaños · Sesiones: viernes 23 (18:00–20:00) y sábado 24 de octubre de 2026 (08:00–12:00)</p>
 </div>
 
-<nav class="steps" aria-label="Tu semana en cuatro pasos"><a class="step amber" href="quiz/index.html?pre"><span class="num">1</span><span class="when">Viernes, al empezar</span><span class="t">Pre-quiz</span><span class="d">10 preguntas tipo Kahoot. No es nota: es tu punto de partida.</span><span class="go">Jugar →</span></a><a class="step " href="#proyectos"><span class="num">2</span><span class="when">Viernes y sábado</span><span class="t">Proyectos</span><span class="d">Tres notebooks en Colab: ejemplos resueltos y tareas que se corrigen solas.</span><span class="go">Ver proyectos →</span></a><a class="step purple" href="guia/index.html"><span class="num">3</span><span class="when">Después de clase</span><span class="t">Guía de estudio</span><span class="d">Los 9 temas con la idea, la fórmula, ejemplos y ejercicios.</span><span class="go">Estudiar →</span></a><a class="step amber" href="quiz/index.html?final"><span class="num">4</span><span class="when">Sábado, al cerrar</span><span class="t">Quiz final</span><span class="d">12 preguntas. Las 5 ideas clave del pre-quiz vuelven: mide tu avance.</span><span class="go">Jugar →</span></a></nav>
+<nav class="steps" aria-label="Tu semana en cuatro pasos"><a class="step amber" href="quiz/index.html?pre"><span class="num">1</span><span class="when">Viernes, al empezar</span><span class="t">Pre-quiz</span><span class="d">8 preguntas cortas tipo Kahoot, sin cuentas. No es nota: es tu punto de partida.</span><span class="go">Jugar →</span></a><a class="step " href="#proyectos"><span class="num">2</span><span class="when">Viernes y sábado</span><span class="t">Proyectos en clase</span><span class="d">Dos notebooks en Colab, sin nota: ejemplos resueltos y tareas que se corrigen solas.</span><span class="go">Ver proyectos →</span></a><a class="step purple" href="guia/index.html"><span class="num">3</span><span class="when">Después de clase</span><span class="t">Repasa</span><span class="d">Las slides interactivas y la guía de estudio con los 9 temas, ejemplos y ejercicios.</span><span class="go">Estudiar →</span></a><a class="step amber" href="quiz/index.html?final"><span class="num">4</span><span class="when">Sábado, al cerrar</span><span class="t">Quiz final</span><span class="d">10 preguntas cortas. Las 5 ideas clave del pre-quiz vuelven: mide tu avance.</span><span class="go">Jugar →</span></a></nav>
 
 <section class="sec" id="proyectos">
-<h2>Proyectos de la semana</h2>
-<p>Cada notebook tiene la misma forma: <b>Ejemplo resuelto → Tu tarea → Revisar</b>. La revisión te dice ✅ correcto, ❌ todavía no (con una pista) o ⏳ falta completar. Las tareas no tienen nota; el mini-proyecto sí (70 puntos).</p>
-<div class="projs"><article class="proj"><span class="chip ">Viernes 23</span><h3>NB01 · Tu primera neurona</h3><p>Calcula una neurona a mano, entrena un perceptrón, descubre su límite (XOR) y baja la montaña con descenso de gradiente.</p><ul><li>8 tareas cortas que se corrigen solas</li><li><b>Mini-reto 1:</b> tu propio comité de crédito</li></ul><div class="btnrow"><a class="btn" href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Abrir en Colab ↗</a></div><p class="more"><a href="proyectos/NB01_viernes_tu_primera_neurona.ipynb" download>Descargar el .ipynb</a></p></article><article class="proj"><span class="chip ">Sábado 24</span><h3>NB02 · Tu primera red</h3><p>Forward y backward de una red pequeña con números, TensorFlow calculando lo mismo y Keras en tres pasos.</p><ul><li>6 tareas cortas que se corrigen solas</li><li><b>Mini-reto 2:</b> los círculos, con más de 90 %</li></ul><div class="btnrow"><a class="btn" href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Abrir en Colab ↗</a></div><p class="more"><a href="proyectos/NB02_sabado_tu_primera_red.ipynb" download>Descargar el .ipynb</a></p></article><article class="proj"><span class="chip teal">En grupo · martes 27</span><h3>NB03 · Mini-proyecto</h3><p>Un modelo de riesgo de mora para la Cooperativa «Valle Andino» (datos ficticios). Los datos se descargan solos.</p><ul><li>Perceptrón, red desde cero y la misma red en Keras</li><li>Cada sección tiene un checkpoint con el resultado esperado</li></ul><div class="btnrow"><a class="btn" href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB03_miniproyecto_cooperativa_starter.ipynb">Abrir en Colab ↗</a></div><p class="more"><a href="proyectos/NB03_miniproyecto_cooperativa_starter.ipynb" download>Descargar el .ipynb</a> · <a href="material/Enunciado_miniproyecto_Clase1.pdf">Enunciado (PDF)</a></p></article></div>
+<h2>Proyectos en clase</h2>
+<p>Se trabajan durante la clase, solos o en parejas, y <b>no tienen nota</b>. Cada notebook tiene la misma forma: <b>Ejemplo resuelto → Tu tarea → Revisar</b>. La revisión te dice ✅ correcto, ❌ todavía no (con una pista) o ⏳ falta completar.</p>
+<div class="projs"><article class="proj"><span class="chip ">Viernes 23</span><h3>NB01 · Tu primera neurona</h3><p>Calcula una neurona a mano, entrena un perceptrón, descubre su límite (XOR) y baja la montaña con descenso de gradiente.</p><ul><li>8 tareas cortas que se corrigen solas</li><li><b>Mini-reto 1</b> (opcional): tu propio comité de crédito</li></ul><div class="btnrow"><a class="btn" href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB01_viernes_tu_primera_neurona.ipynb">Abrir en Colab ↗</a></div><p class="more"><a href="proyectos/NB01_viernes_tu_primera_neurona.ipynb" download>Descargar el .ipynb</a></p></article><article class="proj"><span class="chip ">Sábado 24</span><h3>NB02 · Tu primera red</h3><p>Forward y backward de una red pequeña con números, TensorFlow calculando lo mismo y Keras en tres pasos.</p><ul><li>6 tareas cortas que se corrigen solas</li><li><b>Mini-reto 2:</b> los círculos, con más de 90 %</li></ul><div class="btnrow"><a class="btn" href="https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb">Abrir en Colab ↗</a></div><p class="more"><a href="proyectos/NB02_sabado_tu_primera_red.ipynb" download>Descargar el .ipynb</a></p></article></div>
 <h3 style="margin-top:26px">Cómo abrir un notebook en Colab</h3>
 <div class="how">
 <div><b class="n">1</b>Clic en <b>Abrir en Colab</b> y entra con tu cuenta de Google.</div>
@@ -169,15 +169,16 @@ footer{max-width:1240px;margin:0 auto;padding:0 20px 40px;color:var(--muted);fon
 
 <section class="sec">
 <h2>Material de apoyo</h2>
-<p>Para leer con calma. La guía de estudio resume todo; estos PDF amplían.</p>
+<p>Para repasar con calma. Las slides son interactivas: puedes mover los deslizadores y entrenar la red tú mismo.</p>
 <div class="mat">
+<a class="btn" href="docencia/slides/index.html">Slides interactivas de la clase</a>
+<a class="btn ghost" href="guia/index.html">Guía de estudio</a>
 <a class="btn ghost" href="material/Apuntes_teoricos_Clase1.pdf">Apuntes teóricos (PDF)</a>
-<a class="btn ghost" href="material/Enunciado_miniproyecto_Clase1.pdf">Enunciado del mini-proyecto (PDF)</a>
 <a class="btn ghost" href="material/Lectura_tendencia_Mas_alla_de_Adam.pdf">Lectura de tendencia «Más allá de Adam» (PDF)</a>
 </div>
 </section>
 
-<p style="margin-top:22px;color:var(--muted);font-size:14px">Código y materiales: <a href="https://github.com/AndresOrdonez369/deepLearningWeek1">github.com/AndresOrdonez369/deepLearningWeek1</a> · Los datos de la cooperativa son ficticios y se generaron solo para el curso.</p>
+<p style="margin-top:22px;color:var(--muted);font-size:14px">Código y materiales: <a href="https://github.com/AndresOrdonez369/deepLearningWeek1">github.com/AndresOrdonez369/deepLearningWeek1</a> · Los datos de los ejemplos son ficticios y se generaron solo para el curso.</p>
 </div>
 </body>
 </html>
