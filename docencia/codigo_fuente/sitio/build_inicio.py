@@ -31,7 +31,7 @@ def project(tag, kind, title, text, tasks, nb, extra=''):
 
 steps = ''.join([
     step(1, 'Viernes, al empezar', 'Pre-quiz', '8 preguntas cortas tipo Kahoot, sin cuentas. No es nota: es tu punto de partida.', 'quiz/index.html?pre', 'Jugar', 'amber'),
-    step(2, 'Viernes y sábado', 'Proyectos en clase', 'Dos notebooks en Colab, sin nota: ejemplos resueltos y tareas que se corrigen solas.', '#proyectos', 'Ver proyectos'),
+    step(2, 'Viernes y sábado', 'Proyectos en clase', 'Dos notebooks en Colab, sin nota: todo el código ya escrito y explicado, con preguntas para pensar.', '#proyectos', 'Ver proyectos'),
     step(3, 'Después de clase', 'Repasa', 'Las slides interactivas y la guía de estudio con los 9 temas, ejemplos y ejercicios.', 'guia/index.html', 'Estudiar', 'purple'),
     step(4, 'Sábado, al cerrar', 'Quiz final', '10 preguntas cortas. Las 5 ideas clave del pre-quiz vuelven: mide tu avance.', 'quiz/index.html?final', 'Jugar', 'amber'),
 ])
@@ -39,10 +39,10 @@ steps = ''.join([
 projects = ''.join([
     project('Viernes 23', '', 'NB01 · Tu primera neurona',
             'Calcula una neurona a mano, entrena un perceptrón, descubre su límite (XOR) y baja la montaña con descenso de gradiente.',
-            ['8 tareas cortas que se corrigen solas', '<b>Mini-reto 1</b> (opcional): tu propio comité de crédito'], 'nb01'),
+            ['Todo el código ya escrito: lees, predices y ejecutas', '<b>Experimento 1</b> (opcional): tu propio comité de crédito'], 'nb01'),
     project('Sábado 24', '', 'NB02 · Tu primera red',
             'Forward y backward de una red pequeña con números, TensorFlow calculando lo mismo y Keras en tres pasos.',
-            ['6 tareas cortas que se corrigen solas', '<b>Mini-reto 2:</b> los círculos, con más de 90 %'], 'nb02'),
+            ['Cada línea de Keras explicada, con preguntas para pensar', '<b>Experimento 2:</b> los círculos, con más de 90 %'], 'nb02'),
 ])
 
 html = f"""<!doctype html>
@@ -98,7 +98,7 @@ html = f"""<!doctype html>
 
 <section class="sec" id="proyectos">
 <h2>Proyectos en clase</h2>
-<p>Se trabajan durante la clase, solos o en parejas, y <b>no tienen nota</b>. Cada notebook tiene la misma forma: <b>Ejemplo resuelto → Tu tarea → Revisar</b>. La revisión te dice ✅ correcto, ❌ todavía no (con una pista) o ⏳ falta completar.</p>
+<p>Se trabajan durante la clase, solos o en parejas, y <b>no tienen nota</b>. Cada notebook ya viene completo y ejecutado. En cada sección: <b>la idea → el código explicado → ¿qué crees que saldrá? → lo que deberías ver → preguntas para pensar</b>, con la respuesta desplegable. Se aprende leyendo y explicando, no rellenando.</p>
 <div class="projs">{projects}</div>
 <h3 style="margin-top:26px">Cómo abrir un notebook en Colab</h3>
 <div class="how">

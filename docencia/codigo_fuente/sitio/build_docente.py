@@ -98,15 +98,15 @@ S.append(('orden', '1', 'El orden de todo: cómo se conecta la semana', f"""
     ['01 IA, ML y DL', R('b01', 'ahora'), '—', 'b01', qcol('b01')],
     ['02 La neurona', R('b02', 'doblar'), 'NB01 Parte 0 (opcional) y §1–2', 'b02', qcol('b02')],
     ['03 Perceptrón y XOR', R('b03', 'practica1'), 'NB01 §3–5 · T3, T4, T5', 'b03', qcol('b03')],
-    ['04 Pérdida y gradiente', R('b04', 'cierre-viernes'), 'NB01 §6–8 · tareas finales y Mini-reto 1 (en casa)', 'b04', qcol('b04')],
+    ['04 Pérdida y gradiente', R('b04', 'cierre-viernes'), 'NB01 §6–8 · preguntas para comprobar y Experimento 1 (en casa)', 'b04', qcol('b04')],
     ['05 Capas', R('portada-sab', 'parametros'), 'NB02 E · TE', 'b05', qcol('b05')],
     ['06 Retropropagación', R('b06', 'tensorflow'), 'NB02 A–D · TA, TB, TC, TD', 'b06', qcol('b06')],
-    ['07 Entrenar bien', R('b07', 'receta-arranque'), 'NB02 G · TG', 'b07', qcol('b07')],
-    ['08 Keras', R('b08', 'practica3'), 'NB02 T, E y F · Mini-reto 2', 'b08', qcol('b08')],
+    ['07 Entrenar bien', R('b07', 'receta-arranque'), 'NB02 G', 'b07', qcol('b07')],
+    ['08 Keras', R('b08', 'practica3'), 'NB02 T, E y F · Experimento 2', 'b08', qcol('b08')],
     ['09 ¿El modelo es bueno?', R('b09', 'gracias'), '—', 'b09', qcol('b09')],
 ])}
 <p class="note">* = idea clave: aparece en los dos quizzes para medir el avance.</p>
-<p>Los proyectos de la semana son <b>prácticas en clase, sin nota</b>: el <b>NB01</b> el viernes y el <b>NB02</b> el sábado, cada uno con tareas que se corrigen solas. Los <b>mini-retos</b> son el extra: el Mini-reto 1 (diseñar a mano un comité de crédito) queda opcional; el Mini-reto 2 (los círculos con más de 90 %) se intenta en clase.</p>
+<p>Los proyectos de la semana son <b>prácticas en clase, sin nota</b>: el <b>NB01</b> el viernes y el <b>NB02</b> el sábado, con todo el código ya escrito y comentado: se leen, se ejecutan y se responden las preguntas <b>Para pensar</b> (con la respuesta plegada). Los <b>experimentos</b> son el extra: el Experimento 1 (diseñar a mano un comité de crédito) queda para la casa; el Experimento 2 (los círculos con más de 90 %) se intenta en clase.</p>
 """))
 
 # ------------------------------------------------------------------ checklist
@@ -132,31 +132,31 @@ S.append(('checklist', '2', 'Checklist antes de clase', f"""
 
 # ------------------------------------------------------------------ plans
 VIE = [
-    ['18:00–18:10', 'Encuadre y pre-quiz', R('portada', 'metas'), 'Grabación verificada; la ruta; pre-quiz jugado; las 5 ideas clave', '¿Qué pregunta les pareció más difícil?'],
-    ['18:10–18:25', '01 · IA, ML y DL', R('b01', 'ahora'), 'IA ⊃ ML ⊃ DL; reglas vs. ejemplos; por qué ahora (puente a la lectura)', '¿Qué problema de su trabajo se resuelve con reglas escritas a mano?'],
-    ['18:25–18:48', '02 · La neurona', R('b02', 'doblar'), 'Tu nota final es una neurona (Ana: z = +6); el comité y z = 2.81 a mano; la línea con deslizadores; activaciones; sin activación no hay curvas', 'Si el curso se vuelve más exigente, ¿qué número cambia?'],
-    ['18:48–19:02', '03 · Cómo aprende', R('b03', 'neurona-codigo'), 'Ciclo; regla; −0.30 → +2.70; míralo aprender; XOR imposible; la neurona en cinco líneas de Python', '¿Alguien logra separar XOR con una línea?'],
-    ['19:02–19:22', 'Práctica en clase · NB01 §1–5', str(L('practica1')), 'Colab funcionando en todos; Parte 0 solo para quien la necesite; §1–5', '¿Por qué el perceptrón no aprende XOR?'],
-    ['19:22–19:40', '04 · Error y gradiente', R('b04', 'receta'), 'MSE, BCE, el Cotopaxi, la pendiente, los pasos, η con la ducha', 'Pendiente +4: ¿el peso sube o baja?'],
-    ['19:40–19:50', 'Práctica en clase · NB01 §6–8', str(L('practica2')), '§6–7 en clase; §8 y las tareas finales en casa', '¿Qué pasa con η = 1.1?'],
-    ['19:50–20:00', 'Lectura y cierre', R('tendencia1', 'cierre-viernes'), 'La pregunta de la lectura; las tres ideas del día', 'Del 1 al 5, ¿podrían explicar el descenso de gradiente?'],
+    ['18:00–18:09', 'Encuadre y pre-quiz', R('portada', 'metas'), 'Grabación verificada; la ruta; pre-quiz jugado; las 5 ideas clave', '¿Qué pregunta les pareció más difícil?'],
+    ['18:09–18:26', '01 · IA, ML y DL', R('b01', 'ahora'), 'El gato sin reglas; reglas vs. ejemplos; cinco palabras (característica, ejemplo, etiqueta, modelo, predicción); IA ⊃ ML ⊃ DL; cuánto cambió el mundo; por qué ahora', '¿Qué problema de su trabajo se resuelve con reglas escritas a mano?'],
+    ['18:26–18:50', '02 · La neurona', R('b02', 'doblar'), 'Tu nota final es una neurona (Ana: z = +6); peso y sesgo en la recta (exigir 80 → −4); el comité y z = 2.81 a mano; la línea con deslizadores; activaciones; sin activación no hay curvas', 'Si el curso se vuelve más exigente, ¿qué número cambia?'],
+    ['18:50–19:05', '03 · Cómo aprende', R('b03', 'neurona-codigo'), 'Ciclo; regla; −0.30 → +2.70; míralo aprender; XOR imposible; la neurona en cinco líneas de Python', '¿Alguien logra separar XOR con una línea?'],
+    ['19:05–19:23', 'Práctica en clase · NB01 §1–5', str(L('practica1')), 'Colab funcionando en todos; Parte 0 solo para quien la necesite; §1–5', '¿Por qué el perceptrón no aprende XOR?'],
+    ['19:23–19:41', '04 · Error y gradiente', R('b04', 'receta'), 'El error de cada casa (+10, −5, −20, −2); MSE en tres pasos; BCE; el Cotopaxi; la derivada; los pasos; η con la ducha; error, pérdida y gradiente', 'Pendiente +4: ¿el peso sube o baja?'],
+    ['19:41–19:51', 'Práctica en clase · NB01 §6–8', str(L('practica2')), '§6–7 en clase; §8 y las tareas finales en casa', '¿Qué pasa con η = 1.1?'],
+    ['19:51–20:00', 'Lectura y cierre', R('tendencia1', 'cierre-viernes'), 'La pregunta de la lectura; las tres ideas del día', 'Del 1 al 5, ¿podrían explicar el descenso de gradiente?'],
 ]
 SAB = [
     ['08:00–08:15', 'Apertura y repaso', R('portada-sab', 'repaso'), 'El viernes explicado por ellos', '¿Qué problema nos quedó pendiente?'],
-    ['08:15–08:55', '05 · De una neurona a una red', R('b05', 'parametros'), 'Capas; XOR con dos neuronas; pistas; juega con 1 a 8 neuronas; parámetros', '¿Por qué 1 neurona no pasa del 60 % en los círculos?'],
+    ['08:15–08:55', '05 · De una neurona a una red', R('b05', 'parametros'), 'Capas; XOR con dos neuronas; pistas; juega con 1 a 8 neuronas; parámetros e hiperparámetros', '¿Por qué 1 neurona no pasa del 60 % en los círculos?'],
     ['08:55–09:40', '06 · Retropropagación', R('b06', 'tensorflow'), 'Forward 2-2-1; la culpa; engranajes; backward; un paso 56 % → 65 %; GradientTape', 'Si la culpa de un peso es negativa, ¿sube o baja?'],
     ['09:40–09:55', 'Pausa', '—', '—', '—'],
-    ['09:55–10:30', '07 · Entrenar bien', R('b07', 'receta-arranque'), 'La culpa que se apaga; clones; lotes; carrera de optimizadores y debate de la lectura (8 min)', '¿Mejor algoritmo o más cómputo?'],
-    ['10:30–10:50', '08 · Keras', R('b08', 'keras'), 'El motor y el volante; los datos como tabla; construir, compilar, entrenar y predecir línea por línea; la red de las lunas aprendiendo en vivo', '¿En qué línea está la retropropagación?'],
-    ['10:50–11:30', 'Práctica en clase · NB02', str(L('practica3')), 'Parejas o salas de 3; T, A, E y F con el Mini-reto 2; sin nota', '¿Qué red más pequeña pasa el 90 %?'],
-    ['11:30–11:45', '09 · ¿El modelo es bueno?', R('b09', 'metricas'), 'La trampa del 87 %; mover el umbral; recall, precisión y AUC', '¿Qué es peor: una falsa alarma o un moroso no visto?'],
-    ['11:45–11:55', 'Quiz final', str(L('quizfinal')), 'Todos jugaron y pegaron su código', '¿Qué pregunta les costó más?'],
-    ['11:55–12:00', 'Cierre', R('mapa-semana', 'gracias'), 'El mapa de la semana; semanas 2 y 3 (lecturas); guía de estudio', 'Del 1 al 5, ¿podrían explicar cómo aprende una red?'],
+    ['09:55–10:22', '07 · Entrenar bien', R('b07', 'receta-arranque'), 'La culpa que se apaga; clones; lotes; carrera de optimizadores y debate de la lectura (8 min)', '¿Mejor algoritmo o más cómputo?'],
+    ['10:22–10:46', '08 · Keras', R('b08', 'keras'), 'El motor y el volante; los datos como tabla; construir y compilar; aprender no es memorizar (600 → 384 + 96 + 120; 720 pasos); entrenar y predecir línea por línea; la red de las lunas aprendiendo en vivo', '¿En qué línea está la retropropagación?'],
+    ['10:46–11:26', 'Práctica en clase · NB02', str(L('practica3')), 'Parejas o salas de 3; T, A, E y F con el Experimento 2; sin nota', '¿Qué red más pequeña pasa el 90 %?'],
+    ['11:26–11:41', '09 · ¿El modelo es bueno?', R('b09', 'metricas'), 'La clase positiva ahora es la mora; la trampa del 87 %; la matriz de confusión (10 · 3 · 8 · 79); recall 76.9 %, precisión 55.6 % y AUC', '¿Qué es peor: una falsa alarma o un moroso no visto?'],
+    ['11:41–11:51', 'Quiz final', str(L('quizfinal')), 'Todos jugaron y pegaron su código', '¿Qué pregunta les costó más?'],
+    ['11:51–12:00', 'Cierre', R('mapa-semana', 'gracias'), 'El mapa de la semana; semanas 2 y 3 (lecturas); guía de estudio', 'Del 1 al 5, ¿podrían explicar cómo aprende una red?'],
 ]
 S.append(('viernes', '3', 'Plan del viernes 23 · 18:00–20:00', f"""
 {idea('Objetivo del viernes: que todos salgan sabiendo qué calcula una neurona, por qué una sola no resuelve XOR y qué hace el descenso de gradiente, con Colab funcionando.')}
 {table(['Hora', 'Bloque', 'Láminas', 'Qué debe quedar', 'Pregunta para lanzar'], VIE)}
-{box('ojo', 'Si el tiempo aprieta', f'<p>Recorta las láminas {L("gato")} (el gato) y {L("ahora")} (por qué ahora) a un minuto cada una; deja la T8 y el Mini-reto 1 como práctica opcional. <b>Nunca recortes la práctica de la lámina {L("practica1")}</b>: es donde todos dejan Colab funcionando.</p>')}
+{box('ojo', 'Si el tiempo aprieta', f'<p>Recorta las láminas {L("gato")} (el gato) y {L("ahora")} (por qué ahora) a un minuto cada una; deja la §8 y el Experimento 1 para la casa. <b>Nunca recortes la práctica de la lámina {L("practica1")}</b>: es donde todos dejan Colab funcionando.</p>')}
 """))
 S.append(('sabado', '4', 'Plan del sábado 24 · 08:00–12:00', f"""
 {idea(f'Objetivo del sábado: que todos entrenen su primera red en Keras y entiendan por qué la exactitud puede engañar. El ejemplo 2-2-1 con números (láminas {R("adelante", "actualizar")}) es el corazón teórico.')}
@@ -179,7 +179,7 @@ AP.append(bloque('b01', '01', 'IA, machine learning y deep learning',
     formula(r'\hat\theta = \arg\min_\theta \frac{1}{N}\sum_{i=1}^N \ell\big(f_\theta(\mathbf{x}_i),\, y_i\big)',
             [(r'f_\theta', 'el modelo con parámetros θ', B), (r'\ell', 'la pérdida por ejemplo', A), ('N', 'ejemplos de entrenamiento', I)],
             '<p>Todo el curso es esta línea: elegir \\(f_\\theta\\) (arquitectura), \\(\\ell\\) (pérdida) y cómo minimizar (optimizador). La diferencia del DL es que \\(f_\\theta\\) es una composición de muchas capas que aprende las características, en lugar de recibirlas hechas (<i>feature engineering</i>).</p>'),
-    f"<p>Abre con la pregunta «¿cuántas veces usaron IA hoy?». Los tres círculos (lámina {L('circulos')}) se revelan uno por clic; luego reglas vs. ejemplos ({L('reglas')}) con el spam, el juego de las reglas del gato ({L('gato')}), los usos cotidianos ({L('usos')}) y la línea de tiempo ({L('ahora')}), que termina en la pregunta de la lectura de tendencia. Cierra con honestidad: en datos de tabla, compara siempre con una línea base.</p>",
+    f"<p>Parte de la necesidad: hay tareas que hacemos sin pensar y no sabemos escribir como reglas. Abre con el juego de las reglas del gato (lámina {L('gato')}): pide reglas por el chat y busca juntos el contraejemplo. Luego reglas vs. ejemplos ({L('reglas')}) con el spam y las cinco palabras de la semana sobre una tabla de socios ({L('palabras')}): característica, ejemplo, etiqueta, modelo y predicción, más clasificar vs. regresión. Después los tres círculos ({L('circulos')}), los usos cotidianos ({L('usos')}), cuánto cambió el mundo ({L('mundo')}: ImageNet de ≈26 % a 3.6 % de error, AlphaFold y los dos Nobel de 2024) y la línea de tiempo ({L('ahora')}), que termina en la pregunta de la lectura de tendencia. Cierra con honestidad: en datos de tabla, compara siempre con una línea base.</p>",
     [('¿Un modelo de lenguaje como ChatGPT es deep learning?', 'Sí. Es una red neuronal muy profunda (un <i>Transformer</i>) con cientos de miles de millones de parámetros, entrenada con la misma receta que veremos: pérdida, gradientes y un optimizador de la familia de Adam. Los Transformers se ven en la semana 2.'),
      ('¿Las redes neuronales funcionan como el cerebro?', 'Solo como inspiración. Una neurona artificial es una suma ponderada y una función; no hay química, tiempo ni aprendizaje local como en las sinapsis. Decir que «piensa» es una metáfora.'),
      ('¿Por qué no usar siempre deep learning?', 'Porque en datos de tabla medianos un modelo clásico (regresión logística, árboles con boosting) suele igualarlo o superarlo, es más barato y más fácil de explicar. El DL brilla cuando hay que aprender la representación: imágenes, texto, audio.'),
@@ -192,7 +192,7 @@ AP.append(bloque('b02', '02', 'La neurona artificial',
     '<p><b>Geometría.</b> El conjunto \\(\\{\\mathbf{x} : \\mathbf{w}^\\top\\mathbf{x} + b = 0\\}\\) es un hiperplano; \\(\\mathbf{w}\\) es perpendicular a él y la distancia con signo de un punto es \\((\\mathbf{w}^\\top\\mathbf{x}+b)/\\|\\mathbf{w}\\|\\). Multiplicar \\((\\mathbf{w}, b)\\) por una constante positiva no cambia la frontera, solo la «seguridad» del puntaje.</p>'
     '<p><b>Sin activación no hay profundidad.</b> \\(W_2(W_1\\mathbf{x}+\\mathbf{b}_1)+\\mathbf{b}_2 = (W_2W_1)\\mathbf{x} + (W_2\\mathbf{b}_1+\\mathbf{b}_2)\\): cualquier pila de capas lineales es una sola capa lineal.</p>'
     '<p><b>La sigmoide como probabilidad.</b> Con salida sigmoide y BCE, el modelo es exactamente una regresión logística: \\(\\log\\frac{p}{1-p} = z\\). Por eso «una neurona sigmoide = regresión logística».</p>',
-    f"<p>Abre con algo que todos conocen: su nota final del curso (lámina {L('nota')}). Mueve los deslizadores, muestra que Ana llega a 76 y que con una exigencia de ejemplo de 70 le queda z = +6; luego Beto (z = −8) y «¿cuánto necesita Ana en la entrega final?» (30). Insiste: aquí los pesos los fija el sílabo; en una red se aprenden. Después el comité (lámina {L('comite')}), que agrega los pesos negativos, con la neurona que se arma por pasos; la cuenta con barras ({L('cuenta')}) en voz alta; la línea ({L('linea')}): empieza mal a propósito y pide valores por el chat; las tres activaciones con el mismo z ({L('activacion')}); la sigmoide ({L('sigmoide')}); y los dobleces ({L('doblar')}): primero «Sin activación», luego 2, 4 y 8 neuronas.</p>",
+    f"<p>Abre con algo que todos conocen: su nota final del curso (lámina {L('nota')}). Mueve los deslizadores, muestra que Ana llega a 76 y que con una exigencia de ejemplo de 70 le queda z = +6; luego Beto (z = −8) y «¿cuánto necesita Ana en la entrega final?» (30). Insiste: aquí los pesos los fija el sílabo; en una red se aprenden. Luego peso y sesgo en la recta ({L('sesgo')}): el marcador empieza en −70, cada nota da un salto y llega a +6; si exigimos 80, solo cambia el sesgo y Ana queda en −4 (sesgo no significa prejuicio). Después el comité (lámina {L('comite')}), que agrega los pesos negativos, con la neurona que se arma por pasos; la cuenta con barras ({L('cuenta')}) en voz alta; la línea ({L('linea')}): empieza mal a propósito y pide valores por el chat; las tres activaciones con el mismo z ({L('activacion')}); la sigmoide ({L('sigmoide')}); y los dobleces ({L('doblar')}): primero «Sin activación», luego 2, 4 y 8 neuronas.</p>",
     [('¿Por qué el sesgo se llama sesgo si no es un sesgo estadístico?', 'Es un nombre heredado (<i>bias</i>): es el intercepto de la recta. Desplaza la frontera sin girarla. Equivale a un peso cuya entrada vale siempre 1.'),
      ('¿Cómo se eligen los pesos iniciales?', 'Al azar, con una escala que depende del tamaño de la capa (Glorot o He, bloque 07). Nunca todos iguales: las neuronas quedarían idénticas.'),
      ('¿Por qué ReLU en capas ocultas y sigmoide en la salida?', 'ReLU no satura para z > 0 (pendiente 1), así el gradiente fluye bien entre capas. En la salida necesitamos un número entre 0 y 1 para leerlo como probabilidad: ahí va la sigmoide.'),
@@ -220,7 +220,7 @@ AP.append(bloque('b04', '04', 'Pérdida y descenso de gradiente',
     '<p><b>Por qué no MSE para clasificar.</b> Con MSE, \\(\\partial\\ell/\\partial z = (\\hat y - y)\\,\\sigma\'(z)\\): si la neurona está saturada y equivocada (\\(z=-6\\), \\(y=1\\)), \\(\\sigma\'\\approx0.0025\\) y casi no aprende; con BCE el gradiente es ≈ −1.</p>'
     '<p><b>Cuándo converge η en la parábola del NB01.</b> Con \\(L=(w-3)^2\\): \\(w_{t+1}-3 = (1-2\\eta)(w_t-3)\\). Converge si \\(|1-2\\eta|<1\\), es decir \\(0<\\eta<1\\); con \\(\\eta=0.5\\) llega en un paso; con \\(\\eta>1\\) diverge. En general, en una cuadrática con curvatura máxima \\(\\lambda_{\\max}\\), hace falta \\(\\eta < 2/\\lambda_{\\max}\\).</p>'
     '<p><b>Por qué el gradiente.</b> Por Taylor, \\(L(\\mathbf{w}+\\Delta) \\approx L(\\mathbf{w}) + \\nabla L^\\top\\Delta\\); entre todas las direcciones de igual largo, \\(-\\nabla L\\) es la que más baja la pérdida.</p>',
-    f"<p>La pérdida como «nota al revés» con las casas (lámina {L('perdida')}); la BCE con el meteorólogo ({L('bce')}): prueba los tres botones; el Cotopaxi ({L('cotopaxi')}), un clic por paso; la pendiente ({L('pendiente')}): arrastra el punto a ambos lados del mínimo e insiste en el signo menos; la tabla de cuatro pasos ({L('pasos')}); los tres η ({L('eta')}); la receta ({L('receta')}).</p>",
+    f"<p>Ve despacio con el error, que es lo que más se confunde: primero el error de cada casa (lámina {L('error')}): real − predicho, uno por caso, con su signo; después la pérdida ({L('perdida')}), que los resume en un solo número con tres pasos explícitos; la BCE con el meteorólogo ({L('bce')}): prueba los tres botones; el Cotopaxi ({L('cotopaxi')}), un clic por paso; la pendiente ({L('pendiente')}): arrastra el punto a ambos lados del mínimo e insiste en el signo menos; la tabla de cuatro pasos ({L('pasos')}); los tres η ({L('eta')}); error, pérdida y gradiente como tres preguntas distintas ({L('tres-preguntas')}); la receta ({L('receta')}).</p>",
     [('¿Por qué se usa el logaritmo en la BCE?', 'Porque maximizar la probabilidad de los datos (un producto) equivale a minimizar la suma de −log; convierte productos en sumas y castiga fuertemente las probabilidades cercanas a 0 asignadas a lo que sí pasó.'),
      ('¿Qué es una época y qué es una iteración?', 'Una iteración es un paso (un lote). Una época es pasar por todos los datos una vez: N ÷ batch_size iteraciones.'),
      ('¿El descenso de gradiente siempre encuentra el mínimo global?', 'En una parábola sí. En redes, la pérdida no es convexa: puede llegar a mínimos locales o mesetas. En redes grandes muchos mínimos son igual de buenos; el ruido de los mini-lotes ayuda a escapar de puntos silla.'),
@@ -234,7 +234,7 @@ AP.append(bloque('b05', '05', 'De una neurona a una red',
     '<p><b>Convención de código.</b> En NumPy y Keras las filas son ejemplos: \\(Z = AW + \\mathbf{b}\\) con \\(W\\) de tamaño \\(n_{l-1}\\times n_l\\). Es la misma cuenta, transpuesta; Keras muestra el «kernel» como entradas × salidas.</p>'
     '<p><b>XOR con dos neuronas ReLU.</b> \\(h_1 = \\max(0, x_1+x_2)\\), \\(h_2 = \\max(0, x_1+x_2-1)\\), \\(\\hat y = h_1 - 2h_2\\) da 0, 1, 1, 0. Con escalones: \\(h_1\\) = OR, \\(h_2\\) = AND, salida = OR y no AND.</p>'
     '<p><b>Aproximación universal</b> (Cybenko, 1989; Hornik, 1991): una capa oculta suficientemente ancha con activación no polinomial aproxima cualquier función continua en un compacto. No dice cuántas neuronas ni cómo encontrarlas: la profundidad logra lo mismo con muchas menos.</p>',
-    f"<p>Las agencias de la cooperativa (lámina {L('red')}), con la red que resalta cada capa por clic; XOR con dos líneas ({L('xor-resuelto')}); pistas por capa con el «7» ({L('pistas')}); la demo «Juega» ({L('juega')}): Círculos con 1 neurona y luego con 4; contar parámetros ({L('parametros')}): haz la primera fila con ellos y pide la segunda en el chat.</p>",
+    f"<p>Las agencias de la cooperativa (lámina {L('red')}), con la red que resalta cada capa por clic; XOR con dos líneas ({L('xor-resuelto')}); pistas por capa con el «7» ({L('pistas')}); la demo «Juega» ({L('juega')}): Círculos con 1 neurona y luego con 4; contar parámetros ({L('parametros')}): haz la primera fila con ellos y pide la segunda en el chat; el último clic separa parámetros (los ajusta el entrenamiento) de hiperparámetros (capas, neuronas y η: los eliges tú).</p>",
     [('¿Cuántas capas y neuronas debo usar?', 'No hay fórmula. Para tablas medianas, 1–2 capas de 16–64 neuronas suelen bastar; se decide con validación. Más parámetros que datos de entrenamiento es señal de alerta de sobreajuste (semana 3).'),
      ('¿Qué «ve» una neurona oculta en datos de tabla?', 'Una combinación de variables, por ejemplo «cuota alta respecto al ingreso». No siempre es interpretable; en la semana 3 vemos herramientas de explicabilidad (SHAP, gradientes).'),
      ('¿Por qué se llama «perceptrón multicapa» si no usa la regla del perceptrón?', 'Por historia: las neuronas son como el perceptrón (suma + activación), pero se entrenan con retropropagación y activaciones suaves.')],
@@ -247,7 +247,7 @@ AP.append(bloque('b06', '06', 'Retropropagación',
     '<p><b>Por lotes</b> (filas = ejemplos): \\(\\Delta^{(L)} = (\\hat Y - Y)/B\\), \\(\\nabla W^{(l)} = A^{(l-1)\\top}\\Delta^{(l)}\\), \\(\\Delta^{(l-1)} = (\\Delta^{(l)}W^{(l)\\top})\\odot\\varphi\'(Z^{(l-1)})\\). Es lo que hace Keras por dentro.</p>'
     '<p><b>Costo.</b> Con diferencias finitas harían falta 2 forwards por parámetro (337 × 2 en la red de las lunas); el backward cuesta del orden de un forward. El <i>gradient check</i> usa diferencias finitas solo para verificar: error relativo &lt; 1e-6 (en NB02 da ~1e-11).</p>'
     '<p><b>Números del ejemplo 2-2-1</b> (NB02): a = (0.6106, 0.6225); ŷ = 0.5569; pérdida 0.5854; δ₂ = −0.4431; ∂L/∂W₂ = (−0.2706, −0.2758); δ₁ = (−0.0738, 0.0417); tras un paso con η = 0.5: ŷ = 0.6542, pérdida 0.4243.</p>',
-    f"<p>Forward con números (lámina {L('adelante')}) sin hacer cuentas en vivo: mira cómo viaja la señal; la cadena del cacao ({L('culpa')}); engranajes ({L('engranajes')}); el backward ({L('atras')}) explicando el signo de la oculta 2; el paso ({L('actualizar')}); GradientTape ({L('tensorflow')}).</p>",
+    f"<p>Forward con números (lámina {L('adelante')}) sin hacer cuentas en vivo: mira cómo viaja la señal; la cadena del cacao ({L('culpa')}), aclarando que «culpa» es una metáfora de la derivada; engranajes ({L('engranajes')}); el backward ({L('atras')}) explicando el signo de la oculta 2; el paso ({L('actualizar')}); GradientTape ({L('tensorflow')}).</p>",
     [('¿La red «sabe» qué peso tiene la culpa?', 'Sí, en el sentido preciso de la derivada: cuánto cambiaría la pérdida si ese peso cambiara un poquito. Eso es la «culpa».'),
      ('¿Por qué la culpa de la oculta 2 es positiva si la salida necesitaba subir?', 'Porque su peso hacia la salida es negativo (−0.4): para que la salida suba, esa neurona debe bajar. El signo del peso invierte el mensaje.'),
      ('¿TensorFlow hace exactamente esto?', 'Sí: diferenciación automática en modo reverso. GradientTape graba las operaciones del forward y aplica la regla de la cadena hacia atrás. La diferencia con nuestra cuenta en el NB02 es ~1e-17 (redondeo).'),
@@ -273,7 +273,7 @@ AP.append(bloque('b08', '08', 'Keras en tres pasos',
     'Sequential define la arquitectura, compile fija optimizador, pérdida y métricas, y fit ejecuta el ciclo forward–backward–update por lotes y épocas.',
     '<pre><code>for epoch in range(epochs):\n    for X_b, y_b in batches(X_tr, y_tr, batch_size):\n        with tf.GradientTape() as tape:\n            loss = loss_fn(y_b, model(X_b, training=True))\n        grads = tape.gradient(loss, model.trainable_variables)\n        optimizer.apply_gradients(zip(grads, model.trainable_variables))\n    # then: validation metrics, callbacks (EarlyStopping, ...)</code></pre>'
     '<p>Eso es lo que hace <code>fit()</code> por dentro. Keras 3 puede correr sobre TensorFlow, JAX o PyTorch; en el curso usamos TensorFlow (por defecto en Colab).</p>',
-    f"<p>No asumas que conocen las librerías. Primero qué son: el motor y el volante (lámina {L('tf-keras')}) y cómo se importan; luego cómo entran los datos, como una tabla con su <code>shape</code> ({L('datos-arrays')}). Después una lámina por paso, avanzando línea por línea: construir ({L('keras-construir')}), compilar ({L('keras-compile')}), entrenar ({L('keras-fit')}): pulsa «Entrenar 60 épocas» y comenta cómo se dobla la frontera mientras bajan las dos curvas; y predecir ({L('keras-predict')}). Cierra con todo junto ({L('keras')}) y pasa a la práctica ({L('practica3')}).</p>",
+    f"<p>No asumas que conocen las librerías. Primero qué son: el motor y el volante (lámina {L('tf-keras')}) y cómo se importan; luego cómo entran los datos, como una tabla con su <code>shape</code> ({L('datos-arrays')}). Después una lámina por paso, avanzando línea por línea: construir ({L('keras-construir')}), compilar ({L('keras-compile')}); antes de entrenar, aprender no es memorizar ({L('memorizar')}): la barra que se parte en entrenamiento, validación y prueba, y las cuentas 384 / 32 = 12 y 12 × 60 = 720; entrenar ({L('keras-fit')}): pulsa «Entrenar 60 épocas» y comenta cómo se dobla la frontera mientras bajan las dos curvas; y predecir ({L('keras-predict')}). Cierra con todo junto ({L('keras')}) y pasa a la práctica ({L('practica3')}).</p>",
     [('¿Qué diferencia hay entre loss y metrics?', 'La pérdida es lo que se optimiza (debe ser derivable). Las métricas solo se reportan (accuracy, AUC); no guían el gradiente.'),
      ('¿Por qué validation_data?', 'Para ver en cada época cómo le va a la red con datos que no usa para aprender: detecta sobreajuste y permite elegir épocas, arquitectura y umbral.'),
      ('Me sale un error de shapes, ¿qué reviso?', 'Que Input(shape=(n_features,)) coincida con X.shape[1] y que y sea 0/1 de forma (N,) o (N,1) según la pérdida. El error típico es pasar X sin escalar o con columnas categóricas sin codificar.')],
@@ -284,8 +284,8 @@ AP.append(bloque('b09', '09', '¿El modelo es bueno? Métricas',
     '<p><b>Matriz de confusión.</b> Exactitud = (VP + VN)/N; recall = VP/(VP + FN); precisión = VP/(VP + FP). Con prevalencia π, el clasificador constante «negativo» tiene exactitud 1 − π y recall 0.</p>'
     '<p><b>ROC-AUC</b> = probabilidad de que un positivo al azar reciba mayor puntaje que un negativo al azar (equivale al estadístico de Mann–Whitney normalizado); no depende del umbral. <b>PR-AUC</b> tiene como línea base la prevalencia: es más exigente con clases raras.</p>'
     '<p><b>Umbral.</b> Si un falso negativo cuesta c<sub>FN</sub> y un falso positivo c<sub>FP</sub>, con probabilidades bien calibradas el umbral que minimiza el costo esperado es c<sub>FP</sub> / (c<sub>FP</sub> + c<sub>FN</sub>).</p>'
-    f'<p><b>La demo de la lámina {L("trampa87")}</b> usa 100 socios ficticios (13 en mora) con puntajes simulados: con umbral 0.5 la red tiene la misma exactitud que el modelo perezoso (87 %) pero encuentra 12 de 13 morosos, con 12 falsas alarmas. Es el mejor argumento de que la exactitud no basta.</p>',
-    f"<p>La trampa (lámina {L('trampa87')}) en tres clics: los 100 socios, el modelo perezoso y la red con umbral; mueve el umbral en vivo y pregunta qué es peor para la cooperativa. Luego las tres preguntas ({L('metricas')}) con la imagen de las dos listas ordenadas para explicar el AUC.</p>",
+    f'<p><b>La demo de la lámina {L("trampa87")}</b> usa 100 socios ficticios (13 en mora) con puntajes simulados: con umbral 0.5 la red tiene casi la misma exactitud que el modelo perezoso (89 % contra 87 %), pero encuentra 10 de 13 morosos, con 8 falsas alarmas: es la matriz de la lámina {L("confusion")} y de la guía. Es el mejor argumento de que la exactitud no basta.</p>',
+    f"<p>Anuncia el cambio: ahora la clase positiva es la mora («positiva» no significa buena). La trampa (lámina {L('trampa87')}) en tres clics: los 100 socios, el modelo perezoso y la red con umbral; mueve el umbral en vivo y pregunta qué es peor para la cooperativa. Luego la matriz de confusión ({L('confusion')}), casilla por casilla: 10 VP, 3 FN, 8 FP y 79 VN (exactitud 89 %), recall 10/13 ≈ 76.9 % y precisión 10/18 ≈ 55.6 %. Cierra con las tres preguntas ({L('metricas')}) y la imagen de las dos listas ordenadas para el AUC; insiste en que AUC 0.5 no significa 50 % de exactitud.</p>",
     [('¿Qué umbral usamos?', 'El que responda a una decisión de negocio, elegido con validación: por ejemplo, encontrar al menos 70 % de los morosos. Bajar el umbral sube el recall y baja la precisión.'),
      ('¿Por qué no balanceamos las clases?', 'Se puede (pesos de clase, sobremuestreo), pero cambia la calibración de las probabilidades. Primero conviene elegir bien la métrica y el umbral.'),
      ('¿Un AUC de 0.87 es bueno?', 'Depende de la alternativa: compáralo con una línea base (regresión logística) y con el costo de los errores. Un AUC alto con un umbral mal elegido puede ser inútil.'),
@@ -294,32 +294,31 @@ AP.append(bloque('b09', '09', '¿El modelo es bueno? Métricas',
 
 # ------------------------------------------------------------------ notebooks (keys)
 NBK = f"""
-{idea('Los notebooks de los estudiantes tienen ejemplos resueltos y tareas que se autocorrigen. Las versiones resueltas están en Soluciones_privadas (en tu computador, fuera del repo).')}
-<h3>Cómo abrir las soluciones en Colab</h3>
-<ol><li>Entra a <a href="https://colab.research.google.com">colab.research.google.com</a> → <b>Archivo → Subir cuaderno</b> → elige el archivo de <code>Soluciones_privadas (en tu computador, fuera del repo)</code>.</li>
-<li>O súbelos una vez a una carpeta privada de tu Google Drive y ábrelos con doble clic. <b>Nunca</b> los subas al repo público.</li>
-<li>Ya vienen ejecutados: puedes ver todos los resultados sin correrlos.</li></ol>
+{idea('Los notebooks ya vienen completos y ejecutados: no hay espacios para rellenar. El estudiante lee, predice qué saldrá, ejecuta y compara; cada sección cierra con «Para pensar» (respuesta desplegable) y algunas tienen «Experimenta» (cambiar un número). Así no se puede «pedirle a la IA la tarea»: lo que cuenta es poder explicar lo que se ve.')}
 <h3>NB01 · Tu primera neurona (viernes)</h3>
-{table(['Tarea', 'Qué piden', 'Respuesta', 'Dónde se traban'], [
-    ['T1', 'función neurona(x, w, b) y z del socio B', 'w @ x + b; z_b = −3.61', 'olvidar b; escribir números a mano'],
-    ['T2', 'probabilidad y decisión del socio B', 'p ≈ 0.026; «rechaza»', 'usar z en vez de sigmoid(z)'],
-    ['T3', 'corregir con y = −1', 'w = (0.2, 0.0), b = 0; todavía se equivoca (z = 0.2)', 'sumar en vez de restar'],
-    ['T4', 'perceptrón para AND', 'X_and con 4 filas, y_and = [−1, −1, −1, 1]; aprende (p. ej. w = (3, 2), b = −4)', 'usar 0/1 en vez de −1/+1'],
-    ['T5', '¿por qué falla XOR?', '«b»', '—'],
-    ['T6', 'funciones mse y bce', 'mse = 132.25; bce(1, 0.9) = 0.105; bce(0, 0.9) = 2.303', 'usar solo −log(p)'],
-    ['T7', 'descenso en (w + 2)²', 'mínimo −2; w_final ≈ −2.0000', 'pendiente con signo equivocado'],
-    ['T8', '¿qué η convergen?', '0.05, 0.5, 0.9 → True; 1.1 → False', 'creer que 0.9 diverge porque rebota'],
-    ['Mini-reto 1', 'pesos a mano para 6 socios', 'p. ej. w = (1.0, −1.5), b = −0.2 (hay muchas)', 'peso positivo para atrasos'],
+{table(['Sección', 'Qué deberían ver', 'Pregunta para el grupo'], [
+    ['Parte 0 (opcional)', 'Ana 76.0; Beto 62.0; las notas del grupo con <code>@</code>', '¿Qué hace <code>@</code> que no hace <code>*</code>?'],
+    ['§1 La neurona', 'Ana z = +6; con exigencia 80, z = −4; socio A z = 2.81; socio B z = −3.61', '¿Qué cambia un peso y qué cambia el sesgo?'],
+    ['§2 Activación', 'sigmoide(2.81) ≈ 0.943; sigmoide(−3.61) ≈ 0.026; ReLU(2.81) = 2.81', '¿Por qué la ReLU no es una probabilidad?'],
+    ['§3 Una corrección', '−0.30 → +2.70 con η = 1', '¿Qué pasaría si la etiqueta fuera −1?'],
+    ['§4 AND', 'llega a 0 errores en pocas épocas', '¿Por qué AND sí se puede separar con una recta?'],
+    ['§5 XOR', 'nunca llega a 0 errores; la mejor recta acierta 3 de 4', '¿Falta práctica o falta herramienta?'],
+    ['§6 Error y pérdida', 'MSE = 132.25; BCE 0.01 · 0.69 · 4.61', '¿Por qué el error de 20 pesa tanto?'],
+    ['§7 Descenso', 'en (w − 3)² baja 9 → 5.76 → 3.69…; en (w + 2)² llega a w ≈ −2', 'Pendiente +4: ¿el peso sube o baja?'],
+    ['§8 Tamaño del paso', 'η pequeño lento, η 0.4 llega, η 1.02 se aleja', '¿Qué tiene que ver la ducha con η?'],
+    ['Experimento 1', 'tu comité separa a los 6 socios (6 de 6 con pesos sensatos)', '¿Qué signo debe tener el peso de los atrasos?'],
 ])}
 <h3>NB02 · Tu primera red (sábado)</h3>
-{table(['Tarea', 'Qué piden', 'Respuesta', 'Dónde se traban'], [
-    ['TA', 'forward del socio 2 (y = 0)', 'a ≈ (0.475, 0.677); ŷ ≈ 0.528; pérdida −log(1 − ŷ) ≈ 0.751', 'usar −log(ŷ)'],
-    ['TB', 'culpa de la salida y dW2', 'δ = 0.528; dW2 ≈ (0.251, 0.357)', 'invertir ŷ − y'],
-    ['TC', 'un paso completo', 'ŷ baja a ≈ 0.413', 'actualizar solo W2'],
-    ['TD', 'GradientTape de (3x)²', '18', 'no usar tf.Variable'],
-    ['TE', 'contar_parametros', '337 · 1 473 · 21', 'olvidar los sesgos'],
-    ['Mini-reto 2', 'círculos ≥ 90 %', 'dos capas de 16 ReLU, Adam 0.01, 60 épocas ≈ 98 %; sin ocultas ≈ 49 %', 'olvidar keras.Input o la activación'],
-    ['TG', 'peor optimizador', '«SGD» (val_loss ≈ 0.28 vs ≈ 0.12)', '—'],
+{table(['Parte', 'Qué deberían ver', 'Pregunta para el grupo'], [
+    ['T Herramientas', 'versiones de TensorFlow y Keras; un tensor 2×2; un peso que pasa de 0.7 a 0.84', '¿Quién es el motor y quién el volante?'],
+    ['A Forward', 'ocultas 0.6106 y 0.6225; salida 0.5569; pérdida 0.5854', '¿Predecir cambia algún peso?'],
+    ['B Backward', 'δ = −0.4431; derivadas −0.2706 y −0.2758', '¿Por qué «culpa» es solo una metáfora?'],
+    ['C Un paso', 'peso 0.7 → 0.8353; predicción 0.5569 → 0.6542; pérdida 0.5854 → 0.4243', '¿Por qué subió la predicción?'],
+    ['D TensorFlow', 'diferencia con la cuenta a mano ≈ 5.6 × 10⁻¹⁷; engranajes = 18', '¿Para qué hicimos la cuenta a mano?'],
+    ['E Keras con XOR', '33 parámetros; probabilidades cercanas a 0, 1, 1, 0', '¿Dónde está la retropropagación en este código?'],
+    ['F Las lunas', '600 → 120 prueba, 96 validación, 384 entrenamiento; 337 parámetros; ≈ 95 %', '¿Qué es el simulacro y qué el examen final?'],
+    ['Experimento 2', 'círculos ≈ 98 % con 16 neuronas; ≈ 97 % con 4; ≈ 79 % con 2; ≈ 49 % sin capas ocultas', '¿Cuántas neuronas bastan?'],
+    ['G Optimizadores', 'SGD es el más lento en esta corrida', '¿Es justa esta carrera?'],
 ])}
 """
 
@@ -358,7 +357,7 @@ FAQ = [
     ('¿Por qué los notebooks tienen el código en inglés y las explicaciones en español?', 'Porque el código, las librerías y la documentación técnica están en inglés: es la convención de la industria. Lo que hay que entender está en español.'),
     ('¿Las redes neuronales son cajas negras?', 'Más difíciles de interpretar que un modelo lineal, pero no del todo: hay técnicas de explicabilidad (importancia por permutación, SHAP, gradientes) que vemos en la semana 3.'),
     ('¿Cuánto se tarda en entrenar un modelo como ChatGPT?', 'Meses en miles de GPU, con costos de decenas a cientos de millones de dólares. La receta es la misma de esta semana; cambian la escala, la arquitectura (Transformer) y los datos.'),
-    ('¿Las prácticas tienen nota?', 'No. NB01 y NB02 son prácticas en clase que se corrigen solas; sirven para aprender equivocándose. Lo que se registra son el pre-quiz y el quiz final, y solo para medir el avance del grupo.'),
+    ('¿Las prácticas tienen nota?', 'No. NB01 y NB02 son prácticas en clase ya resueltas y explicadas: se aprenden leyendo, prediciendo y explicando lo que se ve. Lo que se registra son el pre-quiz y el quiz final, y solo para medir el avance del grupo.'),
     ('No me corre el notebook en Colab, ¿qué hago?', '1) Entorno de ejecución → Reiniciar y ejecutar todo. 2) Verifica que ejecutaste la celda Configuración. 3) Copia el mensaje de error en el chat de Teams.'),
 ]
 
@@ -391,8 +390,8 @@ FUT = """
 Tu computador
 └── Soluciones_privadas de cada semana</code></pre>
 <ul>
-<li>Nombres de notebooks: <code>NB0x_dia_tema.ipynb</code> (estudiante) y <code>NB0x_..._SOLUCION.ipynb</code> (profesor).</li>
-<li>Cada notebook: celda Configuración (oculta) con la autocorrección, luego «Ejemplo resuelto → Tarea → Revisar», y un Mini-reto al final.</li>
+<li>Nombres de notebooks: <code>NB0x_dia_tema.ipynb</code>. Vienen completos y ejecutados; el generador está en Soluciones_privadas.</li>
+<li>Cada notebook: celda Configuración (oculta) con la autocorrección, luego cada sección con su explicación, el código ya escrito y comentado, «Para pensar» (respuesta plegada) y «Experimenta»; los experimentos van al final.</li>
 <li>Cada práctica en las slides: lámina con QR al notebook y lo que deberían ver; prácticas en clase y sin nota.</li>
 <li>Slides en HTML con demos y notas del presentador (<code>codigo_fuente/slides/src</code>) y mapas conceptuales por bloque (<code>codigo_fuente/slides/maps</code>).</li>
 <li>Pre-quiz y quiz final con cinco ideas clave pareadas y el mismo panel de resultados.</li>

@@ -498,7 +498,7 @@ demo('trap', function (el, api) {
   var W = 640, Hh = 640;
   var svg = svgIn(fg, W, Hh, 'Cien socios; trece caen en mora');
   svg.style.width = '25em'; svg.style.height = '25em';
-  var r = seeded(87), idx = range(100);
+  var r = seeded(2), idx = range(100);   // seed 2: at threshold 0.5 → 10 TP, 3 FN, 8 FP, 79 TN (the guide's matrix)
   for (var i = 99; i > 0; i--) { var j = Math.floor(r() * (i + 1)), t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
   var mora = {}; idx.slice(0, 13).forEach(function (k) { mora[k] = 1; });
   var D = range(100).map(function (k) {

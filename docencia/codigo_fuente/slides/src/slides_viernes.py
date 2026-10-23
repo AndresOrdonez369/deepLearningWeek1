@@ -1,5 +1,5 @@
 """Friday 23 · 18:00-20:00 · blocks 00-04."""
-from kit import slide, head, key, chip, st, demo, count, qr, notes, eq, hist, code
+from kit import slide, head, key, chip, st, demo, count, qr, notes, eq, hist, code, move
 
 G0 = 'Viernes · Encuadre'
 G1 = 'Viernes · 01 IA, machine learning y deep learning'
@@ -42,10 +42,10 @@ slide('portada', 'De una neurona a tu primera red', f"""
     'La red de la derecha está viva: cada punto que viaja es una señal y cada neurona se ilumina según cuánto se activa. Al final del sábado van a entender exactamente qué está pasando ahí.'),
     layout='L-cover', block='00', group=G0, minutes=2, blockname='Encuadre')
 
-RAIL_V = [('18:00', 'Pre-quiz', 'q'), ('18:10', '01 · Aprender de ejemplos', ''), ('18:25', '02 · La neurona', ''), ('18:48', '03 · Cómo aprende', ''),
-          ('19:02', 'Práctica NB01', 'p'), ('19:22', '04 · Error y gradiente', ''), ('19:50', 'Cierre y lectura', 't')]
+RAIL_V = [('18:00', 'Pre-quiz', 'q'), ('18:09', '01 · Aprender de ejemplos', ''), ('18:26', '02 · La neurona', ''), ('18:50', '03 · Cómo aprende', ''),
+          ('19:05', 'Práctica NB01', 'p'), ('19:23', '04 · Error y gradiente', ''), ('19:51', 'Cierre y lectura', 't')]
 RAIL_S = [('08:00', 'Repaso', ''), ('08:15', '05 · Redes', ''), ('08:55', '06 · Retro­propagación', ''), ('09:40', 'Pausa', 'b'), ('09:55', '07 · Entrenar bien', 't'),
-          ('10:30', '08 · Keras', ''), ('10:50', 'Práctica NB02', 'p'), ('11:30', '09 · Métricas', ''), ('11:45', 'Quiz final', 'q')]
+          ('10:22', '08 · Keras', ''), ('10:46', 'Práctica NB02', 'p'), ('11:26', '09 · Métricas', ''), ('11:41', 'Quiz final', 'q')]
 
 
 def rail(items):
@@ -60,7 +60,7 @@ slide('ruta', 'La semana en dos sesiones', head('La semana en dos sesiones', 'Pr
   {st(2, '<div class="legend"><span><i style="background:var(--amber)"></i>práctica en Colab</span><span><i style="background:var(--mint)"></i>quiz tipo Kahoot</span><span><i style="background:var(--lilac)"></i>lectura de tendencia</span></div>')}
 </div>""", notes(
     'Dos sesiones, nueve bloques. El viernes construimos UNA neurona y vemos cómo aprende; el sábado juntamos muchas en una red y la entrenamos con Keras.',
-    'Recalca: <b>las prácticas son en clase y no se califican</b>. Los notebooks se corrigen solos (✅ ❌ ⏳); la idea es equivocarse sin miedo.',
+    'Recalca: <b>las prácticas son en clase y no se califican</b>. En los notebooks todo el código ya viene escrito: se lee, se ejecuta y se responden preguntas para pensar.',
     'Lo que sí registramos es el pre-quiz y el quiz final, pero solo para ver cuánto avanzamos como grupo.'),
     block='00', group=G0, minutes=1)
 
@@ -77,7 +77,7 @@ slide('prequiz', 'Pre-quiz: ¿de dónde partimos?', head('Antes de empezar: ¿de
     'Dales 6 minutos. Mientras juegan, mira el chat: cuando la mayoría haya pegado su código, sigue.',
     'Cinco de las ocho preguntas son las <b>ideas clave</b> que vuelven en el quiz final; así medimos el avance. El panel <b>Resultados_quiz.html</b> lee los códigos que peguen en el chat.',
     '<span class="q">Pregunta para el chat:</span> «¿Cuál les pareció más difícil?» Anota la respuesta: es el termómetro del grupo.'),
-    block='00', group=G0, minutes=6)
+    block='00', group=G0, minutes=5)
 
 IDEAS = ['Qué calcula una neurona', 'Para qué sirve la activación', 'Por qué una sola neurona no puede con XOR',
          'Hacia dónde camina el descenso de gradiente', 'Por qué la exactitud puede engañar']
@@ -89,8 +89,8 @@ slide('metas', 'Las 5 ideas clave de la semana', head('El sábado vas a poder ex
       block='00', group=G0, minutes=1)
 
 # ======================================================================= 01 · IA, ML, DL
-section('b01', '01', 'IA, machine learning y deep learning', 'Qué significa que una máquina aprenda de ejemplos.',
-        ['Tres círculos', 'Reglas o ejemplos', 'Dónde ya lo usas', '¿Por qué ahora?'], 'Viernes · 15 minutos', G1, '01 · IA, machine learning y deep learning',
+section('b01', '01', 'IA, machine learning y deep learning', 'Hay tareas que hacemos sin pensar, pero no sabemos escribir como reglas. ¿Cómo se las enseñamos a una máquina?',
+        ['El problema', 'La solución: ejemplos', 'Cinco palabras', 'Tres círculos', 'Cuánto cambió el mundo'], 'Viernes · 17 minutos', G1, '01 · IA, machine learning y deep learning',
         notes('Bloque corto y conversado. La meta es una sola: que entiendan que el machine learning <b>aprende las reglas a partir de ejemplos</b> en vez de recibirlas escritas.'))
 
 CIRC = """
@@ -152,7 +152,7 @@ slide('usos', 'Deep learning que ya usas hoy', head('Deep learning que ya usas h
       notes('Seis ejemplos cotidianos. La idea que deben retener: <b>una red neuronal es una función</b> que convierte una entrada (una imagen, un audio, una lista de compras) en una salida (una etiqueta, un texto, una probabilidad).',
             'Pregunta a quién le ha llegado una alerta de fraude del banco: detrás hay un modelo que aprendió cómo se ven las compras normales de esa persona.',
             'Esta forma «entrada → red → salida» la vamos a ver toda la semana.'),
-      block='01', group=G1, minutes=2)
+      block='01', group=G1, minutes=1)
 
 TL = [('1958', 'El perceptrón de Rosenblatt: la primera neurona artificial que aprende'), ('1969', 'Minsky y Papert muestran su límite (XOR) y llega el primer «invierno»'),
       ('1986', 'Se populariza la retropropagación: redes de varias capas'), ('2012', 'AlexNet gana ImageNet entrenada con tarjetas gráficas (GPU)'),
@@ -165,11 +165,11 @@ slide('ahora', '¿Por qué ahora?', head('Las ideas tienen 60 años. ¿Por qué 
             '1969: Minsky y Papert demostraron que una sola neurona no puede aprender XOR (lo veremos hoy) y el financiamiento se congeló por años: el primer «invierno de la IA».',
             '2012 es el punto de quiebre: AlexNet ganó la competencia ImageNet por mucha diferencia, entrenada en GPU. Desde ahí, datos + cómputo + algoritmos se retroalimentan.',
             '<b>Puente con la lectura:</b> si el cómputo crece tanto, ¿vale la pena inventar mejores algoritmos? Que lo piensen para la encuesta (no hay respuesta correcta).'),
-      block='01', group=G1, minutes=3)
+      block='01', group=G1, minutes=2)
 
 # ======================================================================= 02 · la neurona
-section('b02', '02', 'La neurona artificial', 'Una calculadora con opinión: recibe datos, los pesa y decide.',
-        ['Tu nota es una neurona', 'Un comité de crédito', 'La cuenta a mano', 'Una línea', 'La activación'], 'Viernes · 23 minutos', G2, '02 · La neurona artificial',
+section('b02', '02', 'La neurona artificial', 'Necesitamos una cuenta que combine varios datos y decida.',
+        ['Tu nota es una neurona', 'Peso y sesgo', 'Un comité de crédito', 'La cuenta a mano', 'Una línea', 'La activación'], 'Viernes · 24 minutos', G2, '02 · La neurona artificial',
         notes('Aquí está la <b>idea clave 1</b> (qué calcula una neurona) y la <b>idea clave 2</b> (para qué sirve la activación).'))
 
 
@@ -222,6 +222,7 @@ slide('comite', 'La misma cuenta decide un crédito', f"""
     {head('La misma cuenta decide un crédito', 'El comité de una cooperativa pesa tres datos de cada socio. Novedad: <b>un peso puede ser negativo</b> y entonces resta.', key(1))}
     """ + eq([('z', 'puntaje', 'out'), ('=', '', 'op'), ('w', 'pesos', 'w'), (r'\cdot', '', 'op'), ('x', 'datos del socio', 'x'), ('+', '', 'op'), ('b', 'la exigencia', 'w')],
              read='multiplica cada dato por su peso, suma todo y añade el sesgo.', size='.78em') + f"""
+    <p class="cap">Datos escalados: 0 es el promedio. Atrasos = −1 significa <b>menos</b> atrasos que el promedio.</p>
   </div>
   <div class="fig neuron">{NEURON}</div>
 </div>""", notes(
@@ -247,11 +248,11 @@ slide('cuenta', 'Hagamos la cuenta con el socio A', head('Hagamos la cuenta con 
   {st(5, '<span class="lb" style="color:var(--ink);font-weight:700">Puntaje z</span><span class="num mu">suma</span><span class="num" style="font-weight:700;font-size:1.5em">' + count(2.81, 2, at=5) + '</span><span class="bt"><i style="left:50%;width:46.8%;background:var(--amber)"></i></span>', cls='calc-row total')}
 </div>
 {st(6, '<div class="keybar" style="margin-top:.8em"><span>z es positivo: <b>el comité aprueba</b>. Los pocos atrasos (−1.0 por un peso de −2.0) aportaron más que el ingreso.</span></div>')}
-{st(7, '<p class="say" style="margin-top:.6em">' + chip('Tu turno · NB01 §1', 'hint') + ' El <b>socio B</b>: ingreso 0.2, antigüedad −0.5 y atrasos 1.5. ¿Lo aprueba?</p>')}""",
+{st(7, '<p class="say" style="margin-top:.6em">' + chip('Para pensar · NB01 §1', 'hint') + ' El <b>socio B</b>: ingreso 0.2, antigüedad −0.5 y atrasos 1.5. ¿Lo aprueba?</p>')}""",
       notes('Hagan la cuenta juntos, despacio, una fila por clic. Es exactamente la sección 1 del NB01.',
             'La fila más interesante es la de atrasos: el dato es −1.0 (menos atrasos que el promedio) y el peso es −2.0; <b>negativo por negativo da positivo</b>: tener pocos atrasos suma mucho.',
             'Total: 0.96 + 0.35 + 2.00 − 0.50 = <b>2.81</b>.',
-            '<span class="q">Tu turno (está en el NB01):</span> el socio B tiene ingreso 0.2, antigüedad −0.5 y atrasos 1.5. ¿Lo aprueba? (z = −3.61: no).'),
+            '<span class="q">Para pensar (está resuelto en el NB01):</span> el socio B tiene ingreso 0.2, antigüedad −0.5 y atrasos 1.5. ¿Lo aprueba? (z = −3.61: no).'),
       block='02', group=G2, minutes=3)
 
 slide('linea', 'Una neurona dibuja una línea', f"""
@@ -269,7 +270,7 @@ slide('linea', 'Una neurona dibuja una línea', f"""
     'Mensaje: entrenar una neurona = buscar automáticamente los pesos que dejan esa línea en el mejor lugar. Con 3 datos es un plano; con 28, un «hiperplano»; la idea no cambia.'),
     block='02', group=G2, minutes=4)
 
-slide('activacion', 'La activación decide qué sale', head('La activación decide qué sale de la neurona', 'El mismo puntaje z pasa por tres funciones distintas. Mueve z y compara.', key(2)) + demo('act', 'fill'),
+slide('activacion', 'La activación decide qué sale', head('La activación decide qué sale de la neurona', 'Una <b>función</b> es una regla: recibe un número y devuelve otro. La activación recibe el puntaje z; el escalón usa un <b>umbral</b> (el límite para decidir): z ≥ 0 → sí.', key(2)) + demo('act', 'fill'),
       notes('<b>Idea clave 2 (parte 1).</b> La activación es la última pieza: toma el puntaje z y decide qué sale.',
             '<b>Escalón</b> = un interruptor: todo o nada. Así era el perceptrón de 1958. <b>Sigmoide</b> = un regulador de luz: un valor suave entre 0 y 1, por eso sirve para probabilidades. <b>ReLU</b> = una válvula: si es negativo no pasa nada; si es positivo pasa igual. Es la más usada hoy en las capas ocultas.',
             'Con el socio A (z = 2.81): escalón 1, sigmoide 0.943, ReLU 2.81. Lleva z a −2.81 y compara.',
@@ -302,10 +303,10 @@ slide('doblar', 'Sin activación, apilar capas no sirve', head('Sin activación,
             'Ahora 2, 4, 8, 16 neuronas ReLU: cada una aporta un «doblez» (las marcas amarillas abajo) y la curva naranja se pega cada vez más a la línea punteada. Así una red aprende formas complicadas.',
             'Dato para curiosos: esto es la intuición del teorema de aproximación universal: con suficientes neuronas, una capa oculta puede aproximar cualquier función continua.',
             '<span class="q">Pregunta:</span> «Entonces, ¿para qué sirve la activación?» Respuesta esperada: para que la red pueda aprender relaciones que no son líneas rectas.'),
-      block='02', group=G2, minutes=3)
+      block='02', group=G2, minutes=2)
 
 # ======================================================================= 03 · cómo aprende
-section('b03', '03', 'Cómo aprende una neurona', 'Equivocarse, corregir un poquito y repetir.',
+section('b03', '03', 'Cómo aprende una neurona', '¿Cómo encuentra los números sola? Equivocándose, corrigiendo un poquito y repitiendo.',
         ['El ciclo', 'La regla', 'Una corrección', 'Míralo aprender', 'El límite: XOR'], 'Viernes · 15 minutos', G3, '03 · Cómo aprende una neurona',
         notes('Aquí está la <b>idea clave 3</b>: el límite de una sola línea (XOR). Cierra el bloque con la práctica 1.'))
 
@@ -392,7 +393,7 @@ NB_STEPS = [('import', 'trae una librería. <b>NumPy</b> es como una hoja de cá
             ('np.array', 'guarda una lista de números para hacer cuentas con todos a la vez. Datos, pesos y sesgo: la neurona del bloque 02.'),
             ('@', 'multiplica cada nota por su peso y suma todo (el <b>producto punto</b>). Esa línea <b>es</b> la neurona.'),
             ('lambda', 'define una función corta. Esta es la sigmoide: el regulador de luz.')]
-slide('neurona-codigo', 'La neurona en Python', head('La neurona en Python: lo que vas a escribir', 'Cinco líneas de código hacen la cuenta de Ana. El NB01 te lleva por cada una, paso a paso.') + f"""
+slide('neurona-codigo', 'La neurona en Python', head('La neurona en Python: lo que vas a leer', 'Cinco líneas de código hacen la cuenta de Ana. En el NB01 ya vienen escritas y comentadas.') + f"""
 <div class="split top" style="grid-template-columns:7fr 5fr;gap:2em">
   {NB_CODE}
   <div class="col" style="gap:.9em">""" + ''.join(st(i + 1, f'<p class="cl"><code>{a}</code> {b}</p>') for i, (a, b) in enumerate(NB_STEPS)) + """
@@ -401,37 +402,38 @@ slide('neurona-codigo', 'La neurona en Python', head('La neurona en Python: lo q
 </div>""", notes(
     'Puente entre la pizarra y Colab. Avanza línea por línea: cada clic ilumina una parte del código y su explicación.',
     '<code>import numpy as np</code>: traemos la librería y le ponemos un apodo corto. <code>np.array</code>: listas de números con superpoderes. <code>@</code>: el producto punto, multiplicar parejas y sumar. Esa sola línea es la neurona.',
+    'En el NB01 este código <b>ya viene escrito y comentado</b>: no hay que escribirlo, hay que leerlo, decir qué esperan y ejecutarlo.',
     'Quien no haya programado en Python hace poco: que empiece por la <b>Parte 0</b> del NB01 (15 minutos, con la misma nota de Ana). Quien ya sabe, que la salte.'),
     block='03', group=G3, minutes=2)
 
-practice('practica1', 'Práctica en clase: NB01, secciones 1 a 5', 'Lo que acabamos de ver, ahora con código explicado paso a paso. Cada tarea te dice ✅ correcto, ❌ todavía no (con una pista) o ⏳ falta.',
+practice('practica1', 'Práctica en clase: NB01, secciones 1 a 5', 'Todo el código ya viene escrito: lees, ejecutas, comparas con lo que esperabas y respondes las preguntas para pensar.',
          ['<b>Parte 0</b> (si la necesitas) · Python con tu nota: Beto da <b>62</b>', '§1 · Ana: <b>z = +6</b> · el socio A: <b>z = 2.81</b>', '§2 · Sigmoide ≈ <b>0.943</b>: 94 % de que paga',
-          '§3 · Una corrección: <b>−0.30 → +2.70</b>', '§4 · El perceptrón aprende AND: <b>0 errores</b>', '§5 · Con XOR <b>nunca</b> deja de equivocarse'], 'nb01', 20, G3, '03',
-         notes('Dinámica: 14 minutos de trabajo individual o en parejas y 6 de puesta en común. Que nadie se quede sin Colab funcionando: es el objetivo de esta práctica.',
-               'Cada sección del NB01 sigue el mismo orden: qué vas a hacer → la idea con su analogía → ejemplo resuelto → qué deberías ver → tu turno. Quien no sepa Python empieza por la Parte 0.',
+          '§3 · Una corrección: <b>−0.30 → +2.70</b>', '§4 · El perceptrón aprende AND: <b>0 errores</b>', '§5 · Con XOR <b>nunca</b> deja de equivocarse'], 'nb01', 18, G3, '03',
+         notes('Dinámica: 12 minutos de lectura y ejecución individual o en parejas y 6 de puesta en común. Que nadie se quede sin Colab funcionando: es el objetivo de esta práctica.',
+               'No hay nada que programar: cada sección dice qué va a pasar, muestra el código ya escrito y comentado, y termina en <b>Para pensar</b> (preguntas con la respuesta plegada) y <b>Experimenta</b> (cambiar un número y volver a ejecutar). Pide que antes de ejecutar digan qué esperan.',
                'Si a alguien le sale otra cosa, casi siempre se saltó una celda: <b>Entorno de ejecución → Ejecutar todo</b>.',
                'En la puesta en común pregunta por la sección 5: ¿por qué el perceptrón no aprende XOR? Porque no existe una línea que lo separe.',
-               'Recuerda: no hay nota. Los ❌ son para aprender.'))
+               'Recuerda: no hay nota. Lo importante es que puedan explicar qué calcularon y por qué.'))
 
 # ======================================================================= 04 · error y gradiente
-section('b04', '04', 'Medir el error y mejorar', 'Bajar la montaña con neblina, paso a paso.',
-        ['La pérdida', 'Castigar la falsa seguridad', 'El Cotopaxi', 'La pendiente', 'El tamaño del paso'], 'Viernes · 25 minutos', G4, '04 · Medir el error y mejorar',
+section('b04', '04', 'Medir el error y mejorar', 'Para mejorar, primero hay que medir cuánto nos equivocamos. Después, bajar la montaña paso a paso.',
+        ['El error', 'La pérdida', 'Castigar la falsa seguridad', 'El Cotopaxi', 'La pendiente', 'El tamaño del paso'], 'Viernes · 28 minutos', G4, '04 · Medir el error y mejorar',
         notes('Aquí está la <b>idea clave 4</b>: hacia dónde camina el descenso de gradiente.'))
 
 slide('perdida', 'La pérdida', f"""
 <div class="split" style="grid-template-columns:5fr 7fr">
   <div class="col">
-    {head('La pérdida: un número que dice qué tan mal vamos', 'Como una nota al revés: <b>0 es perfecto</b>.')}
-    <p class="say">El modelo predice el precio de cuatro casas en Quito y se equivoca por 10, 5, 20 y 2 mil dólares.</p>
-    {st(1, '<p class="say"><span class="az">■</span> el error de cada casa</p>')}
-    {st(2, '<p class="say"><span class="am">■</span> el error al cuadrado: <b>la casa 3 pesa casi todo</b></p>')}
+    {head('La pérdida: un solo número para todos los errores', 'Pequeño es mejor y 0 es perfecto. En el código se llama <code>loss</code>; no es dinero perdido.')}
+    {st(1, '<p class="say"><b>1 · Restar:</b> real − predicho en cada casa: 10, −5, −20 y −2 <span class="az">■</span></p>')}
+    {st(2, '<p class="say"><b>2 · Al cuadrado:</b> 100, 25, 400 y 4 <span class="am">■</span>. Así los negativos no restan y <b>los errores grandes pesan más</b>.</p>')}
     {st(3, eq([(r'\text{MSE}', 'qué tan mal vamos', 'out'), ('=', '', 'op'), ('\\text{promedio de}', '', 'op'), ('(\\hat y - y)^2', 'cada error, al cuadrado', 'x')],
-               read='(100 + 25 + 400 + 4) ÷ 4 = <b>132.25</b>. Legendre ya lo usaba en 1805.', size='.84em'))}
+               read='<b>3 · Promediar:</b> (100 + 25 + 400 + 4) ÷ 4 = <b>132.25</b>. Se llama error cuadrático medio (MSE); Legendre ya lo usaba en 1805.', size='.8em'))}
   </div>
   {demo('mse', 'fig plate', style='align-self:center;height:auto;aspect-ratio:1000/560')}
 </div>""", notes(
     'Para aprender necesitamos medir qué tan mal lo estamos haciendo con un solo número: la <b>pérdida</b> (loss).',
-    'Elevamos cada error al cuadrado (así los negativos no restan) y promediamos: 132.25. Miren las barras: la casa 3, con un error de 20, aporta 400. <b>El MSE castiga fuerte los errores grandes.</b>',
+    'Tres pasos, sin saltarse ninguno: restar (el error de cada casa), elevar al cuadrado (multiplicar cada error por sí mismo) y promediar. Resultado: 132.25. Miren las barras: la casa 3, con un error de 20, aporta 400. <b>El MSE castiga fuerte los errores grandes.</b>',
+    'Ojo: 132.25 está en «miles de dólares al cuadrado»; no es el error promedio en dólares. Sirve para comparar y para bajar, no para leerlo como plata.',
     'Este ejemplo está en el NB01, sección 6. La siguiente lámina: para clasificar (paga o no paga) usamos otra pérdida.'),
     block='04', group=G4, minutes=2, steps=3)
 
@@ -460,21 +462,22 @@ slide('cotopaxi', 'Bajar el Cotopaxi con neblina', head('Entrenar es bajar el Co
     'La altura es la pérdida; tu posición son los pesos; la inclinación que sientes es el gradiente; el largo del paso es η.',
     'Lo poderoso: no hace falta conocer toda la montaña (que en una red tiene millones de dimensiones), solo la pendiente donde estás.',
     'Límite honesto: podrías quedar en un hoyo que no es el más profundo (un mínimo local); en redes grandes preocupa menos de lo que parece.'),
-    block='04', group=G4, minutes=3, steps=6)
+    block='04', group=G4, minutes=2, steps=6)
 
 slide('pendiente', 'La pendiente dice hacia dónde bajar', f"""
 <div class="split" style="grid-template-columns:5fr 7fr">
   <div class="col">
-    {head('La pendiente dice hacia dónde bajar', 'Siempre damos el paso <b>en contra</b> de la pendiente: así la pérdida baja.', key(4))}
+    {head('La pendiente dice hacia dónde bajar', 'La <b>derivada</b> (la pendiente) dice cuánto cambia la pérdida si mueves un poquito este peso. Damos el paso <b>en contra</b>.', key(4))}
     """ + eq([(r'w_{\text{nuevo}}', 'peso nuevo', 'w'), ('=', '', 'op'), ('w', 'donde estás', 'w'), ('-', '', 'op'), (r'\eta', 'el paso', 'eta'),
               (r'\cdot', '', 'op'), (r'\text{pendiente}', 'hacia dónde sube', 'x')],
-             read='el menos significa <b>en contra</b>: restar una pendiente negativa es sumar y el peso sube. Arrastra el punto y compruébalo.', size='.76em') + hist('1847', 'Augustin Cauchy propone bajar por la pendiente') + f"""
+             read='peso 2, pendiente +4, η 0.1: 2 − 0.1 × 4 = <b>1.6</b> (baja). Con pendiente −4: 2 − 0.1 × (−4) = <b>2.4</b> (sube).', size='.76em') + hist('1847', 'Augustin Cauchy propone bajar por la pendiente') + f"""
   </div>
   {demo('slope', 'fig')}
 </div>""", notes(
     '<b>Idea clave 4.</b> La pendiente (el gradiente) apunta hacia donde la pérdida <b>sube</b>. Por eso restamos: caminamos al revés, cuesta abajo.',
     'Arrastra el punto a la izquierda del mínimo: pendiente negativa → el paso va a la derecha. A la derecha del mínimo: pendiente positiva → el paso va a la izquierda. En el fondo la pendiente es cero y ya no hay que moverse.',
-    '<span class="q">Pregunta:</span> «Si la pendiente de un peso es +4, ¿el peso sube o baja?» Baja.'),
+    'La derivada es local: vale cerca de donde estás. Por eso se recalcula en cada paso.',
+    '<span class="q">Pregunta:</span> «Si la pendiente de un peso es +4, ¿el peso sube o baja?» Baja: 2 − 0.1 × 4 = 1.6.'),
     block='04', group=G4, minutes=2)
 
 GD = [('0', '0.00', '−6.00', '9.00'), ('1', '0.60', '−4.80', '5.76'), ('2', '1.08', '−3.84', '3.69'), ('3', '1.46', '−3.07', '2.36'), ('4', '1.77', '−2.46', '1.51')]
@@ -513,9 +516,9 @@ slide('receta', 'La receta de todo el deep learning', '<div class="col" style="j
 
 practice('practica2', 'Práctica en clase: NB01, secciones 6 a 8', 'La pérdida, el descenso de gradiente y el tamaño del paso, con código. Las tareas finales quedan para la casa.',
          ['§6 · MSE = <b>132.25</b>; BCE: <b>0.01 · 0.69 · 4.61</b>', '§7 · Tu descenso llega a <b>w ≈ −2</b>', '§8 · Compara η: lento, bien y diverge',
-          '<b>Tareas finales (en casa)</b> · la nota de todo el grupo, elige tu η y el Mini-reto 1'], 'nb01', 10, G4, '04',
-         notes('Diez minutos en clase: que corran las secciones 6 y 7 y vean la gráfica de la 8. Las tareas finales quedan para la casa.',
-               'Respuestas de la Tarea 8: η = 0.05, 0.5 y 0.9 se acercan al fondo (0.9 rebotando); η = 1.1 se aleja. En esta parábola η = 0.5 llega en un paso: es el paso perfecto.',
+          '<b>En casa</b> · preguntas para comprobar y Experimento 1: tu propio comité'], 'nb01', 10, G4, '04',
+         notes('Diez minutos en clase: que lean y ejecuten las secciones 6 y 7 y miren la gráfica de la 8. Las preguntas para comprobar y el Experimento 1 quedan para la casa.',
+               'En la sección 8: η = 0.05, 0.5 y 0.9 se acercan al fondo (0.9 rebotando); η = 1.1 se aleja. En esta parábola η = 0.5 llega en un paso.',
                'Si sobra tiempo: abran TensorFlow Playground y pongan el learning rate en 3 o en 10: la pérdida «explota». Es el mejor puente hacia mañana.'))
 
 # ======================================================================= cierre viernes
@@ -544,3 +547,165 @@ slide('cierre-viernes', 'Lo que te llevas hoy', head('Lo que te llevas hoy') + f
     'Pide el número del 1 al 5 en el chat y anótalo: si el promedio es bajo, el sábado empieza con más repaso.',
     'Logística: la lectura y su encuesta están en Canvas. Al terminar, <b>«Finalizar reunión para todos»</b> para que la grabación se cierre bien.'),
     block='V', group=GV, minutes=3, label='Cierre del viernes')
+
+
+# ======================================================================= new slides (placed with move() at the end)
+# --- 01 · palabras: the vocabulary of the week on one table
+WROWS = [('Socio 1', '1200', '3', '0', 'sí'), ('Socio 2', '800', '1', '4', 'no'), ('Socio 3', '1500', '6', '1', 'sí')]
+wt = ('<table class="wtab"><thead>'
+      '<tr class="grp"><th></th><th colspan="3" data-step="1">características (datos)</th><th data-step="2" class="lb-m">etiqueta</th></tr>'
+      '<tr><th>ejemplo</th><th>Ingreso (USD)</th><th>Años de socio</th><th>Atrasos</th><th>¿Pagó?</th></tr></thead><tbody>' +
+      ''.join(f'<tr><td>{n}</td><td class="num">{a}</td><td class="num">{b}</td><td class="num">{c}</td>'
+              f'<td class="lab" data-step="2"><b class="{"am" if y == "sí" else "az"}">{y}</b></td></tr>' for n, a, b, c, y in WROWS) +
+      '<tr class="new" data-step="3"><td>Socio nuevo</td><td class="num">1000</td><td class="num">2</td><td class="num">2</td><td class="lab"><b class="q">?</b></td></tr>'
+      '</tbody></table>')
+WDEF = [(1, 'Característica', 'un dato que decidimos observar: una columna'), (1, 'Ejemplo', 'un caso concreto: una fila'),
+        (2, 'Etiqueta', 'la respuesta conocida de ese ejemplo'), (3, 'Modelo', 'las cuentas que reciben datos y dan una respuesta'),
+        (3, 'Predicción', 'la respuesta que estima el modelo')]
+slide('palabras', 'Cinco palabras para toda la semana', head('Cinco palabras para toda la semana', 'Un conjunto de datos se ve como una tabla. Con ella, el modelo aprende a responder casos nuevos.') + f"""
+<div class="split top" style="grid-template-columns:7fr 5fr;gap:2.2em">
+  <div class="col" style="gap:1.1em">
+    {wt}
+    {st(3, '<div class="pflow"><span class="bx">Socio nuevo</span><span class="op">→</span><span class="bx">Modelo</span><span class="op">→</span><span class="bx hot">Predicción: <b class="am">«sí pagará»</b></span></div>')}
+    {st(4, '<div class="keybar"><span><b>Aprender</b> = ajustar los números del modelo para equivocarse menos con los ejemplos.</span></div>')}
+  </div>
+  <div class="col" style="gap:.9em"><dl class="defs">""" + ''.join(st(n, f'<dt>{t}</dt><dd>{d}</dd>', cls='dr') for n, t, d in WDEF) + f"""</dl>
+    {st(5, '<div class="two-q"><div><b>Clasificar</b><span>elegir una categoría: ¿paga o no paga?</span></div><div><b>Regresión</b><span>estimar una cantidad: el precio de una casa</span></div></div>')}
+  </div>
+</div>""", notes(
+    'Cinco palabras que se usan toda la semana. Ve despacio: si se entienden aquí, el resto del curso se lee solo.',
+    'Paso 1. Un <b>dato</b> es una información: una nota, una edad, los atrasos de una persona. Una <b>característica</b> es un tipo de dato que decidimos observar (una columna). Un <b>ejemplo</b> reúne los datos de un caso (una fila).',
+    'Paso 2. La <b>etiqueta</b> es la respuesta conocida de cada ejemplo: «sí pagó». <span class="q">Pregunta:</span> «¿La etiqueta es lo que el modelo adivina?» No: es la respuesta de referencia. Lo que adivina el modelo es la predicción; compararlas nos dice si se equivocó.',
+    'Paso 3. Un <b>modelo</b> es el sistema de cuentas que recibe datos y produce una respuesta. La <b>predicción</b> es esa respuesta estimada; puede ser sobre el futuro (¿pagará?) o sobre el presente (¿hay un gato en esta foto?).',
+    'Paso 4. Aprender no es tener sentimientos ni entender como una persona: los números de las cuentas cambian y eso cambia las respuestas.',
+    'Paso 5. Dos tipos de preguntas. <b>Clasificar</b>: elegir una categoría (con dos opciones se llama binaria). <b>Regresión</b>: estimar una cantidad; aquí la palabra no significa retroceder. Hoy usamos casas para explicar el error y socios para clasificar.'),
+    block='01', group=G1, minutes=3)
+
+# --- 01 · mundo: what deep learning has already done
+MB = [(1, '2011', 'antes de las redes', 25.8, '≈26 %', 'co'), (1, '2012', 'AlexNet', 15.3, '15 %', 'co'), (2, '2015', 'ResNet', 3.6, '3.6 %', 'mi')]
+X0, X1, VMAX = 250, 1060, 28.0
+def _bx(v): return X0 + (X1 - X0) * v / VMAX
+mbars = ''.join(
+    f'<g data-step="{s}"><text x="{X0 - 24}" y="{y + 30}" text-anchor="end" class="wy">{yr}</text><text x="{X0 - 24}" y="{y + 64}" text-anchor="end" class="wn">{nm}</text>'
+    f'<rect class="bar {c}" x="{X0}" y="{y}" width="{_bx(v) - X0:.0f}" height="70" rx="10"/>'
+    f'<text x="{max(_bx(v), _bx(5.1)) + 18:.0f}" y="{y + 48}" class="wv {c}">{lab}</text></g>'
+    for (s, yr, nm, v, lab, c), y in zip(MB, [40, 150, 260]))
+hx = _bx(5.1)
+MUNDO = f"""<svg class="wb" viewBox="0 0 1200 440" role="img" aria-label="Error de reconocimiento de fotos en ImageNet: 26 por ciento en 2011, 15 en 2012 y 3.6 en 2015, por debajo de la referencia humana de 5 por ciento">
+ {mbars}
+ <g data-step="2"><line x1="{hx:.0f}" y1="20" x2="{hx:.0f}" y2="360" class="href"/><text x="{hx:.0f}" y="404" text-anchor="middle" class="wn">una persona ≈ 5 %</text></g>
+</svg>"""
+slide('mundo', 'Cuánto ha cambiado el mundo', head('Cuánto ha cambiado el mundo', 'En pocos años, las redes pasaron de fallar una de cada cuatro fotos a ganar dos premios Nobel.') + f"""
+<div class="split top" style="grid-template-columns:7fr 5fr;gap:2.4em">
+  <div class="col" style="gap:.6em">
+    <h3 class="big" style="font-weight:600">Error al reconocer fotos <span class="mu">(ImageNet)</span></h3>
+    <div class="fig">{MUNDO}</div>
+    <p class="cap">Cuenta como acierto si la respuesta correcta está entre sus 5 primeras opciones.</p>
+  </div>
+  <div class="col" style="gap:1em">
+    {st(3, '<div class="panel col"><span class="bigread mi" style="font-size:2.6em">200+ millones</span><p class="say">de estructuras de proteínas predichas por <b>AlphaFold</b>, abiertas para cualquier laboratorio.</p><p class="cap">Nobel de Química 2024: Hassabis y Jumper, junto con David Baker.</p></div>')}
+    {st(4, '<div class="panel col"><span class="bigread am" style="font-size:2.2em">Nobel 2024</span><p class="say">de Física para <b>Hopfield y Hinton</b>, por las ideas que hacen posible aprender con redes neuronales.</p></div>')}
+  </div>
+</div>""", notes(
+    'Responde a la pregunta «¿por qué debería importarme?». Tres datos, uno por clic.',
+    'Pasos 1 y 2. ImageNet es una competencia con más de un millón de fotos de mil categorías. En 2011 los mejores sistemas, sin redes profundas, se equivocaban en ≈26 % (contando acierto si la respuesta correcta estaba entre sus 5 primeras opciones). En 2012 AlexNet bajó a ≈15 %. En 2015 ResNet llegó a 3.6 %, por debajo del ≈5 % que se midió en una persona haciendo la misma tarea.',
+    'Paso 3. AlphaFold predice la forma 3D de una proteína a partir de su receta química. Su base de datos abierta tiene más de 200 millones de estructuras; antes, resolver una sola podía tomar años de laboratorio. Nobel de Química 2024: Demis Hassabis y John Jumper (DeepMind), compartido con David Baker.',
+    'Paso 4. Nobel de Física 2024: John Hopfield y Geoffrey Hinton, por los descubrimientos que permiten el aprendizaje automático con redes neuronales artificiales.',
+    'Cierre: «Todo esto nace de la misma pieza que vamos a construir hoy: una neurona que suma con pesos».'),
+    block='01', group=G1, minutes=2)
+
+# --- 02 · sesgo: weight versus bias on a number line
+SX0, SX1, SV0, SV1 = 90, 1510, -85.0, 12.0
+def _sx(v): return SX0 + (SX1 - SX0) * (v - SV0) / (SV1 - SV0)
+ticks = ''.join(f'<line x1="{_sx(v):.0f}" y1="232" x2="{_sx(v):.0f}" y2="248" class="tk"/><text x="{_sx(v):.0f}" y="282" text-anchor="middle" class="tl">{"−" if v < 0 else ("+" if v > 0 else "")}{abs(v)}</text>'
+                for v in range(-80, 11, 10))
+HOPS = [(-70.0, 21.3, 'semana 1'), (-48.7, 18.7, 'semana 2'), (-30.0, 24.0, 'semana 3'), (-6.0, 12.0, 'entrega')]
+hops = ''
+for i, (a, d, lab) in enumerate(HOPS):
+    xa, xb = _sx(a), _sx(a + d)
+    mid, top = (xa + xb) / 2, 150 - (i % 2) * 0
+    hops += (f'<path d="M{xa:.0f} 228 Q{mid:.0f} {top} {xb:.0f} 228" class="hop" marker-end="url(#sar)"/>'
+             f'<text x="{mid:.0f}" y="{top + 22}" text-anchor="middle" class="hv">+{d}</text>'
+             f'<text x="{mid:.0f}" y="{top - 22}" text-anchor="middle" class="hl">{lab}</text>')
+SESGO = f"""<svg class="sline" viewBox="0 0 1600 560" role="img" aria-label="Recta numérica: el puntaje empieza en menos 70, suma los aportes de las cuatro notas y llega a más 6; con exigencia 80 empieza en menos 80 y llega a menos 4">
+ <defs><marker id="sar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ffb541"/></marker></defs>
+ <rect x="{_sx(0):.0f}" y="60" width="{SX1 - _sx(0) + 10:.0f}" height="250" class="okz"/>
+ <text x="{SX1 + 10:.0f}" y="92" text-anchor="end" class="hl" style="fill:#64eab7">z ≥ 0 · aprueba</text>
+ <line x1="{SX0 - 20}" y1="240" x2="{SX1 + 20}" y2="240" class="ax"/>{ticks}
+ <line x1="{_sx(0):.0f}" y1="200" x2="{_sx(0):.0f}" y2="300" class="zero"/>
+ <g data-step="1"><circle cx="{_sx(-70):.0f}" cy="240" r="16" class="dot0"/><text x="{_sx(-70):.0f}" y="336" text-anchor="middle" class="hl">sesgo b = −70</text><text x="{_sx(-70):.0f}" y="370" text-anchor="middle" class="hl">empezamos a contar aquí</text></g>
+ <g data-step="2">{hops}<circle cx="{_sx(6):.0f}" cy="240" r="18" class="dotA"/><text x="{_sx(6):.0f}" y="336" text-anchor="middle" class="hv">z = +6</text></g>
+ <g data-step="3">
+  <line x1="{SX0 - 20}" y1="470" x2="{SX1 + 20}" y2="470" class="ax"/>
+  <circle cx="{_sx(-80):.0f}" cy="470" r="16" class="dot0"/><text x="{_sx(-80) - 20:.0f}" y="522" class="hl">si exigimos 80: b = −80</text>
+  <path d="M{_sx(-80):.0f} 458 Q{_sx(-42):.0f} 380 {_sx(-4) - 4:.0f} 458" class="hop" marker-end="url(#sar)"/>
+  <text x="{_sx(-42):.0f}" y="410" text-anchor="middle" class="hv">+76 (las mismas notas)</text>
+  <circle cx="{_sx(-4):.0f}" cy="470" r="18" class="dotB"/><text x="{_sx(-4):.0f}" y="522" text-anchor="middle" class="hv az">z = −4</text>
+ </g>
+</svg>"""
+slide('sesgo', 'Peso y sesgo: dos perillas distintas', head('Peso y sesgo: dos perillas distintas', 'El <b>peso</b> dice cuánto aporta un dato. El <b>sesgo</b> dice desde dónde empezamos a contar.', key(1)) + f"""
+<div class="fig" style="margin-top:.4em">{SESGO}</div>
+{st(4, '<p class="cap" style="font-size:1.1em">Aquí «sesgo» (en inglés, <i>bias</i>) es un número de la cuenta. No significa prejuicio.</p>')}""", notes(
+    'Las notas de Ana otra vez, ahora en una recta. Es la mejor forma de ver que peso y sesgo hacen cosas distintas.',
+    'Paso 1. El sesgo es −70: el marcador <b>no empieza en cero</b>, empieza en −70. Sumar −70 es lo mismo que restar la exigencia.',
+    'Paso 2. Cada nota por su peso aporta un salto: 80 × 26.7 % = +21.3; 70 × 26.7 % = +18.7; 90 × 26.7 % = +24.0; 60 × 20 % = +12.0. Llegamos a +6: aprueba. <b>El peso decide el largo de cada salto.</b>',
+    'Paso 3. Si exigimos 80, cambiamos solo el sesgo a −80. Las notas y los pesos no cambian (los saltos suman lo mismo, 76), pero Ana queda en −4: ya no alcanza. <b>El sesgo mueve el punto de partida para todos.</b>',
+    'Paso 4. «Sesgo» aquí es el término técnico (<i>bias</i>, la letra b). No significa prejuicio ni discriminación. Y ojo: un peso alto tampoco significa que un dato sea moralmente más importante; solo dice cuánto mueve la cuenta.',
+    '<span class="q">Pregunta:</span> «¿La red aprende también el sesgo?» Sí: hoy lo elegimos nosotros para entenderlo; al entrenar se ajusta junto con los pesos.'),
+    block='02', group=G2, minutes=2)
+
+# --- 04 · error: one gap per case, before we summarise them
+HOUSES = [(120, 110), (95, 100), (150, 170), (80, 82)]
+EY0, EY1, EP0, EP1 = 470, 60, 70.0, 180.0
+def _ey(p): return EY0 + (EY1 - EY0) * (p - EP0) / (EP1 - EP0)
+eg = ''
+for i, (r, p) in enumerate(HOUSES):
+    cx = 210 + i * 260
+    e = r - p
+    yr, yp = _ey(r), _ey(p)
+    lbl = f'+{e}' if e > 0 else f'−{abs(e)}'
+    side = 1 if i < 3 else -1
+    eg += (f'<g><path d="M{cx - 38} {EY0 + 74} L{cx - 38} {EY0 + 42} L{cx} {EY0 + 14} L{cx + 38} {EY0 + 42} L{cx + 38} {EY0 + 74} Z" class="house"/>'
+           f'<text x="{cx}" y="{EY0 + 112}" text-anchor="middle" class="hl">Casa {i + 1}</text></g>'
+           f'<g data-step="1"><circle cx="{cx - 28}" cy="{yr:.0f}" r="15" class="real"/><text x="{cx - 54}" y="{yr + 10:.0f}" text-anchor="end" class="rv">{r}</text></g>'
+           f'<g data-step="2"><circle cx="{cx + 28}" cy="{yp:.0f}" r="15" class="pred"/><text x="{cx + 54}" y="{yp + 10:.0f}" class="pv">{p}</text></g>'
+           f'<g data-step="3"><line x1="{cx}" y1="{yr:.0f}" x2="{cx}" y2="{yp:.0f}" class="gap"/>'
+           f'<text x="{cx}" y="{EY0 + 160}" text-anchor="middle" class="ev">{lbl}</text></g>')
+ERRSVG = f"""<svg class="errfig" viewBox="0 0 1100 650" role="img" aria-label="Cuatro casas: precio real y predicho en miles de dólares; los errores son más 10, menos 5, menos 20 y menos 2">
+ <line x1="80" y1="{EY0 + 74}" x2="1060" y2="{EY0 + 74}" class="ax"/>
+ {eg}
+</svg>"""
+slide('error', 'El error: cuánto falló en cada caso', f"""
+<div class="split" style="grid-template-columns:5fr 7fr">
+  <div class="col" style="gap:1.1em">
+    {head('El error: cuánto falló en cada caso', 'Un modelo estima el precio de cuatro casas, en miles de dólares. ¿Qué tan lejos quedó?')}
+    <div class="legend"><span><i style="background:var(--mint)"></i>precio real (la etiqueta)</span><span><i style="background:var(--ink-3)"></i>lo que predijo el modelo</span></div>
+    {st(4, eq([(r'\text{error}', 'uno por cada caso', 'out'), ('=', '', 'op'), (r'\text{real}', 'la etiqueta', 'x'), ('-', '', 'op'), (r'\text{predicho}', 'lo que dijo el modelo', 'x')],
+               read='positivo: se quedó corto. Negativo: se pasó. Casa 1: 120 − 110 = <b>+10</b>.', size='1em'))}
+  </div>
+  <div class="fig">{ERRSVG}</div>
+</div>""", notes(
+    'Antes de hablar de pérdida, una sola idea: <b>el error es la distancia entre lo real y lo predicho, en un caso</b>. Es el tema que más se confunde; vale la pena ir despacio.',
+    'Paso 1: los precios reales, en miles de dólares: 120, 95, 150 y 80. Son las etiquetas. Paso 2: lo que dijo el modelo: 110, 100, 170 y 82.',
+    'Paso 3: restamos real − predicho en cada casa: +10, −5, −20 y −2. El signo dice el sentido: <b>positivo</b>, el modelo se quedó corto; <b>negativo</b>, se pasó. El tamaño dice cuánto.',
+    'Paso 4: hay <b>un error por cada caso</b>. Con cuatro casas tenemos cuatro errores; con 10 000 socios, 10 000. Para aprender necesitamos resumirlos en un solo número: eso es la pérdida, la siguiente lámina.',
+    '<span class="q">Pregunta:</span> «¿Cuál casa es el peor error?» La casa 3: se pasó por 20 mil.'),
+    block='04', group=G4, minutes=2)
+
+# --- 04 · tres preguntas: error, pérdida y gradiente are different things
+TQ = [('El error', '¿Cuánto fallé en <b>un</b> caso?', 'real − predicho', '+10 · −5 · −20 · −2', 'co'),
+      ('La pérdida', '¿Qué tan mal voy en <b>todos</b> los casos?', 'un solo número', 'MSE = 132.25', 'am'),
+      ('El gradiente', '¿Hacia dónde muevo <b>cada</b> perilla?', 'la lista de todas las derivadas, una por peso', '(+4, −1.5, …)', 'mi')]
+slide('tres-preguntas', 'Error, pérdida y gradiente', head('Error, pérdida y gradiente: tres preguntas distintas') +
+      '<div class="three" style="margin-top:1em">' + ''.join(
+          st(i + 1, f'<div class="panel col tq"><h3 class="{c}">{t}</h3><p class="say q3">{q}</p><p class="say">{a}</p><span class="bigread num {c}">{ex}</span></div>')
+          for i, (t, q, a, ex, c) in enumerate(TQ)) + '</div>' +
+      st(4, '<div class="keybar" style="margin-top:1.2em"><span>Primero medimos (error y pérdida). Después decidimos cómo corregir (gradiente y paso η).</span></div>'),
+      notes('Una lámina para ordenar el vocabulario antes de la receta. Tres palabras que suenan parecido y responden tres preguntas distintas.',
+            'El <b>error</b> es de un caso: real − predicho. La <b>pérdida</b> resume todos los errores en un número (pequeño es mejor). El <b>gradiente</b> es la lista de todas las derivadas: una por cada peso, y cada una dice hacia dónde sube la pérdida si movemos ese peso.',
+            'Con dos pesos el gradiente tiene dos números; con 337 pesos (mañana), 337. Damos el paso en contra de cada uno.'),
+      block='04', group=G4, minutes=1)
+
+for _sid, _after in [('gato', 'b01'), ('reglas', 'gato'), ('palabras', 'reglas'), ('circulos', 'palabras'), ('usos', 'circulos'),
+                     ('mundo', 'usos'), ('ahora', 'mundo'), ('sesgo', 'nota'), ('error', 'b04'), ('tres-preguntas', 'eta')]:
+    move(_sid, _after)

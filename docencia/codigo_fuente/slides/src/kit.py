@@ -132,3 +132,11 @@ def qr(keyname, label=None):
 
 def notes(*ps):
     return ''.join(f'<p>{p}</p>' for p in ps)
+
+
+def move(sid, after):
+    """Place slide sid right after slide 'after' (lets new slides live next to their neighbours' code)."""
+    i = next(k for k, s in enumerate(SLIDES) if s['id'] == sid)
+    s = SLIDES.pop(i)
+    j = next(k for k, t in enumerate(SLIDES) if t['id'] == after)
+    SLIDES.insert(j + 1, s)

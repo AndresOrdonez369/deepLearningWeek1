@@ -1,5 +1,5 @@
 """Saturday 24 · 08:00-12:00 · blocks 05-09 and closing."""
-from kit import slide, head, key, chip, st, demo, count, qr, notes, eq, hist, code
+from kit import slide, head, key, chip, st, demo, count, qr, notes, eq, hist, code, move
 from slides_viernes import section, practice, rail, RAIL_S
 
 GS = 'Sábado · Encuadre'
@@ -40,7 +40,7 @@ slide('repaso', 'El viernes en cuatro ideas', head('El viernes en cuatro ideas',
       block='S', group=GS, minutes=8, label='Sábado · Repaso')
 
 # ======================================================================= 05 · redes
-section('b05', '05', 'De una neurona a una red', 'Muchas líneas simples, combinadas, forman decisiones complejas.',
+section('b05', '05', 'De una neurona a una red', 'Una neurona no puede con XOR: ¿qué hacemos?',
         ['Capas', 'XOR resuelto', 'Pistas cada vez más ricas', 'Juega a la red', 'Contar parámetros'], 'Sábado · 40 minutos', G5, '05 · De una neurona a una red',
         notes('Aquí volvemos a la <b>idea clave 3</b>: el límite de una línea y cómo lo superan las capas.'))
 
@@ -101,15 +101,17 @@ slide('parametros', '¿Cuántos números aprende una red?', head('¿Cuántos nú
     {st(2, '<p class="big num">4 × 1 + 1 = <b class="am">5</b></p>')}
     {st(3, '<p class="bigread">' + count(21, 0, at=3) + ' <span class="mu" style="font-size:.4em;font-family:var(--sans)">números que aprender</span></p>')}
     {st(4, '<div class="panel col" style="gap:.4em"><p class="say">La red de las lunas del NB02: <b class="num">337</b></p><p class="say">Un modelo de lenguaje actual: <b>cientos de miles de millones</b></p></div>')}
+    {st(5, '<div class="two-q"><div><b>Parámetros</b><span>pesos y sesgos: los ajusta el entrenamiento</span></div><div><b>Hiperparámetros</b><span>capas, neuronas y η: los eliges tú</span></div></div>')}
   </div>
 </div>""", notes(
     'Contar parámetros ayuda a entender el tamaño de una red. Regla: entradas por neuronas (una conexión, un peso) más una por neurona (el sesgo). <b>La consola de sonido:</b> cada parámetro es una perilla; entrenar es girar todas las perillas a la vez hasta que la mezcla suene bien.',
     'Red 3-4-1: 3·4 + 4 = 16 en la oculta; 4·1 + 1 = 5 en la salida; total 21. Keras lo confirma con <code>model.summary()</code>.',
-    'La red de las lunas del NB02 tiene 337. Más parámetros que datos es una receta para el sobreajuste: lo vemos en la semana 3.'),
+    'La red de las lunas del NB02 tiene 337. Más parámetros que datos es una receta para el sobreajuste: lo vemos en la semana 3.',
+    'Paso 5. <b>Parámetros</b>: las perillas que el entrenamiento ajusta (pesos y sesgos). <b>Hiperparámetros</b>: las decisiones que tomamos nosotros antes de entrenar (cuántas capas, cuántas neuronas, qué η). <span class="q">Pregunta:</span> «¿16 neuronas significa 16 categorías?» No: son 16 cuentas intermedias; la salida sigue siendo sí o no.'),
     block='05', group=G5, minutes=3)
 
 # ======================================================================= 06 · retropropagación
-section('b06', '06', 'Retropropagación', 'Cómo se reparte la culpa del error entre miles de pesos.',
+section('b06', '06', 'Retropropagación', 'Entre miles de perillas, ¿cuál movemos?',
         ['Hacia adelante', 'Repartir la culpa', 'Engranajes', 'Hacia atrás', 'Actualizar', 'TensorFlow'], 'Sábado · 45 minutos', G6, '06 · Retropropagación',
         notes('El corazón teórico del sábado. Una red 2-2-1 con números: los mismos del NB02, partes A a D.'))
 
@@ -122,10 +124,11 @@ slide('adelante', 'Paso 1 · Hacia adelante', head('Paso 1 · Hacia adelante: la
       block='06', group=G6, minutes=4, steps=4)
 
 slide('culpa', 'Paso 2 · Repartir la culpa', head('Paso 2 · Hacia atrás: repartir la culpa', 'El error se descubre al final. La culpa viaja hacia atrás, según cuánto influyó cada paso.') + demo('chain', 'fill') +
-      st(3, '<div class="row" style="gap:1.4em;align-items:center"><p class="say">Eso es literalmente la <b>retropropagación</b> (backpropagation): propagar la culpa hacia atrás.</p>' + hist('1986', 'Rumelhart, Hinton y Williams la popularizan') + '</div>'),
+      st(3, '<div class="row" style="gap:1.4em;align-items:center"><p class="say">Eso es la <b>retropropagación</b> (backpropagation). «Culpa» es una metáfora: lo que se calcula es una <b>derivada</b>.</p>' + hist('1986', 'Rumelhart, Hinton y Williams la popularizan') + '</div>'),
       notes('Analogía de la cadena del cacao, muy nuestra. El cliente prueba la barra de chocolate y está amarga: ese es el error, y se descubre al final.',
             '¿De quién es la culpa? La chocolatería revisa cuánto influyó cada proceso: si el tostado influyó mucho, recibe mucha culpa; y el tostado reparte su parte hacia el fermentado y la cosecha.',
-            'Lo bonito: con <b>una sola pasada hacia atrás</b>, cada peso de la red sabe cuánta culpa tiene y hacia dónde moverse.'),
+            'Lo bonito: con <b>una sola pasada hacia atrás</b>, cada peso de la red sabe cuánta culpa tiene y hacia dónde moverse.',
+            'Aclara la palabra: «culpa» es solo una ayuda para recordar. Lo que se calcula es una <b>derivada</b>, la sensibilidad de la pérdida a ese peso; no es una culpa moral ni un porcentaje de responsabilidad.'),
       block='06', group=G6, minutes=3, steps=3)
 
 slide('engranajes', 'La regla de la cadena: engranajes', head('La regla de la cadena: engranajes que se multiplican', 'Si A mueve a B tres veces más rápido, y B mueve a C seis veces más rápido, A mueve a C 3 × 6 = 18 veces más rápido.') +
@@ -138,11 +141,11 @@ slide('engranajes', 'La regla de la cadena: engranajes', head('La regla de la ca
       block='06', group=G6, minutes=3)
 
 slide('atras', 'Hacia atrás, con los números', head('Hacia atrás, con los números', 'La misma red, pero ahora los números viajan de derecha a izquierda.') + demo('fwd221', 'fill', mode='backward') +
-      st(3, '<p class="say">Ojo con la oculta 2: su peso hacia la salida es negativo, así que para que la salida suba, <b>ella debe bajar</b>.</p>'),
+      st(3, '<p class="say">Ojo con la oculta 2: su peso hacia la salida es negativo, así que para que la salida suba, <b>ella debe bajar</b>. Cada «culpa» es una derivada.</p>'),
       notes('(1) La culpa de la salida es simplemente ŷ − y = 0.56 − 1 = <b>−0.44</b>: negativa significa que la predicción se quedó corta.',
             '(2) La culpa de cada peso que llega a la salida es esa culpa por lo que entró por ese cable: −0.44 × 0.61 = −0.27 y −0.44 × 0.62 = −0.28.',
             '(3) La culpa sigue hacia la capa oculta: se multiplica por el peso que la conecta y por la pendiente de la sigmoide (0.24): 0.7 × (−0.44) × 0.24 = −0.07 y −0.4 × (−0.44) × 0.24 = +0.04.',
-            'Valores exactos con 4 decimales en el NB02, Parte B.'),
+            'Valores exactos con 4 decimales en el NB02, Parte B. En el notebook la culpa de la salida se llama delta (δ): solo es el nombre de ese resultado intermedio. Recuerda que «culpa» es una metáfora: cada número es una derivada.'),
       block='06', group=G6, minutes=5, steps=3)
 
 slide('actualizar', 'Paso 3 · Actualizar', head('Paso 3 · Actualizar: un paso cuesta abajo', 'A cada peso le restamos η por su culpa. Es el descenso de gradiente del viernes.') + f"""
@@ -177,14 +180,15 @@ slide('tensorflow', 'TensorFlow hace la cuenta por ti', head('TensorFlow hace la
     block='06', group=G6, minutes=3)
 
 # ======================================================================= 07 · entrenar bien
-section('b07', '07', 'Entrenar bien', 'Tres trampas típicas, aprender por lotes y la carrera de los optimizadores.',
+section('b07', '07', 'Entrenar bien', '¿Qué puede salir mal al entrenar?',
         ['La señal que se apaga', 'Neuronas clonadas', 'Lotes', 'La carrera', 'La receta'], 'Sábado · 35 minutos', G7, '07 · Entrenar bien',
         notes('Después de la pausa. Bloque práctico: lo que hace que un entrenamiento funcione o falle. Incluye la conexión con la lectura de tendencia.'))
 
 slide('apaga', 'Trampa 1: la señal que se apaga', head('Trampa 1: la culpa que se apaga en el camino', 'Como el teléfono dañado: en cada capa, la sigmoide deja pasar como mucho ¼ del mensaje y al principio ya no llega nada.') + demo('vanish', 'fill') +
       '<div class="row" style="justify-content:flex-end;margin-top:.6em">' + hist('2010', 'ReLU se vuelve la activación estándar (Nair y Hinton)') + '</div>',
       notes('Es el gradiente que se desvanece. La pendiente máxima de la sigmoide es 0.25; tras cinco capas, la culpa llega multiplicada por 0.25⁵ ≈ 0.001: la primera capa casi no aprende. Como el teléfono dañado.',
-            'Cambia a <b>ReLU</b>: su pendiente es 1 cuando está activa, la culpa llega entera. Por eso en las capas ocultas usamos ReLU.'),
+            'Cambia a <b>ReLU</b>: su pendiente es 1 cuando está activa, la culpa llega entera. Por eso en las capas ocultas usamos ReLU.',
+            'También ayuda <b>escalar los datos</b>: estandarizar es restar el promedio y dividir por la desviación. Un ingreso de 1200 con promedio 1000 y desviación 200 queda (1200 − 1000) / 200 = <b>1</b>: «una desviación sobre el promedio».'),
       block='07', group=G7, minutes=3)
 
 slide('clones', 'Trampa 2: neuronas clonadas', head('Trampa 2: si todas empiezan igual, aprenden lo mismo', 'Como cuatro estudiantes que copian la misma tarea: cuatro cuadernos, una sola idea. Con todos los pesos en cero, las neuronas quedan clonadas.') + demo('clones', 'fill') +
@@ -216,12 +220,13 @@ slide('receta-arranque', 'La receta para arrancar', head('La receta para arranca
       '<ol class="steps-list fill" style="display:grid;grid-template-columns:1fr 1fr;gap:1.6em 3em;align-content:center;font-size:1.12em">' + ''.join(
           st(i + 1 if i < 3 else 4, f'<span class="k">{i + 1}</span><span><b>{a}</b><br>{b}</span>', 'li') for i, (a, b) in enumerate(REC2)) + '</ol>',
       notes('Esta receta sirve como punto de partida para casi cualquier problema con datos de tabla. No es la única ni siempre la mejor, pero rara vez falla.',
-            'El paso 1 es el más olvidado: si una columna va de 0 a 10 000 (ingreso) y otra de 0 a 5 (atrasos), la red se confunde. Ojo: el escalador se ajusta solo con los datos de entrenamiento.'),
+            'El paso 1 es el más olvidado: si una columna va de 0 a 10 000 (ingreso) y otra de 0 a 5 (atrasos), la red se confunde. Ojo: el escalador se ajusta solo con los datos de entrenamiento.',
+            'Ejemplo de estandarizar: promedio 1000, desviación 200. Un ingreso de 1200 queda (1200 − 1000) / 200 = <b>1</b>; uno de 800 queda −1. Así todas las columnas hablan en la misma escala.'),
       block='07', group=G7, minutes=3)
 
 # ======================================================================= 08 · keras
-section('b08', '08', 'Keras', 'Tu primera red en tres pasos: construir, compilar y entrenar.',
-        ['Motor y volante', 'Los datos', 'Construir', 'Compilar', 'Entrenar', 'Predecir', 'Práctica NB02'], 'Sábado · 20 minutos y 40 de práctica', G8, '08 · Keras',
+section('b08', '08', 'Keras', '¿Hay que hacer todo esto a mano?',
+        ['Motor y volante', 'Los datos', 'Construir', 'Compilar', 'Aprender no es memorizar', 'Entrenar', 'Predecir', 'Práctica NB02'], 'Sábado · 24 minutos y 40 de práctica', G8, '08 · Keras',
         notes('Keras desde cero: qué es, cómo se importa, cómo entran los datos y cada línea del código. Después, la práctica más larga de la semana.'))
 
 # ---- the motor and the steering wheel
@@ -247,7 +252,7 @@ print(tf.__version__, keras.__version__)
 slide('tf-keras', 'TensorFlow y Keras: el motor y el volante', head('TensorFlow y Keras: el motor y el volante', 'Dos librerías de Python que ya vienen en Colab. Con Keras manejas; TensorFlow hace las cuentas por debajo.') + f"""
 <div class="split" style="grid-template-columns:6fr 6fr;gap:2.4em">
   {STACK}
-  <div class="col" style="gap:1.2em">
+  <div class="col" style="gap:1em">
     {IMPORTS}
     <div class="analog"><span class="t">Puedes manejar sin abrir el capó</span><p>Keras te deja armar y entrenar una red en diez líneas. Saber que existe el motor ayuda cuando algo falla: por eso hicimos las cuentas a mano.</p></div>
     {hist('2015', 'nacen Keras (François Chollet, marzo) y TensorFlow (Google, noviembre)')}
@@ -344,12 +349,13 @@ slide('keras-predict', 'Predecir: de probabilidad a decisión', head('Predecir: 
   <div class="col" style="gap:1.2em">
     {PRED}
     {st(4, '<div class="keybar"><span>Examen final: 120 ejemplos que la red nunca vio. Exactitud <b class="num">95 %</b>.</span></div>')}
-    {st(4, '<p class="cap">El umbral 0.5 no es sagrado: en el bloque 09 lo movemos.</p>')}
+    {st(4, '<p class="cap"><code>predict</code> y <code>evaluate</code> <b>no cambian los pesos</b>: solo usan lo aprendido. El umbral 0.5 no es sagrado: en el bloque 09 lo movemos.</p>')}
   </div>
 </div>""", notes(
     'Tres socios nuevos, los mismos de la Tarea final 1 del NB02. Avanza para ver uno por uno.',
     'Primero: probabilidad 0.005 → clase 0. Segundo: 0.995 → clase 1. Tercero: 0.25 → clase 0, pero menos seguro; está más cerca de la frontera.',
-    '<code>model.evaluate(X_test, y_test)</code> devuelve la pérdida y la exactitud en el examen final: 95 %. Separar un examen final que la red nunca ve es la forma honesta de medir.'),
+    '<code>model.evaluate(X_test, y_test)</code> devuelve la pérdida y la exactitud en el examen final: 95 %. Separar un examen final que la red nunca ve es la forma honesta de medir.',
+    'Ni <code>predict</code> ni <code>evaluate</code> entrenan: no tocan pesos ni sesgos. Solo <code>fit</code> aprende.'),
     block='08', group=G8, minutes=2)
 
 # ---- all together
@@ -381,26 +387,28 @@ slide('keras', 'Todo junto: tu primera red en Keras', head('Todo junto: tu prime
     'Pregunta rápida antes de la práctica: «¿En qué línea está la retropropagación?» (dentro de <code>fit</code>: Keras y TensorFlow la hacen solos).'),
     block='08', group=G8, minutes=2)
 
-practice('practica3', 'Práctica en clase: NB02', 'En parejas. Cada parte explica el código línea por línea; las partes A a D repiten con código las láminas, por eso los números coinciden.',
+practice('practica3', 'Práctica en clase: NB02', 'En parejas. Todo el código ya viene escrito y comentado. Las partes A a D repiten las láminas con código: los números coinciden.',
          ['<b>T</b> · Importa TensorFlow y Keras; tu primer tensor', 'A · Forward: <b>0.56</b> y pérdida <b>0.59</b> · B · culpas <b>−0.44, −0.27, −0.28</b>',
           'C · Un paso: <b>56 % → 65 %</b> · D · TensorFlow coincide con tu cuenta', 'E · Keras paso a paso: <b>XOR resuelto</b> con 33 parámetros',
-          'F · Las lunas: <b>337</b> parámetros y <b>95 %</b> en el examen final', '<b>Mini-reto 2</b> · los círculos con más de <b>90 %</b>'], 'nb02', 40, G8, '08',
+          'F · Las lunas: <b>337</b> parámetros y <b>95 %</b> en el examen final', '<b>Experimento 2</b> · los círculos con más de <b>90 %</b>'], 'nb02', 40, G8, '08',
          notes('Dinámica: 30 minutos en parejas (o salas de 3) y 10 de puesta en común. Sin nota: el objetivo es que todas las parejas lleguen a la Parte F.',
                'Prioridad si el tiempo aprieta: T, A, E y F. B, C, D y la Parte G (la carrera de optimizadores) quedan para la casa.',
-               'Tu turno del Mini-reto 2: con dos capas de 16 y ReLU los círculos pasan del 90 % (en nuestra corrida, 98 %).',
+               'No hay nada que programar: cada parte explica qué va a pasar, trae el código comentado y termina en <b>Para pensar</b> (respuesta plegada) y <b>Experimenta</b> (cambiar un número y volver a ejecutar). Pide que digan qué esperan antes de ejecutar.',
+               'Experimento 2: con dos capas de 16 y ReLU los círculos pasan del 90 % (en nuestra corrida, 98 %).',
                'Problema frecuente: «No module named…» casi nunca pasa en Colab; si pasa, abrieron el notebook fuera de Colab.'))
 
 # ======================================================================= 09 · métricas
-section('b09', '09', '¿El modelo es bueno?', 'Cuando la exactitud engaña y qué mirar en su lugar.',
-        ['87 % que no vale nada', 'Recall, precisión y AUC'], 'Sábado · 15 minutos', G9, '09 · ¿El modelo es bueno?',
+section('b09', '09', '¿El modelo es bueno?', '¿Cómo sabemos si el modelo es bueno de verdad?',
+        ['87 % que no vale nada', 'La matriz de confusión', 'Recall, precisión y AUC'], 'Sábado · 15 minutos', G9, '09 · ¿El modelo es bueno?',
         notes('Aquí está la <b>idea clave 5</b>: por qué la exactitud engaña con datos desbalanceados.'))
 
 slide('trampa87', '87 % de exactitud puede no valer nada', f"""
 <div class="col fill">
-  {head('87 % de exactitud puede no valer nada', 'Una cooperativa busca a los socios que caerán en mora: 13 de cada 100. Un modelo que nunca avisa es como una alarma de humo que nunca suena: casi siempre «acierta».', key(5))}
+  {head('87 % de exactitud puede no valer nada', 'Una cooperativa busca a los socios que caerán en mora: 13 de cada 100. Ahora la clase <b>positiva</b> es «cae en mora», el caso que buscamos (positiva no significa buena).', key(5))}
   {demo('trap', 'fill')}
 </div>""", notes(
-    '<b>Idea clave 5.</b> Paso 1: 100 socios (datos ficticios), 13 caen en mora.',
+    '<b>Anuncia el cambio:</b> hasta ahora la clase 1 era «pagó». Desde aquí, la clase positiva es <b>la mora</b>, el caso que queremos detectar. «Positiva» no significa buena: en una prueba médica, positivo indica enfermedad.',
+    '<b>Idea clave 5.</b> Paso 1: 100 socios (datos ficticios), 13 caen en mora. Un modelo que nunca avisa es como una alarma de humo que nunca suena: casi siempre «acierta».',
     'Paso 2: un «modelo» perezoso que siempre dice «está al día» acierta 87 de 100… y <b>no encuentra a ningún moroso</b>, que es justo lo que la cooperativa necesita. <b>La alarma de humo:</b> una que nunca suena «acierta» casi todos los días del año y no sirve para nada.',
     'Paso 3: una red de verdad le da a cada socio un puntaje de riesgo y marca a quien supera el umbral. Mueve el umbral: si lo bajas, encuentras más morosos pero con más falsas alarmas; si lo subes, al revés. La exactitud casi no se mueve, pero la utilidad sí.',
     '<span class="q">Pregunta:</span> «¿Qué es peor para la cooperativa: una falsa alarma o un moroso que no vimos?» Depende del negocio, y eso decide el umbral.'),
@@ -411,9 +419,9 @@ slide('metricas', 'Mira más allá de la exactitud', f"""
   <div class="col">
     {head('Mira más allá de la exactitud', 'Tres preguntas mejores cuando los casos que buscas son pocos.', key(5))}
     <ul class="steps-list">
-      {st(1, '<span class="k">R</span><span><b>Recall:</b> de los que caen en mora, ¿cuántos encontramos?</span>', 'li')}
-      {st(2, '<span class="k">P</span><span><b>Precisión:</b> de los que marcamos, ¿cuántos sí caen?</span>', 'li')}
-      {st(3, '<span class="k">A</span><span><b>AUC:</b> ¿qué tan bien ordena el riesgo? 0.5 es tirar una moneda; 1 es perfecto.</span>', 'li')}
+      {st(1, '<span class="k">R</span><span><b>Recall:</b> de los que caen en mora, ¿cuántos encontramos? <span class="num">10 de 13</span></span>', 'li')}
+      {st(2, '<span class="k">P</span><span><b>Precisión:</b> de los que marcamos, ¿cuántos sí caen? <span class="num">10 de 18</span></span>', 'li')}
+      {st(3, '<span class="k">A</span><span><b>AUC:</b> ¿qué tan bien ordena el riesgo? 0.5 es tirar una moneda; 1 es perfecto. AUC 0.5 <b>no</b> significa 50 % de exactitud.</span>', 'li')}
     </ul>
     {st(3, hist('Años 40', 'la curva ROC y el AUC nacen con el radar en la Segunda Guerra Mundial'))}
   </div>
@@ -421,6 +429,7 @@ slide('metricas', 'Mira más allá de la exactitud', f"""
 </div>""", notes(
     'Recall (sensibilidad): de los morosos reales, qué porcentaje detectamos. Precisión: de los que marcamos, cuántos lo eran de verdad.',
     'AUC: si tomo un moroso y un socio al día al azar, ¿con qué probabilidad el modelo le da más riesgo al moroso? La imagen lo muestra: el buen modelo pone los morosos (amarillo) arriba; la moneda los reparte.',
+    'Ojo: <b>AUC 0.5 no significa 50 % de exactitud</b>. Mide cómo ordena el riesgo, no cuántas decisiones acierta: el modelo perezoso del 87 % tiene AUC 0.5 porque a todos les da el mismo puntaje.',
     'En la semana 3 volvemos a esto cuando hablemos de explicar por qué un modelo dijo «no».'),
     block='09', group=G9, minutes=4)
 
@@ -514,3 +523,52 @@ slide('gracias', 'Gracias', '<div class="col" style="justify-content:center;flex
       '<p class="say mu">Andrés Ordóñez-Bolaños · Neural Networks: Deep Learning · UIDE</p></div>',
       notes('Pide el número del 1 al 5 y compáralo con el del viernes.', 'Al terminar: <b>«Finalizar reunión para todos»</b> para que la grabación se cierre correctamente.'),
       layout='L-statement', block='C', group=GC, minutes=1, label='Cierre')
+
+
+# ======================================================================= new slides (placed with move())
+# --- 08 · memorizar: generalisation and the three groups of data
+SPL = [(1, [(100, '600 puntos de las lunas', 'all')]),
+       (2, [(80, '480 para estudiar', 'tr'), (20, '120 · prueba', 'te')]),
+       (3, [(64, '384 · entrenamiento', 'tr'), (16, '96 · validación', 'va'), (20, '120 · prueba', 'te')])]
+sbars = ''.join(st(n, ''.join(f'<i class="{c}" style="--w:{w}%"><span>{t}</span></i>' for w, t, c in segs), cls='sbar') for n, segs in SPL)
+slide('memorizar', 'Aprender no es memorizar', head('Aprender no es memorizar', 'Queremos que la red acierte con casos <b>nuevos</b>: eso es <b>generalizar</b>. Si solo repite lo que estudió, está <b>sobreajustada</b>.') + f"""
+<div class="col" style="gap:.9em;margin-top:.6em">
+  {sbars}
+  {st(3, '<div class="legend" style="margin-top:.3em"><span><i style="background:var(--amber)"></i>entrenamiento: los ejercicios que estudia</span><span><i style="background:var(--ink)"></i>validación: el simulacro</span><span><i style="background:var(--ink-3)"></i>prueba: el examen final</span></div>')}
+  {st(4, '<p class="big num" style="margin-top:.6em">384 ÷ 32 = <b class="am">12</b> pasos por época · × 60 épocas = <b class="am">720</b> pasos</p>')}
+</div>""", notes(
+    'Antes de entrenar, la pregunta más importante: ¿cómo sabremos si la red <b>aprendió</b> o solo <b>memorizó</b>? Un estudiante puede memorizar diez respuestas y fallar cuando cambian los números. Funcionar con casos nuevos se llama <b>generalización</b>; adaptarse demasiado a los detalles de los ejemplos de estudio se llama <b>sobreajuste</b>.',
+    'Paso 1: el NB02 genera 600 puntos. Paso 2: separa 120 para la <b>prueba</b> (el examen final, que no se mira hasta el final). Quedan 480.',
+    'Paso 3: de esos 480, el 20 % (96) es <b>validación</b> (el simulacro: no ajusta pesos, pero nos dice cómo vamos). Los que de verdad ajustan pesos son <b>384</b>.',
+    'Paso 4: con lotes de 32, 384 / 32 = 12 actualizaciones por época; con 60 épocas, 720. Por eso «época» y «paso» no son lo mismo.',
+    'Si miramos la prueba una y otra vez para cambiar el modelo, deja de ser un examen independiente.'),
+    block='08', group=G8, minutes=3)
+
+# --- 09 · confusión: the four possible outcomes
+CM = [(1, 'vp', '10', 'verdaderos positivos', 'alertó y sí cae en mora'), (2, 'fn', '3', 'falsos negativos', 'no alertó y sí cae: se nos pasó'),
+      (3, 'fp', '8', 'falsos positivos', 'alertó y está al día: falsa alarma'), (4, 'vn', '79', 'verdaderos negativos', 'no alertó y está al día')]
+cmc = {k: st(n, f'<b class="num">{v}</b><span class="nm">{t}</span><span class="ds">{d}</span>', cls=f'cm {k}') for n, k, v, t, d in CM}
+CMAT = ('<div class="cmat"><span></span><span class="ch">El modelo <b>alertó</b></span><span class="ch">El modelo <b>no alertó</b></span>'
+        '<span class="rh">Cae en mora <b class="num">13</b></span>' + cmc['vp'] + cmc['fn'] +
+        '<span class="rh">Está al día <b class="num">87</b></span>' + cmc['fp'] + cmc['vn'] + '</div>')
+slide('confusion', 'La matriz de confusión', f"""
+<div class="split" style="grid-template-columns:7fr 5fr;gap:2.2em">
+  <div class="col" style="gap:1em">
+    {head('La matriz de confusión: cuatro resultados', '«Verdadero» o «falso» dice si acertó. «Positivo» o «negativo» dice si alertó.', key(5))}
+    {CMAT}
+  </div>
+  <div class="col" style="gap:1.1em;justify-content:center">
+    {st(4, '<p class="big">Exactitud: (10 + 79) / 100 = <b class="num">89 %</b></p>')}
+    {st(5, eq([(r'\text{recall}', 'morosos encontrados', 'out'), ('=', '', 'op'), (r'\dfrac{10}{10+3}', 'de todos los morosos', 'x'), (r'\approx', '', 'op'), (r'76.9\,\%', '', 'num')], size='1em'))}
+    {st(6, eq([(r'\text{precisión}', 'alarmas ciertas', 'out'), ('=', '', 'op'), (r'\dfrac{10}{10+8}', 'de todas las alarmas', 'x'), (r'\approx', '', 'op'), (r'55.6\,\%', '', 'num')], size='1em'))}
+  </div>
+</div>""", notes(
+    'Una red de verdad sobre los mismos 100 socios. Cada socio cae en una de cuatro casillas; la tabla que las cuenta se llama <b>matriz de confusión</b>.',
+    'Pasos 1 a 4: encontró 10 de los 13 morosos (verdaderos positivos) y se le pasaron 3 (falsos negativos). Además alertó por error sobre 8 socios al día (falsos positivos), y dejó tranquilos a los 79 restantes (verdaderos negativos). Exactitud: 89 de 100.',
+    'Paso 5. <b>Recall</b> empieza por los morosos reales: 10 de 13 ≈ 76.9 %. Paso 6. <b>Precisión</b> empieza por las alarmas: de 18 alertas, 10 eran ciertas ≈ 55.6 %.',
+    'Usa «exactitud» para accuracy y reserva «precisión» para esta segunda medida, así no se mezclan los nombres.',
+    '<span class="q">Para decir en clase:</span> «Antes de celebrar un porcentaje, preguntémonos qué clase de errores está escondiendo».'),
+    block='09', group=G9, minutes=3)
+
+move('memorizar', 'keras-compile')
+move('confusion', 'trampa87')
