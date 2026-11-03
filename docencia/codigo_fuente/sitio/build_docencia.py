@@ -15,6 +15,17 @@ NB = [("NB01 · Tu primera neurona", f"Viernes · prácticas en clase (láminas 
       ("NB02 · Tu primera red", f"Sábado · práctica en clase (lámina {SL['practica3']})", "NB02_sabado_tu_primera_red.ipynb")]
 
 
+# week switcher (same look as the week-2 panel)
+WEEKS_CSS = """
+.weeks{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);margin-bottom:16px}
+.weeks a{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:999px;color:#B8C4D6;text-decoration:none;font:700 14px 'Space Grotesk',Arial,sans-serif;letter-spacing:.3px}
+.weeks a:hover,.weeks a:focus-visible{color:#EEF2F8;background:rgba(255,255,255,.08);outline:none}
+.weeks a[aria-current=page]{background:#7AA2FF;color:#0B1424}
+"""
+WEEKS = ('<nav class="weeks" aria-label="Semana"><a href="index.html" aria-current="page">Semana 1</a>'
+         '<a href="../semana2/docencia/index.html">Semana 2</a></nav>')
+
+
 def card(title, text, links):
     btns = ''.join(f'<a class="btn {k}" href="{h}">{t}</a>' for t, h, k in links)
     return f'<article class="c"><h3>{title}</h3><p>{text}</p><div class="btnrow">{btns}</div></article>'
@@ -33,7 +44,7 @@ html = f"""<!doctype html>
 <meta name="description" content="Panel del profesor de la semana 1: slides interactivas, mapas conceptuales, código en Colab, guía docente y resultados de los quizzes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
-<style>{CSS}
+<style>{CSS}{WEEKS_CSS}
 .wrap{{max-width:1120px;margin:0 auto;padding:24px 16px 64px}}
 .cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}}
 .c{{display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:18px}}
@@ -42,7 +53,7 @@ td a,.sec p a{{overflow-wrap:anywhere}} .hero h1{{overflow-wrap:anywhere}}
 kbd{{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 7px}}
 </style></head>
 <body><div class="wrap">
-<div class="hero"><span class="chip">Docencia · Semana 1</span>
+<div class="hero">{WEEKS}<br><span class="chip">Docencia · Semana 1</span>
 <h1 style="margin-top:14px">Panel del profesor</h1>
 <p>Todo para dictar la semana 1: las slides interactivas, los mapas conceptuales para preparar cada bloque, el código para mostrar en Colab, tu guía y los resultados de los quizzes. Los proyectos son en clase y sin nota.</p>
 <p style="font-size:15px"><a href="../index.html" style="color:#B8C4D6">← Página de los estudiantes</a></p></div>
@@ -61,7 +72,7 @@ kbd{{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);
 <section class="sec"><h2>2 · Mostrar el código en clase</h2>
 <p>Comparte pantalla con Colab. <b>Abrir en Colab</b> abre la versión de los estudiantes directo desde GitHub: ejecútala en vivo con <b>Entorno de ejecución → Ejecutar todo</b>.</p>
 <div class="cards">{code}</div>
-<p style="margin-top:16px"><b>Las soluciones no están en este repo</b> (es público). Están en tu carpeta <code>Soluciones_privadas</code>. Para mostrarlas, súbelas una vez a una carpeta privada de tu Google Drive y ábrelas desde allí, o en Colab: <b>Archivo → Subir cuaderno</b>. Nunca compartas pantalla con una solución mientras los estudiantes trabajan en la tarea.</p>
+<p style="margin-top:16px">Los notebooks ya vienen <b>completos y ejecutados</b>: puedes mostrarlos tal cual, no hay versión con soluciones. Lo único privado son sus generadores (y las versiones antiguas resueltas), que están en tu carpeta <code>Soluciones_privadas</code> y nunca se suben al repo, que es público.</p>
 </section>
 
 <section class="sec"><h2>3 · Quizzes y resultados</h2>

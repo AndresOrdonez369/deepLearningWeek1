@@ -16,3 +16,4 @@ Claude outputs/
 *.zip
 # notebook generators contain the solutions: kept in Soluciones_privadas
 docencia/codigo_fuente/notebooks/
+semana2/docencia/codigo_fuente/notebooks/

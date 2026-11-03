@@ -1,10 +1,8 @@
 """Home page of the website (index.html at the repo root, served by Vercel).
 
 It also works as the router for the short links printed as QR codes on the slides:
-  .../deepLearningWeek1/?nb01  ?nb02          -> the notebook in Google Colab
-  .../deepLearningWeek1/?pre   ?final         -> the Kahoot-style quiz
-  .../deepLearningWeek1/?guia                 -> the study guide
-  .../deepLearningWeek1/?slides               -> the interactive slides
+  week 1: ?nb01 ?nb02 (Colab) · ?pre ?final (quiz) · ?guia (study guide) · ?slides (interactive slides)
+  week 2: ?nb03 ?nb04 (Colab) · ?pre2 ?final2 · ?guia2 · ?slides2 · ?semana2 (week-2 home, in semana2/)
 
 usage: python build_inicio.py <site_folder>
 """
@@ -16,8 +14,16 @@ OUT = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else 'out')
 REPO = "https://github.com/AndresOrdonez369/deepLearningWeek1"
 COLAB = "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/"
 NB = {"nb01": "NB01_viernes_tu_primera_neurona.ipynb", "nb02": "NB02_sabado_tu_primera_red.ipynb"}
+COLAB2 = COLAB.replace("/blob/main/proyectos/", "/blob/main/semana2/proyectos/")
+NB2 = {"nb03": "NB03_viernes_tu_primera_cnn.ipynb", "nb04": "NB04_sabado_redes_que_recuerdan.ipynb"}
 ROUTES = {**{k: COLAB + v for k, v in NB.items()}, "pre": "quiz/index.html?pre", "final": "quiz/index.html?final", "guia": "guia/index.html",
-          "slides": "docencia/slides/index.html"}
+          "slides": "docencia/slides/index.html",
+          # week 2 lives in semana2/ (same site); the slides of week 2 print these keys in their QR codes
+          **{k: COLAB2 + v for k, v in NB2.items()}, "pre2": "semana2/quiz/index.html?pre", "final2": "semana2/quiz/index.html?final",
+          "clase2": "semana2/quiz/index.html?clase", "guia2": "semana2/guia/index.html", "slides2": "semana2/docencia/slides/index.html",
+          "semana2": "semana2/index.html"}
+WEEKS = ('<nav class="weeks" aria-label="Semanas del curso"><span class="lab">Curso</span>'
+         '<a href="index.html" aria-current="page">Semana 1</a><a href="semana2/index.html">Semana 2</a></nav>')
 
 def step(n, when, title, text, href, label, kind=''):
     return (f'<a class="step {kind}" href="{href}"><span class="num">{n}</span><span class="when">{when}</span>'
@@ -53,7 +59,7 @@ html = f"""<!doctype html>
 <title>Deep Learning · Semana 1 · UIDE</title>
 <meta name="description" content="Semana 1 de Neural Networks: Deep Learning (UIDE / EIG Campus): proyectos en Colab, guía de estudio, pre-quiz y quiz final.">
 <script>
-// short links used by the QR codes on the slides: ?nb01 ?nb02 ?pre ?final ?guia ?slides
+// short links used by the QR codes on the slides: week 1 ?nb01 ?nb02 ?pre ?final ?guia ?slides · week 2 ?nb03 ?nb04 ?pre2 ?final2 ?guia2 ?slides2 ?semana2
 (function () {{
   var R = {json.dumps(ROUTES)};
   var q = new URLSearchParams(location.search);
@@ -83,10 +89,16 @@ html = f"""<!doctype html>
 .how div{{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:15.5px}}
 .how b.n{{font:700 22px 'Space Grotesk',sans-serif;color:var(--blue);margin-right:6px}}
 .mat{{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}}
+.weeks{{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}}
+.weeks .lab{{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-right:2px}}
+.weeks a{{font:700 15px 'Space Grotesk',Arial,sans-serif;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 14px}}
+.weeks a:hover,.weeks a:focus-visible{{border-color:var(--blue);outline:none}}
+.weeks a[aria-current=page]{{background:var(--blue);color:var(--on-blue);border-color:var(--blue)}}
 </style>
 </head>
 <body>
 <div class="wrap">
+{WEEKS}
 <div class="hero">
 <span class="chip">UIDE · Maestría en Ciencia de Datos · Semana 1</span>
 <h1 style="margin-top:14px">Neural Networks: Deep Learning</h1>
@@ -105,7 +117,7 @@ html = f"""<!doctype html>
 <div><b class="n">1</b>Clic en <b>Abrir en Colab</b> y entra con tu cuenta de Google.</div>
 <div><b class="n">2</b><b>Archivo → Guardar una copia en Drive.</b> Si no, tus cambios se pierden al cerrar la pestaña.</div>
 <div><b class="n">3</b>Ejecuta primero la celda <b>Configuración</b>; luego en orden con <code>Shift + Enter</code>.</div>
-<div><b class="n">4</b>En cada tarea, reemplaza los <code>None</code> y ejecuta <b>Revisar</b>.</div>
+<div><b class="n">4</b>Antes de cada celda, apuesta un resultado en <b>🔮 Antes de ejecutar</b> y compáralo con <b>Qué deberías ver</b>.</div>
 </div>
 </section>
 

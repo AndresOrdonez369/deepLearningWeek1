@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultados de los quizzes · Semana 2</title>
+<meta name="description" content="Panel del profesor: pega los códigos que los estudiantes dejaron en el chat y ve el antes y el después de la semana 2.">
+<style>
+:root{
+  --bg:#F5F7FB; --paper:#FFFFFF; --ink:#0F1A2E; --txt:#334155; --muted:#64748B; --line:#DCE3EE;
+  --blue:#1D4ED8; --blue-bg:#E8EEFD; --amber:#B45309; --amber-bg:#FEF3C7; --teal:#0F766E; --teal-bg:#DDF4F1;
+  --red:#B91C1C; --red-bg:#FDE8E8; --pre:#94A3B8; --post:#1D4ED8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1220; --paper:#121B2E; --ink:#EEF2F8; --txt:#C3CCDA; --muted:#8E9BB0; --line:#26344F;
+    --blue:#7AA2FF; --blue-bg:#1A2747; --amber:#FDBA5C; --amber-bg:#3A2A10; --teal:#4FD1C0; --teal-bg:#10302C;
+    --red:#F87171; --red-bg:#3A1520; --pre:#5B6B86; --post:#7AA2FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1220; --paper:#121B2E; --ink:#EEF2F8; --txt:#C3CCDA; --muted:#8E9BB0; --line:#26344F;
+  --blue:#7AA2FF; --blue-bg:#1A2747; --amber:#FDBA5C; --amber-bg:#3A2A10; --teal:#4FD1C0; --teal-bg:#10302C;
+  --red:#F87171; --red-bg:#3A1520; --pre:#5B6B86; --post:#7AA2FF;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans',Arial,sans-serif;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 64px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif;color:var(--ink);line-height:1.15}
+h1{font-size:clamp(28px,4vw,40px)} h2{font-size:24px} h3{font-size:18px}
+.chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--amber-bg);color:var(--amber)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.steps div{background:var(--blue-bg);border-radius:14px;padding:12px 14px;color:var(--ink);font-size:15px}
+.steps b{font-family:'Space Grotesk',Arial,sans-serif;color:var(--blue);font-size:20px;margin-right:6px}
+textarea{width:100%;min-height:150px;font:14px/1.4 Consolas,'JetBrains Mono',monospace;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-weight:700;cursor:pointer;border:none;border-radius:12px;padding:11px 18px;background:var(--blue);color:#fff}
+button.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi .v{font-family:'Space Grotesk',Arial,sans-serif;font-size:30px;font-weight:700;color:var(--ink)}
+.kpi .l{font-size:14px;color:var(--muted)}
+.legend{display:flex;gap:16px;font-size:14px;color:var(--muted);margin:4px 0 12px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.idea{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) 70px;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.idea:first-of-type{border-top:none}
+.idea .name{color:var(--ink);font-size:15px}
+.bars2{display:flex;flex-direction:column;gap:5px}
+.b{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.track{height:12px;border-radius:999px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.track i{display:block;height:100%}
+.delta{font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;text-align:right;color:var(--teal)}
+.delta.neg{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--ink);font-size:13px;background:var(--blue-bg)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll{overflow-x:auto}
+.pct{display:inline-block;min-width:46px;text-align:center;border-radius:8px;padding:1px 6px;font-weight:700}
+.lo{background:var(--red-bg);color:var(--red)} .mid{background:var(--amber-bg);color:var(--amber)} .hi{background:var(--teal-bg);color:var(--teal)}
+.note{font-size:14px;color:var(--muted)}
+.hidden{display:none !important}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+@media (max-width:640px){.idea{grid-template-columns:1fr;gap:6px}.delta{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="chip">Panel del profesor</span>
+    <h1 style="margin-top:10px">Resultados de los quizzes · Semana 2</h1>
+    <p style="margin-top:6px">Los estudiantes terminan el quiz y pegan en el chat un código como <code>[DL2|PRE|Ana Pérez|5/8|10110101|i1]</code>. Aquí lo conviertes en el antes y el después del grupo. Nada sale de tu computador.</p>
+  </header>
+
+  <section class="card" style="display:flex;flex-direction:column;gap:14px">
+    <div class="steps">
+      <div><b>1</b>Al terminar el quiz, cada estudiante pega su código en el chat de Teams.</div>
+      <div><b>2</b>En el chat, selecciona todos los mensajes, cópialos (Ctrl + C) y pégalos abajo. Sirve el texto tal cual, con nombres y horas.</div>
+      <div><b>3</b>Clic en <b style="font-size:inherit;color:inherit">Analizar</b>. Haz lo mismo después del quiz final: pega los dos chats juntos.</div>
+    </div>
+    <textarea id="input" placeholder="Pega aquí el chat (o solo los códigos)…"></textarea>
+    <div class="row">
+      <button id="run">Analizar</button>
+      <button class="ghost" id="demo">Ver un ejemplo</button>
+      <button class="ghost" id="clear">Borrar</button>
+      <span class="note" id="status"></span>
+    </div>
+  </section>
+
+  <section id="out" class="hidden" style="display:flex;flex-direction:column;gap:18px">
+    <div class="kpis" id="kpis"></div>
+
+    <div class="card">
+      <h2>Las 5 ideas clave: antes y después</h2>
+      <p class="note" style="margin-top:4px">Cada idea aparece en los dos quizzes con otra versión. Porcentaje de estudiantes que la respondió bien.</p>
+      <div class="legend"><span><i style="background:var(--pre)"></i>Pre-quiz</span><span><i style="background:var(--post)"></i>Quiz final</span></div>
+      <div id="ideas"></div>
+      <p class="note" id="gain" style="margin-top:10px"></p>
+    </div>
+
+    <div class="grid2">
+      <div class="card"><h3>Qué reforzar · quiz final</h3><p class="note" style="margin:4px 0 10px">Preguntas de menor a mayor acierto.</p><div class="scroll"><table id="t-final"></table></div></div>
+      <div class="card"><h3>Punto de partida · pre-quiz</h3><p class="note" style="margin:4px 0 10px">Si las bases salen bajas, dedica unos minutos a repasarlas antes del bloque.</p><div class="scroll"><table id="t-pre"></table></div></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><h3>Por estudiante</h3><button class="ghost" id="copy">Copiar tabla (para Excel o Sheets)</button></div>
+      <p class="note" style="margin:4px 0 10px">Se toma el primer intento de cada quiz. Los nombres se emparejan sin tildes ni mayúsculas: pide que usen el mismo nombre en los dos.</p>
+      <div class="scroll"><table id="t-students"></table></div>
+    </div>
+  </section>
+
+  <p class="note">Formativo: los quizzes no cuentan para la nota. Panel de la Clase 2 · Neural Networks: Deep Learning · UIDE.</p>
+</div>
+
+<script>
+const BANK = {"pre": {"title": "Pre-quiz · ¿de dónde partimos?", "time": 20, "sub": "Ocho preguntas cortas, sin cuentas: tres de calentamiento y las cinco ideas clave de la semana 2 (imágenes, secuencias y atención). No es nota: es tu punto de partida. Es normal no saberlas todas.", "questions": [{"q": "Para una computadora, una foto en blanco y negro es…", "options": ["Una tabla de números: el brillo de cada píxel", "Un texto que describe la foto", "Una lista de colores con nombre", "Algo que no se puede convertir en números"], "ok": 0, "why": "Cada píxel guarda un número de brillo: 0 es negro y 255 es blanco. Una foto de 28 × 28 píxeles es una tabla de 784 números, y eso es todo lo que la red recibe.", "no": [null, "La red no recibe palabras: recibe los números de cada píxel.", "Los colores también se guardan como números (rojo, verde y azul); aquí es blanco y negro: un número por píxel.", "Toda foto digital ya es números: así la guarda tu celular."], "fig": "pixels", "tema": "pre"}, {"q": "¿Cuál de estos datos llega en un orden que importa?", "options": ["Las edades de 100 socios en una tabla", "Las palabras de una frase", "El color favorito de cada estudiante", "El inventario de una bodega"], "ok": 1, "why": "«El perro mordió al cartero» y «el cartero mordió al perro» tienen las mismas palabras y dicen cosas distintas. En una frase, el orden es parte del significado.", "no": ["Si ordenas la tabla de otra forma, las edades no cambian de significado.", null, "El color favorito de cada uno no depende de quién se anotó primero.", "Contar lo que hay en la bodega da lo mismo en cualquier orden."], "fig": "orden", "tema": "pre"}, {"q": "En Keras, ¿qué paso entrena la red?", "options": ["model.summary()", "keras.Input(...)", "model.fit(...)", "model.predict(...)"], "ok": 2, "why": "fit repite adelante, atrás y actualizar con los datos de entrenamiento, por lotes y durante varias épocas. Es el único paso que cambia los pesos.", "no": ["summary solo muestra la tabla de capas y parámetros: no entrena.", "Input solo dice qué forma tiene cada ejemplo que entra a la red.", null, "predict usa lo aprendido para responder: no cambia ningún peso."], "fig": "keras", "tema": "b00"}, {"q": "Una red densa recibe cada foto aplanada en una fila de 784 números. Si mezclamos los píxeles de TODAS las fotos de la misma manera, ¿qué le pasa a su exactitud?", "options": ["Casi nada: nunca usó qué píxel está al lado de cuál", "Se cae a cero", "Sube mucho", "La red deja de funcionar"], "ok": 0, "why": "Para una red densa, cada píxel es una columna más de una tabla: no sabe cuál está junto a cuál. Si la mezcla es la misma para todas las fotos, para ella el problema es idéntico (en el NB03: 86.7 % normal y 87.2 % mezclada).", "no": [null, "No se cae: los píxeles siguen ahí, solo que en otras columnas, y la densa nunca miró el orden.", "No sube: es el mismo problema con otras columnas; la diferencia es ruido.", "Sigue funcionando igual: recibe 784 números como siempre."], "fig": "suposicion", "tema": "b01", "clave": "C1"}, {"q": "Un filtro de 3 × 3 que detecta bordes verticales recorre una foto. ¿Dónde responde con fuerza?", "options": ["En el centro de la foto, siempre", "Donde un lado está oscuro y el otro claro: en un borde", "Donde todo es del mismo color", "En ninguna parte: solo cuenta píxeles"], "ok": 1, "why": "El filtro es una lupa que mira 9 píxeles a la vez: resta la columna de la izquierda y suma la de la derecha. Si los dos lados son iguales da 0; si hay un borde (oscuro → claro) da un número grande.", "no": ["No depende del lugar: responde donde encuentre su patrón, esté donde esté.", null, "Donde todo es igual, la resta de los dos lados da 0: no hay nada que detectar.", "No cuenta: multiplica cada píxel por un peso y suma. Eso detecta formas."], "fig": "filtro", "tema": "b01", "clave": "C2"}, {"q": "¿Por qué una red convolucional (CNN) necesita muchos menos parámetros que una densa para la misma foto?", "options": ["Porque mira menos píxeles", "Porque no tiene sesgos", "Porque usa el mismo filtro pequeño en toda la imagen", "Porque solo funciona con fotos pequeñas"], "ok": 2, "why": "Un filtro de 3 × 3 tiene 9 pesos y 1 sesgo, y se usa en todas las posiciones de la foto, como un sello que se estampa en toda la hoja. Una neurona densa, en cambio, necesita un peso por cada píxel.", "no": ["La CNN mira todos los píxeles: el filtro pasa por toda la foto.", "Sí tiene sesgos: uno por filtro.", null, "Funciona con fotos de cualquier tamaño; la idea de compartir el filtro sirve igual."], "fig": "share", "tema": "b01", "clave": "C3"}, {"q": "Una red recurrente (RNN) lee una frase palabra por palabra y guarda lo leído en un resumen de tamaño fijo. ¿Qué le cuesta más?", "options": ["Leer la palabra actual", "Leer frases cortas", "Saber cuántas letras tiene una palabra", "Recordar algo que leyó muchas palabras atrás"], "ok": 3, "why": "Es como leer un libro con una libreta pequeña: en cada página reescribes el resumen. Lo del principio se va borrando, y al entrenar la culpa que viaja hacia atrás se debilita en cada paso.", "no": ["La palabra actual es lo más fácil: la tiene enfrente.", "Con frases cortas casi no hay nada que olvidar.", "Eso no es lo difícil: lo difícil es mantener lo importante durante muchos pasos.", null], "fig": "libreta", "tema": "b02", "clave": "C4"}, {"q": "En un Transformer, la atención permite que cada palabra…", "options": ["Lea solo a la palabra anterior", "Mire a todas las demás y decida cuáles le importan", "Se lea una sola vez y se olvide", "Cuente cuántas letras tiene la frase"], "ok": 1, "why": "En «el socio pagó la cuota porque él recibió su sueldo», la palabra «él» mira a todas y descubre que se refiere a «socio», no a «cuota». Cada palabra consulta directamente a las demás.", "no": ["Leer solo la anterior es lo que hace una RNN paso a paso; la atención mira todo a la vez.", null, "Al revés: la atención puede volver a consultar cualquier palabra del texto.", "No cuenta letras: compara significados para decidir a quién mirar."], "fig": "atencion", "tema": "b03", "clave": "C5"}]}, "final": {"title": "Quiz final · ¿cuánto avanzamos?", "time": 25, "sub": "Diez preguntas cortas, sin cuentas, sobre toda la semana: la suposición de cada arquitectura, filtros y pooling, compartir pesos, la libreta de la RNN y la LSTM, la atención y su precio, los híbridos y cómo elegir. Las cinco ideas clave del pre-quiz vuelven con otra versión.", "questions": [{"q": "Cada arquitectura supone algo sobre los datos. ¿Qué supone una red convolucional (CNN)?", "options": ["Que el orden en el tiempo es lo más importante", "Que lo cercano importa y el mismo patrón puede aparecer en cualquier parte", "Que todos los datos se relacionan con todos por igual", "Nada: funciona igual con cualquier dato"], "ok": 1, "why": "La CNN es una lupa que recorre la foto: mira vecindarios pequeños (lo cercano importa) y usa la misma lupa en todas partes. Por eso, si mezclamos los píxeles, le duele (87.7 % → 85.2 %) y a la densa no.", "no": ["Esa es la suposición de la RNN: el orden importa.", null, "Esa es la de la red densa: todo con todo.", "Toda arquitectura supone algo; elegir bien es saber qué supone cada una."], "fig": "suposicion", "tema": "b01", "clave": "C1"}, {"q": "¿Qué es un mapa de activación?", "options": ["El resultado de pasar un filtro por toda la imagen: dónde encontró su patrón", "La lista de las 10 clases posibles", "El dibujo de las capas de la red", "La foto original en colores"], "ok": 0, "why": "El filtro se coloca en cada ventana de 3 × 3, multiplica y suma, y anota un número. Al recorrer toda la foto queda una tabla nueva (26 × 26 en el NB03) que se enciende donde está el patrón: un borde, una esquina, una suela.", "no": [null, "Las clases salen al final, de la capa softmax.", "Ese dibujo es el resumen de la red (model.summary).", "El mapa es una tabla nueva calculada por el filtro, no la foto."], "fig": "filtro", "tema": "b01", "clave": "C2"}, {"q": "La primera capa de la CNN del NB03 tiene 16 filtros de 3 × 3 y solo 160 parámetros, aunque cada foto tiene 784 píxeles. ¿Por qué tan pocos?", "options": ["Porque ignora la mayoría de los píxeles", "Porque los filtros no se aprenden", "Porque cada filtro (9 pesos + 1 sesgo) se reutiliza en todas las posiciones", "Porque la foto se reduce antes a 16 píxeles"], "ok": 2, "why": "Cada filtro tiene 10 números y se estampa en toda la foto, como un sello. 16 filtros × 10 = 160. La primera capa densa, con un peso por píxel para cada neurona, necesita 100 480.", "no": ["El filtro pasa por todos los píxeles, de tres en tres.", "Sí se aprenden: en el NB03 se ve que salen detectores de bordes, y nadie los programó.", null, "La foto entra completa (28 × 28); la que se achica es la salida, después."], "fig": "share", "tema": "b01", "clave": "C3"}, {"q": "¿Por qué una RNN simple «se olvida» de lo que leyó al principio de una secuencia larga?", "options": ["Porque borra su memoria cada 10 pasos", "Porque la señal del error se debilita en cada paso al viajar hacia atrás", "Porque solo lee la última palabra", "Porque tiene demasiados parámetros"], "ok": 1, "why": "Al entrenar, la culpa viaja hacia atrás paso por paso y en cada uno se multiplica por un número pequeño: con 0.5 por paso, después de 10 pasos queda 0.001. Es el teléfono dañado de la semana 1, ahora en el tiempo. En el NB04, con 80 pasos, la RNN adivina (52 %).", "no": ["No hay un borrado programado: el olvido sale de las multiplicaciones.", null, "Lee todas las palabras, una por una; el problema es mantener lo lejano.", "La SimpleRNN del NB04 tiene pocos (1 153); el problema es la distancia, no el tamaño."], "fig": "olvido", "tema": "b02", "clave": "C4"}, {"q": "La atención compara cada palabra con todas las demás. Si el texto es 10 veces más largo, ¿cuántas comparaciones hace?", "options": ["Las mismas", "10 veces más", "Unas 100 veces más: crece con el cuadrado", "La mitad"], "ok": 2, "why": "Con n palabras son n × n comparaciones: con 1 000 palabras, un millón. Diez veces más palabras son cien veces más comparaciones. Por eso los textos larguísimos se volvieron un cuello de botella y volvieron las recurrentes (lectura de tendencia).", "no": ["Más palabras, más comparaciones: cada una mira a todas.", "Sería así si cada palabra mirara solo a unas pocas; mira a todas.", null, "Nunca baja: crece, y rápido."], "fig": "costo", "tema": "b03", "clave": "C5"}, {"q": "¿Qué hace un MaxPooling de 2 × 2?", "options": ["Duplica el tamaño de la imagen", "De cada ventana de 2 × 2 se queda con el número más grande", "Promedia todas las imágenes del lote", "Borra los bordes de la foto"], "ok": 1, "why": "Resume el mapa: de cada cuadrito de 4 números se queda con el mayor, como subrayar la frase más importante de cada párrafo. El mapa queda de la mitad de alto y de ancho (26 × 26 → 13 × 13).", "no": ["Hace lo contrario: el mapa queda de la mitad de tamaño.", null, "Trabaja dentro de cada mapa, no mezcla fotos distintas.", "No borra nada a propósito: conserva el valor más fuerte de cada ventana."], "fig": "pool", "tema": "b01"}, {"q": "En Keras, para pasar de la red densa a una CNN, ¿qué cambias?", "options": ["Las capas: Conv2D y MaxPooling2D antes de la salida; compile y fit siguen igual", "Todo: Keras usa otro método para entrenar CNN", "Solo el número de épocas", "Nada: una Dense ya es una CNN"], "ok": 0, "why": "Los cuatro pasos son los mismos: construir, compilar, entrenar y predecir. Lo único que cambia es la lista de capas dentro de Sequential.", "no": [null, "El entrenamiento es el mismo: adelante, atrás y actualizar dentro de fit.", "Las épocas no cambian la arquitectura: una Dense sigue siendo densa.", "Una Dense mira todos los píxeles con un peso propio cada uno; no tiene filtros."], "fig": "keras", "tema": "b00"}, {"q": "¿Qué agrega una LSTM a la libreta de la RNN simple?", "options": ["Filtros de 3 × 3", "Compuertas que deciden qué olvidar, qué guardar y qué mostrar", "Más capas densas al final", "Una cámara para ver imágenes"], "ok": 1, "why": "Cada compuerta es una sigmoide entre 0 y 1, como una válvula: una decide qué borrar de la libreta, otra qué anotar y otra qué leer en voz alta. Así lo importante puede viajar más lejos sin borrarse.", "no": ["Los filtros de 3 × 3 son de las CNN.", null, "Las capas densas no le dan memoria; las compuertas sí.", "La LSTM lee secuencias, no fotos."], "fig": "lstm", "tema": "b02"}, {"q": "Según la lectura de tendencia, ¿qué hacen modelos híbridos como Jamba o Nemotron-H?", "options": ["Usan solo atención, cada vez más grande", "Vuelven a las redes de la década de 1950", "Reemplazan las redes por reglas escritas a mano", "Mezclan muchas capas recurrentes baratas con unas pocas capas de atención"], "ok": 3, "why": "Son como un buen estudiante: toman apuntes resumidos de casi todo (capas recurrentes, como Mamba) y de vez en cuando vuelven al libro para un dato exacto (atención). Jamba usa una capa de atención por cada siete de Mamba.", "no": ["Esa es la idea que se volvió cara con textos larguísimos.", "Usan versiones modernas de la recurrencia, que se entrenan en paralelo.", "Siguen siendo redes que aprenden de ejemplos.", null], "fig": "hibrido", "tema": "b03"}, {"q": "Tienes el historial de pagos, mes a mes, de cada socio y quieres predecir la mora. Además de una línea base sencilla, ¿qué suposición conviene que haga tu modelo?", "options": ["Que el orden de los meses importa (una red para secuencias)", "Que lo cercano en una foto importa (una CNN de imágenes)", "Que los datos no tienen ninguna estructura", "Que hay que generar socios nuevos (una GAN)"], "ok": 0, "why": "Un socio que empeora y uno que mejora pueden tener los mismos meses en distinto orden (el mismo promedio). Una red para secuencias (RNN, LSTM o atención) usa el orden; en el NB04 el promedio adivina (48 %) y la RNN acierta (100 %).", "no": [null, "Un historial no es una foto: no hay vecinos en dos dimensiones.", "Sí la tienen: los meses vienen en orden, y ese orden distingue a los que empeoran.", "Una GAN sirve para generar datos nuevos, no para predecir la mora."], "fig": "orden", "tema": "b04"}]}};
+const TEMAS = {"b00": "00 · Keras en 4 pasos", "b01": "01 · Imágenes y redes convolucionales", "b02": "02 · Secuencias, RNN y LSTM", "b03": "03 · Atención, Transformers y la tendencia", "b04": "04 · Elegir la arquitectura", "pre": "Bases previas"};
+const CLAVES = {"C1": "Cada arquitectura es una suposición sobre los datos", "C2": "Qué hace un filtro convolucional", "C3": "Por qué una CNN necesita muchos menos parámetros", "C4": "Qué guarda una RNN y por qué se olvida", "C5": "Qué hace la atención y cuál es su precio"};
+const CODE_TAG = 'DL2';
+const $ = id => document.getElementById(id);
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k, v); } catch(e){} } };
+const RX = new RegExp('\\[' + CODE_TAG + '\\|(PRE|FINAL)\\|([^|\\]]{1,60})\\|(\\d+)\\/(\\d+)\\|([01]+)\\|i(\\d+)\\]', 'g');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+const pct = (a, b) => b ? Math.round(100 * a / b) : null;
+const cls = p => p == null ? '' : p < 50 ? 'lo' : p < 75 ? 'mid' : 'hi';
+const keyIndex = m => Object.fromEntries(BANK[m].questions.map((q, i) => [q.clave, i]).filter(([c]) => c));
+const KI = { pre: keyIndex('pre'), final: keyIndex('final') };
+
+function parse(text){
+  const people = new Map(); let skipped = 0, total = 0;
+  for (const m of text.matchAll(RX)) {
+    total++;
+    const quiz = m[1].toLowerCase(), name = m[2].trim(), bits = m[5], attempt = +m[6];
+    if (bits.length !== BANK[quiz].questions.length) { skipped++; continue; }
+    const key = norm(name);
+    if (!people.has(key)) people.set(key, { name });
+    const p = people.get(key);
+    if (!p[quiz] || attempt < p[quiz].attempt) p[quiz] = { bits: [...bits].map(Number), attempt };
+  }
+  return { people: [...people.values()], skipped, total };
+}
+
+function keyScore(rec, quiz){ return Object.values(KI[quiz]).reduce((s, i) => s + rec.bits[i], 0); }
+
+function render(res){
+  const P = res.people, pre = P.filter(p => p.pre), fin = P.filter(p => p.final), both = P.filter(p => p.pre && p.final);
+  $('out').classList.toggle('hidden', !P.length);
+  $('status').textContent = P.length ? `${res.total} códigos leídos · ${P.length} estudiantes${res.skipped ? ` · ${res.skipped} con otra versión del quiz (ignorados)` : ''}` : 'No encontré códigos. Revisa que el texto pegado incluya algo como [DL2|PRE|…].';
+  if (!P.length) return;
+  const avg = (arr, f) => arr.length ? Math.round(arr.reduce((s, x) => s + f(x), 0) / arr.length) : null;
+  const avgPre = avg(pre, p => 100 * p.pre.bits.reduce((a, b) => a + b, 0) / p.pre.bits.length);
+  const avgFin = avg(fin, p => 100 * p.final.bits.reduce((a, b) => a + b, 0) / p.final.bits.length);
+  const kPre = avg(both, p => 100 * keyScore(p.pre, 'pre') / 5), kFin = avg(both, p => 100 * keyScore(p.final, 'final') / 5);
+  const g = (kPre != null && kFin != null && kPre < 100) ? (kFin - kPre) / (100 - kPre) : null;
+  $('kpis').innerHTML = [
+    [`${pre.length} · ${fin.length}`, 'jugaron el pre-quiz · el quiz final'],
+    [avgPre == null ? '—' : avgPre + ' %', 'acierto promedio en el pre-quiz'],
+    [avgFin == null ? '—' : avgFin + ' %', 'acierto promedio en el quiz final'],
+    [kPre == null ? '—' : `${kPre} → ${kFin} %`, `ideas clave, antes → después (${both.length} con ambos)`],
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+  $('ideas').innerHTML = Object.entries(CLAVES).map(([c, label]) => {
+    const a = pct(pre.reduce((s, p) => s + p.pre.bits[KI.pre[c]], 0), pre.length);
+    const b = pct(fin.reduce((s, p) => s + p.final.bits[KI.final[c]], 0), fin.length);
+    const d = (a != null && b != null) ? b - a : null;
+    const bar = (v, col) => `<div class="b"><span class="track"><i style="width:${v || 0}%;background:${col}"></i></span><span>${v == null ? '—' : v + ' %'}</span></div>`;
+    return `<div class="idea"><span class="name"><b>${c.slice(1)}.</b> ${label}</span><div class="bars2">${bar(a, 'var(--pre)')}${bar(b, 'var(--post)')}</div><span class="delta ${d < 0 ? 'neg' : ''}">${d == null ? '' : (d > 0 ? '+' : '') + d + ' pts'}</span></div>`;
+  }).join('');
+  $('gain').textContent = g == null ? 'La ganancia aparece cuando hay estudiantes con los dos quizzes.'
+    : `Ganancia normalizada en las ideas clave: g = ${g.toFixed(2)} (qué parte de lo que les faltaba aprendieron; 0.3–0.7 es una ganancia media, más de 0.7 es alta).`;
+  const qtable = (quiz, rows) => {
+    const qs = BANK[quiz].questions.map((q, i) => ({ q, i, p: pct(rows.reduce((s, r) => s + r[quiz].bits[i], 0), rows.length) }));
+    qs.sort((x, y) => (x.p ?? 101) - (y.p ?? 101));
+    return '<tr><th class="n">#</th><th>Pregunta</th><th>Tema</th><th class="n">Acierto</th></tr>' + qs.map(({ q, i, p }) =>
+      `<tr><td class="n">${i + 1}</td><td>${q.q}${q.clave ? ' <span class="chip" style="font-size:10px;padding:2px 7px">idea clave</span>' : ''}</td><td>${TEMAS[q.tema]}</td><td class="n"><span class="pct ${cls(p)}">${p == null ? '—' : p + ' %'}</span></td></tr>`).join('');
+  };
+  $('t-final').innerHTML = fin.length ? qtable('final', fin) : '<tr><td>Aún no hay códigos del quiz final.</td></tr>';
+  $('t-pre').innerHTML = pre.length ? qtable('pre', pre) : '<tr><td>Aún no hay códigos del pre-quiz.</td></tr>';
+  const rows = P.slice().sort((a, b) => a.name.localeCompare(b.name, 'es')).map(p => {
+    const sp = p.pre ? p.pre.bits.reduce((a, b) => a + b, 0) : null, sf = p.final ? p.final.bits.reduce((a, b) => a + b, 0) : null;
+    const kp = p.pre ? keyScore(p.pre, 'pre') : null, kf = p.final ? keyScore(p.final, 'final') : null;
+    return { name: p.name, sp, sf, kp, kf, d: (kp != null && kf != null) ? kf - kp : null };
+  });
+  window.__rows = rows;
+  $('t-students').innerHTML = `<tr><th>Estudiante</th><th class="n">Pre-quiz (de ${BANK.pre.questions.length})</th><th class="n">Quiz final (de ${BANK.final.questions.length})</th><th class="n">Ideas clave antes → después (de 5)</th><th class="n">Cambio</th></tr>` +
+    rows.map(r => `<tr><td>${esc(r.name)}</td><td class="n">${r.sp ?? '—'}</td><td class="n">${r.sf ?? '—'}</td><td class="n">${r.kp ?? '—'} → ${r.kf ?? '—'}</td><td class="n">${r.d == null ? '' : (r.d > 0 ? '+' : '') + r.d}</td></tr>`).join('');
+}
+
+function demo(){
+  // fictitious students, only to preview the panel
+  const names = ['Ana Pérez', 'Luis Mora', 'Carla Ruiz', 'Diego Torres', 'Elena Vega', 'Fabián Castro', 'Gabriela León', 'Hugo Salas', 'Irene Cano', 'Jorge Paz', 'Karla Ríos', 'Mateo Gil'];
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const lines = [];
+  names.forEach((n, k) => {
+    const pre = BANK.pre.questions.map(q => rnd() < (q.clave ? 0.35 : 0.75) ? 1 : 0);
+    const fin = BANK.final.questions.map(q => rnd() < (q.clave ? 0.8 : 0.68) ? 1 : 0);
+    lines.push(`${n}  10:0${k % 10}  [DL2|PRE|${n}|${pre.reduce((a, b) => a + b)}/${pre.length}|${pre.join('')}|i1]`);
+    if (k < 11) lines.push(`${n}  11:5${k % 10}  [DL2|FINAL|${n}|${fin.reduce((a, b) => a + b)}/${fin.length}|${fin.join('')}|i1]`);
+  });
+  $('input').value = '(EJEMPLO con estudiantes ficticios)\n' + lines.join('\n');
+  run();
+}
+
+function run(){ const t = $('input').value; store.set('dl-uide-w2-panel', t); render(parse(t)); }
+$('run').onclick = run;
+$('demo').onclick = demo;
+$('clear').onclick = () => { $('input').value = ''; store.set('dl-uide-w2-panel', ''); $('out').classList.add('hidden'); $('status').textContent = ''; };
+$('copy').onclick = () => {
+  const rows = window.__rows || [];
+  const tsv = ['Estudiante\tPre (de 10)\tFinal (de 12)\tIdeas clave antes (de 5)\tIdeas clave después (de 5)\tCambio']
+    .concat(rows.map(r => [r.name, r.sp ?? '', r.sf ?? '', r.kp ?? '', r.kf ?? '', r.d ?? ''].join('\t'))).join('\n');
+  const ok = () => { $('copy').textContent = 'Tabla copiada ✔'; setTimeout(() => $('copy').textContent = 'Copiar tabla (para Excel o Sheets)', 1600); };
+  if (navigator.clipboard) navigator.clipboard.writeText(tsv).then(ok, () => {});
+};
+const saved = store.get('dl-uide-w2-panel'); if (saved) { $('input').value = saved; run(); }
+</script>
+</body>
+</html>

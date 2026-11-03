@@ -24,6 +24,10 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;fl
 .dot{width:14px;height:14px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(253,186,92,.18)}
 .brand b{font-family:'Space Grotesk',sans-serif;font-size:18px;letter-spacing:.3px}
 .brand span{color:var(--muted);font-size:14px}
+.weeks{display:flex;gap:6px;margin-left:auto}
+.weeks a{font:700 14px 'Space Grotesk',sans-serif;text-decoration:none;color:var(--txt);background:#0F1C33;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.weeks a:hover,.weeks a:focus-visible{border-color:var(--blue);color:var(--ink);outline:none}
+.weeks a[aria-current=page]{background:var(--blue);color:#0B1424;border-color:var(--blue)}
 .chip{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:#1F2F4D;color:var(--blue)}
 .card{background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:28px}
 h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.12}
@@ -117,6 +121,7 @@ footer{margin-top:auto;color:var(--muted);font-size:13px;text-align:center}
 <div class="wrap" id="app">
   <header>
     <div class="brand"><div class="dot"></div><div><b>Deep Learning · Semana 1</b><br><span>UIDE · Neural Networks: Deep Learning</span></div></div>
+    <nav class="weeks" aria-label="Semanas del curso"><a href="index.html" aria-current="page">Semana 1</a><a href="../semana2/quiz/index.html">Semana 2</a></nav>
     <a class="pill" href="../index.html">← Inicio de la semana</a>
   </header>
 
