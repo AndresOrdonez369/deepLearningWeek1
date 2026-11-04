@@ -20,10 +20,16 @@ def L(i):
     return SL[i]
 
 
-FRI_END = L('cierre-viernes2')
-SAT_START = FRI_END + 1 if isinstance(FRI_END, int) else '?'
-NB = [("NB03 · Tu primera CNN", f"Viernes · práctica en clase (lámina {L('practica-nb03')}) · unos 2 minutos de cómputo", "NB03_viernes_tu_primera_cnn.ipynb"),
-      ("NB04 · Redes que recuerdan", f"Sábado · práctica en clase (lámina {L('practica-nb04')}) · 1–2 minutos de cómputo", "NB04_sabado_redes_que_recuerdan.ipynb")]
+def R(a, b):
+    return f'{L(a)}–{L(b)}'
+
+
+# the deck is one sequence organized by themes (each session starts where the previous one ended)
+PARTS = [('Encuadre', 'portada2', 'metas2'), ('00 · Recorderis de la semana 1 y Keras', 'b00', 'nb02-casa'),
+         ('Tema 1 · Cómo mira una red una imagen', 'b01', 'cierre-tema1'), ('Tema 2 · Cómo lee una red una secuencia', 'b02', 'contrapeso'),
+         ('Cierre · Elegir la arquitectura', 'b04', 'recursos2')]
+NB = [("NB03 · Tu primera CNN", f"Tema 1 · práctica en clase (lámina {L('practica-nb03')}) · unos 2 minutos de cómputo", "NB03_tu_primera_cnn.ipynb"),
+      ("NB04 · Redes que recuerdan", f"Tema 2 · práctica en clase (lámina {L('practica-nb04')}) · 1–2 minutos de cómputo", "NB04_redes_que_recuerdan.ipynb")]
 
 
 def card(title, text, links):
@@ -57,15 +63,19 @@ kbd{{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);
 <body><div class="wrap">
 <div class="hero">{weeks(2, '../../docencia/index.html', 'index.html')}<br><span class="chip">Docencia · Semana 2</span>
 <h1 style="margin-top:14px">Panel del profesor</h1>
-<p>Todo para dictar la semana 2 (viernes 6 y sábado 7 de noviembre): las slides interactivas, los mapas conceptuales para preparar cada bloque, el código para mostrar en Colab, tu guía y los resultados de los quizzes. Los proyectos son en clase y sin nota.</p>
+<p>Todo para dictar la semana 2, organizada en <b>dos temas</b> (imágenes y secuencias) después de un recorderis de la semana 1: las slides interactivas, los mapas conceptuales para preparar cada tema, el código para mostrar en Colab, tu guía y los resultados de los quizzes. Los proyectos son en clase y sin nota.</p>
+<p style="font-size:15px">Sesiones por Teams: viernes 6 y sábado 7 de noviembre de 2026. Las láminas son una sola secuencia: cada sesión empieza donde terminó la anterior.</p>
 <p style="font-size:15px"><a href="../index.html" style="color:#B8C4D6">← Página de los estudiantes</a></p></div>
 
 <section class="sec"><h2>1 · Para dictar</h2>
 <div class="cards">
-{card('Slides interactivas', f'{N_SLIDES} láminas con demos en vivo: viernes 1–{FRI_END}, sábado {SAT_START}–{N_SLIDES}. Cada lámina trae notas con el guion, la pregunta para la clase y el tiempo sugerido.', [('Abrir las slides', 'slides/index.html', ''), ('Vista del presentador', 'slides/index.html?presenter', 'ghost'), ('PDF de respaldo', 'Slides_Semana2.pdf', 'ghost')])}
-{card('Mapas conceptuales', 'La semana completa y un mapa por bloque (00 a 04). Clic en cada concepto: qué decir, un ejemplo, una pregunta para la clase, el error frecuente y la lámina. Se imprimen en A4.', [('Abrir los mapas', 'mapas/index.html', '')])}
-{card('Guía docente y apuntes', 'El orden de todo, el plan minuto a minuto, apuntes con rigor (CNN, RNN, LSTM, atención, GNN y GAN), claves de los notebooks, el debate de la lectura y la actividad «tu proyecto».', [('Abrir la guía', 'Guia_docente.html', '')])}
+{card('Slides interactivas', f'{N_SLIDES} láminas con demos en vivo, por temas: ' + ' · '.join(f'{t.split(" · ")[0]} {R(a, b)}' for t, a, b in PARTS) + '. Cada lámina trae notas con el guion, la pregunta para la clase y el tiempo sugerido.', [('Abrir las slides', 'slides/index.html', ''), ('Vista del presentador', 'slides/index.html?presenter', 'ghost'), ('PDF de respaldo', 'Slides_Semana2.pdf', 'ghost')])}
+{card('Mapas conceptuales', 'La semana completa, el recorderis de la semana 1 y un mapa por tema (Tema 1, Tema 2 en dos partes y el cierre). Clic en cada concepto: qué decir, un ejemplo, una pregunta para la clase, el error frecuente y la lámina. Se imprimen en A4.', [('Abrir los mapas', 'mapas/index.html', '')])}
+{card('Guía docente y apuntes', 'El orden de todo, el plan por temas con sus puntos de corte («Si vas atrasado»), apuntes con rigor (recorderis, CNN, RNN, LSTM, atención, GNN y GAN), claves de los notebooks, el debate de la lectura y la actividad «tu proyecto».', [('Abrir la guía', 'Guia_docente.html', '')])}
 </div>
+<h3 style="margin-top:22px">La semana por temas</h3>
+<table><tr><th>Parte</th><th>Láminas</th></tr>{''.join(f'<tr><td>{t}</td><td>{R(a, b)}</td></tr>' for t, a, b in PARTS)}</table>
+<p>Puntos de corte naturales si el tiempo no alcanza: después de la lámina {L('cierre-tema1')} (fin del Tema 1), {L('examen-memoria')} (RNN y LSTM cerradas) o {L('contrapeso')} (atención y tendencia cerradas). Para retomar, abre con la lámina {L('repaso-tema1')}. Detalle en la <a href="Guia_docente.html#plan">guía docente</a>.</p>
 <h3 style="margin-top:22px">Cómo presentar en Teams</h3>
 <p>Abre las slides en el navegador, pulsa <kbd>F</kbd> y comparte <b>esa ventana</b> (no toda la pantalla). Con <kbd>P</kbd> se abre la vista del presentador en otra ventana: déjala en tu segunda pantalla; las dos ventanas avanzan juntas. Las demos se manejan con el mouse en la ventana compartida.</p>
 <table><tr><th>Tecla</th><th>Qué hace</th></tr>{''.join(f'<tr><td><kbd>{k}</kbd></td><td>{d}</td></tr>' for k, d in KEYS)}</table>
@@ -86,7 +96,7 @@ kbd{{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);
 <section class="sec"><h2>4 · Material de la semana</h2>
 <div class="cards">
 {card('Lectura de tendencia', '«¿El regreso de las redes recurrentes? Transformers, Mamba y la búsqueda de la arquitectura ideal». El debate en clase y el guion del video de conclusiones están en la guía docente.', [('Abrir la lectura (PDF)', '../material/Lectura_tendencia_Semana2.pdf', ''), ('Debate y video', 'Guia_docente.html#lectura', 'ghost')])}
-{card('Guía de estudio', 'Lo que ven los estudiantes para repasar: un tema por bloque, con ejemplos y ejercicios.', [('Abrir la guía de estudio', '../guia/index.html', '')])}
+{card('Guía de estudio', 'Lo que ven los estudiantes para repasar: el recorderis y los dos temas, con ejemplos y ejercicios.', [('Abrir la guía de estudio', '../guia/index.html', '')])}
 </div></section>
 
 <section class="sec"><h2>5 · Enlaces cortos (los de los QR)</h2>

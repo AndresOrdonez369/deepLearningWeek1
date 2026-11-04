@@ -20,6 +20,9 @@ SITE = 'https://deeplearningweek1.vercel.app/'
 W2 = SITE + 'semana2/'
 B, A, T, I, P = 'var(--blue)', 'var(--amber-f)', 'var(--teal)', 'var(--ink)', 'var(--purple)'
 SL = {s['id']: s['n'] for s in json.loads((OUT / 'slides' / 'slides.json').read_text())}
+# week 1 lives at the repo root: <repo>/docencia/slides/slides.json (used by the recap notes)
+_W1 = OUT.parent.parent / 'docencia' / 'slides' / 'slides.json'
+SL1 = {s['id']: s['n'] for s in json.loads(_W1.read_text())} if _W1.exists() else {}
 MISSING = set()
 
 
@@ -32,6 +35,17 @@ def L(i):
 
 def R(a, b):
     return f'{L(a)}–{L(b)}'
+
+
+def W1(*ids):
+    """Week-1 slide numbers with a link to that slide of the week-1 deck."""
+    out = [f'<a href="../../docencia/slides/index.html#{i}">{SL1.get(i, "?")}</a>' for i in ids]
+    return ('lámina ' if len(out) == 1 else 'láminas ') + ', '.join(out)
+
+
+def G1(anchor, label):
+    """Link to a section of the week-1 study guide."""
+    return f'<a href="../../guia/index.html#{anchor}">{label}</a>'
 
 
 def qa(q, a):
@@ -59,23 +73,23 @@ S = []
 S.append(('uso', '★', 'Cómo usar esta guía', f"""
 <div class="hero"><span class="chip">Solo docente</span>
 <h1 style="margin-top:14px">Guía docente y apuntes · Semana 2</h1>
-<p>Arquitecturas para problemas complejos: cómo mira una red una imagen (CNN), cómo lee una secuencia (RNN y LSTM), qué cambió con la atención y los Transformers, y cómo elegir la arquitectura. Aquí está el orden de todo, el plan minuto a minuto, los apuntes con el rigor que hay detrás de cada lámina, las preguntas que te pueden hacer y las claves de los notebooks y los quizzes.</p>
-<p style="font-size:15px">Sesiones por Teams: viernes 6 de noviembre de 2026, 18:00–20:00, y sábado 7, 08:00–12:00.</p></div>
+<p>Arquitecturas para problemas complejos: cómo mira una red una imagen (CNN), cómo lee una secuencia (RNN y LSTM), qué cambió con la atención y los Transformers, y cómo elegir la arquitectura. Aquí está el orden de todo, el plan por temas (con sus puntos de corte), los apuntes con el rigor que hay detrás de cada lámina, las preguntas que te pueden hacer y las claves de los notebooks y los quizzes.</p>
+<p style="font-size:15px">Sesiones por Teams: viernes 6 y sábado 7 de noviembre de 2026. Las láminas son una sola secuencia por temas: cada sesión empieza donde terminó la anterior.</p></div>
 <div class="grid">
 <div class="tile"><h4>Antes de la semana</h4><p>Lee <a href="#orden">El orden de todo</a> y haz el <a href="#checklist">checklist</a>. Recorre las <a href="slides/index.html">slides</a> con la tecla <b>P</b> para ver tus notas.</p></div>
-<div class="tile"><h4>Para preparar un bloque</h4><p>Abre su <a href="mapas/index.html">mapa conceptual</a> (qué decir, ejemplo, pregunta y error frecuente por concepto) y luego sus <a href="#b01">apuntes</a>.</p></div>
-<div class="tile"><h4>En clase</h4><p>El <a href="#viernes">plan del viernes</a> y el <a href="#sabado">del sábado</a>. Esta semana tiene menos láminas y un colchón de tiempo cada día: úsalo para preguntas, no para meter más contenido.</p></div>
+<div class="tile"><h4>Para preparar un tema</h4><p>Abre su <a href="mapas/index.html">mapa conceptual</a> (qué decir, ejemplo, pregunta y error frecuente por concepto) y luego sus apuntes: <a href="#b00">recorderis</a>, <a href="#b01">Tema 1</a>, <a href="#b02">Tema 2</a>, <a href="#b04">cierre</a>.</p></div>
+<div class="tile"><h4>En clase</h4><p>El <a href="#plan">plan por temas</a> y su recuadro <b>Si vas atrasado</b>: dónde cortar sin dejar ideas a medias, qué mandar a la casa y cómo retomar. El plan usa unas 5 de las 6 horas: el colchón es para preguntas, no para más contenido.</p></div>
 <div class="tile"><h4>Después</h4><p>Las <a href="#notebooks">claves de los notebooks</a>, la <a href="#lectura">lectura de tendencia</a> para el video de conclusiones y la <a href="#quizzes">clave de los quizzes</a>.</p></div>
 </div>
 <h3>El hilo de la semana en una frase</h3>
 {idea('Cada arquitectura es una suposición sobre cómo están organizados los datos. La densa supone «todo con todo»; la CNN, «lo cercano importa y el mismo patrón puede estar en cualquier parte»; la RNN, «el orden importa»; la atención deja que cada elemento mire directamente a todos los demás, a un precio que crece con el cuadrado de la longitud.')}
-<p>Pregunta del viernes: <b>¿cómo mira una red una imagen?</b> Pregunta del sábado: <b>¿cómo lee una red una secuencia y qué hace cuando la secuencia es muy larga?</b> Las dos preguntas se cierran con la lectura de tendencia: las redes recurrentes vuelven, mezcladas con atención.</p>
+<p>Primero, un <b>recorderis de la semana 1</b>: lo nuevo se cuelga de lo que ya saben. Pregunta del <b>Tema 1</b>: <b>¿cómo mira una red una imagen?</b> Pregunta del <b>Tema 2</b>: <b>¿cómo lee una red una secuencia y qué hace cuando la secuencia es muy larga?</b> Las dos preguntas se cierran con la lectura de tendencia: las redes recurrentes vuelven, mezcladas con atención.</p>
 <h3>Dónde está cada cosa en el repositorio</h3>
 <pre><code>deepLearningWeek1/                ← el mismo repo público y el mismo sitio de Vercel
 ├── index.html ... docencia/        la semana 1, sin cambios (los QR ya impresos siguen sirviendo)
 └── semana2/
     ├── index.html                  inicio de la semana 2 (con el selector Semana 1 · Semana 2)
-    ├── proyectos/                  NB03 (viernes) y NB04 (sábado), completos y ejecutados
+    ├── proyectos/                  NB03 (Tema 1) y NB04 (Tema 2), completos y ejecutados
     ├── guia/                       guía de estudio
     ├── quiz/                       pre-quiz y quiz final
     ├── material/                   la lectura de tendencia (PDF)
@@ -98,6 +112,7 @@ S.append(('publicar', '0', 'Publicar la semana 2 (5 minutos)', f"""
 <ol>
 <li>En tu carpeta <code>deepLearningWeek1</code> (Git Bash): <code>git add -A</code> → <code>git commit -m "Semana 2"</code> → <code>git push</code>. No hagas <code>git pull</code> desde otra copia: traería la historia vieja.</li>
 <li>Abre <a href="{W2}">{W2}</a>: debe aparecer el inicio de la semana 2, con el selector <b>Semana 1 · Semana 2</b> arriba. Tu panel está en <a href="{W2}docencia/">{W2}docencia/</a>.</li>
+<li><b>Los notebooks cambiaron de nombre</b> (ya no dicen viernes ni sábado): <code>NB03_viernes_tu_primera_cnn.ipynb</code> → <code>NB03_tu_primera_cnn.ipynb</code> y <code>NB04_sabado_redes_que_recuerdan.ipynb</code> → <code>NB04_redes_que_recuerdan.ipynb</code>. Los archivos viejos <b>desaparecen</b> del repo con el próximo push (<code>git add -A</code> registra el borrado). Los enlaces cortos <code>?nb03</code> y <code>?nb04</code> y los QR de las láminas siguen funcionando; si alguien guardó el enlace viejo de Colab, que entre de nuevo desde la página de la semana.</li>
 <li>Los enlaces cortos de esta semana pasan por la raíz del sitio: <code>?nb03</code>, <code>?nb04</code>, <code>?pre2</code>, <code>?final2</code>, <code>?guia2</code>, <code>?slides2</code>. Los de la semana 1 (<code>?nb01</code>, <code>?pre</code>…) siguen funcionando.</li>
 </ol>
 <h3>Comprueba</h3>
@@ -112,36 +127,35 @@ S.append(('publicar', '0', 'Publicar la semana 2 (5 minutos)', f"""
 S.append(('orden', '1', 'El orden de todo: cómo se conecta la semana', f"""
 {idea('Cada bloque de láminas tiene su sección del notebook, su mapa conceptual y sus preguntas en el quiz. Si un estudiante falla una pregunta, sabes a qué lámina y a qué celda mandarlo.')}
 {table(['Momento', 'Qué pasa', 'Material'], [
-    ['Antes del viernes', 'Publica en Canvas el enlace de la semana 2 y la lectura de tendencia «¿El regreso de las redes recurrentes?». Pide que la lean antes del sábado.', f'<a href="{W2}">Página de la semana 2</a> · <a href="../material/Lectura_tendencia_Semana2.pdf">lectura (PDF)</a>'],
-    ['Vie 6 · 18:00', f'Encuadre y pre-quiz (lámina {L("prequiz2")})', f'<a href="{W2}quiz/?pre">Pre-quiz</a> (QR en la lámina)'],
-    ['Vie 6 · bloque 00', f'Lo que quedó pendiente de la semana 1: Keras en 4 pasos con las lunas (láminas {R("b00", "nb02-casa")})', 'NB02 partes E y F, para la casa'],
-    ['Vie 6 · bloque 01', f'Cómo mira una red una imagen: de la densa a la CNN (láminas {R("b01", "softmax")})', f'NB03 en clase (lámina {L("practica-nb03")}) y el duelo densa contra CNN ({L("duelo")})'],
-    ['Sáb 7 · bloque 02', f'Cómo lee una red una secuencia: RNN, el olvido y la LSTM (láminas {R("b02", "rnn-keras")})', f'NB04 en clase (lámina {L("practica-nb04")}) y el examen de memoria ({L("examen-memoria")})'],
-    ['Sáb 7 · bloque 03', f'Atención, Transformers y la tendencia de los híbridos (láminas {R("b03", "contrapeso")})', 'Debate de la lectura de tendencia'],
-    ['Sáb 7 · bloque 04 y cierre', f'Elegir la arquitectura, la actividad «tu proyecto», quiz final y lo que viene (láminas {R("b04", "recursos2")})', f'<a href="{W2}quiz/?final">Quiz final</a> · <a href="#quizzes">Resultados</a>'],
+    ['Antes de la semana', 'Publica en Canvas el enlace de la semana 2 y la lectura de tendencia «¿El regreso de las redes recurrentes?». Pide que la lean antes de la segunda parte del Tema 2 (la atención).', f'<a href="{W2}">Página de la semana 2</a> · <a href="../material/Lectura_tendencia_Semana2.pdf">lectura (PDF)</a>'],
+    ['Encuadre', f'La semana en dos temas, pre-quiz y las 5 ideas clave (láminas {R("portada2", "metas2")})', f'<a href="{W2}quiz/?pre">Pre-quiz</a> (QR en la lámina {L("prequiz2")})'],
+    ['00 · Recorderis', f'La semana 1 en una sola red, tres preguntas para calentar y Keras en 4 pasos con las lunas, lo que quedó pendiente (láminas {R("b00", "nb02-casa")})', 'NB02 partes E y F, para la casa'],
+    ['Tema 1 · Imágenes', f'Cómo mira una red una imagen: de la densa a la CNN (láminas {R("b01", "cierre-tema1")})', f'NB03 en clase (lámina {L("practica-nb03")}) y el duelo densa contra CNN ({L("duelo")})'],
+    ['Tema 2 · Secuencias', f'Cómo lee una red una secuencia: RNN, el olvido y la LSTM (láminas {R("b02", "examen-memoria")})', f'NB04 en clase (lámina {L("practica-nb04")}) y el examen de memoria ({L("examen-memoria")})'],
+    ['Tema 2 · La atención', f'Atención, Transformers y la tendencia de los híbridos (láminas {R("b03", "contrapeso")})', 'Debate de la lectura de tendencia'],
+    ['Cierre', f'Elegir la arquitectura, la actividad «tu proyecto», quiz final y lo que viene (láminas {R("b04", "recursos2")})', f'<a href="{W2}quiz/?final">Quiz final</a> · <a href="#quizzes">Resultados</a>'],
     ['Después', 'Repaso con las slides y la guía de estudio; video de conclusiones de la lectura con los resultados de la encuesta; entrega de la semana en Canvas', 'Guía de estudio · slides · Canvas'],
 ])}
-<h3>Bloque por bloque</h3>
-{table(['Bloque', 'Láminas', 'Notebook', 'Quiz'], [
-    ['Encuadre del viernes', R('portada2', 'metas2'), '—', qcol('pre')],
-    ['00 · Keras (pendiente)', R('b00', 'nb02-casa'), 'NB02 E–F (casa)', qcol('b00')],
-    ['01 · Imágenes y CNN', R('b01', 'cierre-viernes2'), 'NB03 §0–6 · Experimento 3', qcol('b01')],
-    ['Encuadre del sábado', R('portada-sab2', 'repaso-vie2'), '—', '—'],
-    ['02 · Secuencias y RNN', R('b02', 'examen-memoria'), 'NB04 §0–3', qcol('b02')],
-    ['03 · Atención y Transformers', R('b03', 'contrapeso'), 'NB04 §4–5 · Experimento 4', qcol('b03')],
-    ['04 · Elegir la arquitectura', R('b04', 'recursos2'), '—', qcol('b04')],
+<h3>Parte por parte</h3>
+{table(['Parte', 'Láminas', 'Notebook', 'Quiz'], [
+    ['Encuadre', R('portada2', 'metas2'), '—', qcol('pre')],
+    ['00 · Recorderis de la semana 1 y Keras', R('b00', 'nb02-casa'), 'NB02 E–F (casa)', qcol('b00')],
+    ['Tema 1 · Imágenes y CNN', R('b01', 'cierre-tema1'), 'NB03 §0–6 · Experimento 3', qcol('b01')],
+    ['Tema 2 · Secuencias, RNN y LSTM', R('b02', 'examen-memoria'), 'NB04 §0–3', qcol('b02')],
+    ['Tema 2 · Atención y Transformers', R('b03', 'contrapeso'), 'NB04 §4–5 · Experimento 4', qcol('b03')],
+    ['Cierre · Elegir la arquitectura', R('b04', 'recursos2'), '—', qcol('b04')],
 ])}
 <p class="note">{'* = idea clave: aparece en los dos quizzes para medir el avance.' if HAVE_BANK else 'La columna Quiz se llena al reconstruir esta guía cuando exista el banco de preguntas (banco2.py).'}</p>
-<p>Los dos notebooks son <b>prácticas en clase, sin nota</b>: el NB03 el viernes y el NB04 el sábado. Todo el código ya viene escrito y explicado; se leen, se ejecutan, se predice antes de ejecutar y se responden las preguntas <b>Para pensar</b> (respuesta plegada). Los experimentos 3 y 4 son opcionales.</p>
+<p>Los dos notebooks son <b>prácticas en clase, sin nota</b>: el NB03 cierra el Tema 1 y el NB04 está en el centro del Tema 2. Todo el código ya viene escrito y explicado; se leen, se ejecutan, se predice antes de ejecutar y se responden las preguntas <b>Para pensar</b> (respuesta plegada). Los experimentos 3 y 4 son opcionales.</p>
 """))
 
 # ------------------------------------------------------------------ checklist
 S.append(('checklist', '2', 'Checklist antes de clase', f"""
-<h3>Una vez (antes del viernes 6)</h3>
+<h3>Una vez (antes de la primera sesión)</h3>
 <ul>
 <li><a href="#publicar">Publicar la semana 2</a> y probar los QR desde tu celular (láminas {L('prequiz2')}, {L('practica-nb03')}, {L('practica-nb04')}, {L('quizfinal2')} y {L('recursos2')}).</li>
 <li>Abrir NB03 y NB04 desde la página y hacer <b>Entorno de ejecución → Ejecutar todo</b>: cada uno termina en unos 2 minutos con la CPU gratuita de Colab, sin errores. (La GPU es opcional: <b>Entorno de ejecución → Cambiar tipo de entorno</b>.)</li>
-<li>Recorrer las slides con la vista del presentador (<b>P</b>) y probar las demos de las láminas {L('keras-fit2')} (las lunas), {L('filtro')} (la lupa), {L('mapas')} (los filtros aprendidos), {L('orden')}, {L('libreta')}, {L('olvido')}, {L('atencion')} y {L('costo')}.</li>
+<li>Recorrer las slides con la vista del presentador (<b>P</b>) y probar las demos de las láminas {L('recorderis')} (el recorderis), {L('keras-fit2')} (las lunas), {L('filtro')} (la lupa), {L('mapas')} (los filtros aprendidos), {L('orden')}, {L('libreta')}, {L('olvido')}, {L('atencion')} y {L('costo')}.</li>
 <li>Publicar en Canvas el enlace de la semana 2 y la lectura de tendencia.</li>
 <li>Preparar las salas de grupos en Teams para la actividad de la lámina {L('tu-proyecto')} (los mismos grupos del proyecto de titulación).</li>
 <li>Jugar tú el pre-quiz y abrir <code>Resultados_quiz.html</code> → <b>Ver un ejemplo</b>.</li>
@@ -150,43 +164,41 @@ S.append(('checklist', '2', 'Checklist antes de clase', f"""
 <ul>
 <li>Teams con el correo institucional; iniciar la grabación y verificar que graba.</li>
 <li>Slides en el navegador con <b>F</b> y la vista del presentador (<b>P</b>) en la segunda pantalla. Comparte <b>la ventana de las slides</b>.</li>
-<li>NB03 (viernes) o NB04 (sábado) abierto en otra pestaña y ya ejecutado una vez, para mostrar resultados aunque la conexión falle.</li>
+<li>El notebook del tema que toca (NB03 o NB04) abierto en otra pestaña y ya ejecutado una vez, para mostrar resultados aunque la conexión falle.</li>
+<li>Anota en qué lámina terminaste la sesión anterior: la siguiente empieza ahí (si es el Tema 2, con la lámina {L('repaso-tema1')}).</li>
 <li>El enlace de la página listo para pegar en el chat: <code>{W2}</code>.</li>
 <li>Al terminar: «Finalizar reunión para todos», para que la grabación se cierre bien.</li>
 </ul>
 """))
 
 # ------------------------------------------------------------------ plans
-VIE = [
-    ['18:00–18:09', 'Encuadre y pre-quiz', R('portada2', 'metas2'), 'Grabación verificada; la ruta; pre-quiz jugado; las 5 ideas clave', '¿Qué pregunta les pareció más difícil?'],
-    ['18:09–18:22', '00 · Keras (lo pendiente)', R('b00', 'nb02-casa'), 'El motor y el volante; los 4 pasos con las lunas (337 parámetros, 95 %); la red aprendiendo en vivo; NB02 E y F para la casa', '¿En qué línea está la retropropagación?'],
-    ['18:22–18:54', '01 · Cómo mira una red una imagen', R('b01', 'softmax'), 'Una foto son 784 números; la densa aplana y no sabe quién es vecino; cada arquitectura es una suposición; la lupa de 3 × 3 (+0.99 en el borde); los filtros aprendidos; compartir pesos (160 frente a 100 480); pooling; la CNN en Keras; softmax', 'Si mezclamos los píxeles, ¿a la red densa le importa?'],
-    ['18:54–19:29', 'Práctica en clase · NB03', str(L('practica-nb03')), 'Colab funcionando en todos; prioridad §0, §2, §3 y §5; el resto queda para la casa', '¿Por qué la densa cae al mover la prenda 2 píxeles?'],
-    ['19:29–19:40', 'Densa contra CNN y comparar con justicia', R('duelo', 'historia-cnn'), '12 810 frente a 101 770 parámetros; 87.7 % frente a 86.7 %; mover 2 px: 75.2 % frente a 56.5 %; mezclar: la densa igual, la CNN baja; LeNet, AlexNet y Smith et al. (2023)', '¿Un punto de exactitud justifica cambiar de arquitectura?'],
-    ['19:40–19:45', 'Cierre y lectura', str(L('cierre-viernes2')), 'Las tres ideas del día; la lectura de tendencia para mañana', 'Del 1 al 5, ¿podrían explicar qué hace un filtro?'],
-    ['19:45–20:00', 'Colchón', '—', 'Preguntas, dudas del NB03 o terminar la §5 juntos', '—'],
+PLAN = [
+    ['Encuadre', R('portada2', 'metas2'), '≈ 10 min', 'La semana en dos temas; pre-quiz jugado (6 min); las 5 ideas clave', '¿Qué pregunta les pareció más difícil?'],
+    ['00 · Recorderis de la semana 1', R('b00', 'recorderis-preguntas'), '≈ 12 min', 'La semana 1 en una sola red, un eslabón por clic con su analogía; las tres preguntas para calentar', '¿Qué hace una neurona con sus datos?'],
+    ['00 · Keras en 4 pasos', R('motor-volante', 'nb02-casa'), '≈ 13 min', 'El motor y el volante; los 4 pasos con las lunas (337 parámetros, 95 %); la red aprendiendo en vivo; NB02 E y F para la casa', '¿En qué línea está la retropropagación?'],
+    ['Tema 1 · la idea', R('b01', 'softmax'), '≈ 45 min', 'Una foto son 784 números; la densa aplana y no sabe quién es vecino; cada arquitectura es una suposición; la lupa de 3 × 3 (+0.99 en el borde); los filtros aprendidos; compartir pesos (160 frente a 100 480); pooling; la CNN en Keras; softmax', 'Si mezclamos los píxeles, ¿a la red densa le importa?'],
+    ['Tema 1 · práctica NB03', str(L('practica-nb03')), '35 min', 'Colab funcionando en todos; prioridad §0, §2, §3 y §5; el resto queda para la casa', '¿Por qué la densa cae al mover la prenda 2 píxeles?'],
+    ['Tema 1 · lo que vimos', R('duelo', 'cierre-tema1'), '≈ 15 min', '12 810 frente a 101 770 parámetros; 87.7 % frente a 86.7 %; mover 2 px: 75.2 % frente a 56.5 %; mezclar: la densa igual, la CNN baja; LeNet, AlexNet y Smith et al. (2023); las tres ideas del tema', 'Del 1 al 5, ¿podrían explicar qué hace un filtro?'],
+    ['Tema 2 · secuencias y RNN', R('b02', 'rnn-keras'), '≈ 35 min', 'El Tema 1 en tres ideas (puente); datos en orden; el orden importa (48 % frente a 100 %); la libreta (0.76, 0.36, 0.18, 0.09); desenrollar; el olvido (0.5¹⁰ ≈ 0.001); la LSTM y sus compuertas; las secuencias en Keras', 'Si el modelo solo ve el promedio, ¿puede saber si el socio empeora?'],
+    ['Tema 2 · práctica NB04', str(L('practica-nb04')), '40 min', 'Parejas o salas de 3; prioridad §1, §2, §3 y §4', '¿Qué cambia entre 30 y 80 pasos?'],
+    ['Tema 2 · el examen de memoria', str(L('examen-memoria')), '≈ 5 min', '10 y 30 pasos: aprueban todos; 80 pasos: SimpleRNN 52 %, LSTM 50 %, atención 100 % con 82 parámetros', '¿Qué hizo distinto la atención?'],
+    ['Tema 2 · la atención', R('b03', 'contrapeso'), '≈ 40 min', 'La fila que no se paraleliza; cada palabra mira a todas («él» → «socio», 79 %); consulta, claves y valores; lo que miró la red (90 % en el paso marcado); el precio n²; el Transformer; los híbridos; el contrapeso y el debate de la lectura (10 min)', '¿Eficiencia o capacidad?'],
+    ['Cierre · elegir y tu proyecto', R('b04', 'tu-proyecto'), '≈ 30 min', '¿Qué arquitectura le pondrías? (los casos se revelan uno a uno); tres preguntas; la actividad en salas (20 min) con la plantilla en el chat', '¿Qué suposición hace su arquitectura sobre sus datos?'],
+    ['Cierre · quiz final y lo que viene', R('quizfinal2', 'recursos2'), '≈ 13 min', 'Todos jugaron y pegaron su código; el mapa de la semana; la semana 3 (robustez, transfer learning y explicabilidad)', 'Del 1 al 5, ¿podrían elegir la arquitectura de su proyecto?'],
 ]
-SAB = [
-    ['08:00–08:08', 'Apertura y repaso', R('portada-sab2', 'repaso-vie2'), 'El viernes explicado por ellos: suposición, filtro, compartir', '¿Quién explica por qué la CNN tiene 8 veces menos parámetros?'],
-    ['08:08–08:43', '02 · Cómo lee una red una secuencia', R('b02', 'rnn-keras'), 'Datos en orden; el orden importa (48 % frente a 100 %); la libreta (0.76, 0.36, 0.18, 0.09); desenrollar; el olvido (0.5¹⁰ ≈ 0.001); la LSTM y sus compuertas; las secuencias en Keras', 'Si el modelo solo ve el promedio, ¿puede saber si el socio empeora?'],
-    ['08:43–09:23', 'Práctica en clase · NB04', str(L('practica-nb04')), 'Parejas o salas de 3; prioridad §1, §2, §3 y §4', '¿Qué cambia entre 30 y 80 pasos?'],
-    ['09:23–09:30', 'El examen de memoria', str(L('examen-memoria')), '10 y 30 pasos: aprueban todos; 80 pasos: SimpleRNN 52 %, LSTM 50 %, atención 100 % con 82 parámetros', '¿Qué hizo distinto la atención?'],
-    ['09:30–09:45', 'Pausa', '—', '—', '—'],
-    ['09:45–10:25', '03 · Atención y Transformers', R('b03', 'contrapeso'), 'La fila que no se paraleliza; cada palabra mira a todas («él» → «socio», 79 %); consulta, claves y valores; lo que miró la red (90 % en el paso marcado); el precio n²; el Transformer; los híbridos; el contrapeso y el debate de la lectura (10 min)', '¿Eficiencia o capacidad?'],
-    ['10:25–11:00', '04 · Elegir la arquitectura y tu proyecto', R('b04', 'tu-proyecto'), 'Cada dato con su arquitectura (densa, CNN, RNN, Transformer, GNN, GAN); tres preguntas; la actividad en salas (20 min) con la plantilla en el chat', '¿Qué suposición hace su arquitectura sobre sus datos?'],
-    ['11:00–11:10', 'Quiz final', str(L('quizfinal2')), 'Todos jugaron y pegaron su código', '¿Qué pregunta les costó más?'],
-    ['11:10–11:20', 'Cierre', R('mapa-semana2', 'recursos2'), 'El mapa de la semana; la semana 3 (robustez, transfer learning y explicabilidad); guía de estudio', 'Del 1 al 5, ¿podrían elegir la arquitectura de su proyecto?'],
-    ['11:20–12:00', 'Colchón', '—', 'Consultas por grupo sobre el proyecto y la entrega de la semana', '—'],
-]
-S.append(('viernes', '3', 'Plan del viernes 6 · 18:00–20:00', f"""
-{idea('Objetivo del viernes: que todos salgan sabiendo qué hace un filtro, por qué una CNN necesita muchos menos parámetros que una red densa y con Keras funcionando en Colab. Empieza por lo que quedó pendiente: Keras.')}
-{table(['Hora', 'Bloque', 'Láminas', 'Qué debe quedar', 'Pregunta para lanzar'], VIE)}
-{box('ojo', 'Si el tiempo aprieta', f'<p>El bloque 00 cabe en 10 minutos si haces la demo de las lunas (lámina {L("keras-fit2")}) y dejas el NB02 para la casa. En el bloque 01, la lámina de pooling ({L("pooling")}) y la de softmax ({L("softmax")}) se pueden decir en un minuto cada una. <b>No recortes la práctica de la lámina {L("practica-nb03")}</b>: es donde todos dejan Keras funcionando con imágenes. Si la §5 del NB03 no alcanza, muéstrala tú en el duelo ({L("duelo")}): los números son los mismos.</p>')}
-"""))
-S.append(('sabado', '4', 'Plan del sábado 7 · 08:00–12:00', f"""
-{idea(f'Objetivo del sábado: que entiendan qué guarda una RNN y por qué se olvida, qué hace la atención y cuánto cuesta, y que cada grupo decida qué arquitectura le conviene a su proyecto. El examen de memoria (lámina {L("examen-memoria")}) es el corazón: une la RNN, la LSTM, la atención y la lectura de tendencia.')}
-{table(['Hora', 'Bloque', 'Láminas', 'Qué debe quedar', 'Pregunta para lanzar'], SAB)}
-{box('ojo', 'Si el tiempo aprieta', f'<p>En el NB04 la prioridad es §1, §2, §3 y §4; la §5 (atención a mano) se ve en la lámina {L("atencion-cuenta")}. El Transformer ({L("transformer")}) se puede contar en un minuto. Si el quiz final no cabe, deja el enlace <code>…/semana2/quiz/?final</code> en el chat y pide el código. <b>No recortes la actividad «tu proyecto»</b>: es la que conecta la semana con la entrega.</p>')}
+S.append(('plan', '3', 'Plan por temas (no por días)', f"""
+{idea('La semana es una sola secuencia de láminas en cinco partes: encuadre, recorderis, Tema 1, Tema 2 y cierre. Cada sesión empieza donde terminó la anterior. El plan suma unas 5 horas de las 6 disponibles: el colchón es para preguntas, no para más contenido.')}
+{table(['Parte', 'Láminas', 'Duración sugerida', 'Qué debe quedar', 'Pregunta para lanzar'], PLAN)}
+{box('ojo', 'Si vas atrasado', f"""<p><b>Puntos de corte naturales.</b> Corta en uno de estos tres lugares y ninguna idea queda a medias:</p>
+<ul>
+<li>después de la lámina <b>{L('cierre-tema1')}</b>: el Tema 1 completo (CNN y NB03);</li>
+<li>después de la lámina <b>{L('examen-memoria')}</b>: la RNN, la LSTM y el examen de memoria cerrados;</li>
+<li>después de la lámina <b>{L('contrapeso')}</b>: la atención y la tendencia cerradas; solo falta el cierre.</li>
+</ul>
+<p><b>Para la casa, sin perder nada:</b> el NB02 partes E y F (Keras con XOR y las lunas), la §6 del NB03 (¿en qué se equivoca?) y la §5 del NB04 (la atención a mano, que también está en la lámina {L('atencion-cuenta')}).</p>
+<p><b>Para retomar en otra sesión:</b> si cortaste al final del Tema 1, empieza con la sección del Tema 2 y la lámina <b>{L('repaso-tema1')}</b> (el Tema 1 en tres ideas, 5 minutos). Si cortaste dentro del Tema 2, abre con la lámina {L('examen-memoria')} como resumen y sigue en la {L('b03')}.</p>
+<p><b>Se pueden decir en un minuto:</b> pooling ({L('pooling')}), softmax ({L('softmax')}), la historia de las CNN ({L('historia-cnn')}) y el Transformer ({L('transformer')}). En el recorderis, si las tres preguntas salen bien, pasa rápido por la cadena.</p>
+<p><b>No recortes:</b> las dos prácticas ({L('practica-nb03')} y {L('practica-nb04')}) y la actividad «tu proyecto» ({L('tu-proyecto')}), que conecta la semana con la entrega. Si el quiz final no cabe, deja el enlace <code>…/semana2/quiz/?final</code> en el chat y pide el código.</p>""")}
 """))
 
 # ------------------------------------------------------------------ notes per block
@@ -195,22 +207,46 @@ def bloque(sid, n, title, esencial, rigor, explicar, preguntas, errores):
              '<h3>Cómo explicarlo</h3>' + explicar +
              '<h3>Preguntas que te pueden hacer</h3>' + ''.join(qa(q, a) for q, a in preguntas) +
              box('error', 'Errores típicos de los estudiantes', '<ul>' + ''.join(f'<li>{e}</li>' for e in errores) + '</ul>'))
-    day = 'Viernes' if n in ('00', '01') else 'Sábado'
-    return (sid, n, title, inner, chip(f'Apuntes · {day} · bloque {n}'))
+    part = {'00': 'Recorderis', '01': 'Tema 1', '02': 'Tema 2', '03': 'Tema 2 · segunda parte', '04': 'Cierre'}.get(n, n)
+    return (sid, n, title, inner, chip(f'Apuntes · {part}'))
 
 
 AP = []
-AP.append(bloque('b00', '00', 'Lo que quedó pendiente: Keras en 4 pasos',
-    'Sequential define la arquitectura, compile fija optimizador, pérdida y métricas, fit repite adelante–atrás–actualizar por lotes y épocas, y predict/evaluate solo usan lo aprendido.',
+RECAP = [
+    ['Datos en una tabla', 'Cada fila es un ejemplo, cada columna una característica y la etiqueta es la respuesta que queremos aprender.', 'El comité de crédito: los datos de cada socio y si pagó.', W1('palabras'), G1('b01', 'Guía 01')],
+    ['Neurona: z = w·x + b', 'Multiplica cada dato por su peso, suma todo y añade el sesgo: un puntaje.', 'Tu nota final del curso: cada nota por lo que pesa, menos la exigencia. El socio A: z = 2.81.', W1('nota', 'comite'), G1('b02', 'Guía 02')],
+    ['Activación', 'Convierte el puntaje en la salida y dobla la línea para que la red aprenda curvas.', 'Interruptor (escalón), regulador de luz (sigmoide: una probabilidad) y válvula (ReLU).', W1('activacion', 'doblar'), G1('b02', 'Guía 02')],
+    ['Red en capas', 'Una neurona traza una sola línea; con capas, cada neurona traza la suya y la salida las combina.', 'XOR, la luz de la escalera: ninguna línea la separa; dos neuronas sí.', W1('xor', 'xor-resuelto'), G1('b03', 'Guía 03') + ' · ' + G1('b05', '05')],
+    ['Error y pérdida', 'Error = real − predicho, uno por caso; la pérdida resume todos en un solo número: más pequeño es mejor.', 'Las casas de Quito (MSE = 132.25); el meteorólogo «seguro» que falla, castigado por la BCE.', W1('error', 'perdida', 'bce'), G1('b04', 'Guía 04')],
+    ['Descenso de gradiente', 'La pendiente dice hacia dónde sube la pérdida; damos el paso al revés. η es el largo del paso.', 'Bajar el Cotopaxi con neblina, tanteando con el pie; la ducha: si giras la llave de golpe, te quemas.', W1('cotopaxi', 'pendiente', 'eta'), G1('b04', 'Guía 04')],
+    ['Retropropagación', 'Reparte la culpa del error hacia atrás, capa por capa, multiplicando efectos.', 'Los engranajes: si A mueve a B tres veces y B a C dos veces, A mueve a C seis veces.', W1('culpa', 'engranajes'), G1('b06', 'Guía 06')],
+    ['Keras', 'Construir, compilar, entrenar y predecir; TensorFlow hace la retropropagación por dentro.', 'El motor y el volante; las piezas de LEGO.', W1('keras'), G1('b08', 'Guía 08')],
+    ['Métricas', 'Si los casos que buscamos son pocos, la exactitud engaña: mira la matriz de confusión.', 'Decir «al día» a todos acierta 87 % y no encuentra ningún moroso.', W1('trampa87', 'confusion'), G1('b09', 'Guía 09')],
+]
+WARM = [
+    ['1 · ¿Qué hace una neurona con sus datos?', 'Multiplica cada dato por su peso, suma todo y añade el sesgo; la activación decide.', f"Repite el ejemplo de la nota final en 3 minutos ({W1('nota')} de la semana 1) y manda a la {G1('b02', 'sección 02 de la guía de la semana 1')}."],
+    ['2 · Si la pendiente de un peso es +4, ¿el peso sube o baja?', 'Baja: se camina en contra de la pendiente. Con η = 0.1 y el peso en 2: 2 − 0.1 · 4 = 1.6.', f"Vuelve al Cotopaxi ({W1('cotopaxi', 'pendiente')} de la semana 1) y a la {G1('b04', 'sección 04 de la guía')}."],
+    ['3 · Un modelo dice «al día» a todos y acierta 87 %: ¿es bueno?', 'No: no encuentra a ningún moroso. Hay que mirar la matriz de confusión, el recall y la precisión.', f"Muestra la matriz 10/3/8/79 ({W1('confusion')} de la semana 1) y manda a la {G1('b09', 'sección 09 de la guía')}."],
+]
+AP.append(bloque('b00', '00', 'Recorderis de la semana 1 y Keras en 4 pasos',
+    'El recorderis no es repetir la semana 1: es poner en una sola cadena lo que ya saben para que lo nuevo se cuelgue de ahí. Una CNN y una RNN siguen siendo neuronas con pesos, una pérdida y descenso de gradiente; lo único que cambia es cómo se conectan las neuronas, es decir, la suposición sobre los datos. Keras, lo que quedó pendiente, es el código de esa cadena: Sequential define la arquitectura, compile fija optimizador, pérdida y métricas, fit repite adelante–atrás–actualizar, y predict/evaluate solo usan lo aprendido.',
     '<pre><code>for epoch in range(epochs):\n    for X_b, y_b in batches(X_tr, y_tr, batch_size):\n        with tf.GradientTape() as tape:\n            loss = loss_fn(y_b, model(X_b, training=True))\n        grads = tape.gradient(loss, model.trainable_variables)\n        optimizer.apply_gradients(zip(grads, model.trainable_variables))\n    # then: validation metrics, callbacks (EarlyStopping, ...)</code></pre>'
     '<p>Eso es <code>fit()</code> por dentro: exactamente la retropropagación de la semana 1, que TensorFlow calcula solo. <b>Las cuentas de las lunas:</b> 600 puntos → 120 de prueba y 480 para estudiar; <code>validation_split=0.2</code> separa 96 (las <b>últimas</b> filas, antes de barajar) y quedan 384 de entrenamiento: 384 / 32 = 12 pasos por época × 60 épocas = 720 pasos. Parámetros: 2·16 + 16 = 48; 16·16 + 16 = 272; 16·1 + 1 = 17; total 337.</p>'
-    '<p><b>Por qué abrir con esto.</b> El NB03 y el NB04 usan los mismos cuatro pasos; solo cambian las capas (<code>Conv2D</code>, <code>SimpleRNN</code>, <code>LSTM</code>) y, en el NB03, la salida (softmax con 10 clases). Si los cuatro pasos quedan claros el viernes a las 18:22, el resto de la semana se lee igual.</p>',
-    f"<p>Trece minutos, sin cuentas. El motor y el volante (lámina {L('motor-volante')}): TensorFlow hace las cuentas, Keras es lo que manejas. Los cuatro pasos (lámina {L('keras-4pasos')}): un clic por paso, cada uno con su línea de código. La red aprendiendo en vivo (lámina {L('keras-fit2')}): pulsa entrenar y comenta cómo se dobla la frontera mientras bajan juntas las dos curvas (entrenamiento y simulacro). Cierra con el NB02 para la casa (lámina {L('nb02-casa')}): partes E (XOR con 33 parámetros) y F (las lunas). El puente al bloque 01: «las lunas son una tabla de 2 columnas; ¿y si la entrada es una foto de 28 × 28?».</p>",
+    '<p><b>Por qué abrir con esto.</b> El NB03 y el NB04 usan los mismos cuatro pasos; solo cambian las capas (<code>Conv2D</code>, <code>SimpleRNN</code>, <code>LSTM</code>) y, en el NB03, la salida (softmax con 10 clases). Si los cuatro pasos quedan claros al terminar el recorderis, el resto de la semana se lee igual.</p>',
+    f"<h4>La cadena de la semana 1 (lámina {L('recorderis')}, un eslabón por clic, unos 8 minutos)</h4>"
+    + table(['Eslabón', 'Qué decir (una frase)', 'La analogía de la semana 1', 'Dónde estaba (semana 1)', 'Para repasar'], RECAP)
+    + f"<p>Ve rápido: es memoria, no clase nueva. Pregunta antes de revelar cada eslabón («¿qué venía después de la neurona?») y deja que lo digan ellos. Cierra con la frase de la lámina: «hasta ahora los datos eran tablas; ¿y si son fotos? ¿y si son frases?».</p>"
+    + f"<h4>Tres preguntas para calentar (lámina {L('recorderis-preguntas')}, unos 4 minutos)</h4>"
+    + "<p>Lanza cada pregunta, pide la respuesta en el chat (una letra o un número) y revela. Son preguntas del quiz de la semana 1: sirven de termómetro.</p>"
+    + table(['Pregunta', 'Respuesta', 'Si más de un tercio falla'], WARM)
+    + "<p>Si fallan las tres, no sigas de largo: dedica 10 minutos a la cadena con calma y deja el NB02 para la casa. Es mejor llegar más tarde al Tema 1 que construir CNN sobre una neurona que no se entiende.</p>"
+    + f"<h4>Keras en 4 pasos (unos 13 minutos)</h4><p>Sin cuentas. El motor y el volante (lámina {L('motor-volante')}): TensorFlow hace las cuentas, Keras es lo que manejas. Los cuatro pasos (lámina {L('keras-4pasos')}): un clic por paso, cada uno con su línea de código. La red aprendiendo en vivo (lámina {L('keras-fit2')}): pulsa entrenar y comenta cómo se dobla la frontera mientras bajan juntas las dos curvas (entrenamiento y simulacro). Cierra con el NB02 para la casa (lámina {L('nb02-casa')}): partes E (XOR con 33 parámetros) y F (las lunas). El puente al Tema 1: «las lunas son una tabla de 2 columnas; ¿y si la entrada es una foto de 28 × 28?».</p>",
     [('¿Qué diferencia hay entre loss y metrics?', 'La pérdida es lo que se optimiza (debe ser derivable). Las métricas solo se reportan (accuracy, AUC); no guían el gradiente.'),
      ('¿Por qué validation_split?', 'Para mirar en cada época cómo le va a la red con datos que no usa para aprender: es el simulacro. Detecta sobreajuste y sirve para elegir épocas y arquitectura. Ojo: toma las últimas filas antes de barajar; si los datos vienen ordenados por clase, hay que barajarlos antes.'),
      ('¿Keras o PyTorch?', 'Las ideas son idénticas. Keras 3 puede correr sobre TensorFlow, JAX o PyTorch; en el curso usamos TensorFlow, que viene en Colab. Si un grupo domina PyTorch, puede usarlo en su proyecto.'),
+     ('¿Por qué repasar la semana 1 si vamos atrasados?', 'Porque la semana 2 no trae una teoría nueva de aprendizaje: la CNN y la RNN aprenden igual que la red de las lunas (pérdida, gradiente, retropropagación). Lo único nuevo es cómo se conectan las neuronas. Diez minutos de recorderis ahorran media hora de dudas en el NB03.'),
      ('Me sale un error de shapes, ¿qué reviso?', 'Que <code>Input(shape=...)</code> coincida con la forma de cada ejemplo: (2,) en las lunas, (28, 28, 1) en Fashion-MNIST, (12, 1) en el historial del NB04.')],
-    ['Creer que <code>compile</code> entrena.', 'Olvidar <code>keras.Input</code> o poner mal su shape.', 'Leer solo la última época sin mirar las curvas.']))
+    ['Creer que la CNN o la RNN aprenden «distinto»: aprenden igual, con pérdida y gradiente.', 'Sumar la pendiente en vez de restarla.', 'Creer que <code>compile</code> entrena.', 'Olvidar <code>keras.Input</code> o poner mal su shape.', 'Leer solo la última época sin mirar las curvas.']))
 
 AP.append(bloque('b01', '01', 'Cómo mira una red una imagen: CNN',
     'Una capa convolucional aplica el mismo filtro pequeño en todas las posiciones: pesos compartidos, equivarianza a la traslación y muchísimos menos parámetros. El pooling resume y da una tolerancia pequeña a los corrimientos.',
@@ -311,7 +347,7 @@ NBK = f"""
 <li><b>Los números:</b> salen con <code>SEED = 2026</code>. En Colab pueden variar en el último decimal (por eso el notebook dice «alrededor de»); las conclusiones no cambian.</li>
 <li><b>Si algo falla:</b> casi siempre es una celda saltada (<code>NameError</code>): <b>Entorno de ejecución → Ejecutar anteriores</b>. Fashion-MNIST se descarga solo la primera vez (unos 30 MB).</li>
 </ul>
-<h3>NB03 · Tu primera CNN (viernes)</h3>
+<h3>NB03 · Tu primera CNN (Tema 1) · <code>NB03_tu_primera_cnn.ipynb</code></h3>
 {table(['Sección', 'Qué deberían ver', 'Pregunta para el grupo'], [
     ['§0 Una imagen es una tabla', '<code>x_train: (60000, 28, 28)</code>; el botín como números: 0 en el fondo, más de 150 en la prenda; después de preparar: (60000, 28, 28, 1) con máximo 1.0', '¿Qué significa cada número de la tabla?'],
     ['§1 La lupa a mano', 'mapas de 26 × 26: el vertical se enciende en los lados del botín y el horizontal arriba y abajo; la ventana de las filas 11–13 y columnas 13–15 da ≈ +0.99', '¿Por qué en el fondo el filtro da 0?'],
@@ -322,7 +358,7 @@ NBK = f"""
     ['§6 ¿En qué se equivoca?', 'camisa tomada por camiseta: 129 de 1 000; camisa es la clase más difícil (63 %); pantalón, bolso, botín y sandalia pasan del 96 %', '¿Una persona distinguiría esas camisas a 28 × 28?'],
     ['Experimento 3', '4 filtros → 2 346 parámetros, 82.8 %; 8 → 5 258, 86.2 %; 32 → 34 826, 88.1 %', '¿Vale la pena triplicar los parámetros por 0.4 puntos?'],
 ])}
-<h3>NB04 · Redes que recuerdan (sábado)</h3>
+<h3>NB04 · Redes que recuerdan (Tema 2) · <code>NB04_redes_que_recuerdan.ipynb</code></h3>
 {table(['Sección', 'Qué deberían ver', 'Pregunta para el grupo'], [
     ['§0 Una secuencia es una tabla con orden', '<code>X: (2000, 12, 1)</code>: 2 000 socios, 12 meses, 1 dato por mes; el promedio de atraso es el mismo en las dos clases (≈ 13.6 días)', 'Si el promedio es igual, ¿qué las distingue?'],
     ['§1 La libreta a mano', 'con u = 0.5: 0.76, 0.36, 0.18, 0.09 y ≈ 0.001 a los 10 pasos; con u = 0.9 queda ≈ 0.19', '¿Qué le pasa a la culpa que viaja hacia atrás?'],
@@ -401,9 +437,9 @@ if HAVE_BANK:
 {idea('Los quizzes son formativos y miden avance: cinco ideas clave aparecen en los dos con otra versión. El pre-quiz dice de dónde parte el grupo; el quiz final, cuánto se movió en cada idea.')}
 <h3>Cómo se usa</h3>
 <ol>
-<li><b>Viernes, lámina {L('prequiz2')}:</b> escanean el QR (o abren <a href="{W2}quiz/?pre">el pre-quiz</a>), escriben nombre y apellido y juegan.</li>
+<li><b>Al empezar la semana, lámina {L('prequiz2')}:</b> escanean el QR (o abren <a href="{W2}quiz/?pre">el pre-quiz</a>), escriben nombre y apellido y juegan.</li>
 <li>Al final la página les da un código para pegar en el chat de Teams.</li>
-<li><b>Sábado, lámina {L('quizfinal2')}:</b> lo mismo con <a href="{W2}quiz/?final">el quiz final</a>, con el mismo nombre.</li>
+<li><b>Al cerrar la semana, lámina {L('quizfinal2')}:</b> lo mismo con <a href="{W2}quiz/?final">el quiz final</a>, con el mismo nombre.</li>
 <li>Después de clase: copia el chat y pégalo en <a href="Resultados_quiz.html">Resultados_quiz.html</a> → <b>Analizar</b>: promedio de cada quiz, antes y después de cada idea clave y preguntas a reforzar.</li>
 </ol>
 <p>Para jugarlo proyectado: <a href="{W2}quiz/?clase">modo proyector</a> (sin puntos, con «Mostrar respuesta»).</p>
@@ -498,14 +534,14 @@ for sid, n, title, inner in S:
 for sid, n, title, inner, kick in AP:
     body += section(sid, kick, title, inner, 'Lo estudié')
     toc.append((sid, n, 'Apuntes · ' + title))
-for sid, n, title, inner in [('notebooks', '5', 'Los notebooks: claves y cómo correr la práctica', NBK),
-                             ('lectura', '6', 'Lectura de tendencia: resumen y debate', LECT),
-                             ('proyecto', '7', 'Actividad «tu proyecto»', PROY),
-                             ('quizzes', '8', 'Clave de los quizzes', QZ),
-                             ('faq', '9', 'Preguntas generales que te pueden hacer',
+for sid, n, title, inner in [('notebooks', '4', 'Los notebooks: claves y cómo correr la práctica', NBK),
+                             ('lectura', '5', 'Lectura de tendencia: resumen y debate', LECT),
+                             ('proyecto', '6', 'Actividad «tu proyecto»', PROY),
+                             ('quizzes', '7', 'Clave de los quizzes', QZ),
+                             ('faq', '8', 'Preguntas generales que te pueden hacer',
                               '<input id="search" class="search" type="search" placeholder="Buscar en las preguntas y el glosario…" aria-label="Buscar">' + ''.join(qa(q, a) for q, a in FAQ)),
-                             ('glosario', '10', 'Glosario docente', '<dl class="glos">' + ''.join(f'<div data-search><dt>{t}</dt><dd>{d}</dd></div>' for t, d in GLOS_D) + '</dl><p>El glosario básico de los estudiantes está en la guía de estudio.</p>'),
-                             ('refs', '11', 'Referencias', REFS)]:
+                             ('glosario', '9', 'Glosario docente', '<dl class="glos">' + ''.join(f'<div data-search><dt>{t}</dt><dd>{d}</dd></div>' for t, d in GLOS_D) + '</dl><p>El glosario básico de los estudiantes está en la guía de estudio.</p>'),
+                             ('refs', '10', 'Referencias', REFS)]:
     body += section(sid, chip('Docente', 'amber'), title, inner, 'Revisado')
     toc.append((sid, n, title))
 

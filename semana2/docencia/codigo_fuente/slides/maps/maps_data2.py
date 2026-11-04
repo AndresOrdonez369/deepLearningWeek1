@@ -1,4 +1,4 @@
-"""Concept maps for teaching week 2. Coordinates on a 1400 x 800 canvas.
+"""Concept maps for teaching week 2 (v2: recap of week 1 + two themes). Coordinates on a 1400 x 800 canvas.
 kind: core | key | ex (example/analogy) | tool (code) | trend | trap
 Each node: say (what to say in one sentence), ex (example to use), ask (question for the class),
 trap (frequent mistake), slide (deck slide id), nb (notebook section)."""
@@ -13,7 +13,7 @@ MAPS = []
 # ------------------------------------------------------------------ the whole week
 MAPS.append(dict(id='semana', short='Semana', title='La semana completa', sub='Cada arquitectura es una suposición sobre cómo están organizados los datos.',
   nodes=[
-    N('keras', 'Keras en 4 pasos', 230, 110, 'tool', say='Construir, compilar, entrenar y predecir: lo que quedó pendiente de la semana 1 y la base de los dos notebooks.', ex='Las lunas: 337 parámetros y 95 % en el examen final.', ask='¿En qué línea está la retropropagación?', trap='Creer que compile entrena.', slide='keras-4pasos', nb='NB02 E–F'),
+    N('recorderis', 'Recorderis:|la semana 1', 230, 110, 'tool', say='La semana 1 en una sola red: datos en tabla, neurona, activación, capas, pérdida, gradiente, retropropagación, Keras y métricas. Todo lo nuevo se apoya ahí.', ex='Las lunas en Keras: 337 parámetros y 95 % en el examen final.', ask='¿Qué hace una neurona con sus datos?', trap='Saltarse el recorderis por ir atrasado: es lo que conecta la semana.', slide='recorderis', nb='NB02 E–F'),
     N('imagen', 'Una imagen es una tabla', 700, 110, say='28 × 28 = 784 brillos entre 0 y 255; la red densa los aplana en una fila.', ex='El botín de Fashion-MNIST visto como números.', ask='Si mezclamos los píxeles, ¿a la red densa le importa?', trap='Creer que la red «ve» la foto como nosotros.', slide='imagen-numeros', nb='NB03 §0'),
     N('suposicion', 'Arquitectura =|suposición', 1170, 110, 'key', 1, say='La densa supone «todo con todo», la CNN «lo cercano importa», la RNN «el orden importa».', ex='La lupa que recorre la foto y la libreta que resume lo leído (lectura de tendencia).', ask='¿Qué supone una red densa sobre una tabla de socios?', trap='Pensar que hay una arquitectura «mejor» para todo.', slide='suposicion', nb='NB03 §5'),
     N('filtro', 'Un filtro recorre|la imagen', 1170, 310, 'key', 2, say='Una lupa de 3 × 3 multiplica, suma y responde fuerte donde encuentra su patrón.', ex='Borde vertical: oscuro a la izquierda y claro a la derecha da +0.99.', ask='¿Qué da el filtro en el fondo negro?', trap='Creer que el filtro lo diseña una persona: se aprende.', slide='filtro', nb='NB03 §1'),
@@ -26,28 +26,32 @@ MAPS.append(dict(id='semana', short='Semana', title='La semana completa', sub='C
     N('hibridos', 'Híbridos (tendencia)', 700, 710, 'trend', say='Pocas capas de atención (el buscador preciso) y muchas recurrentes baratas (los apuntes).', ex='Jamba, Nemotron-H, Kimi Linear, Qwen3.5.', ask='¿Eficiencia o capacidad?', trap='Creer que «más rápido» es «igual de bueno».', slide='hibridos', nb='—'),
     N('elegir', 'Elegir la arquitectura', 230, 710, say='¿Qué estructura tienen mis datos? ¿Qué cuesta? ¿Cómo lo compruebo con una comparación justa?', ex='Tu proyecto de titulación.', ask='¿Qué suposición hace la arquitectura que eligieron?', trap='Elegir la arquitectura de moda sin línea base.', slide='elegir', nb='—'),
   ],
-  edges=[('keras', 'imagen', 'ahora con'), ('imagen', 'suposicion', 'cada red'), ('suposicion', 'filtro', 'la CNN usa'), ('filtro', 'compartir', 'en toda la foto'),
+  edges=[('recorderis', 'imagen', 'ahora con'), ('imagen', 'suposicion', 'cada red'), ('suposicion', 'filtro', 'la CNN usa'), ('filtro', 'compartir', 'en toda la foto'),
          ('compartir', 'cnn', 'se mide en'), ('cnn', 'orden', 'y si hay orden'), ('orden', 'libreta', 'la RNN usa'), ('libreta', 'olvido', 'pero'),
          ('olvido', 'atencion', 'la salida:'), ('atencion', 'hibridos', 'su costo lleva a'), ('hibridos', 'elegir', 'al final'),
          ]))
 
-# ------------------------------------------------------------------ 00 · Keras (pending from week 1)
-MAPS.append(dict(id='b00', short='00', title='00 · Lo que quedó pendiente: Keras', sub='Keras en 4 pasos con las lunas de la semana 1.',
+# ------------------------------------------------------------------ 00 · recap of week 1 (and the Keras that was pending)
+MAPS.append(dict(id='b00', short='00', title='00 · Recorderis de la semana 1', sub='La semana 1 en una sola red: cada eslabón con su analogía. Al final, Keras en 4 pasos y el puente a las fotos.',
   nodes=[
-    N('tf', 'TensorFlow|el motor', 230, 160, say='Guarda los números en tensores y calcula solo las culpas (la retropropagación).', ex='GradientTape del NB02.', ask='¿Qué parte de la semana 1 hace TensorFlow por nosotros?', trap='Creer que hay que programar el backward.', slide='motor-volante', nb='NB02 T'),
-    N('keras', 'Keras|el volante', 700, 160, 'tool', say='Capas listas, compile y fit: armar y entrenar una red en diez líneas.', ex='import keras · from keras import layers.', ask='¿Se puede manejar sin abrir el capó?', trap='Confundir Keras con un modelo: es una librería.', slide='motor-volante'),
-    N('construir', '1 · Construir|Sequential + Dense', 1170, 160, 'tool', say='Apilar capas como LEGO: Input, Dense con ReLU, salida sigmoide.', ex='2 → 16 → 16 → 1: 48 + 272 + 17 = 337 parámetros.', ask='¿Por qué la salida tiene una sola neurona?', trap='Olvidar keras.Input o poner mal su shape.', slide='keras-4pasos', nb='NB02 E'),
-    N('compilar', '2 · Compilar', 1170, 480, 'tool', say='Elige el optimizador, la pérdida y lo que se reporta; todavía no entrena.', ex='Adam(0.01) · binary_crossentropy · accuracy.', ask='¿La métrica ayuda a aprender?', trap='Creer que compile entrena.', slide='keras-4pasos'),
-    N('entrenar', '3 · Entrenar|fit', 700, 480, 'key', None, say='fit repite adelante, atrás y actualizar por lotes y épocas, y mira el simulacro (validación).', ex='60 épocas × 12 pasos = 720 pasos; las dos curvas bajan juntas.', ask='¿Qué significa que la curva de validación suba mientras la otra baja?', trap='Leer solo la última época.', slide='keras-fit2', nb='NB02 F'),
-    N('predecir', '4 · Predecir', 230, 480, 'tool', say='predict da probabilidades; el umbral 0.5 las vuelve decisiones; evaluate toma el examen final.', ex='0.005 → clase 0; 0.995 → clase 1; examen final 95 %.', ask='¿predict cambia algún peso?', trap='Evaluar con los datos de entrenamiento.', slide='keras-4pasos'),
-    N('nb02', 'NB02 para casa', 465, 690, 'ex', say='Las partes E (XOR con 33 parámetros) y F (las lunas) son la práctica que quedó pendiente.', ex='Si no alcanzaron el sábado, hoy en casa: 15 minutos.', ask='¿Quién llegó a la Parte F?', trap='—', slide='nb02-casa', nb='NB02 E–F'),
-    N('puente', '¿Y si la entrada|es una foto?', 935, 690, 'ex', say='Las lunas son una tabla de 2 columnas; una foto de 28 × 28 son 784 números con vecinos.', ex='El paso al bloque 01.', ask='¿Cuántas entradas tendría la red densa con una foto?', trap='—', slide='imagen-numeros'),
+    N('tabla', 'Datos en una tabla', 230, 120, say='Cada fila es un ejemplo y cada columna una característica; la etiqueta es la respuesta que queremos aprender.', ex='El comité de crédito: los datos de cada socio y si pagó o no.', ask='En una tabla de socios, ¿qué es la etiqueta?', trap='Confundir característica con etiqueta.', slide='recorderis', nb='Semana 1 · lámina 8'),
+    N('neurona', 'Neurona|z = w·x + b', 700, 120, 'key', None, say='Multiplica cada dato por su peso, suma todo y añade el sesgo: un puntaje.', ex='Tu nota final del curso: cada nota por lo que pesa, menos la exigencia. El socio A: z = 2.81.', ask='Si el comité se vuelve más exigente, ¿qué número cambia?', trap='Olvidar el sesgo o el signo de un peso negativo.', slide='recorderis', nb='Semana 1 · lámina 14, 16'),
+    N('activacion', 'Activación', 1170, 120, say='Convierte el puntaje en la salida y dobla la línea para que la red aprenda curvas.', ex='Interruptor (escalón), regulador de luz (sigmoide: una probabilidad), válvula (ReLU).', ask='Sin activación, ¿qué forma aprende una red de 100 capas?', trap='Creer que solo sirve para dar probabilidades.', slide='recorderis', nb='Semana 1 · lámina 19, 21'),
+    N('capas', 'Red en capas', 1170, 320, say='Una neurona traza una sola línea; con capas, cada neurona traza la suya y la salida las combina.', ex='XOR, la luz de la escalera: ninguna línea la separa; dos neuronas sí.', ask='¿Cuántas neuronas ocultas necesita XOR como mínimo?', trap='Creer que más capas siempre es mejor.', slide='recorderis', nb='Semana 1 · lámina 27, 48'),
+    N('perdida', 'Error y pérdida', 700, 320, say='Error = real − predicho, uno por caso. La pérdida resume todos los errores en un solo número: más pequeño es mejor.', ex='Las casas de Quito: MSE = 132.25. El meteorólogo «seguro» que falla: la BCE lo castiga.', ask='¿Por qué la BCE castiga tanto decir 1 % cuando el socio sí pagó?', trap='Confundir el error de un caso con la pérdida de todos.', slide='recorderis', nb='Semana 1 · lámina 31, 32, 33'),
+    N('gradiente', 'Bajar la montaña', 230, 320, 'key', None, say='El gradiente dice hacia dónde sube la pérdida; damos el paso al revés. η es el largo del paso.', ex='Bajar el Cotopaxi con neblina, tanteando con el pie. La ducha: si giras la llave de golpe, te quemas.', ask='Si la pendiente de un peso es +4, ¿el peso sube o baja?', trap='Sumar la pendiente en vez de restarla.', slide='recorderis-preguntas', nb='Semana 1 · lámina 34, 35, 37'),
+    N('retro', 'Retropropagación', 230, 520, say='Reparte la culpa del error hacia atrás, capa por capa, multiplicando efectos (regla de la cadena).', ex='Los engranajes: si A mueve a B tres veces y B a C dos veces, A mueve a C seis veces.', ask='¿Hay que hacerla a mano en Keras?', trap='Creer que hay que programarla: TensorFlow la calcula.', slide='recorderis', nb='Semana 1 · lámina 54, 55'),
+    N('keras', 'Keras en 4 pasos', 700, 520, 'tool', say='Construir, compilar, entrenar y predecir: lo que quedó pendiente y la base de los dos notebooks de esta semana.', ex='Las lunas: 2 → 16 → 16 → 1, 337 parámetros, 95 % en el examen final; fit = 720 pasos.', ask='¿En qué línea está la retropropagación?', trap='Creer que compile entrena.', slide='keras-4pasos', nb='Semana 1 · lámina 73 · NB02 E–F'),
+    N('metricas', 'Mirar más allá|de la exactitud', 1170, 520, 'trap', say='Si los casos que buscamos son pocos, la exactitud engaña: mira la matriz de confusión.', ex='Decir «al día» a todos acierta 87 % y no encuentra a ningún moroso.', ask='Un modelo acierta 87 %: ¿es bueno?', trap='Celebrar un número alto sin mirar los errores.', slide='recorderis-preguntas', nb='Semana 1 · lámina 76, 77'),
+    N('preguntas', 'Tres preguntas|para calentar', 465, 710, 'ex', say='Antes de seguir, tres preguntas del quiz de la semana 1: neurona, gradiente y exactitud. Si muchos fallan una, repasa ese eslabón 3 minutos.', ex='Con un pulgar arriba o un número en el chat; se revela la respuesta.', ask='¿Cuál les costó más?', trap='Seguir de largo aunque la mayoría falle.', slide='recorderis-preguntas'),
+    N('puente', '¿Y si la entrada|es una foto o una frase?', 935, 710, 'ex', say='Hasta ahora los datos eran tablas. Una foto de 28 × 28 son 784 números con vecinos; una frase es una fila de palabras en orden.', ex='El Tema 1 (imágenes) y el Tema 2 (secuencias).', ask='¿Cuántas entradas tendría la red densa con una foto de 28 × 28?', trap='—', slide='nb02-casa'),
   ],
-  edges=[('tf', 'keras', 'lo maneja'), ('keras', 'construir', 'paso 1'), ('construir', 'compilar', 'paso 2'), ('compilar', 'entrenar', 'paso 3'),
-         ('entrenar', 'predecir', 'paso 4'), ('predecir', 'nb02', 'se practica en'), ('entrenar', 'puente', 'y ahora')]))
+  edges=[('tabla', 'neurona', 'cada fila entra a'), ('neurona', 'activacion', 'y decide con'), ('activacion', 'capas', 'se apila en'), ('capas', 'perdida', 'se mide con'),
+         ('perdida', 'gradiente', 'se baja con'), ('gradiente', 'retro', 'la pendiente sale de'), ('retro', 'keras', 'en código'), ('keras', 'metricas', 'se juzga con'),
+         ('metricas', 'puente', 'y ahora'), ('retro', 'preguntas', 'se repasa con')]))
 
 # ------------------------------------------------------------------ 01 · images and CNN
-MAPS.append(dict(id='b01', short='01', title='01 · Cómo mira una red una imagen', sub='La lupa que recorre la foto.',
+MAPS.append(dict(id='b01', short='T1', title='Tema 1 · Cómo mira una red una imagen', sub='La lupa que recorre la foto.',
   nodes=[
     N('img', 'Imagen = tabla|28 × 28', 230, 110, say='Cada píxel es un brillo de 0 (negro) a 255 (blanco); dividimos entre 255.', ex='El botín: 0 en el fondo, más de 150 en la prenda.', ask='¿Cuántos números tiene una foto de 28 × 28?', trap='Olvidar el eje del canal: (28, 28, 1).', slide='imagen-numeros', nb='NB03 §0'),
     N('densa', 'La densa aplana', 700, 110, say='784 entradas en fila; cada neurona mira cada píxel: 100 480 pesos en la primera capa.', ex='Mezclar los píxeles: la densa da lo mismo (87.2 %).', ask='Si los píxeles se mezclan siempre igual, ¿la densa pierde algo?', trap='Pensar que la densa sabe qué píxel es vecino de cuál.', slide='aplanar', nb='NB03 §2'),
@@ -66,7 +70,7 @@ MAPS.append(dict(id='b01', short='01', title='01 · Cómo mira una red una image
          ('mapas', 'compartir', 'con'), ('compartir', 'pool', 'luego'), ('pool', 'keras', 'en código'), ('keras', 'softmax', 'sale por'), ('softmax', 'prueba', 'se prueba'), ('prueba', 'justo', 'y')]))
 
 # ------------------------------------------------------------------ 02 · sequences, RNN, LSTM
-MAPS.append(dict(id='b02', short='02', title='02 · Cómo lee una red una secuencia', sub='Una libreta pequeña que se actualiza paso a paso.',
+MAPS.append(dict(id='b02', short='T2', title='Tema 2 · Cómo lee una red una secuencia', sub='Una libreta pequeña que se actualiza paso a paso.',
   nodes=[
     N('seq', 'Datos que llegan|en orden', 230, 140, say='Texto, voz, series de tiempo, pagos mensuales: el orden es parte del dato.', ex='Forma (ejemplos, pasos, datos por paso): (2000, 12, 1).', ask='¿Qué secuencias hay en su proyecto?', trap='Barajar los pasos de una serie.', slide='secuencias', nb='NB04 §0'),
     N('orden', 'El orden importa', 700, 140, 'key', 1, say='Mismo promedio, orden distinto: solo un modelo que lee en orden distingue empeora de mejora.', ex='Promedio 48 % (25 parámetros) · SimpleRNN 100 % (89).', ask='¿Por qué el modelo del promedio adivina?', trap='Resumir una serie con su promedio.', slide='orden', nb='NB04 §2'),
@@ -82,7 +86,7 @@ MAPS.append(dict(id='b02', short='02', title='02 · Cómo lee una red una secuen
          ('olvido', 'lstm', 'lo mitiga'), ('lstm', 'keras', 'en código'), ('keras', 'examen', 'se prueba')]))
 
 # ------------------------------------------------------------------ 03 · attention and Transformers
-MAPS.append(dict(id='b03', short='03', title='03 · Atención y Transformers', sub='Releer la carta completa antes de escribir cada palabra.',
+MAPS.append(dict(id='b03', short='T2', title='Tema 2 · La atención y los Transformers', sub='Releer la carta completa antes de escribir cada palabra.',
   nodes=[
     N('fila', 'La RNN lee en fila', 230, 140, say='Para procesar la palabra 100 necesita las 99 anteriores: no se paraleliza y la GPU espera.', ex='Una fila de banco con una sola ventanilla.', ask='¿Por qué eso importa para entrenar con internet entero?', trap='—', slide='en-fila'),
     N('atencion', 'Cada palabra|mira a todas', 700, 140, 'key', 5, say='La atención calcula, para cada palabra, cuánto mirar a cada una de las demás.', ex='«el socio pagó la cuota porque él recibió su sueldo»: «él» → «socio».', ask='¿A quién debería mirar «su»?', trap='Creer que la atención entiende: calcula similitudes aprendidas.', slide='atencion', nb='NB04 §5'),
@@ -98,7 +102,7 @@ MAPS.append(dict(id='b03', short='03', title='03 · Atención y Transformers', s
          ('transformer', 'hibridos', 'se mezcla'), ('hibridos', 'contrapeso', 'con un'), ('contrapeso', 'debate', 'abre')]))
 
 # ------------------------------------------------------------------ 04 · choosing the architecture
-MAPS.append(dict(id='b04', short='04', title='04 · Elegir la arquitectura', sub='Cada dato con su suposición, y una comparación justa.',
+MAPS.append(dict(id='b04', short='C', title='Cierre · Elegir la arquitectura', sub='Cada dato con su suposición, y una comparación justa.',
   nodes=[
     N('tabla', 'Tabla → densa', 230, 140, say='Supone que cualquier columna puede relacionarse con cualquier otra.', ex='Los socios de la cooperativa; en tablas medianas compara con boosting.', ask='¿Su proyecto tiene una tabla?', trap='Usar deep learning sin línea base clásica.', slide='zoologico'),
     N('imagen', 'Imagen → CNN o ViT', 700, 140, say='Lo cercano importa y el patrón puede estar en cualquier parte.', ex='Fashion-MNIST, radiografías, cultivos desde un dron.', ask='¿Qué patrón local buscarían en sus imágenes?', trap='—', slide='zoologico'),

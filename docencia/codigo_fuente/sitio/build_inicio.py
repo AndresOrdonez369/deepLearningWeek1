@@ -15,7 +15,7 @@ REPO = "https://github.com/AndresOrdonez369/deepLearningWeek1"
 COLAB = "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/"
 NB = {"nb01": "NB01_viernes_tu_primera_neurona.ipynb", "nb02": "NB02_sabado_tu_primera_red.ipynb"}
 COLAB2 = COLAB.replace("/blob/main/proyectos/", "/blob/main/semana2/proyectos/")
-NB2 = {"nb03": "NB03_viernes_tu_primera_cnn.ipynb", "nb04": "NB04_sabado_redes_que_recuerdan.ipynb"}
+NB2 = {"nb03": "NB03_tu_primera_cnn.ipynb", "nb04": "NB04_redes_que_recuerdan.ipynb"}
 ROUTES = {**{k: COLAB + v for k, v in NB.items()}, "pre": "quiz/index.html?pre", "final": "quiz/index.html?final", "guia": "guia/index.html",
           "slides": "docencia/slides/index.html",
           # week 2 lives in semana2/ (same site); the slides of week 2 print these keys in their QR codes

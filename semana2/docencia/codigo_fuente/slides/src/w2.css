@@ -166,3 +166,65 @@ body.reading [data-demo="flatten"] .say{grid-column:1/-1}
 body.reading [data-demo="cost"] > div{grid-template-columns:1fr!important}
 body.reading [data-demo="cost"] .col > div{grid-template-columns:5.5em 1fr 7em!important;font-size:1.1em!important}
 body.reading .fmsg{grid-column:1/-1}
+
+/* ---------- v2: the week in two themes ---------- */
+.route4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6em;margin-top:.6em}
+.route4>div{position:relative;display:flex}
+.route4>div:not(:last-child)::after{content:"→";position:absolute;right:-1.15em;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:1.5em}
+.rt{flex:1;display:flex;flex-direction:column;gap:.6em;padding:1.2em 1.3em 1.1em;border-radius:.9em;background:var(--night-2);border-top:5px solid var(--line);min-height:15.5em}
+.rt .k{font:700 1.1em/1 var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.rt h3{font:700 1.5em/1.15 var(--sans);color:var(--ink);text-wrap:balance}
+.rt p{font-size:1.18em;line-height:1.42;color:var(--ink-2);flex:1}
+.rt .ft{display:flex;justify-content:space-between;align-items:center;gap:.6em;flex-wrap:wrap}
+.rt .du{font:700 1.25em/1 var(--mono);color:var(--ink)}
+.rt.az{border-color:var(--azure)} .rt.az .k{color:var(--azure)}
+.rt.am{border-color:var(--amber)} .rt.am .k{color:var(--amber)}
+.rt.mi{border-color:var(--mint)} .rt.mi .k{color:var(--mint)}
+.rt.li{border-color:var(--lilac)} .rt.li .k{color:var(--lilac)}
+
+/* recorderis: the week 1 in one chain */
+.chain9{display:grid;grid-template-columns:repeat(3,1fr);gap:.85em 1.2em}
+.chain9>div{display:flex}
+.ch{flex:1;display:grid;grid-template-columns:auto 1fr;column-gap:.85em;row-gap:.22em;align-content:start;padding:.8em 1.05em;border-radius:.8em;background:var(--night-2);border-left:5px solid var(--line)}
+.ch .i{grid-row:1 / 4;width:1.9em;height:1.9em;border-radius:50%;display:grid;place-items:center;background:var(--night-3);font-weight:700;font-size:1.05em;color:var(--ink)}
+.ch h3{font:700 1.25em/1.15 var(--sans);color:var(--ink)}
+.ch .f{font:600 1.02em/1.3 var(--mono);color:var(--amber)}
+.ch p{font-size:1.02em;line-height:1.38;color:var(--ink-3)}
+.ch p b{color:var(--ink-2)}
+.ch.az{border-color:var(--azure)} .ch.am{border-color:var(--amber)} .ch.mi{border-color:var(--mint)} .ch.co{border-color:var(--coral)} .ch.li{border-color:var(--lilac)}
+
+/* recorderis: three warm-up questions */
+.qa3{display:flex;flex-direction:column;gap:1.1em;margin-top:.3em}
+.qr3{display:grid;grid-template-columns:auto 1fr 1.2fr;gap:1.5em;align-items:center;padding:1.1em 1.4em;border-radius:.9em;background:var(--night-2)}
+.qr3 .n{width:2.1em;height:2.1em;border-radius:50%;display:grid;place-items:center;background:var(--amber);color:var(--night);font-weight:700;font-size:1.25em}
+.qr3 .q{font-size:1.45em;line-height:1.32;color:var(--ink);font-weight:500}
+.qr3 .a{border-left:3px solid var(--mint);padding-left:1.1em}
+.qr3 .ans{font-size:1.3em;line-height:1.32;color:var(--mint)}
+.qr3 .ans b{color:var(--ink)}
+.qr3 .why{font-size:1.1em;line-height:1.42;color:var(--ink-3);margin-top:.3em}
+
+/* interactive zoo: the case first, the architecture revealed later */
+.zc.zq{display:flex;flex-direction:column;gap:.5em}
+.zc .case6{font-size:1.32em;line-height:1.3;color:var(--ink);font-weight:500;min-height:2.6em}
+.zc .slot{margin-top:auto;min-height:4.8em;border:2px dashed var(--line);border-radius:.65em;padding:.55em .85em;display:flex;align-items:center;transition:border-color .4s}
+.zc .slot>div{width:100%}
+.zc .slot:has(> .on){border-style:solid;border-color:oklch(0.34 0.035 258)}
+.zc .rev h3{font:700 1.4em/1.1 var(--display)}
+.zc .rev .s{display:block;font-size:1.08em;line-height:1.35;color:var(--ink-2);margin-top:.25em}
+body.reading .route4,body.reading .chain9{grid-template-columns:1fr!important}
+body.reading .route4>div::after{display:none}
+body.reading .qr3{grid-template-columns:auto 1fr}
+body.reading .qr3 .a{grid-column:1 / -1}
+/* v2 fit tweaks */
+.zoo:has(.zq){gap:.9em 1.1em}
+.zc.zq{padding:.8em 1.05em .9em;gap:.4em}
+.zc .case6{font-size:1.22em;min-height:2.5em}
+.zc .slot{min-height:4.1em;padding:.45em .8em}
+.zc .rev h3{font-size:1.32em}
+.zc .rev .s{font-size:1.02em}
+.chain9{gap:.7em 1.1em}
+.ch{padding:.68em 1em}
+.ch p{font-size:.98em}
+.ch .f{font-size:.98em}
+.zc .slot{position:relative}
+.zc .slot:not(:has(> .on))::before{content:"?";position:absolute;inset:0;display:grid;place-items:center;font:700 2em/1 var(--display);color:var(--line)}

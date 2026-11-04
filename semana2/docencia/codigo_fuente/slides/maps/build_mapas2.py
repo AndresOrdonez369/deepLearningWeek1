@@ -15,7 +15,7 @@ NM = pathlib.Path(os.environ.get('DECK_NODE_MODULES', HERE.parent / 'fonts' / 'n
 if not NM.exists():
     NM = pathlib.Path('/home/claude/w1/deck/fonts/node_modules')
 SN = {s['id']: s['n'] for s in SLIDES}
-TABS = {'semana': 'La semana', 'b00': 'Keras (pendiente)', 'b01': 'Imágenes y CNN', 'b02': 'Secuencias y RNN', 'b03': 'Atención', 'b04': 'Elegir'}
+TABS = {'semana': 'La semana', 'b00': 'Recorderis semana 1', 'b01': 'Tema 1 · Imágenes y CNN', 'b02': 'Tema 2 · Secuencias y RNN', 'b03': 'Tema 2 · Atención', 'b04': 'Cierre · Elegir'}
 for m in MAPS:
     m['tab'] = TABS[m['id']]
 

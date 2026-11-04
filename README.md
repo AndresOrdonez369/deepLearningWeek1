@@ -16,10 +16,10 @@ Todo está en esa página. No necesitas instalar nada. Arriba de cada página ha
 
 | Paso | Cuándo | Qué haces |
 |---|---|---|
-| 1 | Viernes, al empezar | [**Pre-quiz**](https://deeplearningweek1.vercel.app/semana2/quiz/index.html?pre): 8 preguntas cortas tipo Kahoot, sin cuentas. No es nota: es tu punto de partida |
-| 2 | Viernes y sábado | [**Proyectos en clase**](https://deeplearningweek1.vercel.app/semana2/#proyectos): NB03 (tu primera CNN) y NB04 (redes que recuerdan) en Google Colab, sin nota |
+| 1 | Al empezar la semana | [**Pre-quiz**](https://deeplearningweek1.vercel.app/semana2/quiz/index.html?pre): 8 preguntas cortas tipo Kahoot, sin cuentas. No es nota: es tu punto de partida |
+| 2 | Tema 1 y Tema 2 | [**Proyectos en clase**](https://deeplearningweek1.vercel.app/semana2/#proyectos): NB03 (tu primera CNN) y NB04 (redes que recuerdan) en Google Colab, sin nota |
 | 3 | Después de clase | [**Slides interactivas**](https://deeplearningweek1.vercel.app/semana2/docencia/slides/) y [**guía de estudio**](https://deeplearningweek1.vercel.app/semana2/guia/index.html) para repasar |
-| 4 | Sábado, al cerrar | [**Quiz final**](https://deeplearningweek1.vercel.app/semana2/quiz/index.html?final): 10 preguntas cortas; mide cuánto avanzaste en las 5 ideas clave |
+| 4 | Al cerrar la semana | [**Quiz final**](https://deeplearningweek1.vercel.app/semana2/quiz/index.html?final): 10 preguntas cortas; mide cuánto avanzaste en las 5 ideas clave |
 
 ## Semana 1 en cuatro pasos
 

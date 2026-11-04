@@ -1,4 +1,4 @@
-/* Demos · Semana 2 · sábado: secuencias, la libreta, el olvido, LSTM y atención (real data from NB04, window.SEQ) */
+/* Demos · Semana 2 · Tema 2: secuencias, la libreta, el olvido, LSTM y atención (real data from NB04, window.SEQ) */
 (function () {
   var Q = window.SEQ;
   function bar(parent, w, color) {

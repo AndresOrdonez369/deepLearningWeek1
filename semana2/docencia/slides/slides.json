@@ -3,232 +3,232 @@
   "n": 1,
   "id": "portada2",
   "title": "De mirar imágenes a leer secuencias",
-  "block": "00",
-  "group": "Viernes · Encuadre",
+  "block": "E",
+  "group": "Encuadre",
   "minutes": 1
  },
  {
   "n": 2,
   "id": "ruta2",
-  "title": "La semana en dos sesiones",
-  "block": "00",
-  "group": "Viernes · Encuadre",
+  "title": "La semana en dos temas",
+  "block": "E",
+  "group": "Encuadre",
   "minutes": 1
  },
  {
   "n": 3,
   "id": "prequiz2",
   "title": "Pre-quiz: ¿de dónde partimos?",
-  "block": "00",
-  "group": "Viernes · Encuadre",
+  "block": "E",
+  "group": "Encuadre",
   "minutes": 6
  },
  {
   "n": 4,
   "id": "metas2",
   "title": "Las 5 ideas clave de la semana",
-  "block": "00",
-  "group": "Viernes · Encuadre",
+  "block": "E",
+  "group": "Encuadre",
   "minutes": 1
  },
  {
   "n": 5,
   "id": "b00",
-  "title": "Lo que quedó pendiente: Keras",
+  "title": "Recorderis: la semana 1",
   "block": "00",
-  "group": "Viernes · 00 Lo que quedó pendiente: Keras",
+  "group": "00 · Recorderis: la semana 1",
   "minutes": 0.5
  },
  {
   "n": 6,
-  "id": "motor-volante",
-  "title": "TensorFlow y Keras: el motor y el volante",
+  "id": "recorderis",
+  "title": "La semana 1 en una sola red",
   "block": "00",
-  "group": "Viernes · 00 Lo que quedó pendiente: Keras",
-  "minutes": 2
+  "group": "00 · Recorderis: la semana 1",
+  "minutes": 6
  },
  {
   "n": 7,
-  "id": "keras-4pasos",
-  "title": "Keras en 4 pasos",
+  "id": "recorderis-preguntas",
+  "title": "Tres preguntas para calentar",
   "block": "00",
-  "group": "Viernes · 00 Lo que quedó pendiente: Keras",
+  "group": "00 · Recorderis: la semana 1",
   "minutes": 4
  },
  {
   "n": 8,
-  "id": "keras-fit2",
-  "title": "Mira a la red aprender",
+  "id": "motor-volante",
+  "title": "TensorFlow y Keras: el motor y el volante",
   "block": "00",
-  "group": "Viernes · 00 Lo que quedó pendiente: Keras",
-  "minutes": 4
- },
- {
-  "n": 9,
-  "id": "nb02-casa",
-  "title": "El NB02 queda para casa",
-  "block": "00",
-  "group": "Viernes · 00 Lo que quedó pendiente: Keras",
+  "group": "00 · Recorderis: la semana 1",
   "minutes": 2
  },
  {
+  "n": 9,
+  "id": "keras-4pasos",
+  "title": "Keras en 4 pasos",
+  "block": "00",
+  "group": "00 · Recorderis: la semana 1",
+  "minutes": 4
+ },
+ {
   "n": 10,
-  "id": "b01",
-  "title": "Cómo mira una red una imagen",
-  "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 0.5
+  "id": "keras-fit2",
+  "title": "Mira a la red aprender",
+  "block": "00",
+  "group": "00 · Recorderis: la semana 1",
+  "minutes": 4
  },
  {
   "n": 11,
-  "id": "imagen-numeros",
-  "title": "Una imagen es una tabla de números",
-  "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
+  "id": "nb02-casa",
+  "title": "El NB02 queda para casa",
+  "block": "00",
+  "group": "00 · Recorderis: la semana 1",
   "minutes": 2
  },
  {
   "n": 12,
-  "id": "aplanar",
-  "title": "La red densa aplana la foto",
+  "id": "b01",
+  "title": "Cómo mira una red una imagen",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 3
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 0.5
  },
  {
   "n": 13,
-  "id": "suposicion",
-  "title": "Cada arquitectura es una suposición",
+  "id": "imagen-numeros",
+  "title": "Una imagen es una tabla de números",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 3
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 2
  },
  {
   "n": 14,
-  "id": "filtro",
-  "title": "La lupa: un filtro recorre la imagen",
+  "id": "aplanar",
+  "title": "La red densa aplana la foto",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 4
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 3
  },
  {
   "n": 15,
-  "id": "filtro-cuenta",
-  "title": "Un filtro, con números",
+  "id": "suposicion",
+  "title": "Cada arquitectura es una suposición",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
+  "group": "Tema 1 · Imágenes y CNN",
   "minutes": 3
  },
  {
   "n": 16,
-  "id": "mapas",
-  "title": "Lo que aprendió la red",
+  "id": "filtro",
+  "title": "La lupa: un filtro recorre la imagen",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 3
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 4
  },
  {
   "n": 17,
-  "id": "compartir",
-  "title": "El mismo filtro en toda la imagen",
+  "id": "filtro-cuenta",
+  "title": "Un filtro, con números",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
+  "group": "Tema 1 · Imágenes y CNN",
   "minutes": 3
  },
  {
   "n": 18,
-  "id": "pooling",
-  "title": "Pooling: quedarse con lo más fuerte",
+  "id": "mapas",
+  "title": "Lo que aprendió la red",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 2
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 3
  },
  {
   "n": 19,
-  "id": "cnn-keras",
-  "title": "La CNN en Keras",
+  "id": "compartir",
+  "title": "El mismo filtro en toda la imagen",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 4
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 3
  },
  {
   "n": 20,
-  "id": "softmax",
-  "title": "De sí o no a 10 clases",
+  "id": "pooling",
+  "title": "Pooling: quedarse con lo más fuerte",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
+  "group": "Tema 1 · Imágenes y CNN",
   "minutes": 2
  },
  {
   "n": 21,
-  "id": "practica-nb03",
-  "title": "Práctica en clase: NB03",
+  "id": "cnn-keras",
+  "title": "La CNN en Keras",
   "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 35
- },
- {
-  "n": 22,
-  "id": "duelo",
-  "title": "Densa contra CNN: lo que vimos",
-  "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
-  "minutes": 6
- },
- {
-  "n": 23,
-  "id": "historia-cnn",
-  "title": "De los cheques a ImageNet",
-  "block": "01",
-  "group": "Viernes · 01 Cómo mira una red una imagen",
+  "group": "Tema 1 · Imágenes y CNN",
   "minutes": 4
  },
  {
+  "n": 22,
+  "id": "softmax",
+  "title": "De sí o no a 10 clases",
+  "block": "01",
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 2
+ },
+ {
+  "n": 23,
+  "id": "practica-nb03",
+  "title": "Práctica en clase: NB03",
+  "block": "01",
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 35
+ },
+ {
   "n": 24,
-  "id": "cierre-viernes2",
-  "title": "Lo que te llevas hoy",
-  "block": "V",
-  "group": "Viernes · Cierre",
-  "minutes": 5
+  "id": "duelo",
+  "title": "Densa contra CNN: lo que vimos",
+  "block": "01",
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 6
  },
  {
   "n": 25,
-  "id": "portada-sab2",
-  "title": "Sábado: redes que leen en orden",
-  "block": "00",
-  "group": "Sábado · Encuadre",
-  "minutes": 1
+  "id": "historia-cnn",
+  "title": "De los cheques a ImageNet",
+  "block": "01",
+  "group": "Tema 1 · Imágenes y CNN",
+  "minutes": 4
  },
  {
   "n": 26,
-  "id": "agenda-sab2",
-  "title": "El sábado en cuatro paradas",
-  "block": "00",
-  "group": "Sábado · Encuadre",
-  "minutes": 1
- },
- {
-  "n": 27,
-  "id": "repaso-vie2",
-  "title": "El viernes en tres ideas",
-  "block": "00",
-  "group": "Sábado · Encuadre",
+  "id": "cierre-tema1",
+  "title": "Lo que te llevas del Tema 1",
+  "block": "01",
+  "group": "Tema 1 · Imágenes y CNN",
   "minutes": 5
  },
  {
-  "n": 28,
+  "n": 27,
   "id": "b02",
   "title": "Cómo lee una red una secuencia",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 0.5
+ },
+ {
+  "n": 28,
+  "id": "repaso-tema1",
+  "title": "El Tema 1 en tres ideas",
+  "block": "02",
+  "group": "Tema 2 · Secuencias, memoria y atención",
+  "minutes": 5
  },
  {
   "n": 29,
   "id": "secuencias",
   "title": "Datos que llegan en orden",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 2
  },
  {
@@ -236,7 +236,7 @@
   "id": "orden",
   "title": "El orden importa",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -244,7 +244,7 @@
   "id": "libreta",
   "title": "La RNN lee de a uno y anota en su libreta",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -252,7 +252,7 @@
   "id": "rnn-cuenta",
   "title": "La cuenta de la libreta",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -260,7 +260,7 @@
   "id": "desenrollar",
   "title": "Desenrollar: la misma celda en cada paso",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 3
  },
  {
@@ -268,7 +268,7 @@
   "id": "olvido",
   "title": "La libreta se olvida",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -276,7 +276,7 @@
   "id": "lstm",
   "title": "LSTM: una libreta con compuertas",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -284,7 +284,7 @@
   "id": "rnn-keras",
   "title": "Las secuencias en Keras",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 3
  },
  {
@@ -292,7 +292,7 @@
   "id": "practica-nb04",
   "title": "Práctica en clase: NB04",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 40
  },
  {
@@ -300,15 +300,15 @@
   "id": "examen-memoria",
   "title": "El examen de memoria: lo que vimos",
   "block": "02",
-  "group": "Sábado · 02 Cómo lee una red una secuencia",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 5
  },
  {
   "n": 39,
   "id": "b03",
-  "title": "Atención y Transformers",
+  "title": "La atención: mirar directo",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 0.5
  },
  {
@@ -316,7 +316,7 @@
   "id": "en-fila",
   "title": "La RNN lee en fila",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 2
  },
  {
@@ -324,7 +324,7 @@
   "id": "atencion",
   "title": "Cada palabra mira a todas",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -332,7 +332,7 @@
   "id": "atencion-cuenta",
   "title": "Consulta, claves y valores",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -340,7 +340,7 @@
   "id": "atencion-real",
   "title": "Lo que miró la red del NB04",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 3
  },
  {
@@ -348,7 +348,7 @@
   "id": "costo",
   "title": "El precio: comparar con todas",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 3
  },
  {
@@ -356,7 +356,7 @@
   "id": "transformer",
   "title": "El Transformer: atención apilada",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 3
  },
  {
@@ -364,7 +364,7 @@
   "id": "hibridos",
   "title": "Las recurrentes vuelven, mezcladas",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -372,7 +372,7 @@
   "id": "contrapeso",
   "title": "Lo que la libreta no puede guardar",
   "block": "03",
-  "group": "Sábado · 03 Atención y Transformers",
+  "group": "Tema 2 · Secuencias, memoria y atención",
   "minutes": 4
  },
  {
@@ -380,23 +380,23 @@
   "id": "b04",
   "title": "Elegir la arquitectura",
   "block": "04",
-  "group": "Sábado · 04 Elegir la arquitectura",
+  "group": "Cierre · Elegir la arquitectura",
   "minutes": 0.5
  },
  {
   "n": 49,
   "id": "zoologico",
-  "title": "Cada dato con su arquitectura",
+  "title": "¿Qué arquitectura le pondrías?",
   "block": "04",
-  "group": "Sábado · 04 Elegir la arquitectura",
-  "minutes": 4
+  "group": "Cierre · Elegir la arquitectura",
+  "minutes": 5
  },
  {
   "n": 50,
   "id": "elegir",
   "title": "Tres preguntas antes de elegir",
   "block": "04",
-  "group": "Sábado · 04 Elegir la arquitectura",
+  "group": "Cierre · Elegir la arquitectura",
   "minutes": 3
  },
  {
@@ -404,39 +404,39 @@
   "id": "tu-proyecto",
   "title": "La arquitectura de tu proyecto",
   "block": "04",
-  "group": "Sábado · 04 Elegir la arquitectura",
+  "group": "Cierre · Elegir la arquitectura",
   "minutes": 20
  },
  {
   "n": 52,
   "id": "quizfinal2",
   "title": "Quiz final: ¿cuánto avanzamos?",
-  "block": "C",
-  "group": "Sábado · Cierre",
+  "block": "04",
+  "group": "Cierre · Elegir la arquitectura",
   "minutes": 8
  },
  {
   "n": 53,
   "id": "mapa-semana2",
   "title": "La semana en un mapa",
-  "block": "C",
-  "group": "Sábado · Cierre",
+  "block": "04",
+  "group": "Cierre · Elegir la arquitectura",
   "minutes": 2
  },
  {
   "n": 54,
   "id": "lo-que-viene2",
   "title": "Lo que viene: semana 3",
-  "block": "C",
-  "group": "Sábado · Cierre",
+  "block": "04",
+  "group": "Cierre · Elegir la arquitectura",
   "minutes": 2
  },
  {
   "n": 55,
   "id": "recursos2",
   "title": "Para repasar y gracias",
-  "block": "C",
-  "group": "Sábado · Cierre",
+  "block": "04",
+  "group": "Cierre · Elegir la arquitectura",
   "minutes": 1
  }
 ]

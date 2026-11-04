@@ -16,7 +16,7 @@ OUT = ROOT / 'semana2'
 REPO = "https://github.com/AndresOrdonez369/deepLearningWeek1"
 COLAB = "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/semana2/proyectos/"
 COLAB_W1 = "https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/"
-NB = {"nb03": "NB03_viernes_tu_primera_cnn.ipynb", "nb04": "NB04_sabado_redes_que_recuerdan.ipynb"}
+NB = {"nb03": "NB03_tu_primera_cnn.ipynb", "nb04": "NB04_redes_que_recuerdan.ipynb"}
 ROUTES = {**{k: COLAB + v for k, v in NB.items()}, "pre": "quiz/index.html?pre", "final": "quiz/index.html?final", "clase": "quiz/index.html?clase",
           "guia": "guia/index.html", "slides": "docencia/slides/index.html"}
 
@@ -34,18 +34,18 @@ def project(tag, title, text, tasks, nb, extra=''):
 
 
 steps = ''.join([
-    step(1, 'Viernes, al empezar', 'Pre-quiz', '8 preguntas cortas tipo Kahoot, sin cuentas. No es nota: es tu punto de partida en la semana 2.', 'quiz/index.html?pre', 'Jugar', 'amber'),
-    step(2, 'Viernes y sábado', 'Proyectos en clase', 'Dos notebooks en Colab, sin nota: una CNN que reconoce ropa y redes que recuerdan. Todo el código ya está escrito y explicado.', '#proyectos', 'Ver proyectos'),
-    step(3, 'Después de clase', 'Repasa', 'Las slides interactivas y la guía de estudio: imágenes, secuencias, atención y cómo elegir la arquitectura.', 'guia/index.html', 'Estudiar', 'purple'),
-    step(4, 'Sábado, al cerrar', 'Quiz final', '10 preguntas cortas. Las 5 ideas clave del pre-quiz vuelven con otra versión: mide tu avance.', 'quiz/index.html?final', 'Jugar', 'amber'),
+    step(1, 'Al empezar la semana', 'Pre-quiz', '8 preguntas cortas tipo Kahoot, sin cuentas. No es nota: es tu punto de partida en la semana 2.', 'quiz/index.html?pre', 'Jugar', 'amber'),
+    step(2, 'Tema 1 y Tema 2', 'Proyectos en clase', 'Un notebook por tema, en Colab y sin nota: una CNN que reconoce ropa (Tema 1) y redes que recuerdan (Tema 2). Todo el código ya está escrito y explicado.', '#proyectos', 'Ver proyectos'),
+    step(3, 'Después de clase', 'Repasa', 'Las slides interactivas y la guía de estudio: recorderis de la semana 1, imágenes, secuencias, atención y cómo elegir la arquitectura.', 'guia/index.html', 'Estudiar', 'purple'),
+    step(4, 'Al cerrar la semana', 'Quiz final', '10 preguntas cortas. Las 5 ideas clave del pre-quiz vuelven con otra versión: mide tu avance.', 'quiz/index.html?final', 'Jugar', 'amber'),
 ])
 
 projects = ''.join([
-    project('Viernes 6', 'NB03 · Tu primera red convolucional',
+    project('Tema 1 · Imágenes', 'NB03 · Tu primera red convolucional',
             'Una foto es una tabla de números. Pasa un filtro de 3 × 3 a mano, compara una red densa con una CNN en 70 000 fotos de ropa y pon a prueba la suposición de cada una.',
             ['Densa: <b>101 770</b> parámetros, cerca de <b>87 %</b>. CNN: <b>12 810</b>, cerca de <b>88 %</b>',
              '¿Qué pasa si mueves la prenda 2 píxeles? ¿Y si mezclas los píxeles?', '<b>Experimento 3</b> (opcional): cambia el número de filtros'], 'nb03'),
-    project('Sábado 7', 'NB04 · Redes que recuerdan',
+    project('Tema 2 · Secuencias', 'NB04 · Redes que recuerdan',
             'La libreta de una RNN calculada a mano, por qué el orden importa, un examen de memoria para SimpleRNN y LSTM, y la atención que mira directo al paso importante.',
             ['El promedio adivina (<b>48 %</b>); la RNN acierta (<b>100 %</b>)',
              'Con 80 pasos las recurrentes se olvidan; la atención, con <b>82</b> parámetros, llega a <b>100 %</b>', '<b>Experimento 4</b> (opcional): 50 pasos con dos semillas'], 'nb04'),
@@ -100,13 +100,13 @@ html = f"""<!doctype html>
 <div class="hero">
 <span class="chip">UIDE · Maestría en Ciencia de Datos · Semana 2</span>
 <h1 style="margin-top:14px">Neural Networks: Deep Learning</h1>
-<p>Arquitecturas para problemas complejos: cómo mira una red una imagen (redes convolucionales) y cómo lee una secuencia (redes recurrentes, LSTM y atención). Cada arquitectura es una suposición sobre los datos. Sigue los cuatro pasos de abajo; no necesitas instalar nada.</p>
+<p>Arquitecturas para problemas complejos: cómo mira una red una imagen (redes convolucionales) y cómo lee una secuencia (redes recurrentes, LSTM y atención). Cada arquitectura es una suposición sobre los datos. La semana tiene dos temas: empezamos con un recorderis de la semana 1 y cada sesión sigue donde terminó la anterior. Sigue los cuatro pasos de abajo; no necesitas instalar nada.</p>
 <p style="font-size:15px">Docente: Andrés Ordóñez-Bolaños · Sesiones: viernes 6 (18:00–20:00) y sábado 7 de noviembre de 2026 (08:00–12:00)</p>
 </div>
 
 <nav class="steps" aria-label="Tu semana en cuatro pasos">{steps}</nav>
 
-<div class="pend"><p><b>¿Te quedó pendiente Keras?</b> El viernes empezamos con un repaso de 15 minutos. Para practicar en casa, abre el NB02 de la semana 1 en las partes E y F: la red de las lunas en diez líneas.</p>
+<div class="pend"><p><b>Empezamos con un recorderis de la semana 1</b>: la neurona, la pérdida, el gradiente y Keras en 4 pasos, que había quedado pendiente. Para practicar en casa, abre el NB02 de la semana 1 en las partes E y F: la red de las lunas en diez líneas.</p>
 <a class="btn ghost" href="{COLAB_W1}NB02_sabado_tu_primera_red.ipynb">NB02 de la semana 1 ↗</a></div>
 
 <section class="sec" id="proyectos">

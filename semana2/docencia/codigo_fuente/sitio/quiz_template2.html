@@ -431,8 +431,8 @@ function finish(){
   if (!prev || S.attempt === 1) store.set('dl-uide-w2-' + mode, { pct, score: S.score, keys, at: Date.now() });
   const pre = store.get('dl-uide-w2-pre');
   $('d-compare').textContent = mode === 'final'
-      ? (pre ? `En el pre-quiz acertaste ${pre.pct} %. Hoy: ${pct} %. ${pct >= pre.pct ? '¡Avanzaste!' : 'Repasa los temas de abajo y vuelve a intentarlo.'}` : 'Si jugaste el pre-quiz en este mismo dispositivo, aquí verías tu avance.')
-      : 'No es nota: es tu punto de partida. El sábado, el quiz final repite las 5 ideas clave y verás cuánto avanzaste.';
+      ? (pre ? `En el pre-quiz acertaste ${pre.pct} %. Ahora: ${pct} %. ${pct >= pre.pct ? '¡Avanzaste!' : 'Repasa los temas de abajo y vuelve a intentarlo.'}` : 'Si jugaste el pre-quiz en este mismo dispositivo, aquí verías tu avance.')
+      : 'No es nota: es tu punto de partida. Al cerrar la semana, el quiz final repite las 5 ideas clave y verás cuánto avanzaste.';
   // the result code the teacher pastes into the results panel
   const bits = S.answers.map(a => a.good ? 1 : 0).join('');
   const code = `[${CODE_TAG}|${mode.toUpperCase()}|${S.name.replace(/[|\[\]]/g, ' ')}|${S.hits}/${n}|${bits}|i${S.attempt}]`;
@@ -440,8 +440,8 @@ function finish(){
   // key ideas: before (pre, same device) vs now
   const preKeys = pre && pre.keys ? pre.keys : null;
   $('d-keys-sub').textContent = mode === 'pre'
-      ? 'Estas cinco ideas vuelven en el quiz final. Hoy es normal no saberlas todas.'
-      : (preKeys ? 'Tu pre-quiz (en este dispositivo) frente a hoy.' : 'Si jugaste el pre-quiz en este dispositivo, aquí verías el antes y el después.');
+      ? 'Estas cinco ideas vuelven en el quiz final. Por ahora es normal no saberlas todas.'
+      : (preKeys ? 'Tu pre-quiz (en este dispositivo) frente a ahora.' : 'Si jugaste el pre-quiz en este dispositivo, aquí verías el antes y el después.');
   $('d-keys').innerHTML = Object.entries(CLAVES).map(([c, label]) => {
     const now = keys[c], before = preKeys ? preKeys[c] : undefined;
     const mark = v => v === 1 ? '✅' : v === 0 ? '❌' : '·';

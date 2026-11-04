@@ -1,55 +1,33 @@
-"""Semana 2 · sábado 7 de noviembre · 08:00-12:00 · bloques 02 (secuencias), 03 (atención) y 04 (elegir)."""
+"""Semana 2 · Tema 2 (secuencias, memoria y atención) y Cierre (elegir la arquitectura).
+Organized by themes, not by days: each session simply continues where the previous one stopped."""
 import json, pathlib
 from kit import slide, head, key, chip, st, demo, count, qr, notes, eq, hist, code
-from slides_viernes import section, practice, rail, RAIL_S, pct
+from slides_viernes import section, practice, pct
 
 SQ = json.loads((pathlib.Path(__file__).parent / 'data' / 'seq.json').read_text())
 OR, MEM, ATW = SQ['orden']['res'], SQ['memoria'], SQ['atencion']
 MEAN = sum(SQ['orden']['ejemplo']) / 12
 
-G0 = 'Sábado · Encuadre'
-G2 = 'Sábado · 02 Cómo lee una red una secuencia'
-G3 = 'Sábado · 03 Atención y Transformers'
-G4 = 'Sábado · 04 Elegir la arquitectura'
-GC = 'Sábado · Cierre'
+G2 = 'Tema 2 · Secuencias, memoria y atención'
+G3 = G2
+G4 = 'Cierre · Elegir la arquitectura'
+GC = G4
 
-# ======================================================================= encuadre
-slide('portada-sab2', 'Sábado: redes que leen en orden', f"""
-<div class="cover">
-  <div class="left">
-    <h1 class="display" style="font-size:5.2em">Redes que leen en orden</h1>
-    <p class="lede" style="font-size:1.45em">Secuencias, memoria y atención</p>
-    <div class="tags after">{chip('UIDE · Maestría en Ciencia de Datos')}{chip('Semana 2 · Sábado')}</div>
-    <p class="meta"><b>Andrés Ordóñez-Bolaños, MSc</b><br>Sábado 7 de noviembre · 08:00–12:00<br>Microsoft Teams</p>
-  </div>
-  <div class="right" style="padding:4em 4em 4em 0">{demo('rnnread', 'fig', mode='cover', alt='Una red recurrente lee una frase palabra por palabra')}</div>
-</div>""", notes(
-    'Bienvenida. Verifica la grabación y abre la vista del presentador (<b>P</b>).',
-    'La animación: una red recurrente lee «el servicio no fue bueno» palabra por palabra y va actualizando su libreta. Al final decide: opinión negativa. Después lee «el servicio fue muy bueno» y decide lo contrario.',
-    'Hoy: cómo lee una red una secuencia, por qué se olvida, cómo la atención mira directo y qué dice la lectura de tendencia sobre la mezcla de las dos.'),
-    layout='L-cover', block='00', group=G0, minutes=1, blockname='Encuadre')
+# ======================================================================= Tema 2 · secuencias
+section('b02', '02', 'Cómo lee una red una secuencia', 'En una frase, en un historial de pagos o en una canción, el orden cambia el significado.',
+        ['Repaso del Tema 1', 'Datos en orden', 'El orden importa', 'La libreta', 'La cuenta', 'Desenrollar', 'El olvido', 'LSTM', 'En Keras', 'Práctica NB04', 'La atención'], 'Tema 2 · ≈ 1 h 50 con el NB04', G2, 'Tema 2 · Secuencias, memoria y atención',
+        notes('<b>Tema 2.</b> Primera parte: la red recurrente, su libreta y su olvido (<b>idea clave 4</b>), con la práctica NB04. Segunda parte: la atención (<b>idea clave 5</b>) y la lectura de tendencia.',
+              'Si el Tema 2 empieza en una sesión nueva, la lámina siguiente repasa el Tema 1 en tres ideas.'), shown='T2')
 
-slide('agenda-sab2', 'El sábado en cuatro paradas', head('El sábado en cuatro paradas', 'Secuencias y la libreta, práctica, atención y la tendencia, y elegir la arquitectura de tu proyecto.') + f"""
-<div class="col" style="gap:2em;margin-top:1em">
-  {rail(RAIL_S)}
-  <div class="legend"><span><i style="background:var(--amber)"></i>práctica en Colab</span><span><i style="background:var(--mint)"></i>quiz tipo Kahoot</span><span><i style="background:var(--lilac)"></i>lectura de tendencia</span></div>
-</div>""", notes('Cuatro horas con pausa a las 09:30 y una actividad en salas sobre el proyecto de titulación. Hay unos 45 minutos de colchón: úsalos en la práctica si hace falta.'),
-    block='00', group=G0, minutes=1)
-
-slide('repaso-vie2', 'El viernes en tres ideas', head('El viernes en tres ideas', '¿Quién explica cada una con sus palabras, antes de que aparezca?') + f"""
+slide('repaso-tema1', 'El Tema 1 en tres ideas', head('El Tema 1 en tres ideas', '¿Quién explica cada una con sus palabras, antes de que aparezca?') + f"""
 <div class="col" style="gap:1.1em;margin-top:.4em">
   {st(1, '<div class="mapi big"><span>1 · La suposición</span><b>la densa supone que todo se relaciona con todo; la CNN, que lo cercano importa</b></div>')}
   {st(2, '<div class="mapi big"><span>2 · La lupa</span><b>un filtro de 3 × 3 recorre la foto: 9 píxeles por 9 pesos, sumados</b></div>')}
   {st(3, '<div class="mapi big"><span>3 · Compartir</span><b>el mismo filtro en toda la foto: 12 810 parámetros contra 101 770</b></div>')}
-  {st(4, '<div class="keybar" style="margin-top:.6em"><span>La prueba: al mover la prenda 2 píxeles, la densa cayó a <b class="num">56.5 %</b> y la CNN aguantó <b class="num">75.2 %</b>. Hoy la pregunta cambia: <b>¿y si importa el orden?</b></span></div>')}
-</div>""", notes('Cinco minutos. Pide voluntarios por el chat para cada idea antes de mostrarla.',
+  {st(4, '<div class="keybar" style="margin-top:.6em"><span>La prueba: al mover la prenda 2 píxeles, la densa cayó a <b class="num">56.5 %</b> y la CNN aguantó <b class="num">75.2 %</b>. Ahora la pregunta cambia: <b>¿y si importa el orden?</b></span></div>')}
+</div>""", notes('Cinco minutos. Úsala sobre todo si el Tema 2 empieza en una sesión nueva. Pide voluntarios por el chat para cada idea antes de mostrarla.',
                  'Si alguien no hizo el NB03 completo, recuérdale las secciones 0, 2, 3 y 5 para casa.'),
-    block='00', group=G0, minutes=5)
-
-# ======================================================================= 02 · secuencias
-section('b02', '02', 'Cómo lee una red una secuencia', 'En una frase, en un historial de pagos o en una canción, el orden cambia el significado.',
-        ['Datos en orden', 'El orden importa', 'La libreta', 'La cuenta', 'Desenrollar', 'El olvido', 'LSTM', 'En Keras', 'Práctica NB04'], 'Sábado · 35 minutos y 40 de práctica', G2, '02 · Cómo lee una red una secuencia',
-        notes('Aquí está la <b>idea clave 4</b>: qué guarda una RNN y por qué se olvida.'))
+    block='02', group=G2, minutes=5, steps=4)
 
 SEQS = [('Texto', ['el', 'socio', 'pagó', 'la', 'cuota'], '(5, 1)', 'palabra tras palabra'),
         ('Historial de pagos', ['3', '5', '3', '12', '7', '…', '24'], '(12, 1)', 'días de atraso de cada mes'),
@@ -163,8 +141,8 @@ practice('practica-nb04', 'Práctica en clase: NB04', 'En parejas. Todo el códi
           f'<b>3</b> · Examen de memoria con 80 pasos: SimpleRNN <b>{pct(M80["rnn"]["test"])}</b>, LSTM <b>{pct(M80["lstm"]["test"])}</b>',
           f'<b>4</b> · La atención: <b>100 %</b> con solo <b>{M80["atencion"]["params"]}</b> parámetros', '<b>5</b> · A mano: «él» mira a «socio» el <b>79 %</b>'], 'nb04', 40, G2, '02',
          notes('Dinámica: 30 minutos en parejas y 10 de puesta en común. Sin nota.',
-               'Prioridad: <b>1, 2, 3 y 4</b>. La sección 5 (atención a mano) la vemos juntos después de la pausa. Todo el notebook corre en 1 a 2 minutos.',
-               'En la sección 3 pide que apuesten antes de ejecutar: casi todos esperan que la LSTM gane con 80 pasos. Con este presupuesto (10 épocas), las dos recurrentes adivinan. Es la mejor sorpresa del día.',
+               'Prioridad: <b>1, 2, 3 y 4</b>. La sección 5 (atención a mano) la vemos juntos en la segunda parte del Tema 2. Todo el notebook corre en 1 a 2 minutos.',
+               'En la sección 3 pide que apuesten antes de ejecutar: casi todos esperan que la LSTM gane con 80 pasos. Con este presupuesto (10 épocas), las dos recurrentes adivinan. Es la mejor sorpresa de la semana.',
                'Experimento 4 (opcional): con 50 pasos, la LSTM aprende con una semilla y no con otra. Lección: una sola corrida no prueba nada.'))
 
 slide('examen-memoria', 'El examen de memoria: lo que vimos', head('El examen de memoria: lo que vimos en el NB04', 'Cada secuencia trae una <b>marca</b> en uno de los 10 primeros pasos; la respuesta es el valor marcado. Después vienen muchos pasos de distracción. Mismo presupuesto para todos: 10 épocas.') +
@@ -173,13 +151,13 @@ slide('examen-memoria', 'El examen de memoria: lo que vimos', head('El examen de
       notes('Puesta en común de la sección 3 y 4 del NB04, con los números reales. Paso 1: 10 pasos: las tres aprenden. Paso 2: 30 pasos: las tres aprenden; la LSTM llega al 99 % en la época 3, la SimpleRNN en la 6.',
             f'Paso 3: 80 pasos: SimpleRNN {pct(M80["rnn"]["test"])} y LSTM {pct(M80["lstm"]["test"])} (lanzar una moneda). La atención: 100 % desde la época 4, con 82 parámetros y en menos de 3 segundos.',
             'Honestidad: la LSTM sí recuerda más que la SimpleRNN en muchos problemas reales (texto, voz) y con más entrenamiento. Con 50 pasos depende de la semilla (Experimento 4). Lo robusto es la lección: <b>cuanto más lejos el dato, más le cuesta a la libreta</b>.',
-            '<span class="q">Pregunta:</span> «¿Por qué a la atención no le importa la distancia?» Respuesta: lo vemos en el bloque 03.'),
+            '<span class="q">Pregunta:</span> «¿Por qué a la atención no le importa la distancia?» Respuesta: en la segunda parte del Tema 2.'),
       block='02', group=G2, minutes=5, steps=3)
 
 # ======================================================================= 03 · atención
-section('b03', '03', 'Atención y Transformers', '¿Y si en vez de cargar todo en una libreta, cada palabra pudiera mirar directamente a las demás?',
-        ['En fila', 'Cada palabra mira a todas', 'Consulta, clave y valor', 'Lo que miró la red', 'El precio', 'El Transformer', 'Los híbridos', 'El contrapeso'], 'Sábado · 40 minutos', G3, '03 · Atención y Transformers',
-        notes('Aquí está la <b>idea clave 5</b> y la lectura de tendencia de la semana.'))
+section('b03', '03', 'La atención: mirar directo', '¿Y si en vez de cargar todo en una libreta, cada palabra pudiera mirar directamente a las demás?',
+        ['En fila', 'Cada palabra mira a todas', 'Consulta, clave y valor', 'Lo que miró la red', 'El precio', 'El Transformer', 'Los híbridos', 'El contrapeso'], 'Tema 2 · segunda parte · ≈ 40 minutos', G3, 'Tema 2 · Secuencias, memoria y atención',
+        notes('<b>Tema 2, segunda parte.</b> Aquí está la <b>idea clave 5</b> y la lectura de tendencia de la semana.'), shown='T2')
 
 slide('en-fila', 'La RNN lee en fila', head('La RNN lee en fila: no se puede paralelizar', 'Para leer la palabra 100 necesita haber leído las 99 anteriores. La atención procesa todas a la vez.') +
       demo('serial', 'fill'),
@@ -211,12 +189,12 @@ slide('atencion-cuenta', 'Consulta, claves y valores', head('Cómo decide a qui�
   </div>
   <div class="col" style="gap:1.2em">
     """ + st(2, eq([(r'\text{puntaje}', 'qué tanto coincide', 'out'), ('=', '', 'op'), (r'\text{consulta}\cdot\text{clave}', 'el producto punto de la semana 1', 'x')], size='.82em')) + """
-    """ + st(3, eq([(r'\alpha', 'pesos que suman 1', 'out'), ('=', '', 'op'), (r'\text{softmax}(\text{puntajes})', 'el softmax del viernes', 'x')], size='.82em')) + """
+    """ + st(3, eq([(r'\alpha', 'pesos que suman 1', 'out'), ('=', '', 'op'), (r'\text{softmax}(\text{puntajes})', 'el softmax del Tema 1', 'x')], size='.82em')) + """
     """ + st(4, eq([(r'\text{nuevo}', 'lo que entiende ahora', 'out'), ('=', '', 'op'), (r'\textstyle\sum \alpha\cdot\text{valor}', 'promedio ponderado', 'x')], size='.82em')) + """
   </div>
 </div>""", notes(
     '<b>Idea clave 5 (parte 2).</b> Es la sección 5 del NB04, con los mismos números. Los vectores los escribimos a mano para entender; en un Transformer real se <b>aprenden</b>.',
-    'Paso 2: puntaje = consulta · clave. Socio: 1.5 × 2 + 0 × 0 = 3.0. Cuota: 0. Él: 1.5. Paso 3: softmax (el de las 10 prendas del viernes): 79 %, 4 % y 17.5 %.',
+    'Paso 2: puntaje = consulta · clave. Socio: 1.5 × 2 + 0 × 0 = 3.0. Cuota: 0. Él: 1.5. Paso 3: softmax (el de las 10 prendas del Tema 1): 79 %, 4 % y 17.5 %.',
     'Paso 4: el nuevo significado de «él» es el promedio de los valores ponderado por esos pesos: [0.87, 0.13]. La atención resolvió a quién se refiere.',
     'Con n palabras, todas miran a todas: n × n puntajes. Aquí 3 × 3 = 9; en un texto de mil palabras, un millón. Ese es el precio (dos láminas más).',
     '<span class="q">Pregunta:</span> «Si la consulta fuera [0, 1.5], ¿a quién miraría?» (a «cuota»: buscaría dinero).'),
@@ -233,7 +211,7 @@ slide('atencion-real', 'Lo que miró la red del NB04', head('Lo que miró la red
 slide('costo', 'El precio: comparar con todas', head('El precio: comparar con todas', 'Para generar cada palabra nueva, el Transformer la compara con <b>todas</b> las anteriores y guarda una nota de cada una (la <b>caché KV</b>). El costo crece con el cuadrado de la longitud.', key(5)) +
       demo('cost', 'fill'),
       notes('<b>Idea clave 5 (parte 3): el precio.</b> A la izquierda, cada cuadrito es una comparación: con 8 palabras, 64; con 16, 256. El doble de palabras, cuatro veces más cuentas. Mueve el deslizador.',
-            'Pasos 1 a 4, a la derecha: los tamaños reales de hoy. Un millón de palabras (tokens) son un billón de comparaciones. Los agentes de IA trabajan horas sobre la misma tarea: el costo de releerlo todo se volvió el cuello de botella (lectura).',
+            'Pasos 1 a 4, a la derecha: los tamaños reales actuales. Un millón de palabras (tokens) son un billón de comparaciones. Los agentes de IA trabajan horas sobre la misma tarea: el costo de releerlo todo se volvió el cuello de botella (lectura).',
             'La libreta de la RNN, en cambio, cuesta lo mismo por palabra, sin importar cuán largo sea el texto. Analogía de la lectura: el Transformer, antes de escribir cada palabra, <b>relee la carta completa</b>; la RNN solo mira su libreta.',
             '<span class="q">Pregunta:</span> «Si la atención es tan buena, ¿por qué no usarla siempre?» (por el costo con textos largos: eso abre la tendencia).'),
       block='03', group=G3, minutes=3, steps=4)
@@ -264,7 +242,7 @@ slide('transformer', 'El Transformer: atención apilada', head('El Transformer: 
 </div>""", notes(
     'Pasos 1 a 4: un Transformer es una pila de bloques iguales. Cada bloque: atención (cada palabra mira a todas) y una capa densa (la de la semana 1) aplicada a cada palabra. Se repite N veces.',
     'Detalle para curiosos (en el NB04): los puntajes se dividen entre la raíz del tamaño de los vectores y hay varias «cabezas» de atención en paralelo, cada una buscando relaciones distintas.',
-    'Paso 5, las dos ventajas que cita la lectura. Si hoy le preguntas cualquier cosa a un chatbot, la respuesta la produce casi con seguridad un Transformer.',
+    'Paso 5, las dos ventajas que cita la lectura. Cuando le preguntas cualquier cosa a un chatbot, la respuesta la produce casi con seguridad un Transformer.',
     '<span class="q">Pregunta:</span> «¿Qué parte del Transformer ya conocían de la semana 1?» (la capa densa, la softmax, el producto punto).'),
     block='03', group=G3, minutes=3, steps=5)
 
@@ -301,23 +279,24 @@ slide('contrapeso', 'Lo que la libreta no puede guardar', head('El contrapeso: l
 
 # ======================================================================= 04 · elegir
 section('b04', '04', 'Elegir la arquitectura', 'No gana la arquitectura de moda: gana la que hace la suposición correcta sobre tus datos, y se comprueba con una comparación justa.',
-        ['El mapa', 'Tres preguntas', 'Tu proyecto'], 'Sábado · 30 minutos con la actividad', G4, '04 · Elegir la arquitectura',
-        notes('Cierra la semana aplicando todo al proyecto de titulación.'))
+        ['¿Qué le pondrías?', 'Tres preguntas', 'Tu proyecto', 'Quiz final'], 'Cierre · ≈ 45 minutos con la actividad y el quiz final', G4, 'Cierre · Elegir la arquitectura',
+        notes('<b>Cierre de la semana.</b> Aplicamos los dos temas: primero adivinando la arquitectura de seis casos, después en el proyecto de titulación de cada grupo.'), shown='✓')
 
-ZOO = [('Tabla', 'Densa (MLP)', 'Todo se relaciona con todo.', 'Socios de una cooperativa, ventas por cliente.', 'az'),
-       ('Imagen', 'CNN · o ViT', 'Lo cercano importa; el patrón puede estar en cualquier parte.', 'Rayos X, cultivos fotografiados con dron.', 'am'),
-       ('Secuencia corta', 'RNN · LSTM', 'El orden importa; basta un resumen.', 'Pagos de cada mes, lecturas de sensores.', 'mi'),
-       ('Texto largo', 'Transformer · o híbrido', 'Cada palabra puede necesitar a cualquier otra.', 'Contratos, expedientes, chatbots.', 'am'),
-       ('Grafo', 'GNN', 'Importan las conexiones entre elementos.', 'Transferencias entre cuentas, moléculas, redes de socios.', 'li'),
-       ('Crear datos', 'GAN · difusión', 'Aprender a generar ejemplos nuevos que parezcan reales.', 'Imágenes sintéticas, datos para entrenar.', 'co')]
-slide('zoologico', 'Cada dato con su arquitectura', head('Cada dato con su arquitectura', 'Cada una es una suposición distinta. Las lecturas del sílabo amplían las tres últimas: Transformers, GNN y GAN.') +
-      '<div class="zoo">' + ''.join(st(i // 2 + 1, f'<div class="zc {k}"><span class="d">{d}</span><h3>{a}</h3><span class="s">{s}</span><span class="e">{e}</span></div>') for i, (d, a, s, e, k) in enumerate(ZOO)) + '</div>' +
-      st(4, '<p class="say" style="margin-top:1em">Y se mezclan: una CNN puede leer cada foto de un video y una RNN el orden de las fotos; los híbridos mezclan libreta y atención.</p>'),
-      notes('El mapa de la semana, ampliado con lo que viene en las lecturas del sílabo. Paso 1: tabla y imagen (lo del viernes). Paso 2: secuencia y texto largo (hoy). Paso 3: grafos y generación.',
-            '<b>GNN</b> (redes neuronales de grafos): cuando los datos son nodos y conexiones, por ejemplo cuentas que se transfieren dinero (detección de fraude) o átomos de una molécula. Suponen que un nodo se parece a sus vecinos.',
-            '<b>GAN</b> (Goodfellow et al., 2014): dos redes compiten, una genera y otra juzga si es real. Hoy los modelos de difusión dominan la generación de imágenes.',
-            '<span class="q">Pregunta:</span> «¿Qué arquitectura usarían para detectar fraude en una red de transferencias?» (GNN, o una tabla de características con una densa como línea base).'),
-      block='04', group=G4, minutes=4)
+ZOO = [('Las radiografías de un hospital', 'CNN', 'manchas y bordes: lo cercano importa', 'am'),
+       ('El historial de 24 meses de pagos de un socio', 'RNN · LSTM', 'importa el orden: ¿mejora o empeora?', 'mi'),
+       ('La tabla con 20 datos de cada socio', 'Densa (MLP)', 'en una tabla, todo se relaciona con todo', 'az'),
+       ('Un contrato de 80 páginas: encontrar una cláusula', 'Transformer', 'buscar un dato exacto, aunque esté lejos', 'am'),
+       ('Las transferencias entre cuentas, para detectar fraude', 'GNN · red de grafos', 'importan las conexiones entre cuentas', 'li'),
+       ('Crear fotos de prendas que no existen', 'GAN · difusión', 'no clasifica: genera ejemplos nuevos', 'co')]
+slide('zoologico', '¿Qué arquitectura le pondrías?', head('¿Qué arquitectura le pondrías?', 'Seis casos reales. Primero la clase adivina en el chat; después se revela.') +
+      '<div class="zoo">' + ''.join(f'<div class="zc zq {k}"><span class="d">Caso {i + 1}</span><p class="case6">{c}</p><div class="slot">' + st(i + 1, f'<div class="rev"><h3>{a}</h3><span class="s">{r}</span></div>') + '</div></div>'
+                                    for i, (c, a, r, k) in enumerate(ZOO)) + '</div>' +
+      st(7, '<p class="say" style="margin-top:.7em">Y se mezclan: una CNN lee cada foto de un video y una RNN, el orden de las fotos.</p>'),
+      notes('Ejemplitos para aplicar la idea clave 1. Lee el caso en voz alta, deja 15 segundos para que respondan en el chat y solo entonces avanza: un clic revela cada respuesta.',
+            '1 · Radiografías → <b>CNN</b>: una mancha o un borde se reconocen mirando de cerca, en cualquier parte de la placa. 2 · Historial de pagos → <b>RNN o LSTM</b>: lo que importa es el orden (¿mejora o empeora?), como en el NB04. 3 · La tabla de 20 datos → <b>densa</b>: no hay vecindad ni orden entre columnas; empieza por aquí.',
+            '4 · El contrato de 80 páginas → <b>Transformer</b>: hay que encontrar un dato exacto que puede estar muy lejos; es el examen de memoria del NB04. 5 · Transferencias entre cuentas → <b>GNN</b> (redes neuronales de grafos): los datos son nodos y conexiones; suponen que una cuenta se parece a sus vecinas. 6 · Crear prendas nuevas → <b>GAN o difusión</b>: no clasifica, genera. En una GAN (Goodfellow et al., 2014) dos redes compiten: una genera y la otra juzga si es real. Actualmente los modelos de difusión dominan la generación de imágenes.',
+            'Paso 7: las arquitecturas se combinan. <span class="q">Pregunta:</span> «¿Y para detectar fraude, cuál sería una buena línea base?» (una tabla de características con una densa).'),
+      block='04', group=G4, minutes=5, steps=7)
 
 Q3 = [('1', '¿Qué estructura tienen mis datos?', 'Tabla, imagen, secuencia, texto largo o grafo. La forma <code>.shape</code> ya da una pista.'),
       ('2', '¿Qué cuesta?', 'Datos para entrenar, parámetros, tiempo de entrenamiento y memoria al usarlo todos los días.'),
@@ -348,22 +327,22 @@ slide('quizfinal2', 'Quiz final: ¿cuánto avanzamos?', head('Quiz final: ¿cuá
 <div class="split top" style="grid-template-columns:7fr 4fr;margin-top:1em">
   <ol class="steps-list" style="gap:1.2em">
     <li><span class="k">1</span><span>Abre <b>deeplearningweek1.vercel.app/?final2</b></span></li>
-    <li><span class="k">2</span><span>Usa <b>el mismo nombre</b> que en el pre-quiz del viernes</span></li>
+    <li><span class="k">2</span><span>Usa <b>el mismo nombre</b> que en el pre-quiz del inicio de la semana</span></li>
     <li><span class="k">3</span><span>Pega tu código en el chat de Teams</span></li>
   </ol>
   <div class="center">{qr('final2')}</div>
 </div>""", notes(
     'Ocho minutos. El mismo nombre que en el pre-quiz: el panel de resultados de la semana 2 los empareja por nombre.',
     'Después de clase, copia el chat en <b>Resultados_quiz.html</b> de la semana 2 y verás el avance en cada idea clave.'),
-    block='C', group=GC, minutes=8, label='Cierre')
+    block='04', group=GC, minutes=8)
 
-WM = [('Viernes', 'Una foto es una tabla de 784 números', ''), ('Idea 1', 'cada arquitectura es una suposición', 'am'), ('Idea 2', 'la lupa: un filtro de 3 × 3 recorre la foto', 'am'), ('Idea 3', 'compartir el filtro: 8 veces menos parámetros', 'am'),
-      ('Sábado', 'en una secuencia el orden importa', ''), ('Idea 4', 'la libreta resume… y se olvida', 'mi'), ('LSTM', 'una cinta con tres válvulas', 'mi'), ('Idea 5', 'la atención mira a todas, a un precio n²', 'am'),
+WM = [('Tema 1', 'Una foto es una tabla de 784 números', ''), ('Idea 1', 'cada arquitectura es una suposición', 'am'), ('Idea 2', 'la lupa: un filtro de 3 × 3 recorre la foto', 'am'), ('Idea 3', 'compartir el filtro: 8 veces menos parámetros', 'am'),
+      ('Tema 2', 'en una secuencia el orden importa', ''), ('Idea 4', 'la libreta resume… y se olvida', 'mi'), ('LSTM', 'una cinta con tres válvulas', 'mi'), ('Idea 5', 'la atención mira a todas, a un precio n²', 'am'),
       ('Tendencia', 'híbridos: apuntes y libro', 'li'), ('Contrapeso', 'la libreta no lo guarda todo', 'li'), ('Elegir', 'suposición, costo y comparación justa', 'az'), ('Semana 3', 'robustez, transfer learning y explicabilidad', 'az')]
 slide('mapa-semana2', 'La semana en un mapa', head('La semana en un mapa', 'Todo lo de la semana, en el orden en que lo vimos. Borde amarillo: las 5 ideas clave.') +
       '<div class="wmap">' + ''.join(st(i // 4 + 1, f'<div class="wm {k}"><span>{a}</span><b>{b}</b></div>') for i, (a, b, k) in enumerate(WM)) + '</div>',
-      notes('Recorre el camino en voz alta, fila por fila. Si alguien quiere repasar, la guía de estudio de la semana 2 tiene una sección por bloque.'),
-      block='C', group=GC, minutes=2, label='Cierre')
+      notes('Recorre el camino en voz alta, fila por fila. Si alguien quiere repasar, la guía de estudio de la semana 2 tiene una sección por tema.'),
+      block='04', group=GC, minutes=2)
 
 NEXT = [('Robustez', 'Al mover la prenda 4 píxeles, las dos redes se cayeron. ¿Cómo se entrena una red que aguante? Aumento de datos y regularización.'),
         ('Transfer learning', 'Usar una CNN o un Transformer ya entrenado con millones de ejemplos y ajustarlo a tus pocos datos.'),
@@ -372,12 +351,12 @@ slide('lo-que-viene2', 'Lo que viene: semana 3', head('Lo que viene: semana 3', 
       '<div class="cases" style="margin-top:.4em">' + ''.join(st(i + 1, f'<div class="case"><span class="chip">{a}</span><p>{b}</p></div>') for i, (a, b) in enumerate(NEXT)) + '</div>',
       notes('Deja tres preguntas sembradas, todas con algo que ya vieron: el desplazamiento de 4 píxeles (robustez), entrenar desde cero (transfer learning) y los mapas y pesos de atención (explicabilidad).',
             '<span class="q">Pregunta para cerrar:</span> «Si su proyecto tiene pocos datos, ¿entrenarían una CNN desde cero o partirían de una ya entrenada?»'),
-      block='C', group=GC, minutes=2, label='Cierre')
+      block='04', group=GC, minutes=2)
 
 slide('recursos2', 'Para repasar y gracias', head('Para repasar, y gracias') + f"""
 <div class="split" style="grid-template-columns:7fr 4fr;gap:2.4em;align-items:start">
   <div class="col" style="gap:.9em">
-    <div class="mapi"><span>Guía de estudio</span><b>los 4 bloques con ejemplos, figuras y ejercicios resueltos</b></div>
+    <div class="mapi"><span>Guía de estudio</span><b>el recorderis, los dos temas y el cierre, con ejemplos y ejercicios resueltos</b></div>
     <div class="mapi"><span>Slides</span><b>estas mismas, interactivas: mueve los deslizadores en casa</b></div>
     <div class="mapi"><span>NB03 y NB04</span><b>CNN y secuencias: todo escrito, para leer y experimentar</b></div>
     <div class="mapi"><span>Lectura</span><b>«¿El regreso de las redes recurrentes?» y su encuesta en Canvas</b></div>
@@ -385,4 +364,4 @@ slide('recursos2', 'Para repasar y gracias', head('Para repasar, y gracias') + f
   </div>
   <div class="center">{qr('guia2')}</div>
 </div>""", notes('Todo está en la página de la semana 2 (el código QR abre la guía de estudio). Al terminar, <b>«Finalizar reunión para todos»</b>.'),
-    block='C', group=GC, minutes=1, label='Cierre')
+    block='04', group=GC, minutes=1)

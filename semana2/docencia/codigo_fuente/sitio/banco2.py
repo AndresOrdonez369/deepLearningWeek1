@@ -7,11 +7,11 @@ The pre-quiz adds three simple base items; the final adds five more items about 
 
 # tema keys map to study-guide anchors (semana2/guia/index.html#b01 ...)
 TEMAS = {
-    "b00": "00 · Keras en 4 pasos",
-    "b01": "01 · Imágenes y redes convolucionales",
-    "b02": "02 · Secuencias, RNN y LSTM",
-    "b03": "03 · Atención, Transformers y la tendencia",
-    "b04": "04 · Elegir la arquitectura",
+    "b00": "Recorderis · Keras en 4 pasos",
+    "b01": "Tema 1 · Imágenes y redes convolucionales",
+    "b02": "Tema 2 · Secuencias, RNN y LSTM",
+    "b03": "Tema 2 · Atención, Transformers y la tendencia",
+    "b04": "Cierre · Elegir la arquitectura",
     "pre": "Bases previas",
 }
 

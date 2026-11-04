@@ -1,4 +1,5 @@
-"""Semana 2 · viernes 6 de noviembre · 18:00-20:00 · bloques 00 (Keras pendiente) y 01 (imágenes y CNN)."""
+"""Semana 2 · Encuadre, 00 Recorderis de la semana 1 (con Keras) y Tema 1 (imágenes y CNN).
+Organized by themes, not by days: each session simply continues where the previous one stopped."""
 import json, pathlib
 from kit import slide, head, key, chip, st, demo, count, qr, notes, eq, hist, code
 
@@ -10,15 +11,14 @@ def pct(v, d=1):
     return f'{v * 100:.{d}f}'.replace('.', '.') + ' %'
 
 
-G0 = 'Viernes · Encuadre'
-GR = 'Viernes · 00 Lo que quedó pendiente: Keras'
-G1 = 'Viernes · 01 Cómo mira una red una imagen'
-GV = 'Viernes · Cierre'
+G0 = 'Encuadre'
+GR = '00 · Recorderis: la semana 1'
+G1 = 'Tema 1 · Imágenes y CNN'
 
 
-def section(sid, n, title, lede, items, when, group, blockname, note):
+def section(sid, n, title, lede, items, when, group, blockname, note, shown=None):
     lst = ''.join(f'<span>{i}</span>' for i in items)
-    body = (f'<div class="sec"><div class="n">{n}</div><h2>{title}</h2>'
+    body = (f'<div class="sec"><div class="n">{shown or n}</div><h2>{title}</h2>'
             f'<p class="lede">{lede}</p><div class="lst">{lst}</div><p class="when">{when}</p></div>')
     slide(sid, title, body, note, layout='L-section', block=n, group=group, minutes=0.5, blockname=blockname)
 
@@ -45,29 +45,28 @@ slide('portada2', 'De mirar imágenes a leer secuencias', f"""
     <h1 class="display" style="font-size:4.9em">De mirar imágenes a leer secuencias</h1>
     <p class="lede" style="font-size:1.45em">Neural Networks: Deep Learning · Arquitecturas</p>
     <div class="tags after">{chip('UIDE · Maestría en Ciencia de Datos')}{chip('Semana 2')}</div>
-    <p class="meta"><b>Andrés Ordóñez-Bolaños, MSc</b><br>Viernes 6 · 18:00–20:00 &nbsp;·&nbsp; Sábado 7 · 08:00–12:00<br>Noviembre de 2026 · Microsoft Teams</p>
+    <p class="meta"><b>Andrés Ordóñez-Bolaños, MSc</b><br>6 y 7 de noviembre de 2026 · Microsoft Teams</p>
   </div>
   <div class="right cv" style="padding:8em 4em 8em 0">{demo('conv', 'fig', mode='cover', img=0, k='vertical', alt='Una lupa de 3 por 3 recorre la foto de un botín y dibuja sus bordes')}</div>
 </div>""", notes(
     '<b>Antes de hablar:</b> verifica que la grabación está corriendo. Comparte esta ventana y abre la vista del presentador con <b>P</b>.',
-    'Bienvenida: «La semana pasada construimos una neurona y una red para datos de tabla. Esta semana le enseñamos a la red a <b>mirar imágenes</b> (hoy) y a <b>leer secuencias</b> (mañana)».',
-    'La animación de la derecha es lo que vamos a entender hoy: una lupa de 3 × 3 recorre la foto de un botín y, a la derecha, va dibujando dónde encontró bordes. Es una red convolucional en acción.'),
-    layout='L-cover', block='00', group=G0, minutes=1, blockname='Encuadre')
+    'Bienvenida: «La semana pasada construimos una neurona y una red para datos de tabla. Esta semana le enseñamos a la red a <b>mirar imágenes</b> (Tema 1) y a <b>leer secuencias</b> (Tema 2)».',
+    'La animación de la derecha es lo que vamos a entender en el Tema 1: una lupa de 3 × 3 recorre la foto de un botín y, a la derecha, va dibujando dónde encontró bordes. Es una red convolucional en acción.'),
+    layout='L-cover', block='E', group=G0, minutes=1, blockname='Encuadre')
 
-RAIL_V = [('18:00', 'Pre-quiz', 'q'), ('18:09', '00 · Keras (pendiente)', ''), ('18:22', '01 · Cómo mira una imagen', ''),
-          ('18:54', 'Práctica NB03', 'p'), ('19:29', 'Densa contra CNN', ''), ('19:40', 'Cierre y lectura', 't')]
-RAIL_S = [('08:00', 'Repaso', ''), ('08:08', '02 · Secuencias', ''), ('08:43', 'Práctica NB04', 'p'), ('09:30', 'Pausa', 'b'),
-          ('09:45', '03 · Atención', 't'), ('10:25', '04 · Elegir y tu proyecto', ''), ('11:00', 'Quiz final', 'q')]
-slide('ruta2', 'La semana en dos sesiones', head('La semana en dos sesiones', 'Dos preguntas: <b>¿cómo mira una red una imagen?</b> y <b>¿cómo lee una secuencia?</b> Más corta que la semana 1 y con más tiempo de práctica.') + f"""
-<div class="col" style="gap:2.2em;margin-top:.6em">
-  {st(1, '<h3 class="dayh">Viernes 6 <span class="mu">18:00–20:00 · imágenes</span></h3>' + rail(RAIL_V))}
-  {st(2, '<h3 class="dayh">Sábado 7 <span class="mu">08:00–12:00 · secuencias y atención</span></h3>' + rail(RAIL_S))}
-  {st(2, '<div class="legend"><span><i style="background:var(--amber)"></i>práctica en Colab</span><span><i style="background:var(--mint)"></i>quiz tipo Kahoot</span><span><i style="background:var(--lilac)"></i>lectura de tendencia</span></div>')}
-</div>""", notes(
-    'Viernes: terminamos lo que quedó de Keras (13 minutos) y entramos a las imágenes: la red convolucional. Sábado: secuencias, la libreta de la RNN, su olvido, la atención y la tendencia de la lectura.',
-    'Recalca: <b>las prácticas son en clase y no tienen nota</b>. Los notebooks NB03 y NB04 traen todo el código escrito: se leen, se ejecutan y se responden preguntas para pensar.',
-    'Esta semana hay colchón de tiempo a propósito: si una práctica se alarga, no pasa nada.'),
-    block='00', group=G0, minutes=1)
+ROUTE = [('00', 'Recorderis', 'La semana 1 en una sola red y Keras en 4 pasos, lo que quedó pendiente.', 'NB02 en casa', '≈ 25 min', 'az'),
+         ('Tema 1', 'Cómo mira una red una imagen', 'La lupa de 3 × 3, los filtros, compartir pesos y la CNN contra la densa.', 'NB03 en clase', '≈ 1 h 20', 'am'),
+         ('Tema 2', 'Cómo lee una red una secuencia', 'La libreta de la RNN, el olvido, la LSTM, la atención y la tendencia.', 'NB04 en clase', '≈ 1 h 50', 'mi'),
+         ('Cierre', 'Elegir la arquitectura', '¿Qué arquitectura le pondrías?, tu proyecto y el quiz final.', 'Quiz final', '≈ 45 min', 'li')]
+slide('ruta2', 'La semana en dos temas', head('La semana en dos temas', 'Dos preguntas: <b>¿cómo mira una red una imagen?</b> y <b>¿cómo lee una red una secuencia?</b> Antes, un recorderis; al final, cómo elegir.') +
+      '<div class="route4">' + ''.join(st(i + 1, f'<div class="rt {k}"><span class="k num">{a}</span><h3>{t}</h3><p>{d}</p><div class="ft"><span class="chip">{nb}</span><span class="du num">{du}</span></div></div>')
+                                       for i, (a, t, d, nb, du, k) in enumerate(ROUTE)) + '</div>' +
+      st(4, '<div class="keybar" style="margin-top:1.4em"><span>Cada sesión <b>sigue donde terminó la anterior</b>: el orden importa, el reloj no. Las prácticas son en clase y <b>no tienen nota</b>.</span></div>'),
+      notes('La semana tiene dos temas y no está atada a los días. Si el Tema 1 se alarga, el Tema 2 empieza en la sesión siguiente: no pasa nada.',
+            'Recorderis: 10 minutos de la semana 1 y lo que quedó pendiente, Keras. Tema 1: la red convolucional (con el NB03). Tema 2: la red recurrente, su olvido y la atención (con el NB04 y la lectura de tendencia). Cierre: elegir la arquitectura y el quiz final.',
+            'Recalca: <b>las prácticas son en clase y no tienen nota</b>. Los notebooks traen todo el código escrito: se leen, se ejecutan y se responden preguntas para pensar.',
+            'Las duraciones son aproximadas (incluyen las prácticas) y suman unas 4 h 20 de las 6 horas de la semana: hay colchón a propósito, para preguntas y para lo que se alargue.'),
+      block='E', group=G0, minutes=1, steps=4)
 
 slide('prequiz2', 'Pre-quiz: ¿de dónde partimos?', head('Antes de empezar: ¿de dónde partimos?', '8 preguntas cortas tipo Kahoot. <b>No es nota</b>: es tu punto de partida para medir cuánto avanzas esta semana.') + f"""
 <div class="split top" style="grid-template-columns:7fr 4fr;margin-top:1em">
@@ -80,24 +79,55 @@ slide('prequiz2', 'Pre-quiz: ¿de dónde partimos?', head('Antes de empezar: ¿d
   <div class="center">{qr('pre2')}</div>
 </div>""", notes(
     'Dales 6 minutos. Cuando la mayoría haya pegado su código en el chat, sigue.',
-    'Cinco de las ocho preguntas son las <b>ideas clave</b> de la semana 2 y vuelven en el quiz final del sábado. El panel <b>Resultados_quiz.html</b> de la semana 2 lee los códigos del chat.',
+    'Cinco de las ocho preguntas son las <b>ideas clave</b> de la semana 2 y vuelven en el quiz final del cierre. El panel <b>Resultados_quiz.html</b> de la semana 2 lee los códigos del chat.',
     '<span class="q">Pregunta para el chat:</span> «¿Cuál les pareció más difícil?» Anota la respuesta.'),
-    block='00', group=G0, minutes=6)
+    block='E', group=G0, minutes=6)
 
 IDEAS = ['Cada arquitectura es una suposición sobre los datos', 'Qué hace un filtro: una lupa que recorre la imagen',
          'Por qué una CNN necesita muchos menos parámetros', 'Qué guarda una RNN y por qué se olvida', 'Qué hace la atención y cuál es su precio']
-slide('metas2', 'Las 5 ideas clave de la semana', head('El sábado vas a poder explicar estas 5 ideas', 'Las medimos dos veces: en el pre-quiz de hoy y en el quiz final del sábado.') +
+slide('metas2', 'Las 5 ideas clave de la semana', head('Al terminar la semana vas a poder explicar estas 5 ideas', 'Las medimos dos veces: en este pre-quiz y en el quiz final del cierre.') +
       '<ol class="steps-list" style="gap:1.05em;margin-top:.4em">' + ''.join(
           st(i + 1, f'<span class="k key">{i + 1}</span><span class="big" style="color:var(--ink)">{t}</span>', 'li') for i, t in enumerate(IDEAS)) + '</ol>' +
-      st(5, '<p class="say" style="margin-top:1.2em">Hoy: <b>1, 2 y 3</b>. Mañana: <b>4 y 5</b>. Cada una tiene su lámina con la etiqueta amarilla <b>Idea clave</b>.</p>'),
+      st(5, '<p class="say" style="margin-top:1.2em">Tema 1: <b>ideas 1, 2 y 3</b>. Tema 2: <b>ideas 4 y 5</b>. Cada una tiene su lámina con la etiqueta amarilla <b>Idea clave</b>.</p>'),
       notes('Esta es la promesa de la semana. La primera es el hilo de todo: <b>cada arquitectura es una suposición sobre cómo están organizados los datos</b>. Las demás son consecuencias.',
             'Si al final alguien no puede explicar alguna con sus palabras, la guía de estudio de la semana 2 tiene una sección para cada una.'),
-      block='00', group=G0, minutes=1)
+      block='E', group=G0, minutes=1)
 
-# ======================================================================= 00 · Keras (pendiente de la semana 1)
-section('b00', '00', 'Lo que quedó pendiente: Keras', 'La semana pasada hicimos la red a mano. Keras la arma, la entrena y la usa en diez líneas.',
-        ['Motor y volante', 'Los 4 pasos', 'Mírala aprender', 'El NB02 en casa'], 'Viernes · 13 minutos', GR, '00 · Lo que quedó pendiente: Keras',
-        notes('Este bloque cierra lo que no alcanzamos el sábado pasado. Es corto a propósito: hoy mismo, en el NB03, vamos a usar los mismos 4 pasos con capas nuevas.'))
+# ======================================================================= 00 · recorderis de la semana 1 (con Keras, lo que quedó pendiente)
+section('b00', '00', 'Recorderis: la semana 1', 'Antes de mirar imágenes, repasemos en 10 minutos cómo aprende una red. Y terminamos lo que quedó pendiente: Keras.',
+        ['La semana 1 en una red', 'Tres preguntas', 'Motor y volante', 'Los 4 pasos', 'Mírala aprender', 'El NB02 en casa'], '≈ 25 minutos', GR, '00 · Recorderis: la semana 1',
+        notes('Un repaso corto para conectar: todo lo de esta semana se apoya en la neurona, la pérdida y el gradiente de la semana 1.',
+              'Después del repaso viene lo que no alcanzamos: Keras en 4 pasos. Es corto a propósito: en el NB03 usamos los mismos 4 pasos con capas nuevas.'))
+
+# ---- the week 1 in one chain (each node with its week-1 analogy and number)
+CHAIN = [('Datos en una tabla', 'cada fila, un socio; cada columna, un dato', 'la <b>etiqueta</b> es la respuesta conocida: el comité de crédito', 'az'),
+         ('Neurona', 'z = w·x + b', 'tu nota final: cada nota por lo que pesa, menos la exigencia · socio A: <b class="num">z = 2.81</b>', 'am'),
+         ('Activación', 'interruptor · regulador · válvula', 'la sigmoide da una probabilidad; la ReLU <b>dobla la línea</b>', 'am'),
+         ('Red en capas', 'una neurona = una línea', 'XOR necesita <b>dos</b> neuronas ocultas', 'mi'),
+         ('Error y pérdida', 'error = real − predicho', 'la pérdida es un solo número: casas de Quito <b class="num">MSE = 132.25</b>; la BCE del meteorólogo «seguro»', 'co'),
+         ('Descenso de gradiente', 'peso nuevo = peso − η · pendiente', 'bajar el Cotopaxi con neblina; <b>η</b> es el largo del paso', 'co'),
+         ('Retropropagación', 'repartir la culpa hacia atrás', 'los engranajes: la regla de la cadena', 'li'),
+         ('Keras', 'construir · compilar · entrenar · predecir', 'TensorFlow es el motor; Keras, el volante (lo vemos ahora)', 'az'),
+         ('Métricas', '87 % puede no valer nada', 'no encontró a ningún moroso: mira la <b>matriz de confusión</b>', 'mi')]
+slide('recorderis', 'La semana 1 en una sola red', head('La semana 1 en una sola red', 'Nueve ideas en cadena: cada una resuelve el problema que dejó la anterior.') +
+      '<div class="chain9">' + ''.join(st(i + 1, f'<div class="ch {k}"><span class="i num">{i + 1}</span><h3>{t}</h3><span class="f">{f}</span><p>{a}</p></div>') for i, (t, f, a, k) in enumerate(CHAIN)) + '</div>' +
+      st(10, '<div class="keybar" style="margin-top:1em"><span>Hasta ahora los datos eran <b>tablas</b>. ¿Y si son <b>fotos</b>? ¿Y si son <b>frases</b>?</span></div>'),
+      notes('Un clic por idea. Antes de cada clic, pregunta a la clase: «¿qué venía después?». Que lo digan ellos; la lámina solo confirma.',
+            '1 · Los datos: una tabla con características y la etiqueta (la respuesta conocida). 2 · La neurona: multiplica cada dato por su peso, suma y añade el sesgo; como la nota final del curso. 3 · La activación decide la salida y dobla la línea. 4 · Una neurona solo traza una línea: para XOR hacen falta capas.',
+            '5 · El error es real − predicho, uno por caso; la pérdida resume todos en un número. 6 · El gradiente dice hacia dónde bajar; η es el largo del paso. 7 · La retropropagación reparte la culpa hacia atrás, capa por capa. 8 · Keras hace todo eso en diez líneas (lo vemos en dos minutos). 9 · Y la exactitud sola engaña: el modelo del 87 % no encontraba morosos.',
+            'Paso 10, el puente de la semana: <span class="q">«Hasta ahora los datos eran tablas. ¿Y si son fotos? ¿Y si son frases?»</span> Esa pregunta abre el Tema 1 y el Tema 2.'),
+      block='00', group=GR, minutes=6, steps=10)
+
+QA3 = [('¿Qué hace una neurona con sus datos?', 'Multiplica cada dato por su peso, suma todo y añade el sesgo: <b class="num">z = w·x + b</b>.', 'Como tu nota final: cada nota pesa distinto y al final se compara con la exigencia.'),
+       ('Si la pendiente de un peso es <b class="num">+4</b>, ¿el peso sube o baja?', '<b>Baja.</b> Caminamos en contra de la pendiente.', 'Con η = 0.1, el peso 2 pasa a 2 − 0.1 · 4 = <b class="num">1.6</b>. La pendiente apunta cuesta arriba.'),
+       ('Un modelo dice «al día» a todos los socios y acierta el <b class="num">87 %</b>. ¿Es bueno?', '<b>No.</b> No encuentra a ningún moroso.', 'La exactitud engaña cuando lo que buscas es poco frecuente: mira la matriz de confusión y el recall.')]
+slide('recorderis-preguntas', 'Tres preguntas para calentar', head('Tres preguntas para calentar', 'Respondan en el chat <b>antes</b> de que aparezca la respuesta. Vienen del quiz de la semana 1.') +
+      '<div class="qa3">' + ''.join(f'<div class="qr3"><span class="n num">{i + 1}</span><p class="q">{q}</p>' + st(i + 1, f'<div class="a"><p class="ans">{a}</p><p class="why">{w}</p></div>') + '</div>' for i, (q, a, w) in enumerate(QA3)) + '</div>',
+      notes('Práctica de recuerdo: es lo que mejor fija lo aprendido. Lee la pregunta, espera 20 segundos de respuestas en el chat y solo entonces avanza.',
+            '1 · La neurona: suma con pesos más el sesgo. Si alguien dice «elige el dato más grande», es el error típico del pre-quiz de la semana 1.',
+            '2 · La pendiente +4 dice que si el peso sube, la pérdida sube: por eso el paso va al revés, hacia abajo. Con η = 0.1: 2 − 0.4 = 1.6.',
+            '3 · El 87 % de la trampa del comité: 87 de cada 100 socios estaban al día, así que decir siempre «al día» acierta 87 % sin encontrar un solo moroso.'),
+      block='00', group=GR, minutes=4, steps=3)
 
 ICON = {
     'py': '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M14 12 L5 20 L14 28 M26 12 L35 20 L26 28 M22 9 L18 31"/></svg>',
@@ -126,8 +156,8 @@ slide('motor-volante', 'TensorFlow y Keras: el motor y el volante', head('Tensor
   </div>
 </div>""", notes(
     '<b>Esto quedó pendiente de la semana 1.</b> TensorFlow y Keras son librerías de Python: código que otros escribieron y que importamos para no reinventarlo.',
-    '<b>TensorFlow</b> (Google, 2015) es el motor: guarda los números en «tensores», calcula las culpas solo (la retropropagación) y puede usar la GPU. <b>Keras</b> (François Chollet, 2015; hoy Keras 3) es el volante: capas listas, <code>compile</code> y <code>fit</code>.',
-    'Las tres líneas de <code>import</code> abren el NB02 y también el NB03 de hoy.'),
+    '<b>TensorFlow</b> (Google, 2015) es el motor: guarda los números en «tensores», calcula las culpas solo (la retropropagación) y puede usar la GPU. <b>Keras</b> (François Chollet, 2015; actualmente Keras 3) es el volante: capas listas, <code>compile</code> y <code>fit</code>.',
+    'Las tres líneas de <code>import</code> abren el NB02 y también el NB03 del Tema 1.'),
     block='00', group=GR, minutes=2)
 
 CODE_K = code("""
@@ -147,7 +177,7 @@ STEPS4 = [('1 · Construir', 'apilar capas como LEGO: ReLU dentro, sigmoide a la
           ('2 · Compilar', 'Adam baja la montaña; la BCE mide qué tan mal vamos'),
           ('3 · Entrenar', '<code>fit</code>: adelante, culpa hacia atrás y un paso, 60 vueltas'),
           ('4 · Predecir', 'una probabilidad; con el umbral 0.5, sí o no')]
-slide('keras-4pasos', 'Keras en 4 pasos', head('Keras en 4 pasos: construir, compilar, entrenar y predecir', 'El problema de las lunas: 600 puntos de dos clases, cada uno con 2 datos. La misma receta sirve para fotos (hoy) y para secuencias (mañana).') + f"""
+slide('keras-4pasos', 'Keras en 4 pasos', head('Keras en 4 pasos: construir, compilar, entrenar y predecir', 'El problema de las lunas: 600 puntos de dos clases, cada uno con 2 datos. La misma receta sirve para fotos (Tema 1) y para secuencias (Tema 2).') + f"""
 <div class="split" style="grid-template-columns:7fr 6fr;align-items:start;gap:2em">
   {CODE_K}
   <div class="col" style="gap:.8em">
@@ -173,18 +203,19 @@ history = model.fit(X_train, y_train, epochs=60, batch_size=32, validation_split
             '<span class="q">Pregunta:</span> «¿Qué le pasaría a la frontera si la red no tuviera ReLU?» (sería una línea recta: la semana 1).'),
       block='00', group=GR, minutes=4, steps=1)
 
-practice('nb02-casa', 'El NB02 queda para casa', 'Si el sábado no alcanzaste, empieza por las partes <b>E</b> y <b>F</b>: son las de esta lámina y la anterior.',
+practice('nb02-casa', 'El NB02 queda para casa', 'Si en la semana 1 no alcanzaste, empieza por las partes <b>E</b> y <b>F</b>: son las de esta lámina y la anterior.',
          ['<b>E</b> · Keras paso a paso: <b>XOR resuelto</b> con 33 parámetros', '<b>F</b> · Las lunas: <b>337</b> parámetros y <b>95 %</b> en el examen final',
           '<b>Experimento 2</b> · los círculos con más de <b>90 %</b>'], 'nb02', 30, GR, '00',
          notes('No lo hacemos en clase: queda para casa. Las partes A a D (las cuentas a mano) son opcionales si ya entendieron la retropropagación.',
-               '<b>Puente al bloque siguiente:</b> las lunas eran una tabla de 2 columnas. ¿Qué pasa si la entrada es una foto de 784 números? La receta de Keras es la misma; cambian las capas.'),
+               '<b>Puente al Tema 1:</b> las lunas eran una tabla de 2 columnas. ¿Qué pasa si la entrada es una foto de 784 números? La receta de Keras es la misma; cambian las capas.'),
          extra=st(1, '<div class="keybar" style="margin-top:1em"><span><b>Puente:</b> las lunas eran una tabla de <b>2 columnas</b>. ¿Y si la entrada es una foto de <b>784 números</b>?</span></div>'),
          tag='En casa · sin nota', slot=2)
 
 # ======================================================================= 01 · imágenes
 section('b01', '01', 'Cómo mira una red una imagen', 'Una foto pequeña ya tiene 784 números. ¿Conectamos todos con todos, o miramos de cerca?',
-        ['Una foto son números', 'La densa aplana', 'La suposición', 'La lupa', 'Mapas', 'Compartir', 'Pooling', 'En Keras', 'Softmax'], 'Viernes · 32 minutos', G1, '01 · Cómo mira una red una imagen',
-        notes('Aquí están las <b>ideas clave 1, 2 y 3</b>. Cierra con la práctica NB03.'))
+        ['Una foto son números', 'La densa aplana', 'La suposición', 'La lupa', 'Mapas', 'Compartir', 'Pooling', 'En Keras', 'Softmax', 'Práctica NB03'], 'Tema 1 · ≈ 1 h 20 con el NB03', G1, 'Tema 1 · Imágenes y CNN',
+        notes('<b>Tema 1.</b> Aquí están las <b>ideas clave 1, 2 y 3</b>. Termina con la práctica NB03, el duelo densa contra CNN y un cierre del tema.',
+              'Si la sesión se acaba en medio del tema, no pasa nada: la siguiente sigue donde quedamos.'), shown='T1')
 
 slide('imagen-numeros', 'Una imagen es una tabla de números', head('Una imagen es una tabla de números', '<b>Fashion-MNIST</b> (Zalando, 2017): 70 000 fotos de ropa de 28 × 28 píxeles en 10 clases. Cada píxel es un brillo: <b>0 es negro y 255 es blanco</b>.') +
       demo('pixels', 'fill') +
@@ -214,14 +245,14 @@ ICRNN = ('<svg viewBox="0 0 200 160" aria-hidden="true"><rect x="40" y="16" widt
          '<path d="M10 150 L190 150" stroke="#b6c6d7" stroke-width="3"/><path d="M178 142 L192 150 L178 158" fill="none" stroke="#b6c6d7" stroke-width="3"/></svg>')
 CARDS = [('Densa', ICDENSE, 'Supone que <b>todo se relaciona con todo</b>.', 'Tablas: los socios de una cooperativa, cada columna un dato.', 'az'),
          ('Convolucional · CNN', ICCNN, 'Supone que <b>lo cercano importa</b> y que el mismo patrón puede estar <b>en cualquier parte</b>.', 'Imágenes: una lupa que recorre la foto.', 'am'),
-         ('Recurrente · RNN', ICRNN, 'Supone que <b>el orden importa</b> y resume lo leído en una libreta.', 'Secuencias: frases, pagos de cada mes. Mañana.', 'mi')]
+         ('Recurrente · RNN', ICRNN, 'Supone que <b>el orden importa</b> y resume lo leído en una libreta.', 'Secuencias: frases, pagos de cada mes. En el Tema 2.', 'mi')]
 slide('suposicion', 'Cada arquitectura es una suposición', head('Cada arquitectura es una suposición sobre los datos', 'Una arquitectura no es solo una lista de capas: es una apuesta sobre <b>cómo están organizados</b> los datos.', key(1)) +
       '<div class="cards3">' + ''.join(st(i + 1, f'<div class="acard{" hot" if k == "am" else ""}"><div class="ic">{ic}</div><h3 class="{k}">{t}</h3><p class="sup">{s}</p><p class="ex">{e}</p></div>') for i, (t, ic, s, e, k) in enumerate(CARDS)) + '</div>' +
       st(4, '<div class="keybar" style="margin-top:.8em"><span>Si la suposición es cierta, la red <b>aprende más con menos</b>. Si no lo es, le estorba. Elegir arquitectura = elegir qué suponemos.</span></div>'),
       notes('<b>Idea clave 1: el hilo de toda la semana.</b> La frase viene de la lectura de tendencia: «una arquitectura no es solo una lista de capas: es una suposición sobre cómo están organizados los datos».',
             'Densa: cualquier dato puede relacionarse con cualquier otro. Perfecto para una tabla, donde el orden de las columnas no significa nada.',
             'CNN: un borde, una esquina o una textura se reconocen mirando una ventana pequeña, y el mismo detector sirve en cualquier parte de la foto. Analogía de la lectura: <b>una lupa que recorre toda la imagen</b>.',
-            'RNN: lee elemento por elemento y va guardando lo leído en una <b>libreta pequeña</b>. Es lo de mañana.',
+            'RNN: lee elemento por elemento y va guardando lo leído en una <b>libreta pequeña</b>. Es el Tema 2.',
             '<span class="q">Pregunta:</span> «Los datos de su proyecto de titulación, ¿son tabla, imagen o secuencia? ¿Qué suposición tendría sentido?»'),
       block='01', group=G1, minutes=3)
 
@@ -367,21 +398,21 @@ slide('historia-cnn', 'De los cheques a ImageNet', head('De los cheques a ImageN
       '<div class="tl hist-tl" style="margin-top:.4em">' + ''.join(st(1 if i < 3 else 2, f'<div class="ev"><span class="y num">{y}</span><i></i><span class="d">{d}</span></div>') for i, (y, d) in enumerate(HCNN)) + '</div>' +
       st(3, '<div class="trendbar" style="margin-top:1.6em">' + chip('Lectura de tendencia', 'trend') + '<span>En 2023, Google DeepMind entrenó CNN con <b>el mismo presupuesto de cómputo</b> que los Vision Transformers más fuertes: empate técnico, más de 90 % en ImageNet. «No hay evidencia fuerte de que los ViT superen a las CNN cuando se evalúan con justicia» (Smith et al., 2023).</span></div>'),
       notes('Recorrido rápido. Lo importante: la CNN no es nueva. LeCun la usó en 1989 para leer códigos postales y en 1998 LeNet-5 leía cheques. En 2012 AlexNet, entrenada en GPU, ganó ImageNet por mucha diferencia (la misma historia de la semana 1).',
-            'En 2020 llegó el Vision Transformer: la atención de mañana aplicada a pedazos de imagen. Muchos dieron por muertas a las CNN.',
+            'En 2020 llegó el Vision Transformer: la atención (Tema 2) aplicada a pedazos de imagen. Muchos dieron por muertas a las CNN.',
             '<b>Puente con la lectura:</b> con una comparación justa (mismo cómputo y datos), las CNN empataron. Es la misma moraleja de los optimizadores de la semana 1: antes de declarar un ganador, que todos corran la misma carrera.',
             '<span class="q">Pregunta:</span> «¿Qué significa comparar con justicia en su proyecto?» (mismos datos, mismo presupuesto, misma métrica).'),
       block='01', group=G1, minutes=4)
 
-slide('cierre-viernes2', 'Lo que te llevas hoy', head('Lo que te llevas hoy') + f"""
+slide('cierre-tema1', 'Lo que te llevas del Tema 1', head('Lo que te llevas del Tema 1') + f"""
 <div class="col" style="gap:1.1em">
   {st(1, '<div class="mapi big"><span>La suposición</span><b>cada arquitectura apuesta por cómo están organizados los datos</b></div>')}
   {st(2, '<div class="mapi big"><span>La lupa</span><b>un filtro de 3 × 3 recorre la foto y responde donde está su patrón</b></div>')}
   {st(3, '<div class="mapi big"><span>Compartir</span><b>el mismo filtro en toda la foto: 8 veces menos parámetros</b></div>')}
-  {st(4, '<div class="trendbar" style="margin-top:.6em">' + chip('Para mañana', 'trend') + '<span>Lee la lectura de tendencia <b>«¿El regreso de las redes recurrentes? Transformers, Mamba y la búsqueda de la arquitectura ideal»</b> (5 páginas) y responde la encuesta en Canvas.</span></div>')}
-  {st(4, '<p class="say" style="margin-top:.2em"><b>Mañana:</b> si los datos llegan <b>en orden</b>, como las palabras de una frase, ¿cómo los lee una red?</p>')}
+  {st(4, '<div class="trendbar" style="margin-top:.6em">' + chip('Antes del Tema 2', 'trend') + '<span>Lee la lectura de tendencia <b>«¿El regreso de las redes recurrentes? Transformers, Mamba y la búsqueda de la arquitectura ideal»</b> (5 páginas) y responde la encuesta en Canvas.</span></div>')}
+  {st(4, '<p class="say" style="margin-top:.2em"><b>En el Tema 2:</b> si los datos llegan <b>en orden</b>, como las palabras de una frase, ¿cómo los lee una red?</p>')}
 </div>""", notes(
-    'Cierre de 5 minutos. Pide que alguien diga cada idea con sus palabras antes de mostrarla.',
-    'La lectura de mañana: cada arquitectura es una suposición; las redes recurrentes vuelven en modelos híbridos. No la expliques: que lleguen con una opinión.',
+    'Cierre del Tema 1, 5 minutos. Pide que alguien diga cada idea con sus palabras antes de mostrarla.',
+    'La lectura de tendencia va antes del Tema 2: cada arquitectura es una suposición y las redes recurrentes vuelven en modelos híbridos. No la expliques: que lleguen con una opinión.',
     'En el chat, del 1 al 5: <b>¿podrías explicar qué hace un filtro convolucional a un colega?</b> Anota el promedio.',
-    'Al terminar, <b>«Finalizar reunión para todos»</b> para que la grabación se cierre bien.'),
-    block='V', group=GV, minutes=5, label='Cierre del viernes')
+    'Si aquí termina la sesión: <b>«Finalizar reunión para todos»</b> para que la grabación se cierre bien. Si queda tiempo, sigue directo con el Tema 2.'),
+    block='01', group=G1, minutes=5)

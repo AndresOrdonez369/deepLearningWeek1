@@ -1,4 +1,4 @@
-/* Demos · Semana 2 · viernes: cómo mira una red una imagen (real Fashion-MNIST data from NB03, window.FMNIST) */
+/* Demos · Semana 2 · Tema 1: cómo mira una red una imagen (real Fashion-MNIST data from NB03, window.FMNIST) */
 (function () {
   var F = window.FMNIST, R = F.results, CL = F.clases;
   var NIGHT2 = [15, 26, 41], INK = [241, 246, 250], AMB = [255, 181, 65], AZU = [74, 186, 244], MINT = [100, 234, 183];

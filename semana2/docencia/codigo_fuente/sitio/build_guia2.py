@@ -8,7 +8,7 @@ import figs_guia2 as F
 ROOT = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else 'out')
 OUT = ROOT / 'semana2'
 COLAB = 'https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/semana2/proyectos/'
-NB3, NB4 = COLAB + 'NB03_viernes_tu_primera_cnn.ipynb', COLAB + 'NB04_sabado_redes_que_recuerdan.ipynb'
+NB3, NB4 = COLAB + 'NB03_tu_primera_cnn.ipynb', COLAB + 'NB04_redes_que_recuerdan.ipynb'
 NB2 = 'https://colab.research.google.com/github/AndresOrdonez369/deepLearningWeek1/blob/main/proyectos/NB02_sabado_tu_primera_red.ipynb'
 B, A, T, P, I = 'var(--blue)', 'var(--amber-f)', 'var(--teal)', 'var(--purple)', 'var(--ink)'
 
@@ -32,7 +32,7 @@ S.append(('inicio', '★', 'Cómo usar esta guía', f"""
 <h1>Cómo mira y cómo lee una red neuronal</h1>
 <span class="chip" style="margin-top:14px">Semana 2 · Guía de estudio</span>
 <p>Las arquitecturas de la semana, en palabras sencillas: primero el problema, después un ejemplo, luego el nombre y al final la cuenta, leída en voz alta («Léelo así»). Con los números reales de los notebooks NB03 y NB04 y ejercicios con su respuesta.</p>
-<div class="btnrow"><a class="btn amber" href="../quiz/index.html?pre">Jugar el pre-quiz</a><a class="btn" href="#b00">Empezar a estudiar</a><a class="btn ghost" style="color:#EEF2F8;border-color:#2A3B5C" href="../material/Lectura_tendencia_Semana2.pdf">Lectura de tendencia (PDF)</a></div>
+<div class="btnrow"><a class="btn amber" href="../quiz/index.html?pre">Jugar el pre-quiz</a><a class="btn" href="#rec">Empezar a estudiar</a><a class="btn ghost" style="color:#EEF2F8;border-color:#2A3B5C" href="../material/Lectura_tendencia_Semana2.pdf">Lectura de tendencia (PDF)</a></div>
 </div>
 <h2 class="sr">Cómo usar esta guía</h2>
 {idea('El hilo de toda la semana: <b>cada arquitectura es una suposición sobre cómo están organizados los datos.</b> La red densa supone que todo se relaciona con todo; la convolucional, que lo cercano importa; la recurrente, que el orden importa; y la atención deja que cada parte mire a todas las demás.')}
@@ -42,14 +42,51 @@ S.append(('inicio', '★', 'Cómo usar esta guía', f"""
 <div class="tile"><h3>3 · Lee el código</h3><p>Los notebooks NB03 y NB04 ya vienen <b>escritos y ejecutados</b>. Se aprenden leyendo, apostando un resultado antes de cada celda y comparando con lo que sale.</p></div>
 <div class="tile"><h3>4 · Comprueba</h3><p>Al final juega el <a href="../quiz/index.html?final">quiz final</a>: te dice qué temas repasar.</p></div>
 </div>
-{box('ojo', 'Mapa de la semana', '''<p><b>Viernes 6:</b> 00 Keras en 4 pasos (lo que quedó pendiente de la semana 1) → 01 Cómo mira una red una imagen: filtros, mapas, pooling y la CNN · notebook <b>NB03</b>.</p>
-<p><b>Sábado 7:</b> 02 Cómo lee una red una secuencia: la libreta de la RNN, el olvido y la LSTM · notebook <b>NB04</b> → 03 La atención, el Transformer y la tendencia de los modelos híbridos → 04 Cómo elegir la arquitectura para tu proyecto.</p>
+{box('ojo', 'Mapa de la semana: dos temas', '''<p><b>Recorderis:</b> la semana 1 en una sola red, y Keras en 4 pasos (lo que había quedado pendiente).</p>
+<p><b>Tema 1 · Cómo mira una red una imagen:</b> la suposición de cada arquitectura, el filtro que recorre la foto, compartir pesos, pooling y la CNN en Keras · notebook <b>NB03</b>.</p>
+<p><b>Tema 2 · Cómo lee una red una secuencia:</b> la libreta de la RNN, el olvido y la LSTM · notebook <b>NB04</b>; después la atención, el Transformer y la tendencia de los modelos híbridos.</p>
+<p><b>Cierre:</b> cómo elegir la arquitectura para tu proyecto. Cada sesión sigue donde terminó la anterior.</p>
 <p>Las prácticas son <b>en clase y sin nota</b>. Las <a href="../docencia/slides/index.html">slides interactivas</a> quedan publicadas para repasar: puedes mover el filtro sobre una foto, ver cómo se llena la libreta y a qué palabra mira la atención.</p>''')}
 <p>Marca <b>«Ya lo entendí»</b> al final de cada tema: tu avance se guarda en este navegador y aparece en el índice.</p>
 """))
 
+# ------------------------------------------------------------------ 00 · recap of week 1
+def cadena():
+    """The week-1 chain as responsive HTML cards (readable on a phone)."""
+    steps = [('Tabla', 'datos y etiqueta'), ('Neurona', 'z = w·x + b'), ('Activación', 'dobla la línea'), ('Red en capas', 'vence a XOR'),
+             ('Pérdida', 'qué tan mal vamos'), ('Gradiente', 'bajar la montaña'), ('Retro&shy;propagación', 'repartir la culpa'), ('Keras', 'cuatro pasos')]
+    cards = ''.join(
+        f'<li style="list-style:none;background:var(--paper);border:2px solid {"var(--amber-f)" if i in (1, 5) else "var(--blue)"};border-radius:14px;padding:10px 12px">'
+        f'<span style="display:block;font:700 13px \'Space Grotesk\',sans-serif;color:var(--muted)">{i + 1}</span>'
+        f'<b style="display:block;font:700 16px \'Space Grotesk\',sans-serif;color:var(--ink)">{t}</b>'
+        f'<span style="font-size:14px;color:var(--muted)">{d}</span></li>' for i, (t, d) in enumerate(steps))
+    return (f'<ol style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;padding:0;margin:18px 0 8px">{cards}</ol>'
+            '<p style="font-size:14.5px;color:var(--muted);margin:0 0 18px">En ámbar, las dos piezas que más vuelven esta semana: '
+            'la <b>neurona</b> (un filtro de la CNN es una neurona que mira 9 píxeles vecinos) y el <b>gradiente</b> (todas las redes se entrenan igual).</p>')
+
+S.append(('rec', '00', 'Recorderis de la semana 1', f"""
+{idea('Todo lo de esta semana se arma con las piezas de la semana 1: una neurona que suma datos por pesos, una pérdida que dice qué tan mal vamos y el descenso de gradiente que corrige. Lo único nuevo es <b>cómo se conectan las neuronas</b>.')}
+{cadena()}
+<table><tr><th>Pieza</th><th>Qué es, en una frase</th><th>El ejemplo de clase</th></tr>
+<tr><td><b>Datos en una tabla</b></td><td>Cada fila es un ejemplo; cada columna, una <b>característica</b>; la respuesta conocida es la <b>etiqueta</b>.</td><td>Los socios del comité de crédito: ingreso, antigüedad, atrasos → ¿paga o no paga?</td></tr>
+<tr><td><b>Neurona</b></td><td>Multiplica cada dato por su <b>peso</b>, suma todo y le suma el <b>sesgo</b>: \\(z = w \\cdot x + b\\).</td><td>Tu nota final del curso: cada nota pesa distinto y la exigencia es el sesgo (−70). El socio A obtuvo <b>z = 2.81</b>.</td></tr>
+<tr><td><b>Activación</b></td><td>Convierte el puntaje en la salida y <b>dobla la línea</b> para que la red aprenda curvas.</td><td>Interruptor (escalón), regulador de luz (sigmoide: z = 2.81 → 0.943, un 94 %) y válvula (ReLU).</td></tr>
+<tr><td><b>Red en capas</b></td><td>Una neurona solo traza una línea recta; varias en capas combinan líneas.</td><td>La luz de la escalera (XOR): ninguna línea la separa; dos neuronas ocultas sí.</td></tr>
+<tr><td><b>Error y pérdida</b></td><td>El error es <b>real − predicho</b>, uno por caso. La pérdida resume todos en <b>un solo número</b>: más pequeño es mejor.</td><td>Las casas de Quito: errores 10, −5, −20 y −2 → MSE = <b>132.25</b>. La BCE castiga al meteorólogo que dijo «1 %» y llovió.</td></tr>
+<tr><td><b>Descenso de gradiente</b></td><td>La pendiente dice hacia dónde sube la pérdida; damos un paso <b>en contra</b>, de largo η.</td><td>Bajar el Cotopaxi con neblina. Peso 2, pendiente +4, η = 0.1 → peso nuevo <b>1.6</b>.</td></tr>
+<tr><td><b>Retropropagación</b></td><td>Reparte la culpa del error hacia atrás, capa por capa, multiplicando efectos (regla de la cadena).</td><td>Los engranajes: si A mueve a B 3 veces y B mueve a C 2 veces, A mueve a C 6 veces.</td></tr>
+<tr><td><b>Keras</b></td><td>Construir, compilar, entrenar y predecir: TensorFlow hace las cuentas por debajo.</td><td>La red de las lunas: <b>337</b> parámetros y <b>95 %</b> en el examen final.</td></tr>
+<tr><td><b>Métricas</b></td><td>La exactitud puede engañar si los casos que buscas son pocos: mira la matriz de confusión.</td><td>Un modelo que dice «al día» a todos acierta el <b>87 %</b> y no encuentra ni un moroso.</td></tr></table>
+{box('analogia', 'Lo que cambia esta semana', '<p>Hasta ahora los datos eran <b>tablas</b>: cualquier columna se podía relacionar con cualquier otra. ¿Y si el dato es una <b>foto</b>, donde importa qué píxel está al lado de cuál? ¿Y si es una <b>frase</b>, donde importa el orden de las palabras? Esas dos preguntas son los dos temas de la semana.</p>')}
+<h3>Para comprobar</h3>
+{ex('Una neurona recibe varios datos. ¿Qué hace con ellos?', '<p>Multiplica cada dato por su peso, suma todo y le suma el sesgo. Ese puntaje \\(z\\) pasa por la activación, que da la salida. Es la cuenta de la nota final del curso.</p>')}
+{ex('Si la pendiente de la pérdida con respecto a un peso es +4, ¿el peso debe subir o bajar?', '<p><b>Bajar.</b> La pendiente apunta hacia donde la pérdida sube; caminamos en contra. Con η = 0.1: 2 − 0.1 × 4 = 1.6.</p>')}
+{ex('Un modelo dice «al día» a todos los socios y acierta el 87 %. ¿Es un buen modelo?', '<p><b>No.</b> Acierta porque el 87 % de los socios está al día, pero no encuentra a ningún moroso: su recall es 0. Por eso, además de la exactitud, miramos la matriz de confusión.</p>')}
+<p>Si alguna pieza no te queda clara, la <a href="../../guia/index.html">guía de la semana 1</a> tiene una sección para cada una.</p>
+"""))
+
 # ------------------------------------------------------------------ 00 · Keras
-S.append(('b00', '00', 'Keras en 4 pasos (lo que quedó pendiente)', f"""
+S.append(('b00', 'K', 'Keras en 4 pasos (lo que quedó pendiente)', f"""
 {idea('Keras arma y entrena una red en cuatro pasos: construir, compilar, entrenar y predecir. Esta semana solo cambia el primero: qué capas apilamos.')}
 <h3>Primero, la necesidad</h3>
 <p>En la semana 1 hicimos a mano las cuentas de una red con 2 neuronas ocultas: el paso hacia adelante, la culpa hacia atrás y la actualización. Una red de verdad tiene miles o millones de pesos. Nadie hace eso a mano. Para eso existen dos librerías de Python que ya vienen en Colab.</p>
@@ -95,7 +132,7 @@ model.evaluate(X_test, y_test)               # loss and accuracy on unseen data<
 """))
 
 # ------------------------------------------------------------------ 01 · images and CNN
-S.append(('b01', '01', 'Cómo mira una red una imagen: redes convolucionales', f"""
+S.append(('b01', 'T1', 'Cómo mira una red una imagen: redes convolucionales', f"""
 {idea('Una red convolucional (CNN) mira la foto con una lupa pequeña que recorre toda la imagen y busca el mismo patrón en todas partes. Por eso aprende más con muchos menos parámetros que una red densa.')}
 <h3>Primero, la necesidad</h3>
 <p>Una tienda en línea recibe miles de fotos de productos y quiere ordenarlas solas: camisetas, pantalones, zapatillas. Escribir reglas («si tiene dos mangas…») es imposible, como pasaba con el gato de la semana 1. Así que entrenamos una red con ejemplos. Usamos <b>Fashion-MNIST</b> (Zalando, 2017): <b>70 000 fotos de ropa</b> de 28 × 28 píxeles en 10 clases: camiseta, pantalón, suéter, vestido, abrigo, sandalia, camisa, zapatilla, bolso y botín. 60 000 son para estudiar y 10 000 para el examen final.</p>
@@ -177,7 +214,7 @@ cnn.fit(x_train, y_train, epochs=5, batch_size=128, validation_split=0.1)</code>
 """))
 
 # ------------------------------------------------------------------ 02 · sequences, RNN, LSTM
-S.append(('b02', '02', 'Cómo lee una red una secuencia: RNN y LSTM', f"""
+S.append(('b02', 'T2', 'Cómo lee una red una secuencia: RNN y LSTM', f"""
 {idea('Una red recurrente (RNN) lee de a un paso y lleva una libreta pequeña, el estado oculto, donde resume lo que va leyendo; usa la misma celda en cada paso. Su límite: la libreta es de tamaño fijo y lo que quedó muy atrás se olvida.')}
 <h3>Primero, la necesidad</h3>
 <p>Muchos datos llegan <b>en orden</b>: las palabras de una frase, el audio de una llamada, las ventas de cada día, los pagos de un socio mes a mes. «El perro mordió al cartero» y «el cartero mordió al perro» tienen las mismas palabras y dicen cosas distintas.</p>
@@ -241,7 +278,7 @@ S.append(('b02', '02', 'Cómo lee una red una secuencia: RNN y LSTM', f"""
 """))
 
 # ------------------------------------------------------------------ 03 · attention, Transformers, trend
-S.append(('b03', '03', 'La atención, el Transformer y la tendencia', f"""
+S.append(('b03', 'T2', 'La atención, el Transformer y la tendencia', f"""
 {idea('La atención deja que cada elemento mire directamente a todos los demás y decida cuáles le importan. No necesita recordar y se calcula en paralelo, pero su costo crece con el cuadrado de la longitud. La tendencia: mezclarla con capas recurrentes baratas.')}
 <h3>Primero, la necesidad</h3>
 <p>La RNN tiene dos problemas. El primero ya lo vimos: <b>se olvida</b> de lo lejano. El segundo es práctico: <b>lee en fila</b>. Para procesar la palabra 100 necesita haber procesado las 99 anteriores, y las GPU, que son excelentes haciendo miles de cuentas al mismo tiempo, se quedan esperando.</p>
@@ -307,7 +344,7 @@ S.append(('b03', '03', 'La atención, el Transformer y la tendencia', f"""
 """))
 
 # ------------------------------------------------------------------ 04 · choosing
-S.append(('b04', '04', 'Cómo elegir la arquitectura', f"""
+S.append(('b04', 'C', 'Cómo elegir la arquitectura', f"""
 {idea('Elegir una arquitectura es elegir una suposición. Pregúntate qué estructura tienen tus datos, cuánto cuesta cada opción y compruébalo con una comparación justa contra una línea base sencilla.')}
 <h3>Cada dato con su arquitectura</h3>
 <table><tr><th>Tus datos</th><th>Arquitectura para empezar</th><th>Qué supone</th><th>Ejemplo</th></tr>
@@ -433,8 +470,9 @@ for sid, n, title, inner in S:
     kick = {'inicio': chip('Empieza aquí', 'amber'), 'formulas': chip('Resumen', 'purple'), 'glosario': chip('Referencia', 'purple'),
             'cierre': chip('Autoevaluación', 'teal')}.get(sid)
     if not kick:
-        day = 'Viernes 6' if sid in ('b00', 'b01') else 'Sábado 7'
-        kick = chip(f'{day} · bloque {n}') + (chip('Pendiente de la semana 1', 'amber') if sid == 'b00' else '')
+        tema = {'rec': 'Recorderis de la semana 1', 'b00': 'Recorderis · Keras', 'b01': 'Tema 1 · Imágenes', 'b02': 'Tema 2 · Secuencias',
+                'b03': 'Tema 2 · La atención', 'b04': 'Cierre de la semana'}[sid]
+        kick = chip(tema) + (chip('Pendiente de la semana 1', 'amber') if sid == 'b00' else '')
     body += f'<section id="inicio">{inner}</section>' if sid == 'inicio' else section(sid, kick, title, inner)
     toc.append((sid, n, title))
 
