@@ -15,15 +15,17 @@ NB = [("NB01 · Tu primera neurona", f"Viernes · prácticas en clase (láminas 
       ("NB02 · Tu primera red", f"Sábado · práctica en clase (lámina {SL['practica3']})", "NB02_sabado_tu_primera_red.ipynb")]
 
 
-# week switcher (same look as the week-2 panel)
+# week switcher «Semana 1 · Semana 2 · Semana 3» (same look as the week-2 and week-3 panels)
 WEEKS_CSS = """
 .weeks{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);margin-bottom:16px}
 .weeks a{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:999px;color:#B8C4D6;text-decoration:none;font:700 14px 'Space Grotesk',Arial,sans-serif;letter-spacing:.3px}
 .weeks a:hover,.weeks a:focus-visible{color:#EEF2F8;background:rgba(255,255,255,.08);outline:none}
 .weeks a[aria-current=page]{background:#7AA2FF;color:#0B1424}
+.weeks{flex-wrap:wrap;max-width:100%}
+@media (max-width:440px){.weeks a{padding:7px 11px;font-size:13.5px}}
 """
 WEEKS = ('<nav class="weeks" aria-label="Semana"><a href="index.html" aria-current="page">Semana 1</a>'
-         '<a href="../semana2/docencia/index.html">Semana 2</a></nav>')
+         '<a href="../semana2/docencia/index.html">Semana 2</a><a href="../semana3/docencia/index.html">Semana 3</a></nav>')
 
 
 def card(title, text, links):

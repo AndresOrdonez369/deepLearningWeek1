@@ -478,7 +478,7 @@ for sid, n, title, inner in S:
 
 html = page('Guía de estudio · Semana 2 · Deep Learning UIDE',
             'Guía de estudio de la semana 2 de Neural Networks: Deep Learning (UIDE): redes convolucionales, recurrentes, LSTM, atención, Transformers y cómo elegir la arquitectura.',
-            toc, body, 'dl-uide-w2-guia', topbar=weeks(2, '../../guia/index.html', 'index.html'))
+            toc, body, 'dl-uide-w2-guia', topbar=weeks(2, '../../guia/index.html', 'index.html', '../../semana3/guia/index.html'))
 (OUT / 'guia').mkdir(parents=True, exist_ok=True)
 (OUT / 'guia' / 'index.html').write_text(html)
 print('guía semana 2 built', len(html) // 1024, 'KB')

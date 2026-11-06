@@ -61,7 +61,7 @@ td a,.sec p a{{overflow-wrap:anywhere}} .hero h1{{overflow-wrap:anywhere}}
 kbd{{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 7px}}
 </style></head>
 <body><div class="wrap">
-<div class="hero">{weeks(2, '../../docencia/index.html', 'index.html')}<br><span class="chip">Docencia · Semana 2</span>
+<div class="hero">{weeks(2, '../../docencia/index.html', 'index.html', '../../semana3/docencia/index.html')}<br><span class="chip">Docencia · Semana 2</span>
 <h1 style="margin-top:14px">Panel del profesor</h1>
 <p>Todo para dictar la semana 2, organizada en <b>dos temas</b> (imágenes y secuencias) después de un recorderis de la semana 1: las slides interactivas, los mapas conceptuales para preparar cada tema, el código para mostrar en Colab, tu guía y los resultados de los quizzes. Los proyectos son en clase y sin nota.</p>
 <p style="font-size:15px">Sesiones por Teams: viernes 6 y sábado 7 de noviembre de 2026. Las láminas son una sola secuencia: cada sesión empieza donde terminó la anterior.</p>

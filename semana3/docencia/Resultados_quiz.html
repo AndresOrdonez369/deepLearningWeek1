@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultados de los quizzes · Semana 3</title>
+<meta name="description" content="Panel del profesor: pega los códigos que los estudiantes dejaron en el chat y ve el antes y el después de la semana 3.">
+<style>
+:root{
+  --bg:#F5F7FB; --paper:#FFFFFF; --ink:#0F1A2E; --txt:#334155; --muted:#64748B; --line:#DCE3EE;
+  --blue:#1D4ED8; --blue-bg:#E8EEFD; --amber:#B45309; --amber-bg:#FEF3C7; --teal:#0F766E; --teal-bg:#DDF4F1;
+  --red:#B91C1C; --red-bg:#FDE8E8; --pre:#94A3B8; --post:#1D4ED8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1220; --paper:#121B2E; --ink:#EEF2F8; --txt:#C3CCDA; --muted:#8E9BB0; --line:#26344F;
+    --blue:#7AA2FF; --blue-bg:#1A2747; --amber:#FDBA5C; --amber-bg:#3A2A10; --teal:#4FD1C0; --teal-bg:#10302C;
+    --red:#F87171; --red-bg:#3A1520; --pre:#5B6B86; --post:#7AA2FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1220; --paper:#121B2E; --ink:#EEF2F8; --txt:#C3CCDA; --muted:#8E9BB0; --line:#26344F;
+  --blue:#7AA2FF; --blue-bg:#1A2747; --amber:#FDBA5C; --amber-bg:#3A2A10; --teal:#4FD1C0; --teal-bg:#10302C;
+  --red:#F87171; --red-bg:#3A1520; --pre:#5B6B86; --post:#7AA2FF;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans',Arial,sans-serif;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 64px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif;color:var(--ink);line-height:1.15}
+h1{font-size:clamp(28px,4vw,40px)} h2{font-size:24px} h3{font-size:18px}
+.chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--amber-bg);color:var(--amber)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.steps div{background:var(--blue-bg);border-radius:14px;padding:12px 14px;color:var(--ink);font-size:15px}
+.steps b{font-family:'Space Grotesk',Arial,sans-serif;color:var(--blue);font-size:20px;margin-right:6px}
+textarea{width:100%;min-height:150px;font:14px/1.4 Consolas,'JetBrains Mono',monospace;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-weight:700;cursor:pointer;border:none;border-radius:12px;padding:11px 18px;background:var(--blue);color:#fff}
+button.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi .v{font-family:'Space Grotesk',Arial,sans-serif;font-size:30px;font-weight:700;color:var(--ink)}
+.kpi .l{font-size:14px;color:var(--muted)}
+.legend{display:flex;gap:16px;font-size:14px;color:var(--muted);margin:4px 0 12px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.idea{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) 70px;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.idea:first-of-type{border-top:none}
+.idea .name{color:var(--ink);font-size:15px}
+.bars2{display:flex;flex-direction:column;gap:5px}
+.b{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.track{height:12px;border-radius:999px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.track i{display:block;height:100%}
+.delta{font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;text-align:right;color:var(--teal)}
+.delta.neg{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--ink);font-size:13px;background:var(--blue-bg)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll{overflow-x:auto}
+.pct{display:inline-block;min-width:46px;text-align:center;border-radius:8px;padding:1px 6px;font-weight:700}
+.lo{background:var(--red-bg);color:var(--red)} .mid{background:var(--amber-bg);color:var(--amber)} .hi{background:var(--teal-bg);color:var(--teal)}
+.note{font-size:14px;color:var(--muted)}
+.hidden{display:none !important}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+@media (max-width:640px){.idea{grid-template-columns:1fr;gap:6px}.delta{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="chip">Panel del profesor</span>
+    <h1 style="margin-top:10px">Resultados de los quizzes · Semana 3</h1>
+    <p style="margin-top:6px">Los estudiantes terminan el quiz y pegan en el chat un código como <code>[DL3|PRE|Ana Pérez|5/8|10110101|i1]</code>. Aquí lo conviertes en el antes y el después del grupo. Nada sale de tu computador.</p>
+  </header>
+
+  <section class="card" style="display:flex;flex-direction:column;gap:14px">
+    <div class="steps">
+      <div><b>1</b>Al terminar el quiz, cada estudiante pega su código en el chat de Teams.</div>
+      <div><b>2</b>En el chat, selecciona todos los mensajes, cópialos (Ctrl + C) y pégalos abajo. Sirve el texto tal cual, con nombres y horas.</div>
+      <div><b>3</b>Clic en <b style="font-size:inherit;color:inherit">Analizar</b>. Haz lo mismo después del quiz final: pega los dos chats juntos.</div>
+    </div>
+    <textarea id="input" placeholder="Pega aquí el chat (o solo los códigos)…"></textarea>
+    <div class="row">
+      <button id="run">Analizar</button>
+      <button class="ghost" id="demo">Ver un ejemplo</button>
+      <button class="ghost" id="clear">Borrar</button>
+      <span class="note" id="status"></span>
+    </div>
+  </section>
+
+  <section id="out" class="hidden" style="display:flex;flex-direction:column;gap:18px">
+    <div class="kpis" id="kpis"></div>
+
+    <div class="card">
+      <h2>Las 5 ideas clave: antes y después</h2>
+      <p class="note" style="margin-top:4px">Cada idea aparece en los dos quizzes con otra versión. Porcentaje de estudiantes que la respondió bien.</p>
+      <div class="legend"><span><i style="background:var(--pre)"></i>Pre-quiz</span><span><i style="background:var(--post)"></i>Quiz final</span></div>
+      <div id="ideas"></div>
+      <p class="note" id="gain" style="margin-top:10px"></p>
+    </div>
+
+    <div class="grid2">
+      <div class="card"><h3>Qué reforzar · quiz final</h3><p class="note" style="margin:4px 0 10px">Preguntas de menor a mayor acierto.</p><div class="scroll"><table id="t-final"></table></div></div>
+      <div class="card"><h3>Punto de partida · pre-quiz</h3><p class="note" style="margin:4px 0 10px">Si las bases salen bajas, dedica unos minutos a repasarlas antes del bloque.</p><div class="scroll"><table id="t-pre"></table></div></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><h3>Por estudiante</h3><button class="ghost" id="copy">Copiar tabla (para Excel o Sheets)</button></div>
+      <p class="note" style="margin:4px 0 10px">Se toma el primer intento de cada quiz. Los nombres se emparejan sin tildes ni mayúsculas: pide que usen el mismo nombre en los dos.</p>
+      <div class="scroll"><table id="t-students"></table></div>
+    </div>
+  </section>
+
+  <p class="note">Formativo: los quizzes no cuentan para la nota. Panel de la Clase 3 · Neural Networks: Deep Learning · UIDE.</p>
+</div>
+
+<script>
+const BANK = {"pre": {"title": "Pre-quiz · ¿de dónde partimos?", "time": 20, "sub": "Ocho preguntas cortas, sin cuentas: tres de calentamiento (semanas 1 y 2) y las cinco ideas clave de la semana 3 (memorizar, frenos, robustez, transfer learning y explicaciones). No es nota: es tu punto de partida. Es normal no saberlas todas.", "questions": [{"q": "En las semanas 1 y 2 separamos los datos en entrenamiento, validación y prueba. ¿Para qué sirve la validación?", "options": ["Es el simulacro: mide cómo va la red con datos que no estudió", "Es lo único con lo que la red aprende", "Sirve para calcular el sesgo de cada neurona", "Sube la nota del examen final"], "ok": 0, "why": "La red estudia con el entrenamiento. La validación es el simulacro: ejemplos que no usa para aprender y que dicen si le va bien con casos nuevos. El examen final (la prueba) se usa una sola vez, al terminar.", "no": [null, "La red aprende solo con el entrenamiento; la validación no cambia ningún peso.", "El sesgo es un peso más y se aprende con el entrenamiento.", "La validación solo mide; no cambia el examen final."], "fig": "simulacro", "tema": "rec"}, {"q": "¿Qué hace el descenso de gradiente con cada peso de la red?", "options": ["Lo borra si es pequeño", "Lo duplica en cada época", "Lo mueve un poquito en la dirección en que baja la pérdida", "Lo deja fijo y cambia los datos"], "ok": 2, "why": "Es bajar el Cotopaxi con neblina: la pendiente dice hacia dónde sube la pérdida y damos un paso en contra, de largo η. Esta semana haremos lo contrario con la foto: subir la montaña a propósito para engañar a la red.", "no": ["Ningún peso se borra: todos se corrigen un poco en cada paso.", "Los pasos son pequeños (η); duplicar haría saltar la pérdida.", null, "Al entrenar, los datos quedan fijos y se mueven los pesos. (Esta semana veremos qué pasa si movemos la foto.)"], "fig": "montana", "tema": "rec"}, {"q": "La CNN de la semana 2 llegó a 87.7 % con 12 810 parámetros. ¿Qué supone sobre las fotos?", "options": ["Que el orden en el tiempo es lo más importante", "Que todos los píxeles se relacionan con todos por igual", "Que las fotos nunca cambian", "Que lo cercano importa y el mismo patrón puede aparecer en cualquier parte"], "ok": 3, "why": "Es la lupa que recorre la foto: mira vecindarios pequeños y usa el mismo filtro en todas partes. Esta semana usamos esa misma CNN para ver si funciona con casos nuevos y si podemos explicar lo que decide.", "no": ["Esa es la suposición de la RNN: el orden importa.", "Esa es la de la red densa: todo con todo.", "No es una suposición de la CNN; justo esta semana vemos qué pasa cuando las fotos cambian.", null], "fig": "suposicion", "tema": "rec"}, {"q": "Una red acierta el 97 % de las fotos con las que estudió y el 83 % de fotos que nunca vio. ¿Qué está pasando?", "options": ["Está memorizando: se aprendió las fotos de estudio más que la idea", "Todo está perfecto: 97 % es excelente", "Le faltan épocas: hay que entrenar mucho más", "Las fotos nuevas están mal etiquetadas"], "ok": 0, "why": "Es el estudiante que se aprende de memoria el solucionario del examen pasado: saca casi 100 en los ejercicios que ya vio y falla los nuevos. Se llama sobreajuste. Son los números reales del NB05 con 1 000 fotos: 96.7 % y 83.0 %.", "no": [null, "El número que importa es el de las fotos nuevas; el de estudio puede engañar.", "Más épocas lo empeoran: sigue memorizando y el simulacro baja.", "Las etiquetas están bien; la diferencia aparece porque la red memorizó."], "fig": "memoriza", "tema": "b01", "clave": "C1"}, {"q": "¿Cuál de estas acciones ayuda a que una red NO memorice?", "options": ["Entrenar el doble de épocas", "Parar de entrenar cuando el simulacro empieza a empeorar", "Elegir el modelo mirando el examen final", "Agregar muchas más neuronas"], "ok": 1, "why": "Es dejar de estudiar cuando el simulacro empieza a salir peor: se llama early stopping. Junto con el aumento de datos y el dropout son frenos para la memoria. Y el mejor freno de todos: más datos.", "no": ["Más épocas son más tiempo para memorizar.", null, "Elegir mirando el examen final es hacer trampa: después ya no mide casos nuevos.", "Más neuronas son más memoria: suele empeorar el sobreajuste."], "fig": "frenos", "tema": "b01", "clave": "C2"}, {"q": "Una CNN acierta el 88 % de las fotos. A cada foto le sumamos un ruido tan pequeño que una persona no ve ninguna diferencia. ¿Qué puede pasar?", "options": ["Nada: si una persona no lo ve, la red tampoco", "Su exactitud sube", "Puede caer muchísimo, si el ruido se eligió para engañarla", "La red deja de funcionar y da un error"], "ok": 2, "why": "Si el ruido se elige a propósito, en la dirección que más confunde a la red, la exactitud se desploma: en el NB05 pasa de 87.7 % a 39.2 % con un cambio de solo 0.05 en cada píxel. Se llaman ejemplos adversariales.", "no": ["La red no mira como nosotros: mira números, y muchos cambios pequeños se suman.", "Un ruido elegido para engañar nunca ayuda.", null, "No da error: responde con la misma seguridad, pero mal."], "fig": "adversarial", "tema": "b02", "clave": "C3"}, {"q": "Tienes solo 20 fotos de tu problema. ¿Qué suele ayudar más?", "options": ["Entrenar una red enorme desde cero", "Partir de una red que ya aprendió de muchas fotos y ajustarla a tu problema", "Repetir las mismas 20 fotos mil veces", "Usar las 20 fotos como examen final"], "ok": 1, "why": "Es contratar a un profesional con experiencia y darle una inducción corta: la red ya sabe ver bordes y formas y solo aprende la última parte. Se llama transfer learning. En el NB06, con 5 fotos por clase: desde cero 30.6 %; partiendo de una red ya entrenada, cerca de 47 %.", "no": ["Con 20 fotos, una red enorme memoriza enseguida.", null, "Repetir las mismas fotos no trae información nueva: la red las memoriza.", "Sin fotos para estudiar, la red no aprende nada."], "fig": "transfer", "tema": "b03", "clave": "C4"}, {"q": "Una herramienta pinta un mapa de calor con las zonas de la foto que más influyeron en la decisión de la red. Ese mapa es…", "options": ["La prueba de que la red razona como una persona", "Una interpretación de la red, que también hay que poner a prueba", "Una foto nueva que inventó la red", "La lista de los pesos de la red"], "ok": 1, "why": "Grad-CAM o la oclusión son interpretaciones: describen a la red desde afuera y pueden equivocarse, así que se verifican. Por ejemplo, con la prueba de cordura: borrar lo que la red aprendió y ver si el mapa cambia.", "no": ["Un mapa muestra dónde influyó, no cómo razona; y puede fallar.", null, "El mapa se calcula sobre la misma foto: no inventa una nueva.", "Los pesos son miles de números; el mapa es un resumen calculado a partir de ellos."], "fig": "calor", "tema": "b04", "clave": "C5"}]}, "final": {"title": "Quiz final · ¿cuánto avanzamos?", "time": 25, "sub": "Diez preguntas cortas, sin cuentas, sobre toda la semana: las curvas del sobreajuste, el dropout, los ejemplos adversariales, el aumento de datos, afinar con el simulacro, transfer learning, la prueba de cordura, el contrafactual, la mirada por grupo y las reglas que llegan. Las cinco ideas clave del pre-quiz vuelven con otra versión.", "questions": [{"q": "En el NB05, con 1 000 fotos, la pérdida de entrenamiento baja hasta el final, pero la de validación es mínima en la época 33 y después sube. ¿Qué pasó desde la época 33?", "options": ["La red empezó a memorizar: aprende detalles de las fotos de estudio que no sirven con fotos nuevas", "La red dejó de aprender por completo", "El simulacro tenía errores", "Nada raro: siempre hay que entrenar hasta la última época"], "ok": 0, "why": "Las dos curvas se separan: la de entrenamiento baja porque la red se aprende el solucionario; la de validación sube porque eso no sirve con fotos nuevas. Al final: 96.7 % en entrenamiento, 83.0 % en el simulacro y 80.9 % en el examen final.", "no": [null, "Sigue aprendiendo, pero lo equivocado: la pérdida de entrenamiento todavía baja.", "El simulacro está bien: gracias a él nos damos cuenta.", "Seguir entrenando empeora el simulacro: conviene parar cerca de la mejor época."], "fig": "memoriza", "tema": "b01", "clave": "C1"}, {"q": "¿Qué hace layers.Dropout(0.3) mientras la red entrena?", "options": ["Borra para siempre el 30 % de las neuronas", "Quita el 30 % de las fotos de entrenamiento", "En cada paso apaga al azar el 30 % de las neuronas de esa capa, para que ninguna dependa de otra", "Baja un 30 % el learning rate"], "ok": 2, "why": "Es un equipo que entrena sabiendo que en cada partido puede faltar cualquiera: nadie puede depender de un solo compañero. Solo actúa al entrenar; al predecir trabajan todas. En el NB05, con aumento, dropout y early stopping, las curvas ya no se separan (81.6 % en el examen final).", "no": ["No borra nada para siempre: en cada paso apaga a otras al azar, y al predecir trabajan todas.", "Las fotos no se tocan: se apagan neuronas.", null, "El learning rate se elige en compile; Dropout no lo cambia."], "fig": "dropout", "tema": "b01", "clave": "C2"}, {"q": "¿Cómo se fabrica un ejemplo adversarial con FGSM?", "options": ["Se cambia cada píxel un poquito en la dirección en que más sube la pérdida", "Se toma una foto de otra clase", "Se borra la mitad de la foto", "Se entrena la red con fotos al revés"], "ok": 0, "why": "Es subir la montaña a propósito: en vez de mover los pesos cuesta abajo, movemos cada píxel un poquito cuesta arriba en la pérdida: x' = x + ε · signo(gradiente). Con ε = 0.05, el botín que la red veía al 96 % pasa a «zapatilla» con 67 %, y a la vista es la misma foto.", "no": [null, "Una foto de otra clase no engaña: la red acierta que es otra prenda.", "Borrar media foto es un cambio enorme y visible; el adversarial es invisible.", "Eso cambia la red, no fabrica una foto engañosa."], "fig": "adversarial", "tema": "b02", "clave": "C3"}, {"q": "En el NB06, una red que ya sabía de pantalones, calzado y bolsos aprende 4 prendas de arriba. ¿Cuándo ayudó más lo que ya sabía?", "options": ["Siempre igual, con cualquier cantidad de fotos", "Con 100 fotos por clase", "Nunca: desde cero siempre gana", "Con solo 5 fotos por clase: unos 15 puntos más"], "ok": 3, "why": "Con 5 fotos por clase: desde cero 30.6 %, congelada 45.9 % y con ajuste fino 47.2 %. Con 100 fotos por clase, desde cero ya empata (68.8 %). La experiencia heredada vale sobre todo cuando hay pocos datos.", "no": ["La ventaja depende de los datos: con 100 fotos casi desaparece.", "Con 100 fotos por clase, entrenar desde cero ya empata o gana (68.8 %).", "Con 5 fotos, desde cero queda muy atrás (30.6 % contra 47.2 %).", null], "fig": "pocos", "tema": "b03", "clave": "C4"}, {"q": "En la prueba de cordura del NB06 borramos lo que la red aprendió (pesos al azar). El mapa de gradiente × imagen casi no cambia (0.90 de parecido). ¿Qué concluyes?", "options": ["Que la red al azar aprendió lo mismo", "Que ese mapa no explica a la red: se parece a la foto misma", "Que gradiente × imagen es el mejor método", "Que Grad-CAM falla"], "ok": 1, "why": "Si la red ya no sabe nada y el mapa sigue igual, el mapa no venía de lo aprendido: dibujaba la foto. Es el traductor que sigue el tono de voz y no las palabras. Grad-CAM (−0.12) y la oclusión (−0.05) sí cambian: pasan la prueba.", "no": ["Con pesos al azar la red no sabe nada: adivina.", null, "Es justo el que no pasó la prueba.", "Grad-CAM sí la pasó: su mapa cambió por completo (−0.12)."], "fig": "cordura", "tema": "b04", "clave": "C5"}, {"q": "Si mueves la prenda 4 píxeles, la CNN normal cae a 28.2 %; entrenada con RandomTranslation (aumento de datos) aguanta 76.4 %. ¿Qué hizo el aumento?", "options": ["Agregó fotos de otras prendas", "Le mostró en cada época las mismas prendas movidas un poco: aprendió que moverse no cambia la clase", "Hizo la red más grande", "Borró las fotos difíciles"], "ok": 1, "why": "Es practicar con la misma prenda movida un poco: así no te sorprende verla corrida. El precio: con las fotos sin mover baja de 87.7 % a 82.6 % con las mismas 5 épocas. Robustez a cambio de unos puntos.", "no": ["Las clases son las mismas; lo que cambia es la posición.", null, "La red es la misma; cambian las fotos que ve al estudiar.", "No borra nada: crea versiones movidas."], "fig": "aumento", "tema": "b02"}, {"q": "Pruebas 6 combinaciones de learning rate, número de filtros y dropout. ¿Con qué datos eliges la mejor?", "options": ["Con el examen final (la prueba): la que más acierte", "Con los datos de entrenamiento", "Con la validación (el simulacro); el examen final se usa una sola vez, al final", "Con la que tenga más parámetros"], "ok": 2, "why": "Es afinar la guitarra con el simulacro, nunca con el examen final. En el NB05 la mejor en validación (86.8 %: learning rate 0.01, 32 filtros y dropout 0.3) dio 86.9 % en el examen final, medido una sola vez.", "no": ["Si eliges con el examen final, deja de medir casos nuevos: es hacer trampa.", "En entrenamiento gana la que más memoriza.", null, "Más parámetros no garantizan nada; se compara en validación."], "fig": "simulacro", "tema": "b02"}, {"q": "A una socia (ficticia) la cooperativa le negó el crédito: probabilidad de mora 61 %. ¿Qué explicación le sirve más a ella?", "options": ["La lista de los pesos de la red", "Qué tendría que cambiar: sin sus 2 atrasos, su probabilidad bajaría a 12 %", "El AUC del modelo (0.80)", "Que así lo decidió el sistema"], "ok": 1, "why": "Es un contrafactual: dice qué tendría que cambiar para que la aprueben. A ella no le sirve la contribución de cada variable, sino qué puede hacer. Otra salida: una cuota de unos $124 en vez de $144 (unos $20 menos al mes) bajaría su probabilidad a 48 %.", "no": ["Miles de números no le explican nada a nadie.", null, "El AUC mide al modelo con todos los socios; no dice nada de su caso.", "Esa respuesta ya no basta: en Ecuador puede pedir una explicación de la lógica del algoritmo."], "fig": "contrafactual", "tema": "b04"}, {"q": "El modelo rechaza al 8.9 % de los socios rurales y al 3.7 % de los urbanos. Sin la columna «rural»: 6.4 % y 5.6 %. ¿Cuál es la conclusión más honesta?", "options": ["Quitar la columna acerca las tasas con un costo pequeño, pero queda la pregunta de fondo: por qué la mora real es distinta", "Ya está resuelto: quitar la columna lo arregla todo", "El modelo es justo porque su AUC es bueno", "Hay que sacar a los socios rurales de los datos"], "ok": 0, "why": "En los datos, la mora real es 15.5 % en lo rural y 9.5 % en lo urbano. Quitar la columna acerca las tasas de rechazo (el AUC baja de 0.80 a 0.79), pero la pregunta de qué es justo no tiene una respuesta solo técnica.", "no": [null, "Las tasas se acercan, pero la pregunta de fondo sigue abierta.", "Un buen AUC no dice si trata a todos por igual: hay que mirar por grupo.", "Sacar a un grupo de los datos no lo trata mejor: lo deja fuera."], "fig": "zona", "tema": "b05"}, {"q": "Según la lectura de tendencia, ¿qué cambió en Ecuador desde marzo de 2026 para las decisiones automatizadas sobre personas?", "options": ["Se prohibió usar inteligencia artificial", "Se exige que los modelos acierten el 100 %", "Solo aplica a empresas extranjeras", "Las personas afectadas pueden pedir una explicación de la lógica del algoritmo y la revisión de una persona"], "ok": 3, "why": "La norma de la Superintendencia de Protección de Datos Personales pide evaluaciones de impacto, revisión humana de las decisiones automatizadas con efectos jurídicos y el derecho a pedir una explicación de la lógica del algoritmo. «Así lo decidió el sistema» ya no basta.", "no": ["No prohíbe la IA: pone condiciones para usarla con personas.", "Ningún modelo acierta siempre; la norma pide explicar y revisar.", "Aplica a quien use IA para decidir sobre personas en Ecuador.", null], "fig": "reglas", "tema": "b04"}]}};
+const TEMAS = {"rec": "Recorderis · semanas 1 y 2", "b01": "Tema 1 · Aprender sin memorizar", "b02": "Tema 1 · Robustez y afinar sin trampa", "b03": "Tema 2 · Transfer learning", "b04": "Tema 2 · Explicar y verificar", "b05": "Cierre · ¿Le creerías a tu red?"};
+const CLAVES = {"C1": "Aprender no es memorizar (sobreajuste)", "C2": "Regularizar: frenos para la memoria", "C3": "Exacto no es robusto", "C4": "Transfer learning: reutilizar lo aprendido", "C5": "Una explicación también se pone a prueba"};
+const CODE_TAG = 'DL3';
+const $ = id => document.getElementById(id);
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k, v); } catch(e){} } };
+const RX = new RegExp('\\[' + CODE_TAG + '\\|(PRE|FINAL)\\|([^|\\]]{1,60})\\|(\\d+)\\/(\\d+)\\|([01]+)\\|i(\\d+)\\]', 'g');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+const pct = (a, b) => b ? Math.round(100 * a / b) : null;
+const cls = p => p == null ? '' : p < 50 ? 'lo' : p < 75 ? 'mid' : 'hi';
+const keyIndex = m => Object.fromEntries(BANK[m].questions.map((q, i) => [q.clave, i]).filter(([c]) => c));
+const KI = { pre: keyIndex('pre'), final: keyIndex('final') };
+
+function parse(text){
+  const people = new Map(); let skipped = 0, total = 0;
+  for (const m of text.matchAll(RX)) {
+    total++;
+    const quiz = m[1].toLowerCase(), name = m[2].trim(), bits = m[5], attempt = +m[6];
+    if (bits.length !== BANK[quiz].questions.length) { skipped++; continue; }
+    const key = norm(name);
+    if (!people.has(key)) people.set(key, { name });
+    const p = people.get(key);
+    if (!p[quiz] || attempt < p[quiz].attempt) p[quiz] = { bits: [...bits].map(Number), attempt };
+  }
+  return { people: [...people.values()], skipped, total };
+}
+
+function keyScore(rec, quiz){ return Object.values(KI[quiz]).reduce((s, i) => s + rec.bits[i], 0); }
+
+function render(res){
+  const P = res.people, pre = P.filter(p => p.pre), fin = P.filter(p => p.final), both = P.filter(p => p.pre && p.final);
+  $('out').classList.toggle('hidden', !P.length);
+  $('status').textContent = P.length ? `${res.total} códigos leídos · ${P.length} estudiante${P.length === 1 ? '' : 's'}${res.skipped ? ` · ${res.skipped} con otra versión del quiz (ignorados)` : ''}` : 'No encontré códigos. Revisa que el texto pegado incluya algo como [DL3|PRE|…].';
+  if (!P.length) return;
+  const avg = (arr, f) => arr.length ? Math.round(arr.reduce((s, x) => s + f(x), 0) / arr.length) : null;
+  const avgPre = avg(pre, p => 100 * p.pre.bits.reduce((a, b) => a + b, 0) / p.pre.bits.length);
+  const avgFin = avg(fin, p => 100 * p.final.bits.reduce((a, b) => a + b, 0) / p.final.bits.length);
+  const kPre = avg(both, p => 100 * keyScore(p.pre, 'pre') / 5), kFin = avg(both, p => 100 * keyScore(p.final, 'final') / 5);
+  const g = (kPre != null && kFin != null && kPre < 100) ? (kFin - kPre) / (100 - kPre) : null;
+  $('kpis').innerHTML = [
+    [`${pre.length} · ${fin.length}`, 'jugaron el pre-quiz · el quiz final'],
+    [avgPre == null ? '—' : avgPre + ' %', 'acierto promedio en el pre-quiz'],
+    [avgFin == null ? '—' : avgFin + ' %', 'acierto promedio en el quiz final'],
+    [kPre == null ? '—' : `${kPre} → ${kFin} %`, `ideas clave, antes → después (${both.length} con ambos)`],
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+  $('ideas').innerHTML = Object.entries(CLAVES).map(([c, label]) => {
+    const a = pct(pre.reduce((s, p) => s + p.pre.bits[KI.pre[c]], 0), pre.length);
+    const b = pct(fin.reduce((s, p) => s + p.final.bits[KI.final[c]], 0), fin.length);
+    const d = (a != null && b != null) ? b - a : null;
+    const bar = (v, col) => `<div class="b"><span class="track"><i style="width:${v || 0}%;background:${col}"></i></span><span>${v == null ? '—' : v + ' %'}</span></div>`;
+    return `<div class="idea"><span class="name"><b>${c.slice(1)}.</b> ${label}</span><div class="bars2">${bar(a, 'var(--pre)')}${bar(b, 'var(--post)')}</div><span class="delta ${d < 0 ? 'neg' : ''}">${d == null ? '' : (d > 0 ? '+' : '') + d + ' pts'}</span></div>`;
+  }).join('');
+  $('gain').textContent = g == null ? 'La ganancia aparece cuando hay estudiantes con los dos quizzes.'
+    : `Ganancia normalizada en las ideas clave: g = ${g.toFixed(2)} (qué parte de lo que les faltaba aprendieron; 0.3–0.7 es una ganancia media, más de 0.7 es alta).`;
+  const qtable = (quiz, rows) => {
+    const qs = BANK[quiz].questions.map((q, i) => ({ q, i, p: pct(rows.reduce((s, r) => s + r[quiz].bits[i], 0), rows.length) }));
+    qs.sort((x, y) => (x.p ?? 101) - (y.p ?? 101));
+    return '<tr><th class="n">#</th><th>Pregunta</th><th>Tema</th><th class="n">Acierto</th></tr>' + qs.map(({ q, i, p }) =>
+      `<tr><td class="n">${i + 1}</td><td>${q.q}${q.clave ? ' <span class="chip" style="font-size:10px;padding:2px 7px">idea clave</span>' : ''}</td><td>${TEMAS[q.tema]}</td><td class="n"><span class="pct ${cls(p)}">${p == null ? '—' : p + ' %'}</span></td></tr>`).join('');
+  };
+  $('t-final').innerHTML = fin.length ? qtable('final', fin) : '<tr><td>Aún no hay códigos del quiz final.</td></tr>';
+  $('t-pre').innerHTML = pre.length ? qtable('pre', pre) : '<tr><td>Aún no hay códigos del pre-quiz.</td></tr>';
+  const rows = P.slice().sort((a, b) => a.name.localeCompare(b.name, 'es')).map(p => {
+    const sp = p.pre ? p.pre.bits.reduce((a, b) => a + b, 0) : null, sf = p.final ? p.final.bits.reduce((a, b) => a + b, 0) : null;
+    const kp = p.pre ? keyScore(p.pre, 'pre') : null, kf = p.final ? keyScore(p.final, 'final') : null;
+    return { name: p.name, sp, sf, kp, kf, d: (kp != null && kf != null) ? kf - kp : null };
+  });
+  window.__rows = rows;
+  $('t-students').innerHTML = `<tr><th>Estudiante</th><th class="n">Pre-quiz (de ${BANK.pre.questions.length})</th><th class="n">Quiz final (de ${BANK.final.questions.length})</th><th class="n">Ideas clave antes → después (de 5)</th><th class="n">Cambio</th></tr>` +
+    rows.map(r => `<tr><td>${esc(r.name)}</td><td class="n">${r.sp ?? '—'}</td><td class="n">${r.sf ?? '—'}</td><td class="n">${r.kp ?? '—'} → ${r.kf ?? '—'}</td><td class="n">${r.d == null ? '' : (r.d > 0 ? '+' : '') + r.d}</td></tr>`).join('');
+}
+
+function demo(){
+  // fictitious students, only to preview the panel
+  const names = ['Ana Pérez', 'Luis Mora', 'Carla Ruiz', 'Diego Torres', 'Elena Vega', 'Fabián Castro', 'Gabriela León', 'Hugo Salas', 'Irene Cano', 'Jorge Paz', 'Karla Ríos', 'Mateo Gil'];
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const lines = [];
+  names.forEach((n, k) => {
+    const pre = BANK.pre.questions.map(q => rnd() < (q.clave ? 0.35 : 0.75) ? 1 : 0);
+    const fin = BANK.final.questions.map(q => rnd() < (q.clave ? 0.8 : 0.68) ? 1 : 0);
+    lines.push(`${n}  10:0${k % 10}  [${CODE_TAG}|PRE|${n}|${pre.reduce((a, b) => a + b)}/${pre.length}|${pre.join('')}|i1]`);
+    if (k < 11) lines.push(`${n}  11:5${k % 10}  [${CODE_TAG}|FINAL|${n}|${fin.reduce((a, b) => a + b)}/${fin.length}|${fin.join('')}|i1]`);
+  });
+  $('input').value = '(EJEMPLO con estudiantes ficticios)\n' + lines.join('\n');
+  run();
+}
+
+function run(){ const t = $('input').value; store.set('dl-uide-w3-panel', t); render(parse(t)); }
+$('run').onclick = run;
+$('demo').onclick = demo;
+$('clear').onclick = () => { $('input').value = ''; store.set('dl-uide-w3-panel', ''); $('out').classList.add('hidden'); $('status').textContent = ''; };
+$('copy').onclick = () => {
+  const rows = window.__rows || [];
+  const tsv = [`Estudiante\tPre (de ${BANK.pre.questions.length})\tFinal (de ${BANK.final.questions.length})\tIdeas clave antes (de 5)\tIdeas clave después (de 5)\tCambio`]
+    .concat(rows.map(r => [r.name, r.sp ?? '', r.sf ?? '', r.kp ?? '', r.kf ?? '', r.d ?? ''].join('\t'))).join('\n');
+  const ok = () => { $('copy').textContent = 'Tabla copiada ✔'; setTimeout(() => $('copy').textContent = 'Copiar tabla (para Excel o Sheets)', 1600); };
+  if (navigator.clipboard) navigator.clipboard.writeText(tsv).then(ok, () => {});
+};
+const saved = store.get('dl-uide-w3-panel'); if (saved) { $('input').value = saved; run(); }
+</script>
+</body>
+</html>

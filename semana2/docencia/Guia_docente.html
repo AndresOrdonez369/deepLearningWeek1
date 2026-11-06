@@ -132,18 +132,26 @@ footer{max-width:1240px;margin:0 auto;padding:0 20px 40px;color:var(--muted);fon
 @media print{.toc{display:none}.layout{display:block}.sec{break-inside:avoid-page}}
 main a,.toc a{overflow-wrap:anywhere}
 </style>
+<style>
+.weeks{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);margin-bottom:16px}
+.weeks a{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:999px;color:#B8C4D6;text-decoration:none;font:700 14px 'Space Grotesk',Arial,sans-serif;letter-spacing:.3px}
+.weeks a:hover,.weeks a:focus-visible{color:#EEF2F8;background:rgba(255,255,255,.08);outline:none}
+.weeks a[aria-current=page]{background:#7AA2FF;color:#0B1424}
+.weeks{flex-wrap:wrap;max-width:100%}
+@media (max-width:440px){.weeks a{padding:7px 11px;font-size:13.5px}}
+</style>
 </head>
 <body data-store="dl-uide-w2-docente">
 <div class="layout">
 <nav class="toc" aria-label="Contenido">
 <b>Contenido</b>
 <ol><li><a href="#uso"><span class="n">★</span><span>Cómo usar esta guía</span></a></li><li><a href="#publicar"><span class="n">0</span><span>Publicar la semana 2 (5 minutos)</span></a></li><li><a href="#orden"><span class="n">1</span><span>El orden de todo: cómo se conecta la semana</span></a></li><li><a href="#checklist"><span class="n">2</span><span>Checklist antes de clase</span></a></li><li><a href="#plan"><span class="n">3</span><span>Plan por temas (no por días)</span></a></li><li><a href="#b00"><span class="n">00</span><span>Apuntes · Recorderis de la semana 1 y Keras en 4 pasos</span></a></li><li><a href="#b01"><span class="n">01</span><span>Apuntes · Cómo mira una red una imagen: CNN</span></a></li><li><a href="#b02"><span class="n">02</span><span>Apuntes · Cómo lee una red una secuencia: RNN y LSTM</span></a></li><li><a href="#b03"><span class="n">03</span><span>Apuntes · Atención, Transformers y la tendencia</span></a></li><li><a href="#b04"><span class="n">04</span><span>Apuntes · Elegir la arquitectura</span></a></li><li><a href="#notebooks"><span class="n">4</span><span>Los notebooks: claves y cómo correr la práctica</span></a></li><li><a href="#lectura"><span class="n">5</span><span>Lectura de tendencia: resumen y debate</span></a></li><li><a href="#proyecto"><span class="n">6</span><span>Actividad «tu proyecto»</span></a></li><li><a href="#quizzes"><span class="n">7</span><span>Clave de los quizzes</span></a></li><li><a href="#faq"><span class="n">8</span><span>Preguntas generales que te pueden hacer</span></a></li><li><a href="#glosario"><span class="n">9</span><span>Glosario docente</span></a></li><li><a href="#refs"><span class="n">10</span><span>Referencias</span></a></li></ol>
-<p style="margin:14px 0 0;font-size:14px"><a href="index.html">← Panel del profesor</a><br><a href="../../docencia/Guia_docente.html">Guía docente de la semana 1</a></p>
+<p style="margin:14px 0 0;font-size:14px"><a href="index.html">← Panel del profesor</a><br><a href="../../docencia/Guia_docente.html">Guía docente de la semana 1</a><br><a href="../../semana3/docencia/Guia_docente.html">Guía docente de la semana 3</a></p>
 <div class="tools"><button id="openall" type="button">Abrir/cerrar respuestas</button><button id="theme" type="button">Modo claro/oscuro</button></div>
 </nav>
 <main>
 <section id="uso">
-<div class="hero"><span class="chip">Solo docente</span>
+<div class="hero"><nav class="weeks" aria-label="Semana"><a href="../../docencia/Guia_docente.html">Semana 1</a><a href="Guia_docente.html" aria-current='page'>Semana 2</a><a href="../../semana3/docencia/Guia_docente.html">Semana 3</a></nav><br><span class="chip">Solo docente</span>
 <h1 style="margin-top:14px">Guía docente y apuntes · Semana 2</h1>
 <p>Arquitecturas para problemas complejos: cómo mira una red una imagen (CNN), cómo lee una secuencia (RNN y LSTM), qué cambió con la atención y los Transformers, y cómo elegir la arquitectura. Aquí está el orden de todo, el plan por temas (con sus puntos de corte), los apuntes con el rigor que hay detrás de cada lámina, las preguntas que te pueden hacer y las claves de los notebooks y los quizzes.</p>
 <p style="font-size:15px">Sesiones por Teams: viernes 6 y sábado 7 de noviembre de 2026. Las láminas son una sola secuencia por temas: cada sesión empieza donde terminó la anterior.</p></div>
@@ -160,7 +168,7 @@ main a,.toc a{overflow-wrap:anywhere}
 <pre><code>deepLearningWeek1/                ← el mismo repo público y el mismo sitio de Vercel
 ├── index.html ... docencia/        la semana 1, sin cambios (los QR ya impresos siguen sirviendo)
 └── semana2/
-    ├── index.html                  inicio de la semana 2 (con el selector Semana 1 · Semana 2)
+    ├── index.html                  inicio de la semana 2 (con el selector de semanas)
     ├── proyectos/                  NB03 (Tema 1) y NB04 (Tema 2), completos y ejecutados
     ├── guia/                       guía de estudio
     ├── quiz/                       pre-quiz y quiz final

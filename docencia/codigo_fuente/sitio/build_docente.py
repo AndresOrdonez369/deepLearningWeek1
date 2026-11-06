@@ -22,11 +22,26 @@ def table(head, rows):
     r = ''.join('<tr>' + ''.join(f'<td>{c}</td>' for c in row) + '</tr>' for row in rows)
     return f'<table><tr>{h}</tr>{r}</table>'
 
+# week switcher «Semana 1 · Semana 2 · Semana 3» (links to each week's teacher guide; same look as the teacher panels).
+# The CSS is injected in <head> after page() because doc_kit.py is shared with the student guide.
+WEEKS_CSS = """
+.weeks{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);margin-bottom:16px}
+.weeks a{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:999px;color:#B8C4D6;text-decoration:none;font:700 14px 'Space Grotesk',Arial,sans-serif;letter-spacing:.3px}
+.weeks a:hover,.weeks a:focus-visible{color:#EEF2F8;background:rgba(255,255,255,.08);outline:none}
+.weeks a[aria-current=page]{background:#7AA2FF;color:#0B1424}
+.weeks{flex-wrap:wrap;max-width:100%}
+@media (max-width:440px){.weeks a{padding:7px 11px;font-size:13.5px}}
+/* phone width: wide tables, formulas, code and long links scroll inside their box instead of the page */
+table{display:block;overflow-x:auto}.formula{overflow-x:auto}pre{overflow:auto}.sec a,.sec li{overflow-wrap:anywhere}
+"""
+WEEKS = ('<nav class="weeks" aria-label="Semana"><a href="Guia_docente.html" aria-current="page">Semana 1</a>'
+         '<a href="../semana2/docencia/Guia_docente.html">Semana 2</a><a href="../semana3/docencia/Guia_docente.html">Semana 3</a></nav>')
+
 S = []
 
 # ------------------------------------------------------------------ 0
 S.append(('uso', '★', 'Cómo usar esta guía', f"""
-<div class="hero"><span class="chip">Solo docente</span>
+<div class="hero">{WEEKS}<br><span class="chip">Solo docente</span>
 <h1 style="margin-top:14px">Guía docente y apuntes · Semana 1</h1>
 <p>Todo lo que necesitas para dictar, estudiar y anticiparte: el orden de todo, el plan minuto a minuto, los apuntes con el rigor que hay detrás de cada lámina, las preguntas que te pueden hacer (con respuesta) y las claves de las tareas y los quizzes. Los proyectos de la semana son prácticas en clase, sin nota.</p></div>
 <div class="grid">
@@ -437,6 +452,7 @@ for sid, n, title, inner in [('notebooks', '5', 'Los notebooks: claves y dónde 
     toc.append((sid, n, title))
 
 html = page('Guía docente y apuntes · Semana 1 · Deep Learning UIDE', 'Material solo para el docente.', toc, body, 'dl-uide-w1-docente', katex=KATEX)
+html = html.replace('</head>', f'<style>{WEEKS_CSS}</style>\n</head>', 1)
 OUT.mkdir(parents=True, exist_ok=True)
 (OUT / 'Guia_docente.html').write_text(html)
 print('docente built', len(html) // 1024, 'KB')

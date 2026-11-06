@@ -5,12 +5,22 @@ Docente: **Andrés Ordóñez-Bolaños, MSc**
 
 ### 👉 [Abrir la página del curso](https://deeplearningweek1.vercel.app/)
 
-Todo está en esa página. No necesitas instalar nada. Arriba de cada página hay un botón para pasar entre **Semana 1** y **Semana 2**.
+Todo está en esa página. No necesitas instalar nada. Arriba de cada página hay un botón para pasar entre **Semana 1**, **Semana 2** y **Semana 3**.
 
 | Semana | Sesiones | Tema | Página |
 |---|---|---|---|
 | 1 | viernes 23 y sábado 24 de octubre de 2026 | Fundamentos: de una neurona a tu primera red en Keras | [deeplearningweek1.vercel.app](https://deeplearningweek1.vercel.app/) |
 | 2 | viernes 6 y sábado 7 de noviembre de 2026 | Arquitecturas: redes convolucionales, recurrentes, LSTM y atención | [deeplearningweek1.vercel.app/semana2/](https://deeplearningweek1.vercel.app/semana2/) |
+| 3 | noviembre de 2026 | Robustez, transfer learning y explicabilidad: ¿le creerías a tu red? | [deeplearningweek1.vercel.app/semana3/](https://deeplearningweek1.vercel.app/semana3/) |
+
+## Semana 3 en cuatro pasos
+
+| Paso | Cuándo | Qué haces |
+|---|---|---|
+| 1 | Al empezar la semana | [**Pre-quiz**](https://deeplearningweek1.vercel.app/semana3/quiz/index.html?pre): 8 preguntas cortas tipo Kahoot, sin cuentas. No es nota: es tu punto de partida |
+| 2 | Tema 1 y Tema 2 | [**Proyectos en clase**](https://deeplearningweek1.vercel.app/semana3/#proyectos): NB05 (generalizar y ser robusto) y NB06 (reutilizar y explicar) en Google Colab, sin nota |
+| 3 | Después de clase | [**Slides interactivas**](https://deeplearningweek1.vercel.app/semana3/docencia/slides/) y [**guía de estudio**](https://deeplearningweek1.vercel.app/semana3/guia/index.html) para repasar |
+| 4 | Al cerrar la semana | [**Quiz final**](https://deeplearningweek1.vercel.app/semana3/quiz/index.html?final): 10 preguntas cortas; mide cuánto avanzaste en las 5 ideas clave |
 
 ## Semana 2 en cuatro pasos
 
@@ -44,9 +54,15 @@ semana2/        semana 2, con la misma estructura:
   guia/ quiz/   guía de estudio, pre-quiz y quiz final
   material/     lectura de tendencia «¿El regreso de las redes recurrentes?» (PDF)
   docencia/     material del profesor
+semana3/        semana 3, con la misma estructura:
+  index.html    página de inicio de la semana 3
+  proyectos/    notebooks NB05 y NB06
+  guia/ quiz/   guía de estudio, pre-quiz y quiz final
+  material/     lectura de tendencia «¿Puedes explicar por qué tu modelo dijo «no»?» (PDF)
+  docencia/     material del profesor
 ```
 
-Enlaces cortos (los de los códigos QR de las slides): semana 1 `?nb01 ?nb02 ?pre ?final ?guia ?slides` · semana 2 `?nb03 ?nb04 ?pre2 ?final2 ?guia2 ?slides2 ?semana2`, por ejemplo `deeplearningweek1.vercel.app/?nb03`.
+Enlaces cortos (los de los códigos QR de las slides): semana 1 `?nb01 ?nb02 ?pre ?final ?guia ?slides` · semana 2 `?nb03 ?nb04 ?pre2 ?final2 ?guia2 ?slides2 ?semana2` · semana 3 `?nb05 ?nb06 ?pre3 ?final3 ?guia3 ?slides3 ?semana3`, por ejemplo `deeplearningweek1.vercel.app/?nb03`.
 
 ## Para profundizar
 

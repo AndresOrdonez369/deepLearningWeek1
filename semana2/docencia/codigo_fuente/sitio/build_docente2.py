@@ -6,7 +6,7 @@ printed as «?» so the build never breaks while the deck is still changing. The
 import json, pathlib, sys
 HERE = pathlib.Path(__file__).parent
 sys.path.insert(0, str(HERE))
-from kit_docencia2 import page, section, chip, idea, box, formula  # noqa: E402
+from kit_docencia2 import page, section, chip, idea, box, formula, WEEKS_CSS, weeks  # noqa: E402
 
 try:
     from banco2 import PRE, FINAL, TEMAS, CLAVES  # noqa: E402
@@ -71,7 +71,7 @@ S = []
 
 # ------------------------------------------------------------------ 0 · how to use
 S.append(('uso', '★', 'Cómo usar esta guía', f"""
-<div class="hero"><span class="chip">Solo docente</span>
+<div class="hero">{weeks(2, "../../docencia/Guia_docente.html", "Guia_docente.html", "../../semana3/docencia/Guia_docente.html")}<br><span class="chip">Solo docente</span>
 <h1 style="margin-top:14px">Guía docente y apuntes · Semana 2</h1>
 <p>Arquitecturas para problemas complejos: cómo mira una red una imagen (CNN), cómo lee una secuencia (RNN y LSTM), qué cambió con la atención y los Transformers, y cómo elegir la arquitectura. Aquí está el orden de todo, el plan por temas (con sus puntos de corte), los apuntes con el rigor que hay detrás de cada lámina, las preguntas que te pueden hacer y las claves de los notebooks y los quizzes.</p>
 <p style="font-size:15px">Sesiones por Teams: viernes 6 y sábado 7 de noviembre de 2026. Las láminas son una sola secuencia por temas: cada sesión empieza donde terminó la anterior.</p></div>
@@ -88,7 +88,7 @@ S.append(('uso', '★', 'Cómo usar esta guía', f"""
 <pre><code>deepLearningWeek1/                ← el mismo repo público y el mismo sitio de Vercel
 ├── index.html ... docencia/        la semana 1, sin cambios (los QR ya impresos siguen sirviendo)
 └── semana2/
-    ├── index.html                  inicio de la semana 2 (con el selector Semana 1 · Semana 2)
+    ├── index.html                  inicio de la semana 2 (con el selector de semanas)
     ├── proyectos/                  NB03 (Tema 1) y NB04 (Tema 2), completos y ejecutados
     ├── guia/                       guía de estudio
     ├── quiz/                       pre-quiz y quiz final
@@ -545,10 +545,11 @@ for sid, n, title, inner in [('notebooks', '4', 'Los notebooks: claves y cómo c
     body += section(sid, chip('Docente', 'amber'), title, inner, 'Revisado')
     toc.append((sid, n, title))
 
-extra = '<p style="margin:14px 0 0;font-size:14px"><a href="index.html">← Panel del profesor</a><br><a href="../../docencia/Guia_docente.html">Guía docente de la semana 1</a></p>'
+extra = '<p style="margin:14px 0 0;font-size:14px"><a href="index.html">← Panel del profesor</a><br><a href="../../docencia/Guia_docente.html">Guía docente de la semana 1</a><br><a href="../../semana3/docencia/Guia_docente.html">Guía docente de la semana 3</a></p>'
 html = page('Guía docente y apuntes · Semana 2 · Deep Learning UIDE', 'Material solo para el docente: plan, apuntes con rigor y claves de la semana 2 (CNN, RNN, atención).',
             toc, body, 'dl-uide-w2-docente', extra_toc=extra, katex=KATEX, week=2)
 html = html.replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"', 1)
+html = html.replace('</head>', f'<style>{WEEKS_CSS}</style>\n</head>', 1)  # week switcher in the hero
 OUT.mkdir(parents=True, exist_ok=True)
 (OUT / 'Guia_docente.html').write_text(html)
 print('docente semana 2 built', len(html) // 1024, 'KB', '| quiz key:', 'yes' if HAVE_BANK else 'pending (no banco2.py)')

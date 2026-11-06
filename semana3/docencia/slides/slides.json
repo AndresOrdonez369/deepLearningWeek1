@@ -1,0 +1,362 @@
+[
+ {
+  "n": 1,
+  "id": "portada3",
+  "title": "Acertar no basta",
+  "block": "E",
+  "group": "Encuadre",
+  "minutes": 1
+ },
+ {
+  "n": 2,
+  "id": "ruta3",
+  "title": "La semana en dos temas",
+  "block": "E",
+  "group": "Encuadre",
+  "minutes": 1
+ },
+ {
+  "n": 3,
+  "id": "prequiz3",
+  "title": "Pre-quiz: ¿de dónde partimos?",
+  "block": "E",
+  "group": "Encuadre",
+  "minutes": 6
+ },
+ {
+  "n": 4,
+  "id": "metas3",
+  "title": "Las 5 ideas clave de la semana",
+  "block": "E",
+  "group": "Encuadre",
+  "minutes": 1
+ },
+ {
+  "n": 5,
+  "id": "b00",
+  "title": "Recorderis: semanas 1 y 2",
+  "block": "00",
+  "group": "00 · Recorderis: semanas 1 y 2",
+  "minutes": 0.5
+ },
+ {
+  "n": 6,
+  "id": "recorderis3",
+  "title": "Las semanas 1 y 2 en una sola cadena",
+  "block": "00",
+  "group": "00 · Recorderis: semanas 1 y 2",
+  "minutes": 8
+ },
+ {
+  "n": 7,
+  "id": "recorderis3-preguntas",
+  "title": "Tres preguntas para calentar",
+  "block": "00",
+  "group": "00 · Recorderis: semanas 1 y 2",
+  "minutes": 6
+ },
+ {
+  "n": 8,
+  "id": "b01",
+  "title": "¿Funcionará con casos nuevos?",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 0.5
+ },
+ {
+  "n": 9,
+  "id": "memorizar3",
+  "title": "Aprender no es memorizar",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 6
+ },
+ {
+  "n": 10,
+  "id": "por-que-memoriza",
+  "title": "¿Por qué memoriza?",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 6
+ },
+ {
+  "n": 11,
+  "id": "frenos",
+  "title": "Regularizar: frenos para la memoria",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 6
+ },
+ {
+  "n": 12,
+  "id": "aumento",
+  "title": "Aumento de datos: la misma prenda, movida",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 4
+ },
+ {
+  "n": 13,
+  "id": "regularizada",
+  "title": "Con frenos: lo que pasó",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 6
+ },
+ {
+  "n": 14,
+  "id": "keras-frenos",
+  "title": "Los frenos en Keras",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 4
+ },
+ {
+  "n": 15,
+  "id": "aumento-mover",
+  "title": "Mover la foto: con aumento, la red aguanta",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 5
+ },
+ {
+  "n": 16,
+  "id": "adversarial",
+  "title": "Exacto no es robusto: el ruido invisible",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 5
+ },
+ {
+  "n": 17,
+  "id": "fgsm-cuenta",
+  "title": "La receta: subir la montaña a propósito",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 6
+ },
+ {
+  "n": 18,
+  "id": "fgsm-curva",
+  "title": "¿Cuánto ruido aguanta? La vacuna",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 5
+ },
+ {
+  "n": 19,
+  "id": "mundo-cambia",
+  "title": "El mundo cambia y el modelo no avisa",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 5
+ },
+ {
+  "n": 20,
+  "id": "hiperparametros",
+  "title": "Afinar sin hacer trampa",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 6
+ },
+ {
+  "n": 21,
+  "id": "practica-nb05",
+  "title": "Práctica en clase: NB05",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 35
+ },
+ {
+  "n": 22,
+  "id": "cierre-tema1",
+  "title": "Lo que te llevas del Tema 1",
+  "block": "01",
+  "group": "Tema 1 · Generalizar y ser robusto",
+  "minutes": 5
+ },
+ {
+  "n": 23,
+  "id": "b02",
+  "title": "Reutilizar y explicar",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 0.5
+ },
+ {
+  "n": 24,
+  "id": "repaso-tema1",
+  "title": "El Tema 1 en tres ideas",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 5
+ },
+ {
+  "n": 25,
+  "id": "transfer",
+  "title": "Transfer learning: no empezar de cero",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 6
+ },
+ {
+  "n": 26,
+  "id": "congelar",
+  "title": "Congelar o ajustar",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 4
+ },
+ {
+  "n": 27,
+  "id": "transfer-resultado",
+  "title": "Con pocos datos, la experiencia vale",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 6
+ },
+ {
+  "n": 28,
+  "id": "transfer-vida-real",
+  "title": "Transfer learning en la vida real",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 4
+ },
+ {
+  "n": 29,
+  "id": "por-que-explicar",
+  "title": "¿Por qué dijo «no»?",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 5
+ },
+ {
+  "n": 30,
+  "id": "donde-miro",
+  "title": "¿Dónde miró la red?",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 7
+ },
+ {
+  "n": 31,
+  "id": "cordura",
+  "title": "La prueba de cordura",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 6
+ },
+ {
+  "n": 32,
+  "id": "explicar-credito",
+  "title": "Explicar un «no»: lo general y lo de ella",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 7
+ },
+ {
+  "n": 33,
+  "id": "contrafactual",
+  "title": "Lo que le sirve a la socia",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 6
+ },
+ {
+  "n": 34,
+  "id": "por-zona",
+  "title": "¿Trata a todos por igual?",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 7
+ },
+ {
+  "n": 35,
+  "id": "ia-se-explica",
+  "title": "¿Y si le preguntamos a la propia IA?",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 6
+ },
+ {
+  "n": 36,
+  "id": "reglas",
+  "title": "Tendencia: llegan las reglas",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 6
+ },
+ {
+  "n": 37,
+  "id": "practica-nb06",
+  "title": "Práctica en clase: NB06",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 40
+ },
+ {
+  "n": 38,
+  "id": "cierre-tema2",
+  "title": "Lo que te llevas del Tema 2",
+  "block": "02",
+  "group": "Tema 2 · Reutilizar y explicar",
+  "minutes": 5
+ },
+ {
+  "n": 39,
+  "id": "b03",
+  "title": "¿Le creerías a tu red?",
+  "block": "03",
+  "group": "Cierre · ¿Le creerías a tu red?",
+  "minutes": 0.5
+ },
+ {
+  "n": 40,
+  "id": "checklist",
+  "title": "Cinco preguntas antes de confiar",
+  "block": "03",
+  "group": "Cierre · ¿Le creerías a tu red?",
+  "minutes": 5
+ },
+ {
+  "n": 41,
+  "id": "tu-proyecto3",
+  "title": "Tu proyecto: ¿le creerías?",
+  "block": "03",
+  "group": "Cierre · ¿Le creerías a tu red?",
+  "minutes": 20
+ },
+ {
+  "n": 42,
+  "id": "quizfinal3",
+  "title": "Quiz final: ¿cuánto avanzamos?",
+  "block": "03",
+  "group": "Cierre · ¿Le creerías a tu red?",
+  "minutes": 8
+ },
+ {
+  "n": 43,
+  "id": "mapa-curso",
+  "title": "Las 3 semanas en un mapa",
+  "block": "03",
+  "group": "Cierre · ¿Le creerías a tu red?",
+  "minutes": 2
+ },
+ {
+  "n": 44,
+  "id": "lo-que-viene3",
+  "title": "Lo que viene: el cierre del curso",
+  "block": "03",
+  "group": "Cierre · ¿Le creerías a tu red?",
+  "minutes": 3
+ },
+ {
+  "n": 45,
+  "id": "recursos3",
+  "title": "Para repasar y gracias",
+  "block": "03",
+  "group": "Cierre · ¿Le creerías a tu red?",
+  "minutes": 1
+ }
+]

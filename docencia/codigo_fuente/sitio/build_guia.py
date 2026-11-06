@@ -740,14 +740,14 @@ for sid, n, title, inner in S:
 html = page('Guía de estudio · Semana 1 · Deep Learning UIDE',
             'Guía de estudio de la semana 1 de Neural Networks: Deep Learning (UIDE): ideas, fórmulas explicadas, ejemplos, ejercicios con respuesta y glosario.',
             toc, body, 'dl-uide-w1-guia')
-# week switcher (Semana 1 · Semana 2) above the layout; doc_kit stays shared with the teacher guide, so it is injected here
+# week switcher (Semana 1 · Semana 2 · Semana 3) above the layout; doc_kit stays shared with the teacher guide, so it is injected here
 WEEKS_CSS = ('<style>.weeks{display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:1240px;margin:0 auto;padding:16px 20px 0}'
              '.weeks .lab{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-right:2px}'
              ".weeks a{font:700 15px 'Space Grotesk',Arial,sans-serif;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 14px}"
              '.weeks a:hover,.weeks a:focus-visible{border-color:var(--blue);outline:none}'
-             '.weeks a[aria-current=page]{background:var(--blue);color:var(--on-blue);border-color:var(--blue)}</style>')
+             '.weeks a[aria-current=page]{background:var(--blue);color:var(--on-blue);border-color:var(--blue)}@media (max-width:480px){.weeks a{font-size:14px;padding:5px 11px}}</style>')
 WEEKS = ('<nav class="weeks" aria-label="Semanas del curso"><span class="lab">Curso</span>'
-         '<a href="index.html" aria-current="page">Semana 1</a><a href="../semana2/guia/index.html">Semana 2</a></nav>')
+         '<a href="index.html" aria-current="page">Semana 1</a><a href="../semana2/guia/index.html">Semana 2</a><a href="../semana3/guia/index.html">Semana 3</a></nav>')
 html = html.replace('</head>', WEEKS_CSS + '\n</head>', 1).replace('<div class="layout">', WEEKS + '\n<div class="layout">', 1)
 (OUT / 'guia').mkdir(parents=True, exist_ok=True)
 (OUT / 'guia' / 'index.html').write_text(html)

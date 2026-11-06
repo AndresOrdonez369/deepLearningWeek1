@@ -250,11 +250,12 @@ WEEKS_CSS = """
 .weeks a{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:999px;color:#B8C4D6;text-decoration:none;font:700 14px 'Space Grotesk',Arial,sans-serif;letter-spacing:.3px}
 .weeks a:hover,.weeks a:focus-visible{color:#EEF2F8;background:rgba(255,255,255,.08);outline:none}
 .weeks a[aria-current=page]{background:#7AA2FF;color:#0B1424}
+.weeks{flex-wrap:wrap;max-width:100%}
+@media (max-width:440px){.weeks a{padding:7px 11px;font-size:13.5px}}
 """
 
 
-def weeks(current, s1, s2):
-    """A two-item segmented control: Semana 1 · Semana 2 (current one highlighted)."""
-    items = [(1, 'Semana 1', s1), (2, 'Semana 2', s2)]
+def weeks(current, *links):
+    """Segmented control «Semana 1 · Semana 2 · Semana 3» (one href per week, in order; current week highlighted)."""
     return '<nav class="weeks" aria-label="Semana">' + ''.join(
-        f'<a href="{h}"{" aria-current=\'page\'" if n == current else ""}>{t}</a>' for n, t, h in items) + '</nav>'
+        f'<a href="{h}"{" aria-current=\'page\'" if n == current else ""}>Semana {n}</a>' for n, h in enumerate(links, 1)) + '</nav>'

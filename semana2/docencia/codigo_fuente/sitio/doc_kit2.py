@@ -180,13 +180,15 @@ WEEKS_CSS = """
 .weeks a{font:700 15px 'Space Grotesk',Arial,sans-serif;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
 .weeks a:hover,.weeks a:focus-visible{border-color:var(--blue);outline:none}
 .weeks a[aria-current=page]{background:var(--blue);color:var(--on-blue);border-color:var(--blue)}
+@media (max-width:480px){.weeks a{font-size:14px;padding:5px 11px}}
 """
 
 
-def weeks(cur, s1, s2):
-    """Week switcher: cur = 1 or 2; s1/s2 = relative links to the same page of each week."""
+def weeks(cur, s1, s2, s3=None):
+    """Week switcher: cur = 1, 2 or 3; s1/s2/s3 = relative links to the same page of each week (s3 optional)."""
     a = lambda n, h: f'<a href="{h}"' + (' aria-current="page"' if n == cur else '') + f'>Semana {n}</a>'
-    return f'<nav class="weeks" aria-label="Semanas del curso"><span class="lab">Curso</span>{a(1, s1)}{a(2, s2)}</nav>'
+    return (f'<nav class="weeks" aria-label="Semanas del curso"><span class="lab">Curso</span>{a(1, s1)}{a(2, s2)}'
+            + (a(3, s3) if s3 else '') + '</nav>')
 
 
 def page(title, desc, toc_items, body, store_key, extra_toc='', katex=None, topbar='', footer='Neural Networks: Deep Learning · UIDE / EIG Campus · Semana 2 · Docente: Andrés Ordóñez-Bolaños'):

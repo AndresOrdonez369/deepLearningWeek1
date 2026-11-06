@@ -19,6 +19,15 @@
           "value": "noindex"
         }
       ]
+    },
+    {
+      "source": "/semana3/docencia/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
     }
   ]
 }

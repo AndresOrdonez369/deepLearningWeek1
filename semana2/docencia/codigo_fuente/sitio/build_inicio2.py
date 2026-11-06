@@ -96,7 +96,7 @@ html = f"""<!doctype html>
 </head>
 <body>
 <div class="wrap">
-{weeks(2, '../index.html', 'index.html')}
+{weeks(2, '../index.html', 'index.html', '../semana3/index.html')}
 <div class="hero">
 <span class="chip">UIDE · Maestría en Ciencia de Datos · Semana 2</span>
 <h1 style="margin-top:14px">Neural Networks: Deep Learning</h1>

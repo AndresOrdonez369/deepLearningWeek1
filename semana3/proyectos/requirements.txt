@@ -1,0 +1,11 @@
+# Only needed to run the notebooks on your own computer (Google Colab already has everything but, sometimes, shap).
+# Tested with TensorFlow 2.21, Keras 3.15 and SHAP 0.54.
+numpy
+pandas
+matplotlib
+scipy
+scikit-learn
+tensorflow>=2.16
+keras>=3.0
+shap
+jupyter

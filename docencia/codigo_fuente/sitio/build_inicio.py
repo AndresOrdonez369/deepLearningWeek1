@@ -3,6 +3,7 @@
 It also works as the router for the short links printed as QR codes on the slides:
   week 1: ?nb01 ?nb02 (Colab) · ?pre ?final (quiz) · ?guia (study guide) · ?slides (interactive slides)
   week 2: ?nb03 ?nb04 (Colab) · ?pre2 ?final2 · ?guia2 · ?slides2 · ?semana2 (week-2 home, in semana2/)
+  week 3: ?nb05 ?nb06 (Colab) · ?pre3 ?final3 ?clase3 · ?guia3 · ?slides3 · ?semana3 (week-3 home, in semana3/)
 
 usage: python build_inicio.py <site_folder>
 """
@@ -16,14 +17,20 @@ COLAB = "https://colab.research.google.com/github/AndresOrdonez369/deepLearningW
 NB = {"nb01": "NB01_viernes_tu_primera_neurona.ipynb", "nb02": "NB02_sabado_tu_primera_red.ipynb"}
 COLAB2 = COLAB.replace("/blob/main/proyectos/", "/blob/main/semana2/proyectos/")
 NB2 = {"nb03": "NB03_tu_primera_cnn.ipynb", "nb04": "NB04_redes_que_recuerdan.ipynb"}
+COLAB3 = COLAB.replace("/blob/main/proyectos/", "/blob/main/semana3/proyectos/")
+NB3 = {"nb05": "NB05_generalizar_y_robustez.ipynb", "nb06": "NB06_reutilizar_y_explicar.ipynb"}
 ROUTES = {**{k: COLAB + v for k, v in NB.items()}, "pre": "quiz/index.html?pre", "final": "quiz/index.html?final", "guia": "guia/index.html",
           "slides": "docencia/slides/index.html",
           # week 2 lives in semana2/ (same site); the slides of week 2 print these keys in their QR codes
           **{k: COLAB2 + v for k, v in NB2.items()}, "pre2": "semana2/quiz/index.html?pre", "final2": "semana2/quiz/index.html?final",
           "clase2": "semana2/quiz/index.html?clase", "guia2": "semana2/guia/index.html", "slides2": "semana2/docencia/slides/index.html",
-          "semana2": "semana2/index.html"}
+          "semana2": "semana2/index.html",
+          # week 3 lives in semana3/; the slides of week 3 print these keys in their QR codes
+          **{k: COLAB3 + v for k, v in NB3.items()}, "pre3": "semana3/quiz/index.html?pre", "final3": "semana3/quiz/index.html?final",
+          "clase3": "semana3/quiz/index.html?clase", "guia3": "semana3/guia/index.html", "slides3": "semana3/docencia/slides/index.html",
+          "semana3": "semana3/index.html"}
 WEEKS = ('<nav class="weeks" aria-label="Semanas del curso"><span class="lab">Curso</span>'
-         '<a href="index.html" aria-current="page">Semana 1</a><a href="semana2/index.html">Semana 2</a></nav>')
+         '<a href="index.html" aria-current="page">Semana 1</a><a href="semana2/index.html">Semana 2</a><a href="semana3/index.html">Semana 3</a></nav>')
 
 def step(n, when, title, text, href, label, kind=''):
     return (f'<a class="step {kind}" href="{href}"><span class="num">{n}</span><span class="when">{when}</span>'
@@ -59,7 +66,7 @@ html = f"""<!doctype html>
 <title>Deep Learning · Semana 1 · UIDE</title>
 <meta name="description" content="Semana 1 de Neural Networks: Deep Learning (UIDE / EIG Campus): proyectos en Colab, guía de estudio, pre-quiz y quiz final.">
 <script>
-// short links used by the QR codes on the slides: week 1 ?nb01 ?nb02 ?pre ?final ?guia ?slides · week 2 ?nb03 ?nb04 ?pre2 ?final2 ?guia2 ?slides2 ?semana2
+// short links used by the QR codes on the slides: week 1 ?nb01 ?nb02 ?pre ?final ?guia ?slides · week 2 ?nb03 ?nb04 ?pre2 ?final2 ?guia2 ?slides2 ?semana2 · week 3 ?nb05 ?nb06 ?pre3 ?final3 ?guia3 ?slides3 ?semana3
 (function () {{
   var R = {json.dumps(ROUTES)};
   var q = new URLSearchParams(location.search);
@@ -94,6 +101,7 @@ html = f"""<!doctype html>
 .weeks a{{font:700 15px 'Space Grotesk',Arial,sans-serif;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 14px}}
 .weeks a:hover,.weeks a:focus-visible{{border-color:var(--blue);outline:none}}
 .weeks a[aria-current=page]{{background:var(--blue);color:var(--on-blue);border-color:var(--blue)}}
+@media (max-width:480px){{.weeks a{{font-size:14px;padding:5px 11px}}}}
 </style>
 </head>
 <body>
